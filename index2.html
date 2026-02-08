@@ -1,245 +1,333 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adams Verse | Dashboard</title>
-    
-    <link rel="icon" href="./images/favicon.png" type="image/png">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="./images/favicon.png" type="image/png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
-        :root {
-            --bg-color: #2E3192;
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --card-hover: rgba(255, 255, 255, 0.2);
-            --text-color: #ffffff;
-            --accent-blue: #4facfe;
-        }
+      :root {
+        --bg-color: #2e3192;
+        --card-bg: rgba(255, 255, 255, 0.08);
+        --card-hover: rgba(255, 255, 255, 0.2);
+        --text-color: #ffffff;
+      }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1c1e5a 0%, #2E3192 100%);
-            color: var(--text-color);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            padding: 40px 20px;
-        }
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #1c1e5a 0%, #2e3192 100%);
+        color: var(--text-color);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 48px 24px;
+      }
 
+      .container {
+        width: 100%;
+        max-width: 520px;
+      }
+
+      @media (min-width: 900px) {
         .container {
-            width: 100%;
-            max-width: 500px;
+          max-width: 720px;
         }
+      }
 
-        /* --- New Header Layout --- */
+      /* Banner */
+      .banner {
+        height: 100px;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 24px;
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+      }
+
+      .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+
+      @media (min-width: 900px) {
+        .banner {
+          height: 150px;
+        }
+      }
+
+      /* Profile Header */
+      .profile-header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 32px;
+        background: var(--card-bg);
+        padding: 20px 24px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+      }
+
+      .roles {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+
+      .badges {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 6px;
+        font-size: 1rem;
+      }
+
+      .badge {
+        background: rgba(0, 0, 0, 0.25);
+        padding: 4px 8px;
+        border-radius: 6px;
+      }
+
+      @media (min-width: 900px) {
         .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          text-align: left;
+          padding: 24px 32px;
+        }
+      }
+
+      /* Sections */
+      .section-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.6;
+        margin: 26px 0 12px 6px;
+        font-weight: 600;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 22px;
+        text-decoration: none;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .card.full-width {
+        grid-column: span 2;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 14px;
+        padding-left: 30px;
+      }
+
+      .card:hover {
+        background: var(--card-hover);
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+
+      .card i {
+        font-size: 1.7rem;
+        margin-bottom: 8px;
+      }
+
+      .card.full-width i {
+        margin-bottom: 0;
+        font-size: 1.9rem;
+      }
+
+      .card span {
+        font-weight: 600;
+        font-size: 1rem;
+      }
+
+      /* Pricing dropdown */
+      .pricing-card {
+        cursor: pointer;
+        position: relative;
+      }
+
+      .pricing-details {
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 12px;
+        font-size: 0.9rem;
+        opacity: 0.85;
+      }
+
+      .pricing-card.active .pricing-details {
+        display: flex;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 48px;
+        font-size: 0.75rem;
+        opacity: 0.5;
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 28px 16px;
         }
 
-        .profile-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 15px; /* Squircle shape */
-            object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.3);
+        .banner {
+          height: 84px;
         }
-
-        .header-text h1 {
-            font-size: 1.5rem;
-            font-weight: 800;
-        }
-
-        .header-text p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-top: 4px;
-        }
-
-        .badges {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-            font-size: 0.75rem;
-        }
-
-        .badge {
-            background: rgba(0,0,0,0.2);
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
-
-        /* --- Grid Section --- */
-        .section-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.6;
-            margin: 20px 0 10px 5px;
-            font-weight: 600;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 Columns */
-            gap: 12px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 16px;
-            padding: 20px;
-            text-decoration: none;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Make GitHub full width to highlight it */
-        .card.full-width {
-            grid-column: span 2;
-            flex-direction: row;
-            justify-content: flex-start;
-            gap: 15px;
-            padding-left: 30px;
-        }
-
-        .card:hover {
-            background: var(--card-hover);
-            transform: translateY(-2px);
-            border-color: rgba(255,255,255,0.3);
-        }
-
-        .card i {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .card.full-width i {
-            margin-bottom: 0;
-            font-size: 2rem;
-        }
-
-        .card span {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        /* Specific Brand Colors on Hover (Optional subtle glow) */
-        .card:hover i.fa-github { color: #fff; }
-        .card:hover i.fa-linkedin { color: #0077b5; }
-        .card:hover i.fa-youtube { color: #ff0000; }
-        .card:hover i.fa-twitch { color: #9146ff; }
-        .card:hover i.fa-tiktok { color: #00f2ea; }
-        .card:hover i.fa-instagram { color: #c13584; }
-        .card:hover i.fa-soundcloud { color: #ff5500; }
-        .card:hover i.fa-spotify { color: #1db954; }
-        .card:hover i.fa-twitter { color: #1da1f2; }
-        .card:hover i.fa-envelope { color: #ff5500; }
-        .card:hover i.fa-dollar-sign { color: #28a745; }
-        .card:hover i.fa-money-bill-wave { color: #28a745; }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.8rem;
-            opacity: 0.5;
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
 
+  <body>
     <div class="container">
-        
-        <div class="profile-header">
-            <img src="./images/logo.png" alt="Profile" class="profile-img">
-            <div class="header-text">
-                <h1>Adams Verse</h1>
-                <p>Software Engineer 💻</p>
-                <p>Content Creator 📲</p>
-                <div class="badges">
-                    <span class="badge"><i class="fas fa-map-marker-alt"></i> Charlotte, NC</span>
-                    <span class="badge">🇺🇸🇪🇷</span>
-                </div>
-            </div>
+      <!-- Banner -->
+      <div class="banner">
+        <img src="./images/banner.png" alt="Adams Verse Banner" />
+      </div>
+
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="roles">
+          <span>Software Engineer 💻</span>
+          <span>Content Creator 📲</span>
         </div>
-
-        <div class="section-title">Development</div>
-        <div class="grid-container">
-            
-            <a href="https://adam-abdul.com/" target="_blank" class="card full-width">
-                <i class="fas fa-file-code"></i>
-                <span>Check out my Work</span>
-            </a>
+        <div class="badges">
+          <span class="badge"
+            ><i class="fas fa-map-marker-alt"></i> Charlotte, NC</span
+          >
+          <span class="badge">🇺🇸🇪🇷</span>
         </div>
+      </div>
 
-        <div class="section-title">Content & Socials</div>
-        <div class="grid-container">
-            <a href="mailto:adamvmedia@outlook.com" target="_blank" class="card">
-                <i class="fas fa-envelope"></i>
-                <span>Email</span>
-            </a>
-            <a href="https://www.youtube.com/@theadamverse" target="_blank" class="card">
-                <i class="fab fa-youtube"></i>
-                <span>YouTube</span>
-            </a>
+      <div class="section-title">Development</div>
+      <div class="grid-container">
+        <a
+          href="https://adam-abdul.com/"
+          target="_blank"
+          class="card full-width"
+        >
+          <i class="fas fa-file-code"></i>
+          <span>Check out my Work</span>
+        </a>
+      </div>
 
-            <a href="https://twitch.tv/adams_verse" target="_blank" class="card">
-                <i class="fab fa-twitch"></i>
-                <span>Twitch</span>
-            </a>
-
-            <a href="https://www.tiktok.com/@adams_verse" target="_blank" class="card">
-                <i class="fab fa-tiktok"></i>
-                <span>TikTok</span>
-            </a>
-
-            <a href="https://x.com/theadamverse" target="_blank" class="card">
-                <i class="fab fa-twitter"></i>
-                <span>Twitter</span>
-            </a>
-            <a href="https://instagram.com/adam.abdulkadir" target="_blank" class="card">
-                <i class="fab fa-instagram"></i>
-                <span>Instagram</span>
-            </a>
+      <!-- Pricing Section -->
+      <div class="section-title">Pricing</div>
+      <div class="grid-container">
+        <div class="card full-width pricing-card" onclick="togglePricing(this)">
+          <i class="fas fa-tags"></i>
+          <span>View Pricing</span>
+          <div class="pricing-details">
+            <strong>Web/App Development:</strong> $35–$50/hr or
+            $500–$1,500/project<br />
+            <strong>Content Creation:</strong> $25–$40/hr or $200–$600/month<br />
+            <strong>Consulting:</strong> $40–$60/hr<br />
+            <strong>Optional Add-ons:</strong> Rush +15–25%, Extra revisions
+            $20–$50
+          </div>
         </div>
+      </div>
 
-        <div class="section-title">Support</div>
-        <div class="grid-container">
-            <a href="https://cash.app/$AdamAbdulkadir" target="_blank" class="card">
-                <i class="fas fa-dollar-sign"></i>
-                <span>Cash App</span>
-            </a>
+      <div class="section-title">Content & Socials</div>
+      <div class="grid-container">
+        <a href="mailto:adamvmedia@outlook.com" class="card">
+          <i class="fas fa-envelope"></i>
+          <span>Email</span>
+        </a>
+        <a
+          href="https://www.youtube.com/@theadamverse"
+          target="_blank"
+          class="card"
+        >
+          <i class="fab fa-youtube"></i>
+          <span>YouTube</span>
+        </a>
+        <a href="https://twitch.tv/adams_verse" target="_blank" class="card">
+          <i class="fab fa-twitch"></i>
+          <span>Twitch</span>
+        </a>
+        <a
+          href="https://www.tiktok.com/@adams_verse"
+          target="_blank"
+          class="card"
+        >
+          <i class="fab fa-tiktok"></i>
+          <span>TikTok</span>
+        </a>
+        <a href="https://x.com/theadamverse" target="_blank" class="card">
+          <i class="fab fa-twitter"></i>
+          <span>Twitter</span>
+        </a>
+        <a
+          href="https://instagram.com/adam.abdulkadir"
+          target="_blank"
+          class="card"
+        >
+          <i class="fab fa-instagram"></i>
+          <span>Instagram</span>
+        </a>
+      </div>
 
-            <a href="https://venmo.com/Adam862" target="_blank" class="card">
-                <i class="fas fa-money-bill-wave"></i>
-                <span>Venmo</span>
-            </a>
-        </div>
+      <div class="section-title">Support</div>
+      <div class="grid-container">
+        <a href="https://cash.app/$AdamAbdulkadir" target="_blank" class="card">
+          <i class="fas fa-dollar-sign"></i>
+          <span>Cash App</span>
+        </a>
+        <a href="https://venmo.com/Adam862" target="_blank" class="card">
+          <i class="fas fa-money-bill-wave"></i>
+          <span>Venmo</span>
+        </a>
+      </div>
 
-        <footer>
-            &copy; 2026 Adams Verse
-        </footer>
-
+      <footer>&copy; 2026 Adams Verse</footer>
     </div>
 
-</body>
+    <script>
+      function togglePricing(card) {
+        card.classList.toggle("active");
+      }
+    </script>
+  </body>
 </html>

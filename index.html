@@ -6,7 +6,6 @@
     <title>Adams Verse | Dashboard</title>
 
     <link rel="icon" href="./images/favicon.png" type="image/png" />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -40,20 +39,18 @@
         padding: 48px 24px;
       }
 
-      /* ---- Layout ---- */
       .container {
         width: 100%;
         max-width: 520px;
       }
 
-      /* Desktop breathing room */
       @media (min-width: 900px) {
         .container {
           max-width: 720px;
         }
       }
 
-      /* ---- Banner ---- */
+      /* Banner */
       .banner {
         height: 100px;
         border-radius: 16px;
@@ -74,11 +71,11 @@
 
       @media (min-width: 900px) {
         .banner {
-          height: 150px; /* respects 5000x1206 ratio visually */
+          height: 150px;
         }
       }
 
-      /* ---- Profile Header ---- */
+      /* Profile Header */
       .profile-header {
         display: flex;
         flex-direction: column;
@@ -115,7 +112,6 @@
         border-radius: 6px;
       }
 
-      /* Desktop Alignment */
       @media (min-width: 900px) {
         .profile-header {
           flex-direction: row;
@@ -126,7 +122,7 @@
         }
       }
 
-      /* ---- Sections ---- */
+      /* Sections */
       .section-title {
         font-size: 0.75rem;
         text-transform: uppercase;
@@ -185,6 +181,25 @@
         font-size: 1rem;
       }
 
+      /* Pricing dropdown */
+      .pricing-card {
+        cursor: pointer;
+        position: relative;
+      }
+
+      .pricing-details {
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 12px;
+        font-size: 0.9rem;
+        opacity: 0.85;
+      }
+
+      .pricing-card.active .pricing-details {
+        display: flex;
+      }
+
       footer {
         text-align: center;
         margin-top: 48px;
@@ -192,44 +207,6 @@
         opacity: 0.5;
       }
 
-      .card:hover i.fa-github {
-        color: #fff;
-      }
-      .card:hover i.fa-linkedin {
-        color: #0077b5;
-      }
-      .card:hover i.fa-youtube {
-        color: #ff0000;
-      }
-      .card:hover i.fa-twitch {
-        color: #9146ff;
-      }
-      .card:hover i.fa-tiktok {
-        color: #301934;
-      }
-      .card:hover i.fa-instagram {
-        color: #c13584;
-      }
-      .card:hover i.fa-soundcloud {
-        color: #ff5500;
-      }
-      .card:hover i.fa-spotify {
-        color: #1db954;
-      }
-      .card:hover i.fa-twitter {
-        color: #1da1f2;
-      }
-      .card:hover i.fa-envelope {
-        color: #ff5500;
-      }
-      .card:hover i.fa-dollar-sign {
-        color: #28a745;
-      }
-      .card:hover i.fa-money-bill-wave {
-        color: #008cff;
-      }
-
-      /* ---- Mobile Tweaks ---- */
       @media (max-width: 480px) {
         body {
           padding: 28px 16px;
@@ -273,6 +250,23 @@
           <i class="fas fa-file-code"></i>
           <span>Check out my Work</span>
         </a>
+      </div>
+
+      <!-- Pricing Section -->
+      <div class="section-title">Pricing</div>
+      <div class="grid-container">
+        <div class="card full-width pricing-card" onclick="togglePricing(this)">
+          <i class="fas fa-tags"></i>
+          <span>View Pricing</span>
+          <div class="pricing-details">
+            <strong>Web/App Development:</strong> $35–$50/hr or
+            $500–$1,500/project<br />
+            <strong>Content Creation:</strong> $25–$40/hr or $200–$600/month<br />
+            <strong>Consulting:</strong> $40–$60/hr<br />
+            <strong>Optional Add-ons:</strong> Rush +15–25%, Extra revisions
+            $20–$50
+          </div>
+        </div>
       </div>
 
       <div class="section-title">Content & Socials</div>
@@ -329,5 +323,11 @@
 
       <footer>&copy; 2026 Adams Verse</footer>
     </div>
+
+    <script>
+      function togglePricing(card) {
+        card.classList.toggle("active");
+      }
+    </script>
   </body>
 </html>
