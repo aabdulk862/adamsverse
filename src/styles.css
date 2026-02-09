@@ -222,6 +222,7 @@ body {
    ENTER THE VERSE
 ================================= */
 .verse-card {
+  grid-column: span 2; /* 👈 THIS is the key */
   background: var(--card-bg);
   border: 1px solid var(--border-light);
   border-radius: 16px;
