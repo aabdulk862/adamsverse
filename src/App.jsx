@@ -28,8 +28,23 @@ export default function App() {
 
       <Section title="Contact Me">
         <div className="email-form-card-wrapper">
+          {/* Add 'data-netlify="true"' for Netlify Forms */}
+          <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            className="email-form"
+          >
+            {/* Hidden input for Netlify */}
+            <input type="hidden" name="form-name" value="contact" />
+            {/* Honeypot for spam bots */}
+            <input type="hidden" name="bot-field" />
+
+             <h2>Let’s Work Together</h2>
           <p
             style={{
+              marginTop: "20px",
               marginBottom: "20px",
               fontSize: "0.95rem",
               opacity: 0.85,
@@ -43,28 +58,31 @@ export default function App() {
             your needs and deliver exactly what you’re looking for.
           </p>
 
-          <form
-            className="email-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Form submitted!");
-            }}
-          >
             <div className="form-row">
               <label>
                 Name
-                <input type="text" placeholder="Enter your name" required />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name"
+                  required
+                />
               </label>
 
               <label>
                 Email
-                <input type="email" placeholder="Enter your email" required />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                />
               </label>
             </div>
 
             <label>
               Reason
-              <select required>
+              <select name="reason" required>
                 <option value="">Select a reason</option>
                 <option value="work">Work Inquiry</option>
                 <option value="collab">Collaboration</option>
@@ -76,6 +94,7 @@ export default function App() {
             <label>
               Message
               <textarea
+                name="message"
                 placeholder="Write your message here..."
                 rows={4}
                 required
