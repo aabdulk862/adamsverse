@@ -1,0 +1,400 @@
+/* =================================
+   VARIABLES
+================================= */
+:root {
+  /* Backgrounds */
+  --bg-gradient-start: #1c1e5a;
+  --bg-gradient-end: #2e3192;
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --card-hover: rgba(255, 255, 255, 0.2);
+  --badge-bg: rgba(0, 0, 0, 0.25);
+
+  /* Text */
+  --text-color: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.6);
+
+  /* Borders */
+  --border-light: rgba(255, 255, 255, 0.05);
+  --border-hover: rgba(255, 255, 255, 0.25);
+
+  /* Icon hover colors */
+  --icon-github: #fff;
+  --icon-linkedin: #0077b5;
+  --icon-youtube: #ff0000;
+  --icon-twitch: #9146ff;
+  --icon-tiktok: #301934;
+  --icon-instagram: #c13584;
+  --icon-soundcloud: #ff5500;
+  --icon-spotify: #1db954;
+  --icon-twitter: #1da1f2;
+  --icon-envelope: #ff5500;
+  --icon-dollar: #28a745;
+  --icon-venmo: #008cff;
+}
+
+/* =================================
+   RESET & BASE
+================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(
+    135deg,
+    var(--bg-gradient-start) 0%,
+    var(--bg-gradient-end) 100%
+  );
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.container {
+  width: 100%;
+  max-width: 520px;
+}
+
+@media (min-width: 900px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+/* =================================
+   BANNER
+================================= */
+.banner {
+  width: 100%;
+  height: 180px; /* slightly taller for better visibility */
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  backdrop-filter: blur(10px);
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (min-width: 900px) {
+  .banner {
+    height: 150px;
+  }
+}
+
+/* =================================
+   PROFILE HEADER
+================================= */
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+  background: var(--card-bg);
+  padding: 20px 24px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.roles {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.badges {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+  font-size: 1rem;
+}
+
+.badge {
+  background: var(--badge-bg);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+@media (min-width: 900px) {
+  .profile-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    padding: 24px 32px;
+  }
+}
+
+/* =================================
+   SECTIONS
+================================= */
+.section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  margin: 26px 0 12px 6px;
+  font-weight: 600;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* =================================
+   CARDS
+================================= */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 22px;
+  text-decoration: none;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.card.full-width {
+  grid-column: span 2;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 14px;
+  padding-left: 30px;
+}
+
+.card:hover {
+  background: var(--card-hover);
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+}
+
+.card i {
+  font-size: 1.7rem;
+  margin-bottom: 8px;
+  transition: color 0.2s ease;
+}
+
+.card.full-width i {
+  margin-bottom: 0;
+  font-size: 1.9rem;
+}
+
+.card span {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* =================================
+   ICON HOVERS
+================================= */
+.card:hover i.fa-github {
+  color: var(--icon-github);
+}
+.card:hover i.fa-linkedin {
+  color: var(--icon-linkedin);
+}
+.card:hover i.fa-youtube {
+  color: var(--icon-youtube);
+}
+.card:hover i.fa-twitch {
+  color: var(--icon-twitch);
+}
+.card:hover i.fa-tiktok {
+  color: var(--icon-tiktok);
+}
+.card:hover i.fa-instagram {
+  color: var(--icon-instagram);
+}
+.card:hover i.fa-soundcloud {
+  color: var(--icon-soundcloud);
+}
+.card:hover i.fa-spotify {
+  color: var(--icon-spotify);
+}
+.card:hover i.fa-twitter {
+  color: var(--icon-twitter);
+}
+.card:hover i.fa-envelope {
+  color: var(--icon-envelope);
+}
+.card:hover i.fa-dollar-sign {
+  color: var(--icon-dollar);
+}
+.card:hover i.fa-money-bill-wave {
+  color: var(--icon-venmo);
+}
+
+/* =================================
+   PRICING
+================================= */
+.pricing-card {
+  cursor: pointer;
+  position: relative;
+}
+
+.pricing-details {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.pricing-card.active .pricing-details {
+  display: flex;
+}
+
+/* =================================
+   EMAIL FORM WRAPPER
+================================= */
+.email-form-card-wrapper {
+  grid-column: span 2;
+  background: rgba(0, 0, 0, 0.45); /* darker for better text contrast */
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 32px 24px;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.email-form-card-wrapper:hover {
+  background: rgba(0, 0, 0, 0.55);
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+}
+
+/* =================================
+   EMAIL FORM FIELDS
+================================= */
+.email-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.email-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+/* Inputs, selects, textarea */
+.email-form input,
+.email-form select,
+.email-form textarea {
+  margin-top: 8px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.12); /* slightly lighter for readability */
+  color: var(--text-color);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.email-form input::placeholder,
+.email-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* brighter for readability */
+}
+
+.email-form select {
+  color: var(--text-color); /* selected value */
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Dropdown options */
+.email-form select option {
+  background: #1c1e5a; /* match dark theme */
+  color: #fff; /* readable text */
+}
+
+/* Focus styles */
+.email-form input:focus,
+.email-form select:focus,
+.email-form textarea:focus {
+  border-color: var(--border-hover);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* =================================
+   FORM BUTTON
+================================= */
+.email-form button {
+  align-self: flex-start;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(
+    135deg,
+    var(--icon-twitter),
+    var(--icon-linkedin)
+  );
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.email-form button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.2);
+}
+
+/* =================================
+   DESKTOP LAYOUT
+================================= */
+@media (min-width: 900px) {
+  .email-form .form-row {
+    display: flex;
+    gap: 24px;
+  }
+
+  .email-form .form-row label {
+    flex: 1;
+  }
+}
+
+/* =================================
+   FLAGS
+================================= */
+.flag {
+  width: 28px; /* slightly larger for better visibility */
+  height: auto; /* maintain aspect ratio */
+  border-radius: 4px; /* subtle rounding */
+  vertical-align: middle;
+  margin-left: 6px; /* spacing from other content */
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4); /* subtle shadow for contrast */
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
