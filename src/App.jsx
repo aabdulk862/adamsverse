@@ -145,14 +145,15 @@ export default function App() {
             Join the community, collaborate with creators, and stay connected inside the Verse.
           </p>
       
-          <a
-            href="https://discord.gg/bCyn6j6bh"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-accent verse-button"
-          >
-            🚀 Join the Discord
-          </a>
+         <a
+  href="https://discord.gg/bCyn6j6bh"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="verse-discord-link"
+>
+  <i class="fa-brands fa-discord"></i>
+  Enter the Verse
+</a>
         </div>
       </Section>
       
