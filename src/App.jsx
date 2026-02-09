@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import emailjs from "emailjs-com"; // npm install emailjs-com
 import Banner from "./components/Banner";
 import ProfileHeader from "./components/ProfileHeader";
 import Section from "./components/Section";
@@ -7,6 +8,32 @@ import Card from "./components/Card";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function App() {
+  const formRef = useRef();
+  const [status, setStatus] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "YOUR_SERVICE_ID", // replace with your EmailJS service ID
+        "YOUR_TEMPLATE_ID", // replace with your EmailJS template ID
+        formRef.current,
+        "YOUR_PUBLIC_KEY", // replace with your EmailJS public key
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setStatus("Message sent successfully!");
+          formRef.current.reset();
+        },
+        (error) => {
+          console.error(error.text);
+          setStatus("Failed to send message. Please try again later.");
+        },
+      );
+  };
+
   return (
     <div className="container">
       <Banner />
@@ -31,22 +58,12 @@ export default function App() {
       {/* Contact Section */}
       <Section title="Contact Me">
         <div className="email-form-card-wrapper">
-          <form
-            name="contact"
-            method="POST"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
-            className="email-form"
-          >
-            {/* Required for Netlify Forms */}
-            <input type="hidden" name="form-name" value="contact" />
-            <input type="hidden" name="bot-field" />
-
+          <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
             {/* Intro Message */}
             <h2 style={{ marginBottom: "12px" }}>Let’s Work Together</h2>
             <p
               style={{
-                marginTop: "0",
+                marginTop: 0,
                 marginBottom: "20px",
                 fontSize: "0.95rem",
                 opacity: 0.85,
@@ -106,6 +123,18 @@ export default function App() {
             <button type="submit">
               <i className="fas fa-paper-plane"></i> Send Message
             </button>
+
+            {status && (
+              <p
+                style={{
+                  marginTop: "12px",
+                  fontSize: "0.9rem",
+                  color: status.includes("success") ? "lightgreen" : "red",
+                }}
+              >
+                {status}
+              </p>
+            )}
           </form>
         </div>
       </Section>
