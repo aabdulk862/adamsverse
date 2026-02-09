@@ -28,6 +28,21 @@ export default function App() {
 
       <Section title="Contact Me">
         <div className="email-form-card-wrapper">
+          <p
+            style={{
+              marginBottom: "20px",
+              fontSize: "0.95rem",
+              opacity: 0.85,
+              lineHeight: 1.5,
+            }}
+          >
+            I’m excited to hear about your project! Please provide your name,
+            email, and a brief description of your requirements. If you have a
+            budget in mind, let me know — I’ll work with you to find the best
+            solution. The more details you share, the better I can understand
+            your needs and deliver exactly what you’re looking for.
+          </p>
+
           <form
             className="email-form"
             onSubmit={(e) => {
