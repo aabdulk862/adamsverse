@@ -219,6 +219,30 @@ body {
   font-size: 1rem;
 }
 
+/* ===============================
+   ENTER THE VERSE SECTION
+================================= */
+.verse-card {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.verse-text {
+  font-size: var(--font-size-large);
+  margin-bottom: var(--spacing-md);
+  opacity: 0.95;
+}
+
+.verse-button {
+  font-size: 1.05rem;
+  padding: 12px 24px;
+  display: inline-block;
+}
+
 /* =================================
    ICON HOVERS
 ================================= */
