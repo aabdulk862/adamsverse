@@ -101,12 +101,12 @@ export default function App() {
 
             <label>
               Reason
-              <select name="reason" required>
+              <select name="Reason" required>
                 <option value="">Select a reason</option>
-                <option value="work">Work Inquiry</option>
-                <option value="collab">Collaboration</option>
-                <option value="feedback">Feedback</option>
-                <option value="other">Other</option>
+                <option value="Work-Inquiry">Work Inquiry</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Feedback">Feedback</option>
+                <option value="Other">Other</option>
               </select>
             </label>
 
