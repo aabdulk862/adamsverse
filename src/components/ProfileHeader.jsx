@@ -6,12 +6,12 @@ export default function ProfileHeader() {
   return (
     <div className="profile-header">
       <div className="roles">
-        <span>
+        <h1>
           <b>Web Development </b>💻
-        </span>
-        <span>
+        </h1>
+        <h1>
           <b>Content Creation </b>📲
-        </span>
+        </h1>
       </div>
       <div className="badges">
         <span className="badge">
