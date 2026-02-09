@@ -139,7 +139,7 @@ export default function App() {
         </div>
       </Section>
 
-      <Section title="Enter the Verse">
+      <Section title="Discord">
         <div className="verse-card">
           <p className="verse-text">
             Join the community, collaborate with creators, and stay connected inside the Verse.
