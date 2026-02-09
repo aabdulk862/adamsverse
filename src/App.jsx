@@ -13,6 +13,7 @@ export default function App() {
 
       <ProfileHeader />
 
+      {/* Development Section */}
       <Section title="Development">
         <Card
           icon="fas fa-file-code"
@@ -22,13 +23,14 @@ export default function App() {
         />
       </Section>
 
+      {/* Pricing Section */}
       <Section title="Pricing">
         <PricingCard />
       </Section>
 
+      {/* Contact Section */}
       <Section title="Contact Me">
         <div className="email-form-card-wrapper">
-          {/* Add 'data-netlify="true"' for Netlify Forms */}
           <form
             name="contact"
             method="POST"
@@ -36,27 +38,27 @@ export default function App() {
             netlify-honeypot="bot-field"
             className="email-form"
           >
-            {/* Hidden input for Netlify */}
+            {/* Required for Netlify Forms */}
             <input type="hidden" name="form-name" value="contact" />
-            {/* Honeypot for spam bots */}
             <input type="hidden" name="bot-field" />
 
-             <h2>Let’s Work Together</h2>
-          <p
-            style={{
-              marginTop: "20px",
-              marginBottom: "20px",
-              fontSize: "0.95rem",
-              opacity: 0.85,
-              lineHeight: 1.5,
-            }}
-          >
-            I’m excited to hear about your project! Please provide your name,
-            email, and a brief description of your requirements. If you have a
-            budget in mind, let me know — I’ll work with you to find the best
-            solution. The more details you share, the better I can understand
-            your needs and deliver exactly what you’re looking for.
-          </p>
+            {/* Intro Message */}
+            <h2 style={{ marginBottom: "12px" }}>Let’s Work Together</h2>
+            <p
+              style={{
+                marginTop: "0",
+                marginBottom: "20px",
+                fontSize: "0.95rem",
+                opacity: 0.85,
+                lineHeight: 1.5,
+              }}
+            >
+              I’m excited to hear about your project! Please provide your name,
+              email, and a brief description of your requirements. If you have a
+              budget in mind, let me know — I’ll work with you to find the best
+              solution. The more details you share, the better I can understand
+              your needs and deliver exactly what you’re looking for.
+            </p>
 
             <div className="form-row">
               <label>
@@ -108,6 +110,7 @@ export default function App() {
         </div>
       </Section>
 
+      {/* Socials Section */}
       <Section title="Content & Socials">
         <Card
           icon="fas fa-envelope"
@@ -141,6 +144,7 @@ export default function App() {
         />
       </Section>
 
+      {/* Support Section */}
       <Section title="Support">
         <Card
           icon="fas fa-dollar-sign"
@@ -154,8 +158,9 @@ export default function App() {
         />
       </Section>
 
-      <br />
-      <footer>&copy; 2026 Adams Verse</footer>
+      <footer style={{ textAlign: "center", marginTop: "48px" }}>
+        &copy; 2026 Adams Verse
+      </footer>
     </div>
   );
 }
