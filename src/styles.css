@@ -222,27 +222,42 @@ body {
 /* ===============================
    ENTER THE VERSE SECTION
 ================================= */
+/* =================================
+   ENTER THE VERSE
+================================= */
 .verse-card {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: #fff;
-  padding: var(--spacing-lg);
-  border-radius: var(--radius-lg);
-  text-align: center;
-  box-shadow: var(--shadow-md);
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.verse-card:hover {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
 }
 
 .verse-text {
-  font-size: var(--font-size-large);
-  margin-bottom: var(--spacing-md);
-  opacity: 0.95;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  line-height: 1.6;
+  margin-bottom: 16px;
 }
 
-.verse-button {
-  font-size: 1.05rem;
-  padding: 12px 24px;
+.verse-link {
   display: inline-block;
+  font-weight: 600;
+  color: var(--icon-discord, #5865f2);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
+.verse-link:hover {
+  opacity: 0.85;
+}
 /* =================================
    ICON HOVERS
 ================================= */
@@ -338,6 +353,7 @@ body {
   font-weight: 500;
   color: var(--text-color);
 }
+
 
 /* Inputs, selects, textarea */
 .email-form input,
