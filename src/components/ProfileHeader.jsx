@@ -6,7 +6,7 @@ export default function ProfileHeader() {
   return (
     <div className="profile-header">
       <div className="profile-identity">
-        <h1 className="profile-title">Code • Content • Community</h1>
+        <h1 className="profile-title">Content • Community</h1>
       </div>
 
       <div className="roles">
