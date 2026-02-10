@@ -42,6 +42,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   font-family: "Inter", sans-serif;
   background: linear-gradient(
@@ -54,16 +59,20 @@ body {
   display: flex;
   justify-content: center;
   padding: 48px 24px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .container {
   width: 100%;
   max-width: 520px;
+  padding: 0 12px; /* add horizontal padding */
+  overflow-x: hidden; /* prevent any scroll */
 }
-
 @media (min-width: 900px) {
   .container {
     max-width: 720px;
+    padding: 0 24px;
   }
 }
 
@@ -117,29 +126,31 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.12);
 
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* subtle floating effect */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  max-width: 100%;
 }
 
-/* Identity text */
 .profile-title {
-  font-size: 2rem;
+  font-size: clamp(1.6rem, 4vw, 1.9rem);
   font-weight: 700;
   letter-spacing: 0.5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: center;
   text-shadow:
     0 2px 4px rgba(0, 0, 0, 0.4),
-    0 1px 2px rgba(255, 255, 255, 0.15); /* subtle glow */
+    0 1px 2px rgba(255, 255, 255, 0.15);
+  word-break: break-word;
+  line-height: 1.2;
+  max-width: 100%;
 }
 
-/* Roles */
 .roles {
   display: flex;
-  justify-content: space-evenly; /* spread evenly horizontally */
-  flex-wrap: nowrap; /* Keep roles on one line */
-  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
   width: 100%;
+  max-width: 100%;
 }
 
 .role-pill {
@@ -151,13 +162,14 @@ body {
   background: rgba(255, 255, 255, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.2);
 
-  white-space: nowrap; /* No wrapping */
-  flex-shrink: 0; /* Don’t shrink in small screens */
+  white-space: normal;
+  flex-shrink: 1;
+  min-width: 0;
 
   transition: all 0.25s ease;
+  text-align: center;
 }
 
-/* Role pill hover effect */
 .role-pill:hover {
   background: rgba(255, 255, 255, 0.22);
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.12);
@@ -182,23 +194,36 @@ body {
 /* Mobile adjustments */
 @media (max-width: 600px) {
   .profile-header {
-    padding: 20px;
-    gap: 14px;
+    padding: 16px 12px;
+    gap: 12px;
+    overflow-x: hidden;
   }
 
   .profile-title {
-    font-size: 1.8rem;
-    letter-spacing: 0.4px;
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
   }
 
   .roles {
-    gap: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
   .role-pill {
-    padding: 6px 12px;
-    font-size: 0.85rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 0.8rem;
+    padding: 6px 10px;
   }
+}
+
+/* =================================
+   FLAGS
+================================= */
+.flag {
+  width: 28px;
+  border-radius: 4px;
+  margin-left: 6px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 /* =================================
@@ -568,14 +593,4 @@ body {
   .email-form .form-row label {
     flex: 1;
   }
-}
-
-/* =================================
-   FLAGS
-================================= */
-.flag {
-  width: 28px;
-  border-radius: 4px;
-  margin-left: 6px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
