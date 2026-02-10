@@ -139,6 +139,24 @@ export default function App() {
         </div>
       </Section>
 
+      <Section title="Discord">
+        <div className="verse-card">
+          <p className="verse-text">
+            Join the community, collaborate with creators, and stay connected inside the Verse.
+          </p>
+      
+         <a
+  href="https://discord.gg/bCyn6j6bh"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="verse-discord-link"
+>
+  <i class="fa-brands fa-discord"></i>
+  Enter the Verse
+</a>
+        </div>
+      </Section>
+      
       {/* Socials Section */}
       <Section title="Content & Socials">
         <Card

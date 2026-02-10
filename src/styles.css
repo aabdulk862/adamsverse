@@ -18,7 +18,7 @@
   --border-hover: rgba(255, 255, 255, 0.25);
 
   /* Icon hover colors */
-  --icon-github: #fff;
+  --icon-github: #ffffff;
   --icon-linkedin: #0077b5;
   --icon-youtube: #ff0000;
   --icon-twitch: #9146ff;
@@ -27,9 +27,10 @@
   --icon-soundcloud: #ff5500;
   --icon-spotify: #1db954;
   --icon-twitter: #1da1f2;
-  --icon-envelope: #ff5500;
+  --icon-envelope: #f1d592;
   --icon-dollar: #28a745;
   --icon-venmo: #008cff;
+  --icon-discord: #5865f2;
 }
 
 /* =================================
@@ -70,7 +71,7 @@ body {
    BANNER
 ================================= */
 .banner {
-  height: 100px; /* default for mobile */
+  height: 100px;
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 24px;
@@ -87,14 +88,12 @@ body {
   display: block;
 }
 
-/* larger banner for desktop */
 @media (min-width: 900px) {
   .banner {
     height: 150px;
   }
 }
 
-/* slightly smaller for very small screens */
 @media (max-width: 480px) {
   .banner {
     height: 84px;
@@ -131,13 +130,13 @@ body {
   justify-content: center;
   gap: 10px;
   margin-top: 6px;
-  font-size: 1rem;
 }
 
 .badge {
   background: var(--badge-bg);
   padding: 4px 8px;
   border-radius: 6px;
+  font-size: 0.9rem;
 }
 
 @media (min-width: 900px) {
@@ -220,6 +219,85 @@ body {
 }
 
 /* =================================
+   ENTER THE VERSE
+================================= */
+.verse-card {
+  grid-column: span 2; /* 👈 THIS is the key */
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.verse-card:hover {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.verse-text {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.verse-link {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--icon-discord);
+  text-decoration: none;
+}
+
+.verse-link:hover {
+  opacity: 0.85;
+}
+
+.verse-discord-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 20px;
+  border-radius: 999px;
+
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+
+  color: #fff;
+  text-decoration: none;
+
+  background: linear-gradient(135deg, #5865f2, #4752c4);
+
+  box-shadow:
+    0 6px 18px rgba(88, 101, 242, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+
+  transition: all 0.25s ease;
+}
+
+.verse-discord-link i {
+  font-size: 1.2rem;
+}
+
+/* Hover = glow + lift */
+.verse-discord-link:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 10px 28px rgba(88, 101, 242, 0.65),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  filter: brightness(1.08);
+}
+
+/* Click feedback */
+.verse-discord-link:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* =================================
    ICON HOVERS
 ================================= */
 .card:hover i.fa-github {
@@ -264,44 +342,31 @@ body {
 ================================= */
 .pricing-card {
   cursor: pointer;
-  position: relative;
 }
 
 .pricing-details {
   display: none;
-  flex-direction: column;
-  gap: 8px;
   margin-top: 12px;
   font-size: 0.9rem;
   opacity: 0.85;
 }
 
 .pricing-card.active .pricing-details {
-  display: flex;
+  display: block;
 }
 
 /* =================================
-   EMAIL FORM WRAPPER
+   EMAIL FORM
 ================================= */
 .email-form-card-wrapper {
   grid-column: span 2;
-  background: rgba(0, 0, 0, 0.45); /* darker for better text contrast */
+  background: rgba(0, 0, 0, 0.45);
   border: 1px solid var(--border-light);
   border-radius: 20px;
   padding: 32px 24px;
   backdrop-filter: blur(12px);
-  transition: all 0.3s ease;
 }
 
-.email-form-card-wrapper:hover {
-  background: rgba(0, 0, 0, 0.55);
-  transform: translateY(-2px);
-  border-color: var(--border-hover);
-}
-
-/* =================================
-   EMAIL FORM FIELDS
-================================= */
 .email-form {
   display: flex;
   flex-direction: column;
@@ -312,10 +377,8 @@ body {
   display: flex;
   flex-direction: column;
   font-weight: 500;
-  color: var(--text-color);
 }
 
-/* Inputs, selects, textarea */
 .email-form input,
 .email-form select,
 .email-form textarea {
@@ -323,40 +386,20 @@ body {
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid var(--border-light);
-  background: rgba(255, 255, 255, 0.12); /* slightly lighter for readability */
+  background: rgba(255, 255, 255, 0.12);
   color: var(--text-color);
-  font-size: 1rem;
-  outline: none;
-  transition: all 0.2s ease;
 }
 
 .email-form input::placeholder,
 .email-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.7); /* brighter for readability */
+  color: rgba(255, 255, 255, 0.7);
 }
 
-.email-form select {
-  color: var(--text-color); /* selected value */
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* Dropdown options */
 .email-form select option {
-  background: #1c1e5a; /* match dark theme */
-  color: #fff; /* readable text */
+  background: #1c1e5a;
+  color: #ffffff;
 }
 
-/* Focus styles */
-.email-form input:focus,
-.email-form select:focus,
-.email-form textarea:focus {
-  border-color: var(--border-hover);
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* =================================
-   FORM BUTTON
-================================= */
 .email-form button {
   align-self: flex-start;
   padding: 12px 18px;
@@ -367,53 +410,17 @@ body {
     var(--icon-twitter),
     var(--icon-linkedin)
   );
-  color: #fff;
+  color: #ffffff;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.email-form button:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.2);
-}
-
-/* =================================
-   DESKTOP LAYOUT
-================================= */
-@media (min-width: 900px) {
-  .email-form .form-row {
-    display: flex;
-    gap: 24px;
-  }
-
-  .email-form .form-row label {
-    flex: 1;
-  }
-
-  .email-form label {
-    margin-bottom: 8px;
-  }
-}
-
-/* Mobile-only spacing fix */
-@media (max-width: 600px) {
-  .email-form label {
-    margin-bottom: 8px;
-  }
 }
 
 /* =================================
    FLAGS
 ================================= */
 .flag {
-  width: 28px; /* slightly larger for better visibility */
-  height: auto; /* maintain aspect ratio */
-  border-radius: 4px; /* subtle rounding */
-  vertical-align: middle;
-  margin-left: 6px; /* spacing from other content */
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4); /* subtle shadow for contrast */
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  width: 28px;
+  border-radius: 4px;
+  margin-left: 6px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
