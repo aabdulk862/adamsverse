@@ -206,7 +206,7 @@ export default function App() {
       </Section>
 
       <footer style={{ textAlign: "center", marginTop: "48px" }}>
-        &copy; 2026 Adams Verse
+        &copy; 2026 AdamsVerse LLC
       </footer>
     </div>
   );
