@@ -390,6 +390,17 @@ body {
   .email-form .form-row label {
     flex: 1;
   }
+
+  .email-form label {
+    margin-bottom: 8px;
+  }
+}
+
+/* Mobile-only spacing fix */
+@media (max-width: 600px) {
+  .email-form label {
+    margin-bottom: 8px;
+  }
 }
 
 /* =================================
