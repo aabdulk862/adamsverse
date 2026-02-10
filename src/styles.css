@@ -101,51 +101,180 @@ body {
 }
 
 /* =================================
-   PROFILE HEADER
+   PROFILE HEADER – FINAL
 ================================= */
 .profile-header {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 32px;
-  background: var(--card-bg);
-  padding: 20px 24px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 18px;
+  margin-bottom: 36px;
+
+  background: rgba(255, 255, 255, 0.08);
+  padding: 24px;
+  border-radius: 22px;
+
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
   text-align: center;
 }
 
+/* ---------------------------------
+   IDENTITY BLOCK
+--------------------------------- */
+.profile-identity {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.profile-tagline {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* ---------------------------------
+   ROLES
+--------------------------------- */
 .roles {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
-  font-size: 1rem;
-  opacity: 0.9;
+  gap: 10px;
 }
 
+.role-pill {
+  padding: 7px 14px;
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ---------------------------------
+   DIVIDER (mobile only)
+--------------------------------- */
+.profile-divider {
+  height: 1px;
+  width: 55%;
+  margin: 4px auto;
+
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+}
+
+/* ---------------------------------
+   FLAGS / BADGES
+--------------------------------- */
 .badges {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 6px;
+  gap: 12px;
 }
 
 .badge {
-  background: var(--badge-bg);
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 6px 10px;
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+/* =================================
+   DESKTOP LAYOUT
+================================= */
 @media (min-width: 900px) {
   .profile-header {
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+
+    padding: 32px 40px;
+    gap: 32px;
+
     text-align: left;
-    padding: 24px 32px;
+  }
+
+  /* Identity */
+  .profile-identity {
+    max-width: 38%;
+  }
+
+  .profile-title {
+    font-size: 1.75rem;
+  }
+
+  /* Roles */
+  .roles {
+    max-width: 36%;
+    justify-content: flex-start;
+    gap: 12px;
+
+    padding-left: 28px;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .role-pill {
+    padding: 8px 16px;
+  }
+
+  /* Badges */
+  .badges {
+    justify-content: flex-end;
+    opacity: 0.7;
+  }
+
+  .profile-divider {
+    display: none;
+  }
+}
+
+/* =================================
+   MOBILE POLISH
+================================= */
+@media (max-width: 600px) {
+  .profile-header {
+    padding: 20px;
+    gap: 18px;
+  }
+
+  .profile-title {
+    font-size: 1.75rem;
+    letter-spacing: 0.6px;
+  }
+
+  .profile-tagline {
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+
+  .roles {
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .role-pill {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .badges {
+    margin-top: 6px;
+    opacity: 0.75;
   }
 }
 
@@ -365,34 +494,83 @@ body {
   border-radius: 20px;
   padding: 32px 24px;
   backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
 }
 
+.email-form-card-wrapper:hover {
+  background: rgba(0, 0, 0, 0.55);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+/* =================================
+   FORM LAYOUT
+================================= */
 .email-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px; /* more breathing room */
 }
 
+/* Each label = field group */
 .email-form label {
   display: flex;
   flex-direction: column;
+  gap: 8px;
   font-weight: 500;
-}
-
-.email-form input,
-.email-form select,
-.email-form textarea {
-  margin-top: 8px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid var(--border-light);
-  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.95rem;
   color: var(--text-color);
 }
 
+/* Mobile-only spacing boost */
+@media (max-width: 600px) {
+  .email-form label {
+    margin-bottom: 6px;
+  }
+}
+
+/* =================================
+   INPUTS / SELECT / TEXTAREA
+================================= */
+.email-form input,
+.email-form select,
+.email-form textarea {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-color);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Improve tap targets on mobile */
+@media (max-width: 600px) {
+  .email-form input,
+  .email-form select,
+  .email-form textarea {
+    padding: 14px 16px;
+  }
+}
+
+/* Placeholder */
 .email-form input::placeholder,
 .email-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Select dropdown */
+.email-form select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, white 50%),
+    linear-gradient(135deg, white 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
 }
 
 .email-form select option {
@@ -400,19 +578,73 @@ body {
   color: #ffffff;
 }
 
+/* =================================
+   FOCUS STATES
+================================= */
+.email-form input:focus,
+.email-form select:focus,
+.email-form textarea:focus {
+  border-color: var(--border-hover);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
+
+/* =================================
+   TEXTAREA
+================================= */
+.email-form textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* =================================
+   BUTTON
+================================= */
 .email-form button {
   align-self: flex-start;
-  padding: 12px 18px;
-  border-radius: 12px;
+  margin-top: 8px;
+  padding: 14px 22px;
+  border-radius: 14px;
   border: none;
+
   background: linear-gradient(
     135deg,
     var(--icon-twitter),
     var(--icon-linkedin)
   );
+
   color: #ffffff;
   font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.email-form button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+/* Active */
+.email-form button:active {
+  transform: translateY(0);
+}
+
+/* =================================
+   DESKTOP FORM ROWS
+================================= */
+@media (min-width: 900px) {
+  .email-form .form-row {
+    display: flex;
+    gap: 24px;
+  }
+
+  .email-form .form-row label {
+    flex: 1;
+  }
 }
 
 /* =================================
