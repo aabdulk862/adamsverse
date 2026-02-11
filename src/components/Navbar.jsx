@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BannerImage from "./path-to-banner.jpg";
+import BannerImage from "../assets/images/banner.png";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
