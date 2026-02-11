@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import BannerImage from "../assets/images/banner.png";
 
 export default function Navbar() {
@@ -25,10 +26,37 @@ export default function Navbar() {
 
           {/* Links */}
           <div className={`nav-links ${menuOpen ? "open" : ""}`}>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#blog">Blog</a>
-            <a href="#contact">Contact</a>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? "active" : "")}
+              onClick={() => setMenuOpen(false)}
+            >
+              Home
+            </NavLink>
+
+            <NavLink
+              to="/services"
+              className={({ isActive }) => (isActive ? "active" : "")}
+              onClick={() => setMenuOpen(false)}
+            >
+              About
+            </NavLink>
+
+            <NavLink
+              to="/blog"
+              className={({ isActive }) => (isActive ? "active" : "")}
+              onClick={() => setMenuOpen(false)}
+            >
+              Blog
+            </NavLink>
+
+            <NavLink
+              to="/contact"
+              className={({ isActive }) => (isActive ? "active" : "")}
+              onClick={() => setMenuOpen(false)}
+            >
+              Contact
+            </NavLink>
           </div>
         </div>
       </nav>
