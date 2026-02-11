@@ -196,6 +196,9 @@ body {
   background: var(--card-bg);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 520px; /* match your .container max-width */
+  margin: 0 auto 24px;
 }
 
 .banner img {
