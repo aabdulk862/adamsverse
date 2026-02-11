@@ -146,43 +146,68 @@ body {
   width: 100%;
 }
 
-/* Mobile */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.hamburger span {
-  width: 22px;
-  height: 2px;
-  background: var(--text-color);
-  transition: 0.3s ease;
-}
-
+/* =================================
+   MOBILE NAVBAR FIX (under banner)
+================================= */
 @media (max-width: 900px) {
+  .navbar {
+    background: transparent; /* remove black bar */
+    backdrop-filter: none; /* remove blur */
+    border-bottom: none; /* remove bottom line */
+    margin-bottom: 0;
+  }
+
+  /* Hamburger button */
+  .hamburger {
+    position: absolute; /* position relative to navbar container */
+    top: 16px; /* adjust if navbar height changes */
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1100; /* above menu */
+  }
+
+  .hamburger span {
+    width: 22px;
+    height: 2px;
+    background: var(--text-color);
+    transition: 0.3s ease;
+  }
+
+  /* Menu dropdown */
   .nav-links {
     position: absolute;
-    top: 70px;
-    right: 20px;
+    top: 100%; /* directly below navbar */
+    right: 0;
+    width: 260px; /* adjust as needed */
     flex-direction: column;
-    gap: 18px;
-    padding: 24px 28px;
-    border-radius: 18px;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(18px);
-    display: none;
+    gap: 20px;
+    padding: 12px 24px;
+    border-radius: 0 0 16px 16px;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    transform: translateX(100%); /* start off-screen */
+    opacity: 0;
+    transition:
+      transform 0.35s ease,
+      opacity 0.35s ease;
+    z-index: 1099;
   }
 
+  /* Menu open state */
   .nav-links.open {
-    display: flex;
+    transform: translateX(0); /* slide in */
+    opacity: 1;
   }
 
-  .hamburger {
-    display: flex;
+  /* Reduce gap & font size for links */
+  .nav-links a {
+    font-size: 0.95rem;
+    color: var(--text-muted);
   }
 }
 
@@ -222,78 +247,125 @@ body {
    PROFILE HEADER
 ================================= */
 .profile-header {
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
   margin-bottom: 32px;
+
   background: rgba(255, 255, 255, 0.08);
-  padding: 28px 24px;
-  border-radius: 22px;
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 28px;
+  padding: 32px 24px;
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+
   overflow: hidden;
+  text-align: center;
 }
 
+/* Decorative floating circles */
+.bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+.circle-1 {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #ff7818d5, #af002cc7);
+  top: -30px;
+  left: -30px;
+}
+
+.circle-2 {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #00c8ffde, #0073ffb9);
+  bottom: -20px;
+  right: -20px;
+}
+
+/* Profile text */
 .profile-title {
-  font-size: clamp(1.6rem, 4vw, 1.9rem);
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.4),
-    0 1px 2px rgba(255, 255, 255, 0.15);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 800;
   line-height: 1.2;
+  letter-spacing: 0.5px;
+  z-index: 1;
+  text-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.35),
+    0 1px 2px rgba(255, 255, 255, 0.15);
 }
 
+.profile-subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.75;
+  max-width: 600px;
+  line-height: 1.6;
+  z-index: 1;
+}
+
+/* Roles */
 .roles {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
+  z-index: 1;
 }
 
 .role-pill {
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: 999px;
   font-size: 0.9rem;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  text-align: center;
-  transition: all 0.25s ease;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  transition: all 0.3s ease;
+  cursor: default;
 }
 
 .role-pill:hover {
-  background: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.12);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.15);
 }
 
+/* Responsive adjustments */
 @media (min-width: 900px) {
   .profile-header {
-    padding: 32px 28px;
-    gap: 18px;
+    padding: 40px 32px;
+    gap: 20px;
   }
 
   .profile-title {
-    font-size: 2.2rem;
+    font-size: 2.6rem;
+  }
+
+  .role-pill {
+    font-size: 1rem;
+    padding: 10px 20px;
   }
 }
 
 @media (max-width: 600px) {
   .profile-header {
-    padding: 16px 12px;
-    gap: 12px;
+    padding: 20px 16px;
+    gap: 14px;
   }
 
   .profile-title {
-    font-size: clamp(1.4rem, 5vw, 1.8rem);
+    font-size: clamp(1.6rem, 6vw, 2rem);
   }
 
   .role-pill {
     font-size: 0.8rem;
-    padding: 6px 10px;
+    padding: 6px 12px;
   }
 }
 
