@@ -1,3 +1,4 @@
+
 /* =================================
    VARIABLES
 ================================= */
@@ -58,19 +59,25 @@ body {
   );
   display: flex;
   justify-content: center;
-  padding: 48px 0; /* remove horizontal padding */
+  padding: 48px 0; /* vertical padding only */
 }
 
 .container {
   width: 100%;
   max-width: 520px;
-  padding: 0 24px; /* single source of horizontal spacing */
+  padding: 0 24px;
 }
 
 @media (min-width: 900px) {
   .container {
     max-width: 720px;
-    padding: 0 /* ===================== BANNER ===================== */
+    padding: 0 32px;
+  }
+}
+
+/* =================================
+   BANNER
+================================= */
 .banner {
   width: 100%;
   border-radius: 16px;
@@ -106,16 +113,17 @@ body {
   }
 }
 
-/* ===================== NAVBAR ===================== */
+/* =================================
+   NAVBAR
+================================= */
 .navbar {
   position: sticky;
   top: 0;
   width: 100%;
   z-index: 1000;
-  margin-bottom: 0; /* banner already has spacing */
+  margin-bottom: 0; /* spacing handled by banner */
 }
 
-/* Inner wrapper */
 .nav-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -126,7 +134,6 @@ body {
   gap: 0;
 }
 
-/* Links */
 .nav-links {
   display: flex;
   gap: 28px;
@@ -161,7 +168,6 @@ body {
   width: 100%;
 }
 
-/* Hamburger (mobile only) */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -178,10 +184,9 @@ body {
   transition: 0.3s ease;
 }
 
-/* Mobile adjustments */
 @media (max-width: 900px) {
   .nav-inner {
-    justify-content: flex-end; /* push hamburger right */
+    justify-content: flex-end;
     padding: 16px 24px;
   }
 
@@ -213,9 +218,6 @@ body {
   }
 }
 
-
-
-
 /* =================================
    PROFILE HEADER
 ================================= */
@@ -226,121 +228,48 @@ body {
   align-items: center;
   gap: 16px;
   margin-bottom: 32px;
-
   background: rgba(255, 255, 255, 0.08);
   border-radius: 28px;
   padding: 32px 24px;
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-
   overflow: hidden;
   text-align: center;
 }
 
-/* Decorative floating circles */
-.bg-circle {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.15;
-  z-index: 0;
-}
+/* Decorative circles */
+.bg-circle { position: absolute; border-radius: 50%; opacity: 0.15; z-index: 0; }
+.circle-1 { width: 120px; height: 120px; background: linear-gradient(135deg, #ff7818d5, #af002cc7); top: -30px; left: -30px; }
+.circle-2 { width: 80px; height: 80px; background: linear-gradient(135deg, #00c8ffde, #0073ffb9); bottom: -20px; right: -20px; }
 
-.circle-1 {
-  width: 120px;
-  height: 120px;
-  background: linear-gradient(135deg, #ff7818d5, #af002cc7);
-  top: -30px;
-  left: -30px;
-}
-
-.circle-2 {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, #00c8ffde, #0073ffb9);
-  bottom: -20px;
-  right: -20px;
-}
-
-/* Profile text */
 .profile-title {
   font-size: clamp(1.8rem, 4vw, 2.4rem);
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: 0.5px;
   z-index: 1;
-  text-shadow:
-    0 3px 6px rgba(0, 0, 0, 0.35),
-    0 1px 2px rgba(255, 255, 255, 0.15);
+  text-shadow: 0 3px 6px rgba(0,0,0,0.35), 0 1px 2px rgba(255,255,255,0.15);
 }
 
-.profile-subtitle {
-  font-size: 1rem;
-  font-weight: 400;
-  opacity: 0.75;
-  max-width: 600px;
-  line-height: 1.6;
-  z-index: 1;
-}
+.profile-subtitle { font-size: 1rem; font-weight: 400; opacity: 0.75; max-width: 600px; line-height: 1.6; z-index: 1; }
 
-/* Roles */
-.roles {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  z-index: 1;
-}
+.roles { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; z-index: 1; }
 
-.role-pill {
-  padding: 8px 18px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  transition: all 0.3s ease;
-  cursor: default;
-}
+.role-pill { padding: 8px 18px; border-radius: 999px; font-size: 0.9rem; font-weight: 600; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.22); transition: all 0.3s ease; cursor: default; }
 
-.role-pill:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.15);
-}
+.role-pill:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255,255,255,0.15); }
 
-/* Responsive adjustments */
-@media (min-width: 900px) {
-  .profile-header {
-    padding: 40px 32px;
-    gap: 20px;
-  }
+@media (min-width:900px){.profile-header{padding:40px 32px;gap:20px;}.profile-title{font-size:2.6rem;}.role-pill{font-size:1rem;padding:10px 20px;}}
+@media (max-width:600px){.profile-header{padding:20px 16px;gap:14px;}.profile-title{font-size:clamp(1.6rem,6vw,2rem);}.role-pill{font-size:0.8rem;padding:6px 12px;}}
 
-  .profile-title {
-    font-size: 2.6rem;
-  }
+/* =================================
+   SECTIONS, GRID, CARDS, BLOG, FORMS, FEATURED CARDS, VERSE CARDS, FOOTER
+   (preserved exactly as original)
+================================= */
 
-  .role-pill {
-    font-size: 1rem;
-    padding: 10px 20px;
-  }
-}
+/* All original styles for section-title, grid-container, card, blog-card, blog-post, email-form, featured-card, social icon hover, verse-card, footer remain unchanged. */
 
-@media (max-width: 600px) {
-  .profile-header {
-    padding: 20px 16px;
-    gap: 14px;
-  }
-
-  .profile-title {
-    font-size: clamp(1.6rem, 6vw, 2rem);
-  }
-
-  .role-pill {
-    font-size: 0.8rem;
-    padding: 6px 12px;
-  }
-}
 
 /* =================================
    SECTIONS & GRID
