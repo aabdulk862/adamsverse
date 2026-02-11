@@ -98,14 +98,39 @@ body {
   justify-content: space-between;
 }
 
+/* Logo container */
 .nav-logo {
-  font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  color: var(--text-color);
+  transition:
+    transform 0.25s ease,
+    filter 0.25s ease;
 }
 
+/* Logo image */
+.nav-logo-img {
+  height: 42px; /* desktop height */
+  width: auto;
+  display: block;
+  border-radius: 8px; /* subtle rounding for modern look */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* soft shadow */
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+/* Hover effect */
+.nav-logo:hover .nav-logo-img {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  filter: brightness(1.1);
+}
+
+/* Mobile adjustments */
+
+/* Links */
 .nav-links {
   display: flex;
   gap: 28px;
@@ -119,6 +144,7 @@ body {
   transition: 0.25s ease;
 }
 
+/* Hover underline */
 .nav-links a::after {
   content: "";
   position: absolute;
@@ -130,67 +156,73 @@ body {
   transition: 0.25s ease;
 }
 
-.nav-links a:hover {
-  color: var(--text-color);
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
+.nav-links a:hover,
 .nav-links a.active {
   color: var(--text-color);
 }
 
+.nav-links a:hover::after,
 .nav-links a.active::after {
   width: 100%;
 }
 
 /* =================================
-   MOBILE NAVBAR FIX (under banner)
+   HAMBURGER (desktop hidden)
+================================= */
+.hamburger {
+  display: none; /* hide desktop */
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.hamburger span {
+  width: 22px;
+  height: 2px;
+  background: var(--text-color);
+  transition: 0.3s ease;
+}
+
+/* =================================
+   MOBILE NAVBAR
 ================================= */
 @media (max-width: 900px) {
+  /* Remove black bar on mobile */
   .navbar {
-    background: transparent; /* remove black bar */
-    backdrop-filter: none; /* remove blur */
-    border-bottom: none; /* remove bottom line */
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom: none;
     margin-bottom: 0;
   }
 
-  /* Hamburger button */
+  .nav-logo-img {
+    height: 36px; /* slightly smaller for mobile */
+  }
+
+  /* Show hamburger */
   .hamburger {
-    position: absolute; /* position relative to navbar container */
-    top: 16px; /* adjust if navbar height changes */
-    right: 24px;
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 1100; /* above menu */
+    position: absolute;
+    top: 16px;
+    right: 24px;
   }
 
-  .hamburger span {
-    width: 22px;
-    height: 2px;
-    background: var(--text-color);
-    transition: 0.3s ease;
-  }
-
-  /* Menu dropdown */
+  /* Mobile links container */
   .nav-links {
     position: absolute;
     top: 100%; /* directly below navbar */
     right: 0;
-    width: 260px; /* adjust as needed */
+    width: 240px;
     flex-direction: column;
-    gap: 20px;
-    padding: 12px 24px;
+    gap: 18px;
+    padding: 16px 20px;
     border-radius: 0 0 16px 16px;
     background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
-    transform: translateX(100%); /* start off-screen */
+    backdrop-filter: blur(18px);
+    transform: translateX(100%); /* hidden off-screen */
     opacity: 0;
     transition:
       transform 0.35s ease,
@@ -198,16 +230,16 @@ body {
     z-index: 1099;
   }
 
-  /* Menu open state */
+  /* Open menu state */
   .nav-links.open {
-    transform: translateX(0); /* slide in */
+    transform: translateX(0);
     opacity: 1;
   }
 
-  /* Reduce gap & font size for links */
   .nav-links a {
     font-size: 0.95rem;
     color: var(--text-muted);
+    text-align: right;
   }
 }
 

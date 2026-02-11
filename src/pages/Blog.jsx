@@ -10,6 +10,7 @@ const posts = [
 export default function Blog() {
   return (
     <div>
+      <h1>Coming soon...</h1>
       <Section title="Blog">
         {posts.map((post) => (
           <Card

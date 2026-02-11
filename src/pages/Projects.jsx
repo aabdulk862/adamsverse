@@ -5,6 +5,7 @@ import Card from "../components/Card";
 export default function Projects() {
   return (
     <div>
+      <h1>Coming soon...</h1>
       <Section title="Projects">
         <Card
           icon="fas fa-star"

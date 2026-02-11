@@ -6,6 +6,8 @@ import Contact from "./pages/Contact";
 import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import Services from "./pages/Services";
+import Projects from "./pages/Projects";
 
 export default function App() {
   return (
@@ -14,6 +16,8 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/projects" element={<Projects />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/contact" element={<Contact />} />
