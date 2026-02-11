@@ -58,9 +58,10 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 48px 24px;
+
+  padding: 32px 16px;   /* reduced + balanced */
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;     /* allow natural scroll */
 }
 
 .container {
