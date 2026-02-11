@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import Logo from "../assets/images/logo3.png";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -11,17 +10,11 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <div className="nav-inner">
-        {/* Logo */}
-        <NavLink to="/" className="nav-logo" onClick={closeMenu}>
-          <img
-            src={Logo} // replace with your actual logo path
-            alt="Logo"
-            className="nav-logo-img"
-          />
-        </NavLink>
-
         {/* Desktop & Mobile Links */}
         <nav className={`nav-links ${open ? "open" : ""}`}>
+          <NavLink to="/" onClick={closeMenu}>
+            Home
+          </NavLink>
           <NavLink to="/services" onClick={closeMenu}>
             Services
           </NavLink>
