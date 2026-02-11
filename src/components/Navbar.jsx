@@ -8,29 +8,36 @@ export default function Navbar() {
   const closeMenu = () => setOpen(false);
 
   return (
-    <header className="navbar">
-      <div className="nav-inner">
-        {/* Logo */}
-        <Link to="/" className="nav-logo" onClick={closeMenu}>
-          AdamsVerse
-        </Link>
+    <>
+      <header className="navbar">
+        <div className="nav-inner">
+          {/* Desktop Links */}
+          <nav className={`nav-links ${open ? "open" : ""}`}>
+            <NavLink to="/" onClick={closeMenu}>
+              Home
+            </NavLink>
+            <NavLink to="/services" onClick={closeMenu}>
+              Services
+            </NavLink>
+            <NavLink to="/projects" onClick={closeMenu}>
+              Projects
+            </NavLink>
+            <NavLink to="/blog" onClick={closeMenu}>
+              Blog
+            </NavLink>
+            <NavLink to="/contact" onClick={closeMenu}>
+              Contact
+            </NavLink>
+          </nav>
 
-        {/* Desktop Links */}
-        <nav className={`nav-links ${open ? "open" : ""}`}>
-          <NavLink to="/" onClick={closeMenu}>Home</NavLink>
-          <NavLink to="/services" onClick={closeMenu}>Services</NavLink>
-          <NavLink to="/projects" onClick={closeMenu}>Projects</NavLink>
-          <NavLink to="/blog" onClick={closeMenu}>Blog</NavLink>
-          <NavLink to="/contact" onClick={closeMenu}>Contact</NavLink>
-        </nav>
-
-        {/* Hamburger */}
-        <button className="hamburger" onClick={toggleMenu}>
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
-    </header>
+          {/* Hamburger */}
+          <button className="hamburger" onClick={toggleMenu}>
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+      </header>
+    </>
   );
 }

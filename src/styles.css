@@ -86,6 +86,7 @@ body {
   background: rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid var(--border-light);
   z-index: 1000;
+  margin-bottom: 24px;
 }
 
 .nav-inner {
@@ -491,7 +492,11 @@ body {
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
-  background: linear-gradient(135deg, var(--icon-twitter), var(--icon-linkedin));
+  background: linear-gradient(
+    135deg,
+    var(--icon-twitter),
+    var(--icon-linkedin)
+  );
   color: #fff;
   transition: all 0.25s ease;
 }
@@ -575,6 +580,9 @@ body {
 .card:hover i.fa-envelope {
   color: var(--icon-envelope);
 }
+.card:hover i.fa-twitter {
+  color: var(--icon-twitter);
+}
 .card:hover i.fa-dollar-sign {
   color: var(--icon-dollar);
 }
@@ -586,10 +594,10 @@ body {
 }
 
 /* =================================
-   VERSE / DISCORD LINK
+   ENTER THE VERSE
 ================================= */
 .verse-card {
-  grid-column: span 2;
+  grid-column: span 2; /* 👈 THIS is the key */
   background: var(--card-bg);
   border: 1px solid var(--border-light);
   border-radius: 16px;
@@ -598,31 +606,68 @@ body {
   transition: all 0.2s ease;
 }
 
+.verse-card:hover {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.verse-text {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.verse-link {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--icon-discord);
+  text-decoration: none;
+}
+
+.verse-link:hover {
+  opacity: 0.85;
+}
+
 .verse-discord-link {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+
   padding: 12px 20px;
   border-radius: 999px;
+
   font-weight: 600;
   font-size: 0.95rem;
+  letter-spacing: 0.3px;
+
   color: #fff;
   text-decoration: none;
+
   background: linear-gradient(135deg, #5865f2, #4752c4);
+
   box-shadow:
     0 6px 18px rgba(88, 101, 242, 0.45),
     inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+
   transition: all 0.25s ease;
 }
 
+.verse-discord-link i {
+  font-size: 1.2rem;
+}
+
+/* Hover = glow + lift */
 .verse-discord-link:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow:
-    0 10px 28px rgba(88, 101, 242, 0.65f),
+    0 10px 28px rgba(88, 101, 242, 0.65),
     inset 0 0 0 1px rgba(255, 255, 255, 0.25);
   filter: brightness(1.08);
 }
 
+/* Click feedback */
 .verse-discord-link:active {
   transform: translateY(0) scale(0.98);
 }
