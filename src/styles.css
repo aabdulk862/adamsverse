@@ -189,16 +189,14 @@ body {
    BANNER
 ================================= */
 .banner {
-  height: 100px;
+  height: 100px; /* or your responsive heights */
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 24px;
   background: var(--card-bg);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
-  width: 100%;
-  max-width: 520px; /* match your .container max-width */
-  margin: 0 auto 24px;
+  width: 100%; /* ensures it fills the container width */
 }
 
 .banner img {
