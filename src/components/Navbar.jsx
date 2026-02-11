@@ -39,7 +39,15 @@ export default function Navbar() {
               className={({ isActive }) => (isActive ? "active" : "")}
               onClick={() => setMenuOpen(false)}
             >
-              About
+              Services
+            </NavLink>
+
+            <NavLink
+              to="/projects"
+              className={({ isActive }) => (isActive ? "active" : "")}
+              onClick={() => setMenuOpen(false)}
+            >
+              Projects
             </NavLink>
 
             <NavLink
