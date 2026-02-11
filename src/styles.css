@@ -78,57 +78,26 @@ body {
 /* =================================
    NAVBAR
 ================================= */
+
+/* Navbar container */
 .navbar {
   position: sticky;
   top: 0;
   width: 100%;
-  backdrop-filter: blur(12px);
-  background: rgba(0, 0, 0, 0.25);
-  border-bottom: 1px solid var(--border-light);
   z-index: 1000;
   margin-bottom: 24px;
 }
 
+/* Inner wrapper */
 .nav-inner {
   max-width: 1100px;
   margin: 0 auto;
   padding: 18px 24px;
   display: flex;
+  justify-content: center; /* center links if no logo */
   align-items: center;
-  justify-content: space-between;
+  gap: 0; /* no gap for empty space */
 }
-
-/* Logo container */
-.nav-logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  transition:
-    transform 0.25s ease,
-    filter 0.25s ease;
-}
-
-/* Logo image */
-.nav-logo-img {
-  height: 42px; /* desktop height */
-  width: auto;
-  display: block;
-  border-radius: 8px; /* subtle rounding for modern look */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* soft shadow */
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    filter 0.25s ease;
-}
-
-/* Hover effect */
-.nav-logo:hover .nav-logo-img {
-  transform: scale(1.05);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-  filter: brightness(1.1);
-}
-
-/* Mobile adjustments */
 
 /* Links */
 .nav-links {
@@ -144,7 +113,6 @@ body {
   transition: 0.25s ease;
 }
 
-/* Hover underline */
 .nav-links a::after {
   content: "";
   position: absolute;
@@ -166,17 +134,14 @@ body {
   width: 100%;
 }
 
-/* =================================
-   HAMBURGER (desktop hidden)
-================================= */
+/* Hamburger (mobile only) */
 .hamburger {
-  display: none; /* hide desktop */
+  display: none;
   flex-direction: column;
   gap: 5px;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1100;
 }
 
 .hamburger span {
@@ -186,60 +151,38 @@ body {
   transition: 0.3s ease;
 }
 
-/* =================================
-   MOBILE NAVBAR
-================================= */
+/* Mobile adjustments */
 @media (max-width: 900px) {
-  /* Remove black bar on mobile */
-  .navbar {
-    background: transparent;
-    backdrop-filter: none;
-    border-bottom: none;
-    margin-bottom: 0;
+  .nav-inner {
+    justify-content: flex-end; /* push hamburger to right */
+    padding: 16px 24px;
   }
 
-  .nav-logo-img {
-    height: 36px; /* slightly smaller for mobile */
-  }
-
-  /* Show hamburger */
-  .hamburger {
-    display: flex;
-    position: absolute;
-    top: 16px;
-    right: 24px;
-  }
-
-  /* Mobile links container */
   .nav-links {
     position: absolute;
-    top: 100%; /* directly below navbar */
+    top: 100%; /* below navbar */
     right: 0;
-    width: 240px;
+    width: 260px;
     flex-direction: column;
-    gap: 18px;
-    padding: 16px 20px;
+    gap: 20px;
+    padding: 12px 24px;
     border-radius: 0 0 16px 16px;
     background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(18px);
-    transform: translateX(100%); /* hidden off-screen */
+    backdrop-filter: blur(20px);
+    transform: translateX(100%);
     opacity: 0;
-    transition:
-      transform 0.35s ease,
-      opacity 0.35s ease;
+    transition: transform 0.35s ease, opacity 0.35s ease;
     z-index: 1099;
   }
 
-  /* Open menu state */
   .nav-links.open {
     transform: translateX(0);
     opacity: 1;
   }
 
-  .nav-links a {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    text-align: right;
+  .hamburger {
+    display: flex;
+    z-index: 1100;
   }
 }
 
