@@ -4,7 +4,9 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <p>&copy; {new Date().getFullYear()} AdamsVerse LLC</p>
+        <p className="footer-note">
+          &copy; 2026 AdamsVerse LLC. All rights reserved.
+        </p>
       </div>
     </footer>
   );

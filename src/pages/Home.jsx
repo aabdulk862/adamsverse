@@ -6,7 +6,7 @@ import Card from "../components/Card";
 
 export default function Home() {
   return (
-    <div>
+    <div className="page-container">
       <ProfileHeader />
       <Section title="Development">
         <Card
@@ -28,9 +28,9 @@ export default function Home() {
             href="https://discord.gg/bCyn6j6bh"
             target="_blank"
             rel="noopener noreferrer"
-            class="verse-discord-link"
+            className="verse-discord-link"
           >
-            <i class="fa-brands fa-discord"></i>
+            <i className="fa-brands fa-discord"></i>
             Enter the Verse
           </a>
         </div>

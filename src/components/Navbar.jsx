@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import BannerImage from "../assets/images/banner.png";
+import Banner from "./Banner";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,10 +10,7 @@ export default function Navbar() {
   return (
     <div className="container">
       {/* Banner Above Navbar */}
-      <div className="banner">
-        <img src={BannerImage} alt="Adams Verse Banner" />
-      </div>
-
+      <Banner />
       {/* Navbar */}
       <nav className="navbar">
         <div className="nav-inner">
