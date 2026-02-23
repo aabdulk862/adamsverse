@@ -59,9 +59,9 @@ body {
   display: flex;
   justify-content: center;
 
-  padding: 32px 16px;   /* reduced + balanced */
+  padding: 32px 16px; /* reduced + balanced */
   overflow-x: hidden;
-  overflow-y: auto;     /* allow natural scroll */
+  overflow-y: auto; /* allow natural scroll */
 }
 
 .container {
@@ -214,6 +214,66 @@ body {
     min-width: 0;
     font-size: 0.8rem;
     padding: 6px 10px;
+  }
+}
+
+.profile-identity {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Profile Subtitle */
+.profile-subtitle {
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  font-weight: 400;
+  opacity: 0.85;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 100%;
+}
+
+/* Decorative Background Circles */
+.bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+  animation: float 8s ease-in-out infinite;
+}
+
+.circle-1 {
+  width: 200px;
+  height: 200px;
+  top: -50px;
+  left: -50px;
+  animation-delay: 0s;
+}
+
+.circle-2 {
+  width: 250px;
+  height: 250px;
+  bottom: -60px;
+  right: -60px;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(10px, -10px) scale(1.05);
   }
 }
 

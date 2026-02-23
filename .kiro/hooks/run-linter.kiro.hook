@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Run Linter",
+  "description": "Run ESLint to check code quality",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "npm run lint"
+  }
+}

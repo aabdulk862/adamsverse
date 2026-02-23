@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Start Dev Server",
+  "description": "Start the Vite development server on localhost",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "npm run dev"
+  }
+}
