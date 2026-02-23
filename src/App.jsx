@@ -15,23 +15,22 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 export default function App() {
   return (
     <BrowserRouter>
-      {/* Navbar */}
-      <Navbar />
+      <div className="app-wrapper">
+        <Navbar />
 
-      {/* Main content container */}
-      <main className="container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </main>
+        <main className="container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
 
-      {/* Footer */}
-      <Footer />
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }

@@ -33,6 +33,7 @@
   --icon-discord: #5865f2;
 }
 
+
 /* =================================
    RESET & BASE
 ================================= */
@@ -43,42 +44,49 @@
 }
 
 html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
   overflow-x: hidden;
   font-family: "Inter", sans-serif;
   color: var(--text-color);
-  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--bg-gradient-start),
+    var(--bg-gradient-end)
+  );
 }
 
-body {
-  font-family: "Inter", sans-serif;
-  color: var(--text-color);
+
+/* =================================
+   APP LAYOUT (Sticky Footer Fix)
+================================= */
+
+/* Wrap your entire app in .app-wrapper */
+.app-wrapper {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-  padding: 0;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Main routed content */
 .container {
+  flex: 1;                 /* pushes footer down */
   width: 100%;
   max-width: 720px;
-  padding: 0 24px;
-  margin: 0 auto;
+  margin: 0 auto;          /* horizontal center only */
+  padding: 40px 24px;      /* vertical breathing room */
+  display: block;          /* IMPORTANT: not flex */
 }
 
-@media (min-width: 900px) {
-  .container {
-    max-width: 720px;
-    padding: 0 32px;
-  }
-}
-
+/* Individual page wrapper */
 .page-container {
   width: 100%;
-  max-width: 720px;
-  padding: 0 24px;
-  margin: 0 auto;
 }
+
 @media (min-width: 900px) {
   .page-container {
     padding: 0 32px;
@@ -450,9 +458,7 @@ body {
    BLOG POST
 ================================= */
 .blog-post {
-  max-width: 760px;
-  margin: 80px auto 0;
-  padding: 0 24px;
+  width: 100%;
 }
 
 .blog-post-title {
@@ -557,7 +563,11 @@ body {
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  background: linear-gradient(135deg, var(--icon-twitter), var(--icon-linkedin));
+  background: linear-gradient(
+    135deg,
+    var(--icon-twitter),
+    var(--icon-linkedin)
+  );
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -741,7 +751,6 @@ body {
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--border-light);
   padding: 24px 16px;
-  margin-top: 48px;
   text-align: center;
 }
 
