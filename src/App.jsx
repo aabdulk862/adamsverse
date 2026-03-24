@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import emailjs from "emailjs-com"; // npm install emailjs-com
+import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
 import ProfileHeader from "./components/ProfileHeader";
 import Section from "./components/Section";
@@ -35,27 +36,19 @@ export default function App() {
   };
 
   return (
-    <div className="container">
-      <Banner />
+    <>
+      <Navbar />
+      <div className="container">
+        <Banner />
 
       <ProfileHeader />
 
-      {/* Development Section */}
-      <Section title="Development">
-        <Card
-          icon="fas fa-file-code"
-          text="Check out my Work"
-          link="https://adam-abdul.com/"
-          fullWidth
-        />
-      </Section>
-
       {/* Pricing Section */}
-      <Section title="Pricing">
+      <Section title="Pricing" id="pricing">
         <PricingCard />
       </Section>
 
-      <Section title="Discord">
+      <Section title="Discord" id="discord">
         <div className="verse-card">
           <p className="verse-text">
             Join the community, collaborate with creators, and stay connected inside the Verse.
@@ -65,16 +58,16 @@ export default function App() {
   href="https://discord.gg/bCyn6j6bh"
   target="_blank"
   rel="noopener noreferrer"
-  class="verse-discord-link"
+  className="verse-discord-link"
 >
-  <i class="fa-brands fa-discord"></i>
+  <i className="fa-brands fa-discord"></i>
   Enter the Verse
 </a>
         </div>
       </Section>
       
       {/* Socials Section */}
-      <Section title="Content & Socials">
+      <Section title="Content & Socials" id="content-socials">
         <Card
           icon="fas fa-envelope"
           text="Email"
@@ -108,7 +101,7 @@ export default function App() {
       </Section>
 
       {/* Support Section */}
-      <Section title="Support">
+      <Section title="Support" id="support">
         <Card
           icon="fas fa-dollar-sign"
           text="Cash App"
@@ -122,20 +115,12 @@ export default function App() {
       </Section>
       
       {/* Contact Section */}
-      <Section title="Contact Me">
+      <Section title="Contact Me" id="contact">
         <div className="email-form-card-wrapper">
           <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
             {/* Intro Message */}
-            <h2 style={{ marginBottom: "12px" }}>Let’s Work Together</h2>
-            <p
-              style={{
-                marginTop: 0,
-                marginBottom: "20px",
-                fontSize: "0.95rem",
-                opacity: 0.85,
-                lineHeight: 1.5,
-              }}
-            >
+            <h2 className="contact-heading">Let’s Work Together</h2>
+            <p className="contact-intro">
               I’m excited to hear about your project! Please provide your name,
               email, and a brief description of your requirements. If you have a
               budget in mind, let me know — I’ll work with you to find the best
@@ -192,11 +177,11 @@ export default function App() {
 
             {status && (
               <p
-                style={{
-                  marginTop: "12px",
-                  fontSize: "0.9rem",
-                  color: status.includes("success") ? "lightgreen" : "red",
-                }}
+                className={
+                  status.includes("success")
+                    ? "form-status-success"
+                    : "form-status-error"
+                }
               >
                 {status}
               </p>
@@ -205,9 +190,10 @@ export default function App() {
         </div>
       </Section>
 
-      <footer style={{ textAlign: "center", marginTop: "48px" }}>
+      <footer className="footer">
         &copy; 2026 AdamsVerse LLC
       </footer>
-    </div>
+      </div>
+    </>
   );
 }
