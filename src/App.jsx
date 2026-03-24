@@ -1,199 +1,27 @@
-import { useRef, useState } from "react";
-import emailjs from "emailjs-com"; // npm install emailjs-com
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Banner from "./components/Banner";
-import ProfileHeader from "./components/ProfileHeader";
-import Section from "./components/Section";
-import PricingCard from "./components/PricingCard";
-import Card from "./components/Card";
+import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
+import PortfolioPage from "./pages/PortfolioPage";
+import AboutPage from "./pages/AboutPage";
+import ServicesPage from "./pages/ServicesPage";
+import LearnPage from "./pages/LearnPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function App() {
-  const formRef = useRef();
-  const [status, setStatus] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setStatus("Message sent successfully!");
-          formRef.current.reset();
-        },
-        (error) => {
-          console.error(error.text);
-          setStatus("Failed to send message. Please try again later.");
-        },
-      );
-  };
-
   return (
     <>
       <Navbar />
-      <div className="container">
-        <Banner />
-
-      <ProfileHeader />
-
-      {/* Pricing Section */}
-      <Section title="Pricing" id="pricing">
-        <PricingCard />
-      </Section>
-
-      <Section title="Discord" id="discord">
-        <div className="verse-card">
-          <p className="verse-text">
-            Join the community, collaborate with creators, and stay connected inside the Verse.
-          </p>
-      
-         <a
-  href="https://discord.gg/bCyn6j6bh"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="verse-discord-link"
->
-  <i className="fa-brands fa-discord"></i>
-  Enter the Verse
-</a>
-        </div>
-      </Section>
-      
-      {/* Socials Section */}
-      <Section title="Content & Socials" id="content-socials">
-        <Card
-          icon="fas fa-envelope"
-          text="Email"
-          link="mailto:adamvmedia@outlook.com"
-        />
-        <Card
-          icon="fab fa-youtube"
-          text="YouTube"
-          link="https://www.youtube.com/@theadamverse"
-        />
-        <Card
-          icon="fab fa-twitch"
-          text="Twitch"
-          link="https://twitch.tv/adams_verse"
-        />
-        <Card
-          icon="fab fa-tiktok"
-          text="TikTok"
-          link="https://www.tiktok.com/@adams_verse"
-        />
-        <Card
-          icon="fab fa-twitter"
-          text="Twitter"
-          link="https://x.com/theadamverse"
-        />
-        <Card
-          icon="fab fa-instagram"
-          text="Instagram"
-          link="https://instagram.com/adam.abdulkadir"
-        />
-      </Section>
-
-      {/* Support Section */}
-      <Section title="Support" id="support">
-        <Card
-          icon="fas fa-dollar-sign"
-          text="Cash App"
-          link="https://cash.app/$AdamAbdulkadir"
-        />
-        <Card
-          icon="fas fa-money-bill-wave"
-          text="Venmo"
-          link="https://venmo.com/Adam862"
-        />
-      </Section>
-      
-      {/* Contact Section */}
-      <Section title="Contact Me" id="contact">
-        <div className="email-form-card-wrapper">
-          <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
-            {/* Intro Message */}
-            <h2 className="contact-heading">Let’s Work Together</h2>
-            <p className="contact-intro">
-              I’m excited to hear about your project! Please provide your name,
-              email, and a brief description of your requirements. If you have a
-              budget in mind, let me know — I’ll work with you to find the best
-              solution. The more details you share, the better I can understand
-              your needs and deliver exactly what you’re looking for.
-            </p>
-
-            <div className="form-row">
-              <label>
-                Name
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter your name"
-                  required
-                />
-              </label>
-
-              <label>
-                Email
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  required
-                />
-              </label>
-            </div>
-
-            <label>
-              Reason
-              <select name="Reason" required>
-                <option value="">Select a reason</option>
-                <option value="Work-Inquiry">Work Inquiry</option>
-                <option value="Collaboration">Collaboration</option>
-                <option value="Feedback">Feedback</option>
-                <option value="Other">Other</option>
-              </select>
-            </label>
-
-            <label>
-              Message
-              <textarea
-                name="message"
-                placeholder="Write your message here..."
-                rows={4}
-                required
-              />
-            </label>
-
-            <button type="submit">
-              <i className="fas fa-paper-plane"></i> Send Message
-            </button>
-
-            {status && (
-              <p
-                className={
-                  status.includes("success")
-                    ? "form-status-success"
-                    : "form-status-error"
-                }
-              >
-                {status}
-              </p>
-            )}
-          </form>
-        </div>
-      </Section>
-
-      <footer className="footer">
-        &copy; 2026 AdamsVerse LLC
-      </footer>
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/learn" element={<LearnPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+      <Footer />
     </>
   );
 }

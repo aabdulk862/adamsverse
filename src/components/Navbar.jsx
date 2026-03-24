@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/images/logo3.png";
 
 const PROJECTS = [
   { name: "iGamec", url: "https://igamec.org" },
@@ -11,15 +13,16 @@ const SECTIONS = [
   { label: "Contact Me", id: "contact" },
 ];
 
-const LEARN_LINKS = [
-  { label: "DSA Guide", href: "/dsa.html" },
-  { label: "LeetCode Guide", href: "/leetcode.html" },
+const PAGE_LINKS = [
+  { label: "About", to: "/about" },
+  { label: "Portfolio", to: "/portfolio" },
+  { label: "Services", to: "/services" },
+  { label: "Learn", to: "/learn" },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [projectsOpen, setProjectsOpen] = useState(false);
-  const [learnOpen, setLearnOpen] = useState(false);
+  const [sectionsOpen, setSectionsOpen] = useState(false);
   const navRef = useRef(null);
 
   // Close mobile overlay on resize above 600px
@@ -37,8 +40,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
-        setProjectsOpen(false);
-        setLearnOpen(false);
+        setSectionsOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -54,69 +56,51 @@ export default function Navbar() {
   return (
     <nav className="navbar" ref={navRef}>
       <div className="navbar-inner">
-        <a className="navbar-brand" href="#">AdamsVerse</a>
+        <Link to="/" className="navbar-brand">
+          <img src={logo} alt="AdamsVerse logo" className="navbar-logo" />
+        </Link>
 
         {/* Desktop nav links */}
         <ul className="navbar-links">
-          {SECTIONS.map((section) => (
-            <li key={section.id}>
-              <a href={`#${section.id}`}>{section.label}</a>
+          {/* Page links (About first) */}
+          {PAGE_LINKS.map((page) => (
+            <li key={page.to}>
+              <Link to={page.to}>{page.label}</Link>
             </li>
           ))}
 
-          {/* Projects dropdown */}
+          {/* Home sections dropdown */}
           <li
             className="navbar-dropdown"
-            onMouseEnter={() => setProjectsOpen(true)}
-            onMouseLeave={() => setProjectsOpen(false)}
+            onMouseEnter={() => setSectionsOpen(true)}
+            onMouseLeave={() => setSectionsOpen(false)}
           >
             <button
               type="button"
-              onClick={() => setProjectsOpen((prev) => !prev)}
-              aria-expanded={projectsOpen}
+              onClick={() => setSectionsOpen((prev) => !prev)}
+              aria-expanded={sectionsOpen}
             >
-              Projects ▾
+              More ▾
             </button>
-            {projectsOpen && (
+            {sectionsOpen && (
               <div className="navbar-dropdown-menu">
-                {PROJECTS.length === 0 ? (
-                  <span className="navbar-dropdown-placeholder">No projects yet</span>
-                ) : (
-                  PROJECTS.map((project) => (
-                    <a
-                      key={project.name}
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {project.name}
-                    </a>
-                  ))
-                )}
-              </div>
-            )}
-          </li>
-
-          {/* Learn dropdown */}
-          <li
-            className="navbar-dropdown"
-            onMouseEnter={() => setLearnOpen(true)}
-            onMouseLeave={() => setLearnOpen(false)}
-          >
-            <button
-              type="button"
-              onClick={() => setLearnOpen((prev) => !prev)}
-              aria-expanded={learnOpen}
-            >
-              Learn ▾
-            </button>
-            {learnOpen && (
-              <div className="navbar-dropdown-menu">
-                {LEARN_LINKS.map((link) => (
-                  <a key={link.href} href={link.href}>
-                    {link.label}
+                {SECTIONS.map((section) => (
+                  <a key={section.id} href={`/#${section.id}`}>
+                    {section.label}
                   </a>
                 ))}
+                <hr style={{ border: "none", borderTop: "1px solid rgba(255,255,255,0.1)", margin: "4px 0" }} />
+                {PROJECTS.map((project) => (
+                  <a
+                    key={project.name}
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {project.name}
+                  </a>
+                ))}
+
               </div>
             )}
           </li>
@@ -136,69 +120,37 @@ export default function Navbar() {
       {/* Mobile overlay */}
       {mobileOpen && (
         <div className="navbar-overlay">
+          {/* Page links first (About first) */}
+          {PAGE_LINKS.map((page) => (
+            <Link key={page.to} to={page.to} onClick={closeMobile}>
+              {page.label}
+            </Link>
+          ))}
+
+          {/* Section anchors */}
           {SECTIONS.map((section) => (
             <a
               key={section.id}
-              href={`#${section.id}`}
+              href={`/#${section.id}`}
               onClick={handleSectionClick}
             >
               {section.label}
             </a>
           ))}
 
-          {/* Projects accordion group */}
-          <div className="navbar-overlay-group">
-            <button
-              type="button"
-              onClick={() => setProjectsOpen((prev) => !prev)}
-              aria-expanded={projectsOpen}
+          {/* Projects & Learn */}
+          {PROJECTS.map((project) => (
+            <a
+              key={project.name}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeMobile}
             >
-              Projects {projectsOpen ? "▴" : "▾"}
-            </button>
-            {projectsOpen && (
-              <div className="navbar-dropdown-menu">
-                {PROJECTS.length === 0 ? (
-                  <span className="navbar-dropdown-placeholder">No projects yet</span>
-                ) : (
-                  PROJECTS.map((project) => (
-                    <a
-                      key={project.name}
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={closeMobile}
-                    >
-                      {project.name}
-                    </a>
-                  ))
-                )}
-              </div>
-            )}
-          </div>
+              {project.name}
+            </a>
+          ))}
 
-          {/* Learn accordion group */}
-          <div className="navbar-overlay-group">
-            <button
-              type="button"
-              onClick={() => setLearnOpen((prev) => !prev)}
-              aria-expanded={learnOpen}
-            >
-              Learn {learnOpen ? "▴" : "▾"}
-            </button>
-            {learnOpen && (
-              <div className="navbar-dropdown-menu">
-                {LEARN_LINKS.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={closeMobile}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
       )}
     </nav>
