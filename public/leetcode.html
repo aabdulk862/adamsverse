@@ -9,21 +9,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0e1a;
-    --surface: #111827;
-    --card: #151d2e;
-    --border: #1e2d45;
-    --accent: #00d4ff;
-    --accent2: #7c3aed;
-    --accent3: #10b981;
-    --warn: #f59e0b;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --easy: #10b981;
-    --medium: #f59e0b;
-    --hard: #ef4444;
-  }
+:root {
+  --bg: #0a0e1a;
+  --surface: #111827;
+  --card: #151d2e;
+  --border: #1e2d45;
+  --accent: #00d4ff;
+  --accent2: #7c3aed;
+  --accent3: #10b981;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --easy: #10b981;
+  --medium: #f59e0b;
+  --hard: #ef4444;
+}
 
 - { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -35,7 +34,6 @@ min-height: 100vh;
 overflow-x: hidden;
 }
 
-/* Grid background */
 body::before {
 content: ‘’;
 position: fixed;
@@ -87,7 +85,6 @@ font-family: ‘JetBrains Mono’, monospace;
 letter-spacing: 0.5px;
 }
 
-/* Stats bar */
 .stats-bar {
 display: flex;
 justify-content: center;
@@ -103,9 +100,7 @@ z-index: 1;
 flex-wrap: wrap;
 }
 
-.stat {
-text-align: center;
-}
+.stat { text-align: center; }
 
 .stat-num {
 font-size: 1.6rem;
@@ -126,7 +121,6 @@ letter-spacing: 1px;
 .stat-hard .stat-num { color: var(–hard); }
 .stat-total .stat-num { color: var(–accent); }
 
-/* Filter buttons */
 .filters {
 display: flex;
 justify-content: center;
@@ -151,7 +145,8 @@ text-transform: uppercase;
 letter-spacing: 1px;
 }
 
-.filter-btn:hover, .filter-btn.active {
+.filter-btn:hover,
+.filter-btn.active {
 border-color: var(–accent);
 color: var(–accent);
 background: rgba(0,212,255,0.07);
@@ -161,7 +156,6 @@ background: rgba(0,212,255,0.07);
 .filter-btn.medium.active { border-color: var(–medium); color: var(–medium); background: rgba(245,158,11,0.07); }
 .filter-btn.hard.active { border-color: var(–hard); color: var(–hard); background: rgba(239,68,68,0.07); }
 
-/* Main grid */
 .container {
 max-width: 1200px;
 margin: 0 auto;
@@ -182,10 +176,13 @@ animation: fadeUp 0.4s ease both;
 
 @keyframes fadeUp {
 from { opacity: 0; transform: translateY(16px); }
-to { opacity: 1; transform: translateY(0); }
+to   { opacity: 1; transform: translateY(0); }
 }
 
-.question-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-1px); }
+.question-card:hover {
+border-color: rgba(0,212,255,0.3);
+transform: translateY(-1px);
+}
 
 .card-header {
 display: flex;
@@ -219,9 +216,9 @@ text-transform: uppercase;
 letter-spacing: 1px;
 }
 
-.easy-badge { background: rgba(16,185,129,0.15); color: var(–easy); border: 1px solid rgba(16,185,129,0.3); }
-.medium-badge { background: rgba(245,158,11,0.15); color: var(–medium); border: 1px solid rgba(245,158,11,0.3); }
-.hard-badge { background: rgba(239,68,68,0.15); color: var(–hard); border: 1px solid rgba(239,68,68,0.3); }
+.easy-badge   { background: rgba(16,185,129,0.15); color: var(–easy);   border: 1px solid rgba(16,185,129,0.3); }
+.medium-badge { background: rgba(245,158,11,0.15);  color: var(–medium); border: 1px solid rgba(245,158,11,0.3); }
+.hard-badge   { background: rgba(239,68,68,0.15);   color: var(–hard);   border: 1px solid rgba(239,68,68,0.3); }
 
 .topic-tag {
 font-family: ‘JetBrains Mono’, monospace;
@@ -236,7 +233,6 @@ border: 1px solid rgba(124,58,237,0.25);
 .toggle-icon {
 color: var(–muted);
 font-size: 18px;
-transition: transform 0.3s;
 min-width: 20px;
 text-align: center;
 }
@@ -246,14 +242,21 @@ display: none;
 padding: 0 24px 24px;
 }
 
-.card-body.open { display: block; animation: slideDown 0.25s ease; }
+.card-body.open {
+display: block;
+animation: slideDown 0.25s ease;
+}
 
 @keyframes slideDown {
 from { opacity: 0; transform: translateY(-8px); }
-to { opacity: 1; transform: translateY(0); }
+to   { opacity: 1; transform: translateY(0); }
 }
 
-.divider { height: 1px; background: var(–border); margin-bottom: 20px; }
+.divider {
+height: 1px;
+background: var(–border);
+margin-bottom: 20px;
+}
 
 .section-label {
 font-family: ‘JetBrains Mono’, monospace;
@@ -328,13 +331,13 @@ line-height: 1.8;
 color: #cdd9e5;
 }
 
-.kw { color: #ff79c6; }
-.type { color: #8be9fd; }
-.fn { color: #50fa7b; }
-.str { color: #f1fa8c; }
-.num { color: #bd93f9; }
+.kw      { color: #ff79c6; }
+.type    { color: #8be9fd; }
+.fn      { color: #50fa7b; }
+.str     { color: #f1fa8c; }
+.num     { color: #bd93f9; }
 .comment { color: #6272a4; font-style: italic; }
-.var { color: #ffb86c; }
+.var     { color: #ffb86c; }
 
 .explanation {
 background: rgba(0,212,255,0.04);
@@ -349,7 +352,6 @@ font-family: ‘JetBrains Mono’, monospace;
 
 .explanation strong { color: var(–text); }
 
-/* Footer */
 footer {
 text-align: center;
 padding: 30px;
@@ -361,9 +363,6 @@ position: relative;
 z-index: 1;
 }
 
-.hidden { display: none !important; }
-
-/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(–bg); }
 ::-webkit-scrollbar-thumb { background: var(–border); border-radius: 3px; }
@@ -398,579 +397,200 @@ z-index: 1;
 <footer>crafted for engineers &mdash; study hard, ship fast</footer>
 
 <script>
-const questions = [
+var Q = [
   {
-    num: 1,
-    title: "Two Sum",
-    difficulty: "easy",
-    topic: "Hash Map",
-    desc: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(n)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public</span> <span class="type">int</span>[] <span class="fn">twoSum</span>(<span class="type">int</span>[] <span class="var">nums</span>, <span class="type">int</span> <span class="var">target</span>) {
-        <span class="type">Map</span>&lt;<span class="type">Integer</span>, <span class="type">Integer</span>&gt; <span class="var">map</span> = <span class="kw">new</span> <span class="type">HashMap</span>&lt;&gt;();
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">0</span>; <span class="var">i</span> &lt; <span class="var">nums</span>.length; <span class="var">i</span>++) {
-            <span class="type">int</span> <span class="var">complement</span> = <span class="var">target</span> - <span class="var">nums</span>[<span class="var">i</span>];
-            <span class="kw">if</span> (<span class="var">map</span>.containsKey(<span class="var">complement</span>)) {
-                <span class="kw">return new</span> <span class="type">int</span>[]{<span class="var">map</span>.get(<span class="var">complement</span>), <span class="var">i</span>};
-            }
-            <span class="var">map</span>.put(<span class="var">nums</span>[<span class="var">i</span>], <span class="var">i</span>);
-        }
-        <span class="kw">return new</span> <span class="type">int</span>[]{};
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Use a HashMap to store each number and its index. For every element, check if its complement (target - nums[i]) already exists in the map. If yes, we found our pair. This avoids the O(n²) brute force double loop."
+    num:1, title:"Two Sum", difficulty:"easy", topic:"Hash Map",
+    desc:"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+    tc:"O(n)", sc:"O(n)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public</span> <span class="type">int</span>[] <span class="fn">twoSum</span>(<span class="type">int</span>[] <span class="var">nums</span>, <span class="type">int</span> <span class="var">target</span>) {\n        <span class="type">Map</span>&lt;<span class="type">Integer</span>, <span class="type">Integer</span>&gt; <span class="var">map</span> = <span class="kw">new</span> <span class="type">HashMap</span>&lt;&gt;();\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">0</span>; <span class="var">i</span> &lt; <span class="var">nums</span>.length; <span class="var">i</span>++) {\n            <span class="type">int</span> <span class="var">comp</span> = <span class="var">target</span> - <span class="var">nums</span>[<span class="var">i</span>];\n            <span class="kw">if</span> (<span class="var">map</span>.containsKey(<span class="var">comp</span>))\n                <span class="kw">return new</span> <span class="type">int</span>[]{<span class="var">map</span>.get(<span class="var">comp</span>), <span class="var">i</span>};\n            <span class="var">map</span>.put(<span class="var">nums</span>[<span class="var">i</span>], <span class="var">i</span>);\n        }\n        <span class="kw">return new</span> <span class="type">int</span>[]{};\n    }\n}',
+    exp:"<strong>Strategy:</strong> Store each number and its index in a HashMap. For every element, check if its complement (target - nums[i]) already exists. If yes, return both indices. Avoids the O(n\u00b2) brute-force double loop."
   },
   {
-    num: 2,
-    title: "Valid Parentheses",
-    difficulty: "easy",
-    topic: "Stack",
-    desc: "Given a string s containing just '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(n)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public boolean</span> <span class="fn">isValid</span>(<span class="type">String</span> <span class="var">s</span>) {
-        <span class="type">Stack</span>&lt;<span class="type">Character</span>&gt; <span class="var">stack</span> = <span class="kw">new</span> <span class="type">Stack</span>&lt;&gt;();
-        <span class="kw">for</span> (<span class="type">char</span> <span class="var">c</span> : <span class="var">s</span>.toCharArray()) {
-            <span class="kw">if</span> (<span class="var">c</span> == <span class="str">'('</span> || <span class="var">c</span> == <span class="str">'['</span> || <span class="var">c</span> == <span class="str">'{'</span>) {
-                <span class="var">stack</span>.push(<span class="var">c</span>);
-            } <span class="kw">else</span> {
-                <span class="kw">if</span> (<span class="var">stack</span>.isEmpty()) <span class="kw">return false</span>;
-                <span class="type">char</span> <span class="var">top</span> = <span class="var">stack</span>.pop();
-                <span class="kw">if</span> (<span class="var">c</span> == <span class="str">')'</span> &amp;&amp; <span class="var">top</span> != <span class="str">'('</span>) <span class="kw">return false</span>;
-                <span class="kw">if</span> (<span class="var">c</span> == <span class="str">']'</span> &amp;&amp; <span class="var">top</span> != <span class="str">'['</span>) <span class="kw">return false</span>;
-                <span class="kw">if</span> (<span class="var">c</span> == <span class="str">'}'</span> &amp;&amp; <span class="var">top</span> != <span class="str">'{'</span>) <span class="kw">return false</span>;
-            }
-        }
-        <span class="kw">return</span> <span class="var">stack</span>.isEmpty();
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Use a Stack. Push opening brackets. When a closing bracket is encountered, check if the stack's top is the matching opener. If not, or if the stack is empty at any closing bracket, it's invalid. At the end, the stack must be empty."
+    num:2, title:"Valid Parentheses", difficulty:"easy", topic:"Stack",
+    desc:"Given a string s containing just '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
+    tc:"O(n)", sc:"O(n)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public boolean</span> <span class="fn">isValid</span>(<span class="type">String</span> <span class="var">s</span>) {\n        <span class="type">Stack</span>&lt;<span class="type">Character</span>&gt; <span class="var">stack</span> = <span class="kw">new</span> <span class="type">Stack</span>&lt;&gt;();\n        <span class="kw">for</span> (<span class="type">char</span> <span class="var">c</span> : <span class="var">s</span>.toCharArray()) {\n            <span class="kw">if</span> (<span class="var">c</span>==\'(\'||<span class="var">c</span>==\'[\'||<span class="var">c</span>==\'{\') { <span class="var">stack</span>.push(<span class="var">c</span>); <span class="kw">continue</span>; }\n            <span class="kw">if</span> (<span class="var">stack</span>.isEmpty()) <span class="kw">return false</span>;\n            <span class="type">char</span> <span class="var">t</span> = <span class="var">stack</span>.pop();\n            <span class="kw">if</span> (<span class="var">c</span>==\')\' &amp;&amp; <span class="var">t</span>!=\'(\') <span class="kw">return false</span>;\n            <span class="kw">if</span> (<span class="var">c</span>==\']\' &amp;&amp; <span class="var">t</span>!=\'[\') <span class="kw">return false</span>;\n            <span class="kw">if</span> (<span class="var">c</span>==\'}\' &amp;&amp; <span class="var">t</span>!=\'{\') <span class="kw">return false</span>;\n        }\n        <span class="kw">return</span> <span class="var">stack</span>.isEmpty();\n    }\n}',
+    exp:"<strong>Strategy:</strong> Push opening brackets onto a Stack. For each closing bracket, check the stack's top is the matching opener. If not, or stack is empty, it's invalid. Stack must be empty at the end."
   },
   {
-    num: 3,
-    title: "Reverse a Linked List",
-    difficulty: "easy",
-    topic: "Linked List",
-    desc: "Given the head of a singly linked list, reverse the list, and return the reversed list.",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(1)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public</span> <span class="type">ListNode</span> <span class="fn">reverseList</span>(<span class="type">ListNode</span> <span class="var">head</span>) {
-        <span class="type">ListNode</span> <span class="var">prev</span> = <span class="kw">null</span>;
-        <span class="type">ListNode</span> <span class="var">curr</span> = <span class="var">head</span>;
-        <span class="kw">while</span> (<span class="var">curr</span> != <span class="kw">null</span>) {
-            <span class="type">ListNode</span> <span class="var">next</span> = <span class="var">curr</span>.next; <span class="comment">// save next</span>
-            <span class="var">curr</span>.next = <span class="var">prev</span>;         <span class="comment">// reverse pointer</span>
-            <span class="var">prev</span> = <span class="var">curr</span>;              <span class="comment">// move prev forward</span>
-            <span class="var">curr</span> = <span class="var">next</span>;              <span class="comment">// move curr forward</span>
-        }
-        <span class="kw">return</span> <span class="var">prev</span>;
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Use three pointers: prev (null), curr (head), and next. In each iteration, save curr.next, reverse the pointer to prev, then advance both prev and curr. When curr is null, prev points to the new head."
+    num:3, title:"Reverse a Linked List", difficulty:"easy", topic:"Linked List",
+    desc:"Given the head of a singly linked list, reverse the list and return the reversed list.",
+    tc:"O(n)", sc:"O(1)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public</span> <span class="type">ListNode</span> <span class="fn">reverseList</span>(<span class="type">ListNode</span> <span class="var">head</span>) {\n        <span class="type">ListNode</span> <span class="var">prev</span> = <span class="kw">null</span>, <span class="var">curr</span> = <span class="var">head</span>;\n        <span class="kw">while</span> (<span class="var">curr</span> != <span class="kw">null</span>) {\n            <span class="type">ListNode</span> <span class="var">next</span> = <span class="var">curr</span>.next; <span class="comment">// save next</span>\n            <span class="var">curr</span>.next = <span class="var">prev</span>;         <span class="comment">// reverse pointer</span>\n            <span class="var">prev</span> = <span class="var">curr</span>;              <span class="comment">// advance prev</span>\n            <span class="var">curr</span> = <span class="var">next</span>;              <span class="comment">// advance curr</span>\n        }\n        <span class="kw">return</span> <span class="var">prev</span>;\n    }\n}',
+    exp:"<strong>Strategy:</strong> Three pointers: prev (null), curr (head), next. Each iteration: save curr.next, flip curr.next to prev, advance both. When curr is null, prev is the new head."
   },
   {
-    num: 4,
-    title: "Merge Two Sorted Lists",
-    difficulty: "easy",
-    topic: "Linked List",
-    desc: "Merge two sorted linked lists and return it as a new sorted list built by splicing together the nodes of the two lists.",
-    timeComplexity: "O(m+n)",
-    spaceComplexity: "O(1)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public</span> <span class="type">ListNode</span> <span class="fn">mergeTwoLists</span>(<span class="type">ListNode</span> <span class="var">l1</span>, <span class="type">ListNode</span> <span class="var">l2</span>) {
-        <span class="type">ListNode</span> <span class="var">dummy</span> = <span class="kw">new</span> <span class="type">ListNode</span>(<span class="num">0</span>);
-        <span class="type">ListNode</span> <span class="var">cur</span> = <span class="var">dummy</span>;
-        <span class="kw">while</span> (<span class="var">l1</span> != <span class="kw">null</span> &amp;&amp; <span class="var">l2</span> != <span class="kw">null</span>) {
-            <span class="kw">if</span> (<span class="var">l1</span>.val &lt;= <span class="var">l2</span>.val) {
-                <span class="var">cur</span>.next = <span class="var">l1</span>;
-                <span class="var">l1</span> = <span class="var">l1</span>.next;
-            } <span class="kw">else</span> {
-                <span class="var">cur</span>.next = <span class="var">l2</span>;
-                <span class="var">l2</span> = <span class="var">l2</span>.next;
-            }
-            <span class="var">cur</span> = <span class="var">cur</span>.next;
-        }
-        <span class="var">cur</span>.next = (<span class="var">l1</span> != <span class="kw">null</span>) ? <span class="var">l1</span> : <span class="var">l2</span>;
-        <span class="kw">return</span> <span class="var">dummy</span>.next;
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Use a dummy head node to simplify edge cases. Compare the front nodes of both lists, attach the smaller one to the result, and advance that pointer. After the loop, attach the remaining non-null list."
+    num:4, title:"Merge Two Sorted Lists", difficulty:"easy", topic:"Linked List",
+    desc:"Merge two sorted linked lists and return the merged sorted list.",
+    tc:"O(m+n)", sc:"O(1)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public</span> <span class="type">ListNode</span> <span class="fn">mergeTwoLists</span>(<span class="type">ListNode</span> <span class="var">l1</span>, <span class="type">ListNode</span> <span class="var">l2</span>) {\n        <span class="type">ListNode</span> <span class="var">dummy</span> = <span class="kw">new</span> <span class="type">ListNode</span>(<span class="num">0</span>), <span class="var">cur</span> = <span class="var">dummy</span>;\n        <span class="kw">while</span> (<span class="var">l1</span> != <span class="kw">null</span> &amp;&amp; <span class="var">l2</span> != <span class="kw">null</span>) {\n            <span class="kw">if</span> (<span class="var">l1</span>.val &lt;= <span class="var">l2</span>.val) { <span class="var">cur</span>.next = <span class="var">l1</span>; <span class="var">l1</span> = <span class="var">l1</span>.next; }\n            <span class="kw">else</span>                   { <span class="var">cur</span>.next = <span class="var">l2</span>; <span class="var">l2</span> = <span class="var">l2</span>.next; }\n            <span class="var">cur</span> = <span class="var">cur</span>.next;\n        }\n        <span class="var">cur</span>.next = (<span class="var">l1</span> != <span class="kw">null</span>) ? <span class="var">l1</span> : <span class="var">l2</span>;\n        <span class="kw">return</span> <span class="var">dummy</span>.next;\n    }\n}',
+    exp:"<strong>Strategy:</strong> Dummy head simplifies edge cases. Compare front nodes, attach the smaller one, advance that pointer. Attach leftover list after the loop."
   },
   {
-    num: 5,
-    title: "Maximum Subarray (Kadane's)",
-    difficulty: "medium",
-    topic: "Dynamic Programming",
-    desc: "Given an integer array nums, find the contiguous subarray which has the largest sum and return its sum.",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(1)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span> <span class="fn">maxSubArray</span>(<span class="type">int</span>[] <span class="var">nums</span>) {
-        <span class="type">int</span> <span class="var">maxSum</span> = <span class="var">nums</span>[<span class="num">0</span>];
-        <span class="type">int</span> <span class="var">currSum</span> = <span class="var">nums</span>[<span class="num">0</span>];
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">1</span>; <span class="var">i</span> &lt; <span class="var">nums</span>.length; <span class="var">i</span>++) {
-            <span class="comment">// Either extend the subarray or start fresh</span>
-            <span class="var">currSum</span> = <span class="type">Math</span>.max(<span class="var">nums</span>[<span class="var">i</span>], <span class="var">currSum</span> + <span class="var">nums</span>[<span class="var">i</span>]);
-            <span class="var">maxSum</span> = <span class="type">Math</span>.max(<span class="var">maxSum</span>, <span class="var">currSum</span>);
-        }
-        <span class="kw">return</span> <span class="var">maxSum</span>;
-    }
-}`,
-    explanation: "<strong>Strategy (Kadane's Algorithm):</strong> At each index, decide: is it better to extend the previous subarray or start a new subarray here? currSum = max(nums[i], currSum + nums[i]). Track the global maximum throughout."
+    num:5, title:"Maximum Subarray (Kadane's)", difficulty:"medium", topic:"Dynamic Programming",
+    desc:"Find the contiguous subarray with the largest sum and return its sum.",
+    tc:"O(n)", sc:"O(1)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span> <span class="fn">maxSubArray</span>(<span class="type">int</span>[] <span class="var">nums</span>) {\n        <span class="type">int</span> <span class="var">maxSum</span> = <span class="var">nums</span>[<span class="num">0</span>], <span class="var">curr</span> = <span class="var">nums</span>[<span class="num">0</span>];\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">1</span>; <span class="var">i</span> &lt; <span class="var">nums</span>.length; <span class="var">i</span>++) {\n            <span class="var">curr</span>   = <span class="type">Math</span>.max(<span class="var">nums</span>[<span class="var">i</span>], <span class="var">curr</span> + <span class="var">nums</span>[<span class="var">i</span>]);\n            <span class="var">maxSum</span> = <span class="type">Math</span>.max(<span class="var">maxSum</span>, <span class="var">curr</span>);\n        }\n        <span class="kw">return</span> <span class="var">maxSum</span>;\n    }\n}',
+    exp:"<strong>Strategy (Kadane's):</strong> At each index decide: extend the previous subarray or start fresh? curr = max(nums[i], curr + nums[i]). Track the running global maximum."
   },
   {
-    num: 6,
-    title: "Best Time to Buy and Sell Stock",
-    difficulty: "easy",
-    topic: "Greedy / Sliding Window",
-    desc: "Given an array prices where prices[i] is the price of a stock on day i, maximize your profit by choosing a single buy and sell day.",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(1)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span> <span class="fn">maxProfit</span>(<span class="type">int</span>[] <span class="var">prices</span>) {
-        <span class="type">int</span> <span class="var">minPrice</span> = <span class="type">Integer</span>.MAX_VALUE;
-        <span class="type">int</span> <span class="var">maxProfit</span> = <span class="num">0</span>;
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">price</span> : <span class="var">prices</span>) {
-            <span class="kw">if</span> (<span class="var">price</span> &lt; <span class="var">minPrice</span>) {
-                <span class="var">minPrice</span> = <span class="var">price</span>;
-            } <span class="kw">else if</span> (<span class="var">price</span> - <span class="var">minPrice</span> &gt; <span class="var">maxProfit</span>) {
-                <span class="var">maxProfit</span> = <span class="var">price</span> - <span class="var">minPrice</span>;
-            }
-        }
-        <span class="kw">return</span> <span class="var">maxProfit</span>;
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Single pass. Track the minimum price seen so far. For each price, calculate profit if we sold today (price - minPrice). Keep a running max of that profit. We never need to look back."
+    num:6, title:"Best Time to Buy and Sell Stock", difficulty:"easy", topic:"Greedy",
+    desc:"Given prices[], maximize profit with one buy and one sell. You must buy before you sell.",
+    tc:"O(n)", sc:"O(1)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span> <span class="fn">maxProfit</span>(<span class="type">int</span>[] <span class="var">prices</span>) {\n        <span class="type">int</span> <span class="var">minP</span> = <span class="type">Integer</span>.MAX_VALUE, <span class="var">maxP</span> = <span class="num">0</span>;\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">p</span> : <span class="var">prices</span>) {\n            <span class="kw">if</span> (<span class="var">p</span> &lt; <span class="var">minP</span>) <span class="var">minP</span> = <span class="var">p</span>;\n            <span class="kw">else if</span> (<span class="var">p</span> - <span class="var">minP</span> &gt; <span class="var">maxP</span>) <span class="var">maxP</span> = <span class="var">p</span> - <span class="var">minP</span>;\n        }\n        <span class="kw">return</span> <span class="var">maxP</span>;\n    }\n}',
+    exp:"<strong>Strategy:</strong> Track minimum price seen so far. For each price, calculate potential profit (price - minPrice). Keep running max. Single pass, no look-back needed."
   },
   {
-    num: 7,
-    title: "Climbing Stairs",
-    difficulty: "easy",
-    topic: "Dynamic Programming",
-    desc: "You are climbing a staircase with n steps. Each time you can climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(1)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span> <span class="fn">climbStairs</span>(<span class="type">int</span> <span class="var">n</span>) {
-        <span class="kw">if</span> (<span class="var">n</span> &lt;= <span class="num">2</span>) <span class="kw">return</span> <span class="var">n</span>;
-        <span class="type">int</span> <span class="var">a</span> = <span class="num">1</span>, <span class="var">b</span> = <span class="num">2</span>;
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">3</span>; <span class="var">i</span> &lt;= <span class="var">n</span>; <span class="var">i</span>++) {
-            <span class="type">int</span> <span class="var">temp</span> = <span class="var">a</span> + <span class="var">b</span>;
-            <span class="var">a</span> = <span class="var">b</span>;
-            <span class="var">b</span> = <span class="var">temp</span>;
-        }
-        <span class="kw">return</span> <span class="var">b</span>;
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> This is the Fibonacci sequence in disguise. Ways to reach step n = ways(n-1) + ways(n-2). Use two variables instead of an array to achieve O(1) space. Base cases: 1 step = 1 way, 2 steps = 2 ways."
+    num:7, title:"Climbing Stairs", difficulty:"easy", topic:"Dynamic Programming",
+    desc:"You can climb 1 or 2 steps at a time. How many distinct ways can you reach the top of n stairs?",
+    tc:"O(n)", sc:"O(1)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span> <span class="fn">climbStairs</span>(<span class="type">int</span> <span class="var">n</span>) {\n        <span class="kw">if</span> (<span class="var">n</span> &lt;= <span class="num">2</span>) <span class="kw">return</span> <span class="var">n</span>;\n        <span class="type">int</span> <span class="var">a</span> = <span class="num">1</span>, <span class="var">b</span> = <span class="num">2</span>;\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">3</span>; <span class="var">i</span> &lt;= <span class="var">n</span>; <span class="var">i</span>++) {\n            <span class="type">int</span> <span class="var">t</span> = <span class="var">a</span> + <span class="var">b</span>; <span class="var">a</span> = <span class="var">b</span>; <span class="var">b</span> = <span class="var">t</span>;\n        }\n        <span class="kw">return</span> <span class="var">b</span>;\n    }\n}',
+    exp:"<strong>Strategy:</strong> Fibonacci in disguise. ways(n) = ways(n-1) + ways(n-2). Use two variables for O(1) space instead of an array."
   },
   {
-    num: 8,
-    title: "Longest Substring Without Repeating Characters",
-    difficulty: "medium",
-    topic: "Sliding Window",
-    desc: "Given a string s, find the length of the longest substring without repeating characters.",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(min(m,n))",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span> <span class="fn">lengthOfLongestSubstring</span>(<span class="type">String</span> <span class="var">s</span>) {
-        <span class="type">Map</span>&lt;<span class="type">Character</span>, <span class="type">Integer</span>&gt; <span class="var">map</span> = <span class="kw">new</span> <span class="type">HashMap</span>&lt;&gt;();
-        <span class="type">int</span> <span class="var">max</span> = <span class="num">0</span>, <span class="var">left</span> = <span class="num">0</span>;
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">right</span> = <span class="num">0</span>; <span class="var">right</span> &lt; <span class="var">s</span>.length(); <span class="var">right</span>++) {
-            <span class="type">char</span> <span class="var">c</span> = <span class="var">s</span>.charAt(<span class="var">right</span>);
-            <span class="kw">if</span> (<span class="var">map</span>.containsKey(<span class="var">c</span>)) {
-                <span class="comment">// Move left past the previous occurrence</span>
-                <span class="var">left</span> = <span class="type">Math</span>.max(<span class="var">left</span>, <span class="var">map</span>.get(<span class="var">c</span>) + <span class="num">1</span>);
-            }
-            <span class="var">map</span>.put(<span class="var">c</span>, <span class="var">right</span>);
-            <span class="var">max</span> = <span class="type">Math</span>.max(<span class="var">max</span>, <span class="var">right</span> - <span class="var">left</span> + <span class="num">1</span>);
-        }
-        <span class="kw">return</span> <span class="var">max</span>;
-    }
-}`,
-    explanation: "<strong>Strategy (Sliding Window):</strong> Expand the window by moving 'right'. If a duplicate is found, shrink the window from the left to just past the previous occurrence. The map stores the most recent index of each character. Always take Math.max(left, ...) to avoid moving left backwards."
+    num:8, title:"Longest Substring Without Repeating Characters", difficulty:"medium", topic:"Sliding Window",
+    desc:"Find the length of the longest substring without repeating characters.",
+    tc:"O(n)", sc:"O(min(m,n))",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span> <span class="fn">lengthOfLongestSubstring</span>(<span class="type">String</span> <span class="var">s</span>) {\n        <span class="type">Map</span>&lt;<span class="type">Character</span>,<span class="type">Integer</span>&gt; <span class="var">map</span> = <span class="kw">new</span> <span class="type">HashMap</span>&lt;&gt;();\n        <span class="type">int</span> <span class="var">max</span> = <span class="num">0</span>, <span class="var">left</span> = <span class="num">0</span>;\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">r</span> = <span class="num">0</span>; <span class="var">r</span> &lt; <span class="var">s</span>.length(); <span class="var">r</span>++) {\n            <span class="type">char</span> <span class="var">c</span> = <span class="var">s</span>.charAt(<span class="var">r</span>);\n            <span class="kw">if</span> (<span class="var">map</span>.containsKey(<span class="var">c</span>))\n                <span class="var">left</span> = <span class="type">Math</span>.max(<span class="var">left</span>, <span class="var">map</span>.get(<span class="var">c</span>) + <span class="num">1</span>);\n            <span class="var">map</span>.put(<span class="var">c</span>, <span class="var">r</span>);\n            <span class="var">max</span> = <span class="type">Math</span>.max(<span class="var">max</span>, <span class="var">r</span> - <span class="var">left</span> + <span class="num">1</span>);\n        }\n        <span class="kw">return</span> <span class="var">max</span>;\n    }\n}',
+    exp:"<strong>Strategy (Sliding Window):</strong> Expand right. On duplicate, jump left past the previous occurrence. Math.max(left, ...) prevents left from moving backward."
   },
   {
-    num: 9,
-    title: "Binary Search",
-    difficulty: "easy",
-    topic: "Binary Search",
-    desc: "Given a sorted array of n integers and a target value, return the index of target, or -1 if not found. Must run in O(log n).",
-    timeComplexity: "O(log n)",
-    spaceComplexity: "O(1)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span> <span class="fn">search</span>(<span class="type">int</span>[] <span class="var">nums</span>, <span class="type">int</span> <span class="var">target</span>) {
-        <span class="type">int</span> <span class="var">left</span> = <span class="num">0</span>, <span class="var">right</span> = <span class="var">nums</span>.length - <span class="num">1</span>;
-        <span class="kw">while</span> (<span class="var">left</span> &lt;= <span class="var">right</span>) {
-            <span class="type">int</span> <span class="var">mid</span> = <span class="var">left</span> + (<span class="var">right</span> - <span class="var">left</span>) / <span class="num">2</span>; <span class="comment">// avoids overflow</span>
-            <span class="kw">if</span> (<span class="var">nums</span>[<span class="var">mid</span>] == <span class="var">target</span>) <span class="kw">return</span> <span class="var">mid</span>;
-            <span class="kw">else if</span> (<span class="var">nums</span>[<span class="var">mid</span>] &lt; <span class="var">target</span>) <span class="var">left</span> = <span class="var">mid</span> + <span class="num">1</span>;
-            <span class="kw">else</span> <span class="var">right</span> = <span class="var">mid</span> - <span class="num">1</span>;
-        }
-        <span class="kw">return</span> -<span class="num">1</span>;
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Eliminate half the search space each iteration. Use mid = left + (right - left) / 2 instead of (left + right) / 2 to prevent integer overflow. The loop condition is left &lt;= right, and we return -1 only after the loop exits."
+    num:9, title:"Binary Search", difficulty:"easy", topic:"Binary Search",
+    desc:"Search a sorted array for a target value. Return its index, or -1 if not found. Must run in O(log n).",
+    tc:"O(log n)", sc:"O(1)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span> <span class="fn">search</span>(<span class="type">int</span>[] <span class="var">nums</span>, <span class="type">int</span> <span class="var">target</span>) {\n        <span class="type">int</span> <span class="var">lo</span> = <span class="num">0</span>, <span class="var">hi</span> = <span class="var">nums</span>.length - <span class="num">1</span>;\n        <span class="kw">while</span> (<span class="var">lo</span> &lt;= <span class="var">hi</span>) {\n            <span class="type">int</span> <span class="var">mid</span> = <span class="var">lo</span> + (<span class="var">hi</span> - <span class="var">lo</span>) / <span class="num">2</span>; <span class="comment">// avoids overflow</span>\n            <span class="kw">if</span>      (<span class="var">nums</span>[<span class="var">mid</span>] == <span class="var">target</span>) <span class="kw">return</span> <span class="var">mid</span>;\n            <span class="kw">else if</span> (<span class="var">nums</span>[<span class="var">mid</span>] &lt;  <span class="var">target</span>) <span class="var">lo</span> = <span class="var">mid</span> + <span class="num">1</span>;\n            <span class="kw">else</span>                              <span class="var">hi</span> = <span class="var">mid</span> - <span class="num">1</span>;\n        }\n        <span class="kw">return</span> -<span class="num">1</span>;\n    }\n}',
+    exp:"<strong>Strategy:</strong> Halve the search space each step. Use lo + (hi - lo) / 2 to avoid integer overflow. Return -1 only after the loop exits."
   },
   {
-    num: 10,
-    title: "Number of Islands",
-    difficulty: "medium",
-    topic: "DFS / BFS",
-    desc: "Given an m x n 2D binary grid representing a map of '1' (land) and '0' (water), return the number of islands.",
-    timeComplexity: "O(m×n)",
-    spaceComplexity: "O(m×n)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span> <span class="fn">numIslands</span>(<span class="type">char</span>[][] <span class="var">grid</span>) {
-        <span class="type">int</span> <span class="var">count</span> = <span class="num">0</span>;
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">0</span>; <span class="var">i</span> &lt; <span class="var">grid</span>.length; <span class="var">i</span>++)
-            <span class="kw">for</span> (<span class="type">int</span> <span class="var">j</span> = <span class="num">0</span>; <span class="var">j</span> &lt; <span class="var">grid</span>[<span class="num">0</span>].length; <span class="var">j</span>++)
-                <span class="kw">if</span> (<span class="var">grid</span>[<span class="var">i</span>][<span class="var">j</span>] == <span class="str">'1'</span>) { <span class="fn">dfs</span>(<span class="var">grid</span>, <span class="var">i</span>, <span class="var">j</span>); <span class="var">count</span>++; }
-        <span class="kw">return</span> <span class="var">count</span>;
-    }
-
-    <span class="kw">private void</span> <span class="fn">dfs</span>(<span class="type">char</span>[][] <span class="var">grid</span>, <span class="type">int</span> <span class="var">i</span>, <span class="type">int</span> <span class="var">j</span>) {
-        <span class="kw">if</span> (<span class="var">i</span> &lt; <span class="num">0</span> || <span class="var">i</span> &gt;= <span class="var">grid</span>.length || <span class="var">j</span> &lt; <span class="num">0</span> ||
-            <span class="var">j</span> &gt;= <span class="var">grid</span>[<span class="num">0</span>].length || <span class="var">grid</span>[<span class="var">i</span>][<span class="var">j</span>] != <span class="str">'1'</span>) <span class="kw">return</span>;
-        <span class="var">grid</span>[<span class="var">i</span>][<span class="var">j</span>] = <span class="str">'0'</span>; <span class="comment">// mark visited</span>
-        <span class="fn">dfs</span>(<span class="var">grid</span>, <span class="var">i</span>+<span class="num">1</span>, <span class="var">j</span>); <span class="fn">dfs</span>(<span class="var">grid</span>, <span class="var">i</span>-<span class="num">1</span>, <span class="var">j</span>);
-        <span class="fn">dfs</span>(<span class="var">grid</span>, <span class="var">i</span>, <span class="var">j</span>+<span class="num">1</span>); <span class="fn">dfs</span>(<span class="var">grid</span>, <span class="var">i</span>, <span class="var">j</span>-<span class="num">1</span>);
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Traverse every cell. When a '1' is found, increment the island counter and run DFS from that cell to sink the entire island (mark all connected '1's as '0'). This ensures each island is counted exactly once."
+    num:10, title:"Number of Islands", difficulty:"medium", topic:"DFS / BFS",
+    desc:"Given an m x n grid of '1' (land) and '0' (water), return the number of islands.",
+    tc:"O(m\u00d7n)", sc:"O(m\u00d7n)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span> <span class="fn">numIslands</span>(<span class="type">char</span>[][] <span class="var">g</span>) {\n        <span class="type">int</span> <span class="var">cnt</span> = <span class="num">0</span>;\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span>=<span class="num">0</span>; <span class="var">i</span>&lt;<span class="var">g</span>.length; <span class="var">i</span>++)\n            <span class="kw">for</span> (<span class="type">int</span> <span class="var">j</span>=<span class="num">0</span>; <span class="var">j</span>&lt;<span class="var">g</span>[<span class="num">0</span>].length; <span class="var">j</span>++)\n                <span class="kw">if</span> (<span class="var">g</span>[<span class="var">i</span>][<span class="var">j</span>]==\'1\') { <span class="fn">dfs</span>(<span class="var">g</span>,<span class="var">i</span>,<span class="var">j</span>); <span class="var">cnt</span>++; }\n        <span class="kw">return</span> <span class="var">cnt</span>;\n    }\n    <span class="kw">void</span> <span class="fn">dfs</span>(<span class="type">char</span>[][] <span class="var">g</span>, <span class="type">int</span> <span class="var">i</span>, <span class="type">int</span> <span class="var">j</span>) {\n        <span class="kw">if</span> (<span class="var">i</span>&lt;<span class="num">0</span>||<span class="var">i</span>&gt;=<span class="var">g</span>.length||<span class="var">j</span>&lt;<span class="num">0</span>||<span class="var">j</span>&gt;=<span class="var">g</span>[<span class="num">0</span>].length||<span class="var">g</span>[<span class="var">i</span>][<span class="var">j</span>]!=\'1\') <span class="kw">return</span>;\n        <span class="var">g</span>[<span class="var">i</span>][<span class="var">j</span>] = \'0\';\n        <span class="fn">dfs</span>(<span class="var">g</span>,<span class="var">i</span>+<span class="num">1</span>,<span class="var">j</span>); <span class="fn">dfs</span>(<span class="var">g</span>,<span class="var">i</span>-<span class="num">1</span>,<span class="var">j</span>); <span class="fn">dfs</span>(<span class="var">g</span>,<span class="var">i</span>,<span class="var">j</span>+<span class="num">1</span>); <span class="fn">dfs</span>(<span class="var">g</span>,<span class="var">i</span>,<span class="var">j</span>-<span class="num">1</span>);\n    }\n}',
+    exp:"<strong>Strategy:</strong> When a '1' is found, DFS from it to sink the whole island (mark cells '0'). Each DFS call = one island counted exactly once."
   },
   {
-    num: 11,
-    title: "Validate Binary Search Tree",
-    difficulty: "medium",
-    topic: "Tree / DFS",
-    desc: "Given the root of a binary tree, determine if it is a valid binary search tree (BST).",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(n)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public boolean</span> <span class="fn">isValidBST</span>(<span class="type">TreeNode</span> <span class="var">root</span>) {
-        <span class="kw">return</span> <span class="fn">validate</span>(<span class="var">root</span>, <span class="type">Long</span>.MIN_VALUE, <span class="type">Long</span>.MAX_VALUE);
-    }
-
-    <span class="kw">private boolean</span> <span class="fn">validate</span>(<span class="type">TreeNode</span> <span class="var">node</span>, <span class="type">long</span> <span class="var">min</span>, <span class="type">long</span> <span class="var">max</span>) {
-        <span class="kw">if</span> (<span class="var">node</span> == <span class="kw">null</span>) <span class="kw">return true</span>;
-        <span class="kw">if</span> (<span class="var">node</span>.val &lt;= <span class="var">min</span> || <span class="var">node</span>.val &gt;= <span class="var">max</span>) <span class="kw">return false</span>;
-        <span class="kw">return</span> <span class="fn">validate</span>(<span class="var">node</span>.left,  <span class="var">min</span>, <span class="var">node</span>.val) &amp;&amp;
-               <span class="fn">validate</span>(<span class="var">node</span>.right, <span class="var">node</span>.val, <span class="var">max</span>);
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Pass min/max bounds down the recursion. A node's value must be strictly between its inherited bounds. When going left, the current node's value becomes the new max. When going right, it becomes the new min. Use Long to handle Integer.MIN/MAX_VALUE edge cases."
+    num:11, title:"Validate Binary Search Tree", difficulty:"medium", topic:"Tree / DFS",
+    desc:"Given the root of a binary tree, determine if it is a valid BST.",
+    tc:"O(n)", sc:"O(n)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public boolean</span> <span class="fn">isValidBST</span>(<span class="type">TreeNode</span> <span class="var">root</span>) {\n        <span class="kw">return</span> <span class="fn">check</span>(<span class="var">root</span>, <span class="type">Long</span>.MIN_VALUE, <span class="type">Long</span>.MAX_VALUE);\n    }\n    <span class="kw">boolean</span> <span class="fn">check</span>(<span class="type">TreeNode</span> <span class="var">n</span>, <span class="type">long</span> <span class="var">lo</span>, <span class="type">long</span> <span class="var">hi</span>) {\n        <span class="kw">if</span> (<span class="var">n</span>==<span class="kw">null</span>) <span class="kw">return true</span>;\n        <span class="kw">if</span> (<span class="var">n</span>.val&lt;=<span class="var">lo</span> || <span class="var">n</span>.val&gt;=<span class="var">hi</span>) <span class="kw">return false</span>;\n        <span class="kw">return</span> <span class="fn">check</span>(<span class="var">n</span>.left, <span class="var">lo</span>, <span class="var">n</span>.val) &amp;&amp; <span class="fn">check</span>(<span class="var">n</span>.right, <span class="var">n</span>.val, <span class="var">hi</span>);\n    }\n}',
+    exp:"<strong>Strategy:</strong> Pass min/max bounds down the tree. Going left updates max; going right updates min. Use Long to avoid Integer.MIN/MAX_VALUE edge cases."
   },
   {
-    num: 12,
-    title: "Level Order Traversal (BFS)",
-    difficulty: "medium",
-    topic: "Tree / BFS",
-    desc: "Given the root of a binary tree, return the level order traversal of its nodes' values (left to right, level by level).",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(n)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public</span> <span class="type">List</span>&lt;<span class="type">List</span>&lt;<span class="type">Integer</span>&gt;&gt; <span class="fn">levelOrder</span>(<span class="type">TreeNode</span> <span class="var">root</span>) {
-        <span class="type">List</span>&lt;<span class="type">List</span>&lt;<span class="type">Integer</span>&gt;&gt; <span class="var">result</span> = <span class="kw">new</span> <span class="type">ArrayList</span>&lt;&gt;();
-        <span class="kw">if</span> (<span class="var">root</span> == <span class="kw">null</span>) <span class="kw">return</span> <span class="var">result</span>;
-        <span class="type">Queue</span>&lt;<span class="type">TreeNode</span>&gt; <span class="var">queue</span> = <span class="kw">new</span> <span class="type">LinkedList</span>&lt;&gt;();
-        <span class="var">queue</span>.offer(<span class="var">root</span>);
-        <span class="kw">while</span> (!<span class="var">queue</span>.isEmpty()) {
-            <span class="type">int</span> <span class="var">size</span> = <span class="var">queue</span>.size(); <span class="comment">// nodes at current level</span>
-            <span class="type">List</span>&lt;<span class="type">Integer</span>&gt; <span class="var">level</span> = <span class="kw">new</span> <span class="type">ArrayList</span>&lt;&gt;();
-            <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">0</span>; <span class="var">i</span> &lt; <span class="var">size</span>; <span class="var">i</span>++) {
-                <span class="type">TreeNode</span> <span class="var">node</span> = <span class="var">queue</span>.poll();
-                <span class="var">level</span>.add(<span class="var">node</span>.val);
-                <span class="kw">if</span> (<span class="var">node</span>.left  != <span class="kw">null</span>) <span class="var">queue</span>.offer(<span class="var">node</span>.left);
-                <span class="kw">if</span> (<span class="var">node</span>.right != <span class="kw">null</span>) <span class="var">queue</span>.offer(<span class="var">node</span>.right);
-            }
-            <span class="var">result</span>.add(<span class="var">level</span>);
-        }
-        <span class="kw">return</span> <span class="var">result</span>;
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Use a Queue (BFS). The key insight: capture queue.size() at the start of each while iteration — that's exactly how many nodes are at the current level. Process only that many nodes, adding their children for the next level."
+    num:12, title:"Level Order Traversal (BFS)", difficulty:"medium", topic:"Tree / BFS",
+    desc:"Return the level-order traversal of a binary tree's node values (left to right, level by level).",
+    tc:"O(n)", sc:"O(n)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public</span> <span class="type">List</span>&lt;<span class="type">List</span>&lt;<span class="type">Integer</span>&gt;&gt; <span class="fn">levelOrder</span>(<span class="type">TreeNode</span> <span class="var">root</span>) {\n        <span class="type">List</span>&lt;<span class="type">List</span>&lt;<span class="type">Integer</span>&gt;&gt; <span class="var">res</span> = <span class="kw">new</span> <span class="type">ArrayList</span>&lt;&gt;();\n        <span class="kw">if</span> (<span class="var">root</span>==<span class="kw">null</span>) <span class="kw">return</span> <span class="var">res</span>;\n        <span class="type">Queue</span>&lt;<span class="type">TreeNode</span>&gt; <span class="var">q</span> = <span class="kw">new</span> <span class="type">LinkedList</span>&lt;&gt;();\n        <span class="var">q</span>.offer(<span class="var">root</span>);\n        <span class="kw">while</span> (!<span class="var">q</span>.isEmpty()) {\n            <span class="type">int</span> <span class="var">sz</span> = <span class="var">q</span>.size();\n            <span class="type">List</span>&lt;<span class="type">Integer</span>&gt; <span class="var">lvl</span> = <span class="kw">new</span> <span class="type">ArrayList</span>&lt;&gt;();\n            <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span>=<span class="num">0</span>; <span class="var">i</span>&lt;<span class="var">sz</span>; <span class="var">i</span>++) {\n                <span class="type">TreeNode</span> <span class="var">n</span> = <span class="var">q</span>.poll();\n                <span class="var">lvl</span>.add(<span class="var">n</span>.val);\n                <span class="kw">if</span> (<span class="var">n</span>.left !=<span class="kw">null</span>) <span class="var">q</span>.offer(<span class="var">n</span>.left);\n                <span class="kw">if</span> (<span class="var">n</span>.right!=<span class="kw">null</span>) <span class="var">q</span>.offer(<span class="var">n</span>.right);\n            }\n            <span class="var">res</span>.add(<span class="var">lvl</span>);\n        }\n        <span class="kw">return</span> <span class="var">res</span>;\n    }\n}',
+    exp:"<strong>Strategy:</strong> BFS with a Queue. Capture q.size() at the start of each iteration — that's exactly the node count for the current level. Process only that many nodes."
   },
   {
-    num: 13,
-    title: "Coin Change",
-    difficulty: "medium",
-    topic: "Dynamic Programming",
-    desc: "Given coins of different denominations and a total amount, find the fewest number of coins needed to make up that amount. Return -1 if impossible.",
-    timeComplexity: "O(amount × coins)",
-    spaceComplexity: "O(amount)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span> <span class="fn">coinChange</span>(<span class="type">int</span>[] <span class="var">coins</span>, <span class="type">int</span> <span class="var">amount</span>) {
-        <span class="type">int</span>[] <span class="var">dp</span> = <span class="kw">new</span> <span class="type">int</span>[<span class="var">amount</span> + <span class="num">1</span>];
-        <span class="type">Arrays</span>.fill(<span class="var">dp</span>, <span class="var">amount</span> + <span class="num">1</span>); <span class="comment">// fill with "infinity"</span>
-        <span class="var">dp</span>[<span class="num">0</span>] = <span class="num">0</span>;
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">coin</span> : <span class="var">coins</span>)
-            <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="var">coin</span>; <span class="var">i</span> &lt;= <span class="var">amount</span>; <span class="var">i</span>++)
-                <span class="var">dp</span>[<span class="var">i</span>] = <span class="type">Math</span>.min(<span class="var">dp</span>[<span class="var">i</span>], <span class="var">dp</span>[<span class="var">i</span> - <span class="var">coin</span>] + <span class="num">1</span>);
-        <span class="kw">return</span> <span class="var">dp</span>[<span class="var">amount</span>] &gt; <span class="var">amount</span> ? -<span class="num">1</span> : <span class="var">dp</span>[<span class="var">amount</span>];
-    }
-}`,
-    explanation: "<strong>Strategy (Bottom-up DP):</strong> dp[i] = minimum coins to make amount i. Initialize with amount+1 (infinity). For each coin, update dp[i] = min(dp[i], dp[i-coin]+1). This is the unbounded knapsack pattern. Return -1 if dp[amount] is still 'infinity'."
+    num:13, title:"Coin Change", difficulty:"medium", topic:"Dynamic Programming",
+    desc:"Find the fewest coins needed to make up the given amount. Return -1 if impossible.",
+    tc:"O(amount \u00d7 coins)", sc:"O(amount)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span> <span class="fn">coinChange</span>(<span class="type">int</span>[] <span class="var">coins</span>, <span class="type">int</span> <span class="var">amt</span>) {\n        <span class="type">int</span>[] <span class="var">dp</span> = <span class="kw">new</span> <span class="type">int</span>[<span class="var">amt</span>+<span class="num">1</span>];\n        <span class="type">Arrays</span>.fill(<span class="var">dp</span>, <span class="var">amt</span>+<span class="num">1</span>);\n        <span class="var">dp</span>[<span class="num">0</span>] = <span class="num">0</span>;\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">c</span> : <span class="var">coins</span>)\n            <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span>=<span class="var">c</span>; <span class="var">i</span>&lt;=<span class="var">amt</span>; <span class="var">i</span>++)\n                <span class="var">dp</span>[<span class="var">i</span>] = <span class="type">Math</span>.min(<span class="var">dp</span>[<span class="var">i</span>], <span class="var">dp</span>[<span class="var">i</span>-<span class="var">c</span>]+<span class="num">1</span>);\n        <span class="kw">return</span> <span class="var">dp</span>[<span class="var">amt</span>] &gt; <span class="var">amt</span> ? -<span class="num">1</span> : <span class="var">dp</span>[<span class="var">amt</span>];\n    }\n}',
+    exp:"<strong>Strategy (Bottom-up DP):</strong> dp[i] = min coins for amount i. Init with amt+1 as infinity. For each coin, update dp[i] = min(dp[i], dp[i-coin]+1). Unbounded knapsack pattern."
   },
   {
-    num: 14,
-    title: "Product of Array Except Self",
-    difficulty: "medium",
-    topic: "Prefix Product",
-    desc: "Given an integer array nums, return an array answer such that answer[i] is equal to the product of all elements except nums[i]. No division allowed.",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(1)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span>[] <span class="fn">productExceptSelf</span>(<span class="type">int</span>[] <span class="var">nums</span>) {
-        <span class="type">int</span> <span class="var">n</span> = <span class="var">nums</span>.length;
-        <span class="type">int</span>[] <span class="var">result</span> = <span class="kw">new</span> <span class="type">int</span>[<span class="var">n</span>];
-        <span class="comment">// Pass 1: prefix products (from left)</span>
-        <span class="var">result</span>[<span class="num">0</span>] = <span class="num">1</span>;
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">1</span>; <span class="var">i</span> &lt; <span class="var">n</span>; <span class="var">i</span>++)
-            <span class="var">result</span>[<span class="var">i</span>] = <span class="var">result</span>[<span class="var">i</span>-<span class="num">1</span>] * <span class="var">nums</span>[<span class="var">i</span>-<span class="num">1</span>];
-        <span class="comment">// Pass 2: multiply suffix products (from right)</span>
-        <span class="type">int</span> <span class="var">suffix</span> = <span class="num">1</span>;
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="var">n</span>-<span class="num">1</span>; <span class="var">i</span> &gt;= <span class="num">0</span>; <span class="var">i</span>--) {
-            <span class="var">result</span>[<span class="var">i</span>] *= <span class="var">suffix</span>;
-            <span class="var">suffix</span> *= <span class="var">nums</span>[<span class="var">i</span>];
-        }
-        <span class="kw">return</span> <span class="var">result</span>;
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Two passes, no division. First pass fills result with prefix products (everything to the left). Second pass traverses right-to-left maintaining a running suffix product and multiplies it in. At each index: result[i] = prefix[i] × suffix[i]."
+    num:14, title:"Product of Array Except Self", difficulty:"medium", topic:"Prefix Product",
+    desc:"Return an array where each element is the product of all other elements. No division allowed.",
+    tc:"O(n)", sc:"O(1)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span>[] <span class="fn">productExceptSelf</span>(<span class="type">int</span>[] <span class="var">nums</span>) {\n        <span class="type">int</span> <span class="var">n</span> = <span class="var">nums</span>.length;\n        <span class="type">int</span>[] <span class="var">res</span> = <span class="kw">new</span> <span class="type">int</span>[<span class="var">n</span>];\n        <span class="var">res</span>[<span class="num">0</span>] = <span class="num">1</span>;\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span>=<span class="num">1</span>; <span class="var">i</span>&lt;<span class="var">n</span>; <span class="var">i</span>++) <span class="var">res</span>[<span class="var">i</span>] = <span class="var">res</span>[<span class="var">i</span>-<span class="num">1</span>] * <span class="var">nums</span>[<span class="var">i</span>-<span class="num">1</span>];\n        <span class="type">int</span> <span class="var">suf</span> = <span class="num">1</span>;\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span>=<span class="var">n</span>-<span class="num">1</span>; <span class="var">i</span>&gt;=<span class="num">0</span>; <span class="var">i</span>--) {\n            <span class="var">res</span>[<span class="var">i</span>] *= <span class="var">suf</span>;\n            <span class="var">suf</span>  *= <span class="var">nums</span>[<span class="var">i</span>];\n        }\n        <span class="kw">return</span> <span class="var">res</span>;\n    }\n}',
+    exp:"<strong>Strategy:</strong> Pass 1 fills result with prefix products (left side). Pass 2 traverses right-to-left with a running suffix product and multiplies it in. result[i] = prefix[i] \u00d7 suffix[i]."
   },
   {
-    num: 15,
-    title: "3Sum",
-    difficulty: "medium",
-    topic: "Two Pointers",
-    desc: "Given an integer array nums, return all unique triplets [nums[i], nums[j], nums[k]] such that i ≠ j ≠ k and nums[i] + nums[j] + nums[k] == 0.",
-    timeComplexity: "O(n²)",
-    spaceComplexity: "O(1)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public</span> <span class="type">List</span>&lt;<span class="type">List</span>&lt;<span class="type">Integer</span>&gt;&gt; <span class="fn">threeSum</span>(<span class="type">int</span>[] <span class="var">nums</span>) {
-        <span class="type">Arrays</span>.sort(<span class="var">nums</span>);
-        <span class="type">List</span>&lt;<span class="type">List</span>&lt;<span class="type">Integer</span>&gt;&gt; <span class="var">res</span> = <span class="kw">new</span> <span class="type">ArrayList</span>&lt;&gt;();
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">0</span>; <span class="var">i</span> &lt; <span class="var">nums</span>.length - <span class="num">2</span>; <span class="var">i</span>++) {
-            <span class="kw">if</span> (<span class="var">i</span> &gt; <span class="num">0</span> &amp;&amp; <span class="var">nums</span>[<span class="var">i</span>] == <span class="var">nums</span>[<span class="var">i</span>-<span class="num">1</span>]) <span class="kw">continue</span>; <span class="comment">// skip dups</span>
-            <span class="type">int</span> <span class="var">l</span> = <span class="var">i</span>+<span class="num">1</span>, <span class="var">r</span> = <span class="var">nums</span>.length-<span class="num">1</span>;
-            <span class="kw">while</span> (<span class="var">l</span> &lt; <span class="var">r</span>) {
-                <span class="type">int</span> <span class="var">sum</span> = <span class="var">nums</span>[<span class="var">i</span>] + <span class="var">nums</span>[<span class="var">l</span>] + <span class="var">nums</span>[<span class="var">r</span>];
-                <span class="kw">if</span> (<span class="var">sum</span> == <span class="num">0</span>) {
-                    <span class="var">res</span>.add(<span class="type">Arrays</span>.asList(<span class="var">nums</span>[<span class="var">i</span>], <span class="var">nums</span>[<span class="var">l</span>], <span class="var">nums</span>[<span class="var">r</span>]));
-                    <span class="kw">while</span> (<span class="var">l</span> &lt; <span class="var">r</span> &amp;&amp; <span class="var">nums</span>[<span class="var">l</span>] == <span class="var">nums</span>[<span class="var">l</span>+<span class="num">1</span>]) <span class="var">l</span>++;
-                    <span class="kw">while</span> (<span class="var">l</span> &lt; <span class="var">r</span> &amp;&amp; <span class="var">nums</span>[<span class="var">r</span>] == <span class="var">nums</span>[<span class="var">r</span>-<span class="num">1</span>]) <span class="var">r</span>--;
-                    <span class="var">l</span>++; <span class="var">r</span>--;
-                } <span class="kw">else if</span> (<span class="var">sum</span> &lt; <span class="num">0</span>) <span class="var">l</span>++;
-                <span class="kw">else</span> <span class="var">r</span>--;
-            }
-        }
-        <span class="kw">return</span> <span class="var">res</span>;
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Sort the array, then fix the first element and use two pointers for the remaining pair. Sorting allows us to skip duplicates and decide which pointer to move based on the sum. Critical: skip duplicates at both the outer loop and inner two-pointer level to avoid duplicate triplets."
+    num:15, title:"3Sum", difficulty:"medium", topic:"Two Pointers",
+    desc:"Return all unique triplets in the array that sum to zero.",
+    tc:"O(n\u00b2)", sc:"O(1)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public</span> <span class="type">List</span>&lt;<span class="type">List</span>&lt;<span class="type">Integer</span>&gt;&gt; <span class="fn">threeSum</span>(<span class="type">int</span>[] <span class="var">nums</span>) {\n        <span class="type">Arrays</span>.sort(<span class="var">nums</span>);\n        <span class="type">List</span>&lt;<span class="type">List</span>&lt;<span class="type">Integer</span>&gt;&gt; <span class="var">res</span> = <span class="kw">new</span> <span class="type">ArrayList</span>&lt;&gt;();\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span>=<span class="num">0</span>; <span class="var">i</span>&lt;<span class="var">nums</span>.length-<span class="num">2</span>; <span class="var">i</span>++) {\n            <span class="kw">if</span> (<span class="var">i</span>&gt;<span class="num">0</span> &amp;&amp; <span class="var">nums</span>[<span class="var">i</span>]==<span class="var">nums</span>[<span class="var">i</span>-<span class="num">1</span>]) <span class="kw">continue</span>;\n            <span class="type">int</span> <span class="var">l</span>=<span class="var">i</span>+<span class="num">1</span>, <span class="var">r</span>=<span class="var">nums</span>.length-<span class="num">1</span>;\n            <span class="kw">while</span> (<span class="var">l</span>&lt;<span class="var">r</span>) {\n                <span class="type">int</span> <span class="var">s</span>=<span class="var">nums</span>[<span class="var">i</span>]+<span class="var">nums</span>[<span class="var">l</span>]+<span class="var">nums</span>[<span class="var">r</span>];\n                <span class="kw">if</span> (<span class="var">s</span>==<span class="num">0</span>) {\n                    <span class="var">res</span>.add(<span class="type">Arrays</span>.asList(<span class="var">nums</span>[<span class="var">i</span>],<span class="var">nums</span>[<span class="var">l</span>],<span class="var">nums</span>[<span class="var">r</span>]));\n                    <span class="kw">while</span>(<span class="var">l</span>&lt;<span class="var">r</span>&amp;&amp;<span class="var">nums</span>[<span class="var">l</span>]==<span class="var">nums</span>[<span class="var">l</span>+<span class="num">1</span>])<span class="var">l</span>++;\n                    <span class="kw">while</span>(<span class="var">l</span>&lt;<span class="var">r</span>&amp;&amp;<span class="var">nums</span>[<span class="var">r</span>]==<span class="var">nums</span>[<span class="var">r</span>-<span class="num">1</span>])<span class="var">r</span>--;\n                    <span class="var">l</span>++; <span class="var">r</span>--;\n                } <span class="kw">else if</span> (<span class="var">s</span>&lt;<span class="num">0</span>) <span class="var">l</span>++; <span class="kw">else</span> <span class="var">r</span>--;\n            }\n        }\n        <span class="kw">return</span> <span class="var">res</span>;\n    }\n}',
+    exp:"<strong>Strategy:</strong> Sort, fix the first element, two-pointer the rest. Skip duplicates at both levels to avoid duplicate triplets in results."
   },
   {
-    num: 16,
-    title: "Merge Intervals",
-    difficulty: "medium",
-    topic: "Sorting / Intervals",
-    desc: "Given an array of intervals where intervals[i] = [start, end], merge all overlapping intervals.",
-    timeComplexity: "O(n log n)",
-    spaceComplexity: "O(n)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span>[][] <span class="fn">merge</span>(<span class="type">int</span>[][] <span class="var">intervals</span>) {
-        <span class="type">Arrays</span>.sort(<span class="var">intervals</span>, (<span class="var">a</span>, <span class="var">b</span>) -> <span class="var">a</span>[<span class="num">0</span>] - <span class="var">b</span>[<span class="num">0</span>]);
-        <span class="type">List</span>&lt;<span class="type">int</span>[]&gt; <span class="var">merged</span> = <span class="kw">new</span> <span class="type">ArrayList</span>&lt;&gt;();
-        <span class="kw">for</span> (<span class="type">int</span>[] <span class="var">interval</span> : <span class="var">intervals</span>) {
-            <span class="kw">if</span> (<span class="var">merged</span>.isEmpty() ||
-                <span class="var">merged</span>.get(<span class="var">merged</span>.size()-<span class="num">1</span>)[<span class="num">1</span>] &lt; <span class="var">interval</span>[<span class="num">0</span>]) {
-                <span class="var">merged</span>.add(<span class="var">interval</span>); <span class="comment">// no overlap</span>
-            } <span class="kw">else</span> {
-                <span class="comment">// overlap: extend end if needed</span>
-                <span class="var">merged</span>.get(<span class="var">merged</span>.size()-<span class="num">1</span>)[<span class="num">1</span>] =
-                    <span class="type">Math</span>.max(<span class="var">merged</span>.get(<span class="var">merged</span>.size()-<span class="num">1</span>)[<span class="num">1</span>], <span class="var">interval</span>[<span class="num">1</span>]);
-            }
-        }
-        <span class="kw">return</span> <span class="var">merged</span>.toArray(<span class="kw">new</span> <span class="type">int</span>[<span class="num">0</span>][]);
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Sort intervals by start time. Iterate and compare each interval's start with the last merged interval's end. If they overlap (start &lt;= last end), extend the last interval's end. Otherwise, add as a new interval."
+    num:16, title:"Merge Intervals", difficulty:"medium", topic:"Sorting",
+    desc:"Given an array of intervals, merge all overlapping intervals and return the result.",
+    tc:"O(n log n)", sc:"O(n)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span>[][] <span class="fn">merge</span>(<span class="type">int</span>[][] <span class="var">iv</span>) {\n        <span class="type">Arrays</span>.sort(<span class="var">iv</span>, (<span class="var">a</span>,<span class="var">b</span>)-&gt;<span class="var">a</span>[<span class="num">0</span>]-<span class="var">b</span>[<span class="num">0</span>]);\n        <span class="type">List</span>&lt;<span class="type">int</span>[]&gt; <span class="var">out</span> = <span class="kw">new</span> <span class="type">ArrayList</span>&lt;&gt;();\n        <span class="kw">for</span> (<span class="type">int</span>[] <span class="var">i</span> : <span class="var">iv</span>) {\n            <span class="kw">if</span> (<span class="var">out</span>.isEmpty() || <span class="var">out</span>.get(<span class="var">out</span>.size()-<span class="num">1</span>)[<span class="num">1</span>] &lt; <span class="var">i</span>[<span class="num">0</span>])\n                <span class="var">out</span>.add(<span class="var">i</span>);\n            <span class="kw">else</span>\n                <span class="var">out</span>.get(<span class="var">out</span>.size()-<span class="num">1</span>)[<span class="num">1</span>] = <span class="type">Math</span>.max(<span class="var">out</span>.get(<span class="var">out</span>.size()-<span class="num">1</span>)[<span class="num">1</span>], <span class="var">i</span>[<span class="num">1</span>]);\n        }\n        <span class="kw">return</span> <span class="var">out</span>.toArray(<span class="kw">new</span> <span class="type">int</span>[<span class="num">0</span>][]);\n    }\n}',
+    exp:"<strong>Strategy:</strong> Sort by start time. Compare each interval's start against the last merged interval's end. Overlap? Extend the end. Otherwise add as new."
   },
   {
-    num: 17,
-    title: "Top K Frequent Elements",
-    difficulty: "medium",
-    topic: "Heap / Bucket Sort",
-    desc: "Given an integer array nums and an integer k, return the k most frequent elements.",
-    timeComplexity: "O(n log k)",
-    spaceComplexity: "O(n)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span>[] <span class="fn">topKFrequent</span>(<span class="type">int</span>[] <span class="var">nums</span>, <span class="type">int</span> <span class="var">k</span>) {
-        <span class="type">Map</span>&lt;<span class="type">Integer</span>, <span class="type">Integer</span>&gt; <span class="var">freq</span> = <span class="kw">new</span> <span class="type">HashMap</span>&lt;&gt;();
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">n</span> : <span class="var">nums</span>) <span class="var">freq</span>.merge(<span class="var">n</span>, <span class="num">1</span>, <span class="type">Integer</span>::sum);
-
-        <span class="comment">// Min-heap of size k keyed by frequency</span>
-        <span class="type">PriorityQueue</span>&lt;<span class="type">Integer</span>&gt; <span class="var">heap</span> =
-            <span class="kw">new</span> <span class="type">PriorityQueue</span>&lt;&gt;((<span class="var">a</span>, <span class="var">b</span>) -> <span class="var">freq</span>.get(<span class="var">a</span>) - <span class="var">freq</span>.get(<span class="var">b</span>));
-
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">num</span> : <span class="var">freq</span>.keySet()) {
-            <span class="var">heap</span>.offer(<span class="var">num</span>);
-            <span class="kw">if</span> (<span class="var">heap</span>.size() &gt; <span class="var">k</span>) <span class="var">heap</span>.poll(); <span class="comment">// evict least frequent</span>
-        }
-        <span class="kw">return</span> <span class="var">heap</span>.stream().mapToInt(<span class="type">Integer</span>::intValue).toArray();
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Count frequencies with a HashMap. Then use a min-heap of size k — this always evicts the least frequent element, so we're left with the k most frequent. Heap size never exceeds k, keeping it O(n log k) instead of O(n log n)."
+    num:17, title:"Top K Frequent Elements", difficulty:"medium", topic:"Heap",
+    desc:"Given an integer array and k, return the k most frequent elements.",
+    tc:"O(n log k)", sc:"O(n)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span>[] <span class="fn">topKFrequent</span>(<span class="type">int</span>[] <span class="var">nums</span>, <span class="type">int</span> <span class="var">k</span>) {\n        <span class="type">Map</span>&lt;<span class="type">Integer</span>,<span class="type">Integer</span>&gt; <span class="var">f</span> = <span class="kw">new</span> <span class="type">HashMap</span>&lt;&gt;();\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">n</span>:<span class="var">nums</span>) <span class="var">f</span>.merge(<span class="var">n</span>,<span class="num">1</span>,<span class="type">Integer</span>::sum);\n        <span class="type">PriorityQueue</span>&lt;<span class="type">Integer</span>&gt; <span class="var">h</span> =\n            <span class="kw">new</span> <span class="type">PriorityQueue</span>&lt;&gt;((<span class="var">a</span>,<span class="var">b</span>)-&gt;<span class="var">f</span>.get(<span class="var">a</span>)-<span class="var">f</span>.get(<span class="var">b</span>));\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">n</span>:<span class="var">f</span>.keySet()) {\n            <span class="var">h</span>.offer(<span class="var">n</span>);\n            <span class="kw">if</span> (<span class="var">h</span>.size()&gt;<span class="var">k</span>) <span class="var">h</span>.poll();\n        }\n        <span class="kw">return</span> <span class="var">h</span>.stream().mapToInt(<span class="type">Integer</span>::intValue).toArray();\n    }\n}',
+    exp:"<strong>Strategy:</strong> Count frequencies with a HashMap. Min-heap of size k always evicts the least frequent, leaving the top-k. O(n log k) vs O(n log n) for full sort."
   },
   {
-    num: 18,
-    title: "Word Break",
-    difficulty: "medium",
-    topic: "Dynamic Programming",
-    desc: "Given a string s and a dictionary wordDict, return true if s can be segmented into space-separated sequence of one or more dictionary words.",
-    timeComplexity: "O(n²)",
-    spaceComplexity: "O(n)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public boolean</span> <span class="fn">wordBreak</span>(<span class="type">String</span> <span class="var">s</span>, <span class="type">List</span>&lt;<span class="type">String</span>&gt; <span class="var">wordDict</span>) {
-        <span class="type">Set</span>&lt;<span class="type">String</span>&gt; <span class="var">dict</span> = <span class="kw">new</span> <span class="type">HashSet</span>&lt;&gt;(<span class="var">wordDict</span>);
-        <span class="type">boolean</span>[] <span class="var">dp</span> = <span class="kw">new</span> <span class="type">boolean</span>[<span class="var">s</span>.length() + <span class="num">1</span>];
-        <span class="var">dp</span>[<span class="num">0</span>] = <span class="kw">true</span>; <span class="comment">// empty string</span>
-        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span> = <span class="num">1</span>; <span class="var">i</span> &lt;= <span class="var">s</span>.length(); <span class="var">i</span>++) {
-            <span class="kw">for</span> (<span class="type">int</span> <span class="var">j</span> = <span class="num">0</span>; <span class="var">j</span> &lt; <span class="var">i</span>; <span class="var">j</span>++) {
-                <span class="kw">if</span> (<span class="var">dp</span>[<span class="var">j</span>] &amp;&amp; <span class="var">dict</span>.contains(<span class="var">s</span>.substring(<span class="var">j</span>, <span class="var">i</span>))) {
-                    <span class="var">dp</span>[<span class="var">i</span>] = <span class="kw">true</span>;
-                    <span class="kw">break</span>;
-                }
-            }
-        }
-        <span class="kw">return</span> <span class="var">dp</span>[<span class="var">s</span>.length()];
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> dp[i] = true means s[0..i-1] can be segmented. For each position i, check all substrings s[j..i]. If dp[j] is true AND s[j..i] is in the dictionary, then dp[i] = true. Convert wordDict to a HashSet for O(1) lookup."
+    num:18, title:"Word Break", difficulty:"medium", topic:"Dynamic Programming",
+    desc:"Return true if the string s can be segmented into words from the dictionary.",
+    tc:"O(n\u00b2)", sc:"O(n)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public boolean</span> <span class="fn">wordBreak</span>(<span class="type">String</span> <span class="var">s</span>, <span class="type">List</span>&lt;<span class="type">String</span>&gt; <span class="var">dict</span>) {\n        <span class="type">Set</span>&lt;<span class="type">String</span>&gt; <span class="var">set</span> = <span class="kw">new</span> <span class="type">HashSet</span>&lt;&gt;(<span class="var">dict</span>);\n        <span class="type">boolean</span>[] <span class="var">dp</span> = <span class="kw">new</span> <span class="type">boolean</span>[<span class="var">s</span>.length()+<span class="num">1</span>];\n        <span class="var">dp</span>[<span class="num">0</span>] = <span class="kw">true</span>;\n        <span class="kw">for</span> (<span class="type">int</span> <span class="var">i</span>=<span class="num">1</span>; <span class="var">i</span>&lt;=<span class="var">s</span>.length(); <span class="var">i</span>++)\n            <span class="kw">for</span> (<span class="type">int</span> <span class="var">j</span>=<span class="num">0</span>; <span class="var">j</span>&lt;<span class="var">i</span>; <span class="var">j</span>++)\n                <span class="kw">if</span> (<span class="var">dp</span>[<span class="var">j</span>] &amp;&amp; <span class="var">set</span>.contains(<span class="var">s</span>.substring(<span class="var">j</span>,<span class="var">i</span>)))\n                    { <span class="var">dp</span>[<span class="var">i</span>]=<span class="kw">true</span>; <span class="kw">break</span>; }\n        <span class="kw">return</span> <span class="var">dp</span>[<span class="var">s</span>.length()];\n    }\n}',
+    exp:"<strong>Strategy:</strong> dp[i] = true means s[0..i-1] is segmentable. For each i, check all substrings s[j..i]. If dp[j] is true AND that substring is in the dict, dp[i] = true."
   },
   {
-    num: 19,
-    title: "Median of Two Sorted Arrays",
-    difficulty: "hard",
-    topic: "Binary Search",
-    desc: "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays. Runtime must be O(log(m+n)).",
-    timeComplexity: "O(log(min(m,n)))",
-    spaceComplexity: "O(1)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public double</span> <span class="fn">findMedianSortedArrays</span>(<span class="type">int</span>[] <span class="var">nums1</span>, <span class="type">int</span>[] <span class="var">nums2</span>) {
-        <span class="kw">if</span> (<span class="var">nums1</span>.length &gt; <span class="var">nums2</span>.length)
-            <span class="kw">return</span> <span class="fn">findMedianSortedArrays</span>(<span class="var">nums2</span>, <span class="var">nums1</span>);
-        <span class="type">int</span> <span class="var">m</span> = <span class="var">nums1</span>.length, <span class="var">n</span> = <span class="var">nums2</span>.length;
-        <span class="type">int</span> <span class="var">lo</span> = <span class="num">0</span>, <span class="var">hi</span> = <span class="var">m</span>;
-        <span class="kw">while</span> (<span class="var">lo</span> &lt;= <span class="var">hi</span>) {
-            <span class="type">int</span> <span class="var">i</span> = (<span class="var">lo</span> + <span class="var">hi</span>) / <span class="num">2</span>;
-            <span class="type">int</span> <span class="var">j</span> = (<span class="var">m</span> + <span class="var">n</span> + <span class="num">1</span>) / <span class="num">2</span> - <span class="var">i</span>;
-            <span class="type">int</span> <span class="var">maxL1</span> = <span class="var">i</span> == <span class="num">0</span> ? <span class="type">Integer</span>.MIN_VALUE : <span class="var">nums1</span>[<span class="var">i</span>-<span class="num">1</span>];
-            <span class="type">int</span> <span class="var">minR1</span> = <span class="var">i</span> == <span class="var">m</span> ? <span class="type">Integer</span>.MAX_VALUE : <span class="var">nums1</span>[<span class="var">i</span>];
-            <span class="type">int</span> <span class="var">maxL2</span> = <span class="var">j</span> == <span class="num">0</span> ? <span class="type">Integer</span>.MIN_VALUE : <span class="var">nums2</span>[<span class="var">j</span>-<span class="num">1</span>];
-            <span class="type">int</span> <span class="var">minR2</span> = <span class="var">j</span> == <span class="var">n</span> ? <span class="type">Integer</span>.MAX_VALUE : <span class="var">nums2</span>[<span class="var">j</span>];
-            <span class="kw">if</span> (<span class="var">maxL1</span> &lt;= <span class="var">minR2</span> &amp;&amp; <span class="var">maxL2</span> &lt;= <span class="var">minR1</span>) {
-                <span class="kw">if</span> ((<span class="var">m</span> + <span class="var">n</span>) % <span class="num">2</span> == <span class="num">1</span>)
-                    <span class="kw">return</span> <span class="type">Math</span>.max(<span class="var">maxL1</span>, <span class="var">maxL2</span>);
-                <span class="kw">return</span> (<span class="type">Math</span>.max(<span class="var">maxL1</span>, <span class="var">maxL2</span>) + <span class="type">Math</span>.min(<span class="var">minR1</span>, <span class="var">minR2</span>)) / <span class="num">2.0</span>;
-            } <span class="kw">else if</span> (<span class="var">maxL1</span> &gt; <span class="var">minR2</span>) <span class="var">hi</span> = <span class="var">i</span> - <span class="num">1</span>;
-            <span class="kw">else</span> <span class="var">lo</span> = <span class="var">i</span> + <span class="num">1</span>;
-        }
-        <span class="kw">return</span> -<span class="num">1</span>;
-    }
-}`,
-    explanation: "<strong>Strategy:</strong> Binary search on the smaller array to find the correct partition point. We want to partition both arrays such that: all elements on the left &lt;= all elements on the right. Always binary search on the shorter array for efficiency. Handle odd/even total length separately."
+    num:19, title:"Median of Two Sorted Arrays", difficulty:"hard", topic:"Binary Search",
+    desc:"Find the median of two sorted arrays in O(log(m+n)) time.",
+    tc:"O(log(min(m,n)))", sc:"O(1)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public double</span> <span class="fn">findMedianSortedArrays</span>(<span class="type">int</span>[] <span class="var">a</span>, <span class="type">int</span>[] <span class="var">b</span>) {\n        <span class="kw">if</span> (<span class="var">a</span>.length &gt; <span class="var">b</span>.length) <span class="kw">return</span> <span class="fn">findMedianSortedArrays</span>(<span class="var">b</span>,<span class="var">a</span>);\n        <span class="type">int</span> <span class="var">m</span>=<span class="var">a</span>.length, <span class="var">n</span>=<span class="var">b</span>.length, <span class="var">lo</span>=<span class="num">0</span>, <span class="var">hi</span>=<span class="var">m</span>;\n        <span class="kw">while</span> (<span class="var">lo</span>&lt;=<span class="var">hi</span>) {\n            <span class="type">int</span> <span class="var">i</span>=(<span class="var">lo</span>+<span class="var">hi</span>)/<span class="num">2</span>, <span class="var">j</span>=(<span class="var">m</span>+<span class="var">n</span>+<span class="num">1</span>)/<span class="num">2</span>-<span class="var">i</span>;\n            <span class="type">int</span> <span class="var">aL</span>=<span class="var">i</span>==<span class="num">0</span>?<span class="type">Integer</span>.MIN_VALUE:<span class="var">a</span>[<span class="var">i</span>-<span class="num">1</span>];\n            <span class="type">int</span> <span class="var">aR</span>=<span class="var">i</span>==<span class="var">m</span>?<span class="type">Integer</span>.MAX_VALUE:<span class="var">a</span>[<span class="var">i</span>];\n            <span class="type">int</span> <span class="var">bL</span>=<span class="var">j</span>==<span class="num">0</span>?<span class="type">Integer</span>.MIN_VALUE:<span class="var">b</span>[<span class="var">j</span>-<span class="num">1</span>];\n            <span class="type">int</span> <span class="var">bR</span>=<span class="var">j</span>==<span class="var">n</span>?<span class="type">Integer</span>.MAX_VALUE:<span class="var">b</span>[<span class="var">j</span>];\n            <span class="kw">if</span> (<span class="var">aL</span>&lt;=<span class="var">bR</span> &amp;&amp; <span class="var">bL</span>&lt;=<span class="var">aR</span>) {\n                <span class="kw">if</span> ((<span class="var">m</span>+<span class="var">n</span>)%<span class="num">2</span>==<span class="num">1</span>) <span class="kw">return</span> <span class="type">Math</span>.max(<span class="var">aL</span>,<span class="var">bL</span>);\n                <span class="kw">return</span> (<span class="type">Math</span>.max(<span class="var">aL</span>,<span class="var">bL</span>)+<span class="type">Math</span>.min(<span class="var">aR</span>,<span class="var">bR</span>))/<span class="num">2.0</span>;\n            } <span class="kw">else if</span> (<span class="var">aL</span>&gt;<span class="var">bR</span>) <span class="var">hi</span>=<span class="var">i</span>-<span class="num">1</span>; <span class="kw">else</span> <span class="var">lo</span>=<span class="var">i</span>+<span class="num">1</span>;\n        }\n        <span class="kw">return</span> -<span class="num">1</span>;\n    }\n}',
+    exp:"<strong>Strategy:</strong> Binary search on the smaller array to find a partition where all left elements &lt;= all right elements across both arrays. Handle odd/even total length separately."
   },
   {
-    num: 20,
-    title: "Trapping Rain Water",
-    difficulty: "hard",
-    topic: "Two Pointers",
-    desc: "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
-    timeComplexity: "O(n)",
-    spaceComplexity: "O(1)",
-    code: `<span class="kw">class</span> <span class="type">Solution</span> {
-    <span class="kw">public int</span> <span class="fn">trap</span>(<span class="type">int</span>[] <span class="var">height</span>) {
-        <span class="type">int</span> <span class="var">left</span> = <span class="num">0</span>, <span class="var">right</span> = <span class="var">height</span>.length - <span class="num">1</span>;
-        <span class="type">int</span> <span class="var">maxLeft</span> = <span class="num">0</span>, <span class="var">maxRight</span> = <span class="num">0</span>;
-        <span class="type">int</span> <span class="var">water</span> = <span class="num">0</span>;
-        <span class="kw">while</span> (<span class="var">left</span> &lt; <span class="var">right</span>) {
-            <span class="kw">if</span> (<span class="var">height</span>[<span class="var">left</span>] &lt; <span class="var">height</span>[<span class="var">right</span>]) {
-                <span class="kw">if</span> (<span class="var">height</span>[<span class="var">left</span>] &gt;= <span class="var">maxLeft</span>) <span class="var">maxLeft</span> = <span class="var">height</span>[<span class="var">left</span>];
-                <span class="kw">else</span> <span class="var">water</span> += <span class="var">maxLeft</span> - <span class="var">height</span>[<span class="var">left</span>];
-                <span class="var">left</span>++;
-            } <span class="kw">else</span> {
-                <span class="kw">if</span> (<span class="var">height</span>[<span class="var">right</span>] &gt;= <span class="var">maxRight</span>) <span class="var">maxRight</span> = <span class="var">height</span>[<span class="var">right</span>];
-                <span class="kw">else</span> <span class="var">water</span> += <span class="var">maxRight</span> - <span class="var">height</span>[<span class="var">right</span>];
-                <span class="var">right</span>--;
-            }
-        }
-        <span class="kw">return</span> <span class="var">water</span>;
-    }
-}`,
-    explanation: "<strong>Strategy (Two Pointers):</strong> Water at any position = min(maxLeft, maxRight) - height[i]. The key insight: if height[left] &lt; height[right], the water level at left is determined by maxLeft. Process the side with the lower bar, update that side's max, accumulate water. This avoids the O(n) space of precomputing prefix/suffix max arrays."
+    num:20, title:"Trapping Rain Water", difficulty:"hard", topic:"Two Pointers",
+    desc:"Given an elevation map, compute how much water can be trapped between the bars after raining.",
+    tc:"O(n)", sc:"O(1)",
+    code:'<span class="kw">class</span> <span class="type">Solution</span> {\n    <span class="kw">public int</span> <span class="fn">trap</span>(<span class="type">int</span>[] <span class="var">h</span>) {\n        <span class="type">int</span> <span class="var">l</span>=<span class="num">0</span>, <span class="var">r</span>=<span class="var">h</span>.length-<span class="num">1</span>, <span class="var">mL</span>=<span class="num">0</span>, <span class="var">mR</span>=<span class="num">0</span>, <span class="var">w</span>=<span class="num">0</span>;\n        <span class="kw">while</span> (<span class="var">l</span>&lt;<span class="var">r</span>) {\n            <span class="kw">if</span> (<span class="var">h</span>[<span class="var">l</span>]&lt;<span class="var">h</span>[<span class="var">r</span>]) {\n                <span class="kw">if</span> (<span class="var">h</span>[<span class="var">l</span>]&gt;=<span class="var">mL</span>) <span class="var">mL</span>=<span class="var">h</span>[<span class="var">l</span>]; <span class="kw">else</span> <span class="var">w</span>+=<span class="var">mL</span>-<span class="var">h</span>[<span class="var">l</span>];\n                <span class="var">l</span>++;\n            } <span class="kw">else</span> {\n                <span class="kw">if</span> (<span class="var">h</span>[<span class="var">r</span>]&gt;=<span class="var">mR</span>) <span class="var">mR</span>=<span class="var">h</span>[<span class="var">r</span>]; <span class="kw">else</span> <span class="var">w</span>+=<span class="var">mR</span>-<span class="var">h</span>[<span class="var">r</span>];\n                <span class="var">r</span>--;\n            }\n        }\n        <span class="kw">return</span> <span class="var">w</span>;\n    }\n}',
+    exp:"<strong>Strategy (Two Pointers):</strong> Water at position i = min(maxLeft, maxRight) - height[i]. Process the side with the lower bar, update that side's max, accumulate water. No extra arrays needed."
   }
 ];
 
 function render(data) {
-  const container = document.getElementById('questions');
-  container.innerHTML = '';
-  data.forEach((q, idx) => {
-    const div = document.createElement('div');
-    div.className = `question-card`;
-    div.dataset.difficulty = q.difficulty;
-    div.style.animationDelay = `${idx * 0.04}s`;
-    div.innerHTML = `
-      <div class="card-header" onclick="toggle(this)">
-        <span class="q-number">#${String(q.num).padStart(2,'0')}</span>
-        <span class="q-title">${q.title}</span>
-        <span class="topic-tag">${q.topic}</span>
-        <span class="difficulty-badge ${q.difficulty}-badge">${q.difficulty}</span>
-        <span class="toggle-icon">+</span>
-      </div>
-      <div class="card-body">
-        <div class="divider"></div>
-        <div class="section-label">Problem</div>
-        <div class="problem-desc">${q.desc}</div>
-        <div class="complexity-row">
-          <span class="complexity-item">Time: <span>${q.timeComplexity}</span></span>
-          <span class="complexity-item">Space: <span>${q.spaceComplexity}</span></span>
-        </div>
-        <div class="section-label">Solution</div>
-        <pre><code>${q.code}</code></pre>
+  var c = document.getElementById('questions');
+  c.innerHTML = '';
+  data.forEach(function(q, idx) {
+    var d = document.createElement('div');
+    d.className = 'question-card';
+    d.dataset.difficulty = q.difficulty;
+    d.style.animationDelay = (idx * 0.04) + 's';
+    d.innerHTML =
+      '<div class="card-header" onclick="toggle(this)">' +
+        '<span class="q-number">#' + String(q.num).padStart(2,'0') + '</span>' +
+        '<span class="q-title">' + q.title + '</span>' +
+        '<span class="topic-tag">' + q.topic + '</span>' +
+        '<span class="difficulty-badge ' + q.difficulty + '-badge">' + q.difficulty + '</span>' +
+        '<span class="toggle-icon">+</span>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<div class="divider"></div>' +
+        '<div class="section-label">Problem</div>' +
+        '<div class="problem-desc">' + q.desc + '</div>' +
+        '<div class="complexity-row">' +
+          '<span class="complexity-item">Time: <span>' + q.tc + '</span></span>' +
+          '<span class="complexity-item">Space: <span>' + q.sc + '</span></span>' +
+        '</div>' +
+        '<div class="section-label">Solution</div>' +
+        '<pre><code>' + q.code + '</code></pre>' +
 
 ```
-    <div class="section-label">Explanation</div>
-    <div class="explanation">${q.explanation}</div>
-  </div>
-`;
-container.appendChild(div);
+    '<div class="section-label">Explanation</div>' +
+    '<div class="explanation">' + q.exp + '</div>' +
+  '</div>';
+c.appendChild(d);
 ```
 
 });
 }
 
-function toggle(header) {
-const body = header.nextElementSibling;
-const icon = header.querySelector(’.toggle-icon’);
-body.classList.toggle(‘open’);
-icon.textContent = body.classList.contains(‘open’) ? ‘−’ : ‘+’;
-icon.style.transform = body.classList.contains(‘open’) ? ‘rotate(0deg)’ : ‘rotate(0deg)’;
+function toggle(h) {
+var b = h.nextElementSibling;
+var ic = h.querySelector(’.toggle-icon’);
+b.classList.toggle(‘open’);
+ic.textContent = b.classList.contains(‘open’) ? ‘\u2212’ : ‘+’;
 }
 
 function filter(type, btn) {
-document.querySelectorAll(’.filter-btn’).forEach(b => b.classList.remove(‘active’));
+document.querySelectorAll(’.filter-btn’).forEach(function(b){ b.classList.remove(‘active’); });
 btn.classList.add(‘active’);
-const filtered = type === ‘all’ ? questions : questions.filter(q => q.difficulty === type);
-render(filtered);
+render(type === ‘all’ ? Q : Q.filter(function(q){ return q.difficulty === type; }));
 }
 
-render(questions);
+render(Q);
 </script>
 
 </body>
