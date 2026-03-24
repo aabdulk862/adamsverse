@@ -540,54 +540,77 @@ var Q = [
   }
 ];
 
+function pad(n) {
+  return n < 10 ? '0' + n : '' + n;
+}
+
 function render(data) {
   var c = document.getElementById('questions');
   c.innerHTML = '';
-  data.forEach(function(q, idx) {
+  for (var idx = 0; idx < data.length; idx++) {
+    var q = data[idx];
     var d = document.createElement('div');
     d.className = 'question-card';
-    d.dataset.difficulty = q.difficulty;
+    d.setAttribute('data-difficulty', q.difficulty);
     d.style.animationDelay = (idx * 0.04) + 's';
-    d.innerHTML =
-      '<div class="card-header" onclick="toggle(this)">' +
-        '<span class="q-number">#' + String(q.num).padStart(2,'0') + '</span>' +
-        '<span class="q-title">' + q.title + '</span>' +
-        '<span class="topic-tag">' + q.topic + '</span>' +
-        '<span class="difficulty-badge ' + q.difficulty + '-badge">' + q.difficulty + '</span>' +
-        '<span class="toggle-icon">+</span>' +
+    var header = document.createElement('div');
+    header.className = 'card-header';
+    header.setAttribute('onclick', 'toggle(this)');
+    header.innerHTML =
+      '<span class="q-number">#' + pad(q.num) + '</span>' +
+      '<span class="q-title">' + q.title + '</span>' +
+      '<span class="topic-tag">' + q.topic + '</span>' +
+      '<span class="difficulty-badge ' + q.difficulty + '-badge">' + q.difficulty + '</span>' +
+      '<span class="toggle-icon">+</span>';
+    var body = document.createElement('div');
+    body.className = 'card-body';
+    body.innerHTML =
+      '<div class="divider"></div>' +
+      '<div class="section-label">Problem</div>' +
+      '<div class="problem-desc">' + q.desc + '</div>' +
+      '<div class="complexity-row">' +
+        '<span class="complexity-item">Time: <span>' + q.tc + '</span></span>' +
+        '<span class="complexity-item">Space: <span>' + q.sc + '</span></span>' +
       '</div>' +
-      '<div class="card-body">' +
-        '<div class="divider"></div>' +
-        '<div class="section-label">Problem</div>' +
-        '<div class="problem-desc">' + q.desc + '</div>' +
-        '<div class="complexity-row">' +
-          '<span class="complexity-item">Time: <span>' + q.tc + '</span></span>' +
-          '<span class="complexity-item">Space: <span>' + q.sc + '</span></span>' +
-        '</div>' +
-        '<div class="section-label">Solution</div>' +
-        '<pre><code>' + q.code + '</code></pre>' +
+      '<div class="section-label">Solution</div>' +
+      '<pre><code>' + q.code + '</code></pre>' +
 
 ```
-    '<div class="section-label">Explanation</div>' +
-    '<div class="explanation">' + q.exp + '</div>' +
-  '</div>';
+  '<div class="section-label">Explanation</div>' +
+  '<div class="explanation">' + q.exp + '</div>';
+d.appendChild(header);
+d.appendChild(body);
 c.appendChild(d);
 ```
 
-});
+}
 }
 
 function toggle(h) {
 var b = h.nextElementSibling;
 var ic = h.querySelector(’.toggle-icon’);
-b.classList.toggle(‘open’);
-ic.textContent = b.classList.contains(‘open’) ? ‘\u2212’ : ‘+’;
+if (b.classList.contains(‘open’)) {
+b.classList.remove(‘open’);
+ic.innerHTML = ‘+’;
+} else {
+b.classList.add(‘open’);
+ic.innerHTML = ‘−’;
+}
 }
 
 function filter(type, btn) {
-document.querySelectorAll(’.filter-btn’).forEach(function(b){ b.classList.remove(‘active’); });
+var btns = document.querySelectorAll(’.filter-btn’);
+for (var i = 0; i < btns.length; i++) btns[i].classList.remove(‘active’);
 btn.classList.add(‘active’);
-render(type === ‘all’ ? Q : Q.filter(function(q){ return q.difficulty === type; }));
+if (type === ‘all’) {
+render(Q);
+} else {
+var filtered = [];
+for (var i = 0; i < Q.length; i++) {
+if (Q[i].difficulty === type) filtered.push(Q[i]);
+}
+render(filtered);
+}
 }
 
 render(Q);
