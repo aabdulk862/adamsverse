@@ -4,6 +4,11 @@
   environment = { NODE_VERSION = "20" }
 
 [[redirects]]
+  from = "/dsa"
+  to = "/dsa.html"
+  status = 200
+
+[[redirects]]
   from = "/leetcode"
   to = "/leetcode.html"
   status = 200
