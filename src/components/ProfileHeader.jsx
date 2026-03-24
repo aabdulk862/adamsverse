@@ -102,6 +102,17 @@ export default function ProfileHeader() {
       <a href="/#contact" className="profile-cta">
         Let&apos;s Work Together
       </a>
+
+      <div className="adverse-media-cta">
+        <p className="adverse-media-label">Powered by</p>
+        <span className="adverse-media-brand">Adverse Media</span>
+        <p className="adverse-media-tagline">
+          Your vision. Our craft. Let&apos;s build something real.
+        </p>
+        <a href="/#contact" className="adverse-media-btn">
+          <i className="fas fa-bolt"></i> Start a Project
+        </a>
+      </div>
     </motion.div>
   );
 }

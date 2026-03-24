@@ -1,4 +1,4 @@
-import BannerImage from "../assets/images/banner2.jpeg";
+import BannerImage from "../assets/images/adverse.png";
 
 export default function Banner() {
   return (
