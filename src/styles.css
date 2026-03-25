@@ -1418,13 +1418,14 @@ body {
 }
 
 .about-avatar {
-  width: 80px;
-  height: 80px;
+  width: 110px;
+  height: 110px;
   border-radius: var(--radius-full);
-  object-fit: contain;
-  background: rgba(255, 255, 255, 0.08);
-  padding: var(--space-2);
-  border: 2px solid var(--border-hover);
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid var(--accent-primary);
+  box-shadow: 0 0 0 4px rgba(88, 101, 242, 0.2);
+  flex-shrink: 0;
 }
 
 .about-bio-info {
@@ -1492,6 +1493,18 @@ body {
   transform: translateY(-1px);
 }
 
+.skill-group {
+  margin-bottom: var(--space-4);
+}
+
+.skill-group-label {
+  font-size: var(--font-size-xs, 0.75rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  margin: 0 0 var(--space-2) 0;
+}
+
 /* Timeline */
 .timeline {
   display: flex;
@@ -1556,8 +1569,8 @@ body {
   }
 
   .about-avatar {
-    width: 64px;
-    height: 64px;
+    width: 88px;
+    height: 88px;
   }
 }
 
@@ -1713,4 +1726,32 @@ body {
 .learn-link:hover .learn-arrow {
   transform: translateX(3px);
   color: var(--accent-primary);
+}
+
+.learn-group {
+  margin-bottom: var(--space-8);
+}
+
+.learn-group-title {
+  font-size: var(--font-size-sm, 0.875rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  margin: 0 0 var(--space-3) 0;
+}
+
+.learn-link-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.learn-link-label {
+  font-weight: var(--font-weight-medium);
+}
+
+.learn-link-desc {
+  font-size: var(--font-size-xs, 0.75rem);
+  opacity: 0.55;
+  font-weight: var(--font-weight-normal);
 }

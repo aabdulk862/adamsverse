@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 import logo from "../assets/images/logo3.png";
 
 const PROJECTS = [
-  { name: "iGamec", url: "https://igamec.org" },
-];
-
-const SECTIONS = [
-  { label: "Pricing", id: "pricing" },
-  { label: "Content & Socials", id: "content-socials" },
-  { label: "Support", id: "support" },
-  { label: "Contact Me", id: "contact" },
+  { name: "GAMEC", url: "https://igamec.org", external: true },
+  { name: "DSA Guide", url: "/dsa.html", external: false },
+  { name: "LeetCode Guide", url: "/leetcode.html", external: false },
+  { name: "GitHub", url: "https://github.com/aabdulk862", external: true },
+  {
+    name: "LinkedIn",
+    url: "https://linkedin.com/in/adam-abdulkadir",
+    external: true,
+  },
 ];
 
 const PAGE_LINKS = [
@@ -49,10 +50,6 @@ export default function Navbar() {
 
   const closeMobile = () => setMobileOpen(false);
 
-  const handleSectionClick = () => {
-    closeMobile();
-  };
-
   return (
     <nav className="navbar" ref={navRef}>
       <div className="navbar-inner">
@@ -84,23 +81,16 @@ export default function Navbar() {
             </button>
             {sectionsOpen && (
               <div className="navbar-dropdown-menu">
-                {SECTIONS.map((section) => (
-                  <a key={section.id} href={`/#${section.id}`}>
-                    {section.label}
-                  </a>
-                ))}
-                <hr style={{ border: "none", borderTop: "1px solid rgba(255,255,255,0.1)", margin: "4px 0" }} />
                 {PROJECTS.map((project) => (
                   <a
                     key={project.name}
                     href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={project.external ? "_blank" : undefined}
+                    rel={project.external ? "noopener noreferrer" : undefined}
                   >
                     {project.name}
                   </a>
                 ))}
-
               </div>
             )}
           </li>
@@ -127,30 +117,18 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {/* Section anchors */}
-          {SECTIONS.map((section) => (
-            <a
-              key={section.id}
-              href={`/#${section.id}`}
-              onClick={handleSectionClick}
-            >
-              {section.label}
-            </a>
-          ))}
-
           {/* Projects & Learn */}
           {PROJECTS.map((project) => (
             <a
               key={project.name}
               href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={project.external ? "_blank" : undefined}
+              rel={project.external ? "noopener noreferrer" : undefined}
               onClick={closeMobile}
             >
               {project.name}
             </a>
           ))}
-
         </div>
       )}
     </nav>

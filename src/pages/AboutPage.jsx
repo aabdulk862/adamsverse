@@ -1,40 +1,89 @@
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/profile.jpeg";
 import usa from "../assets/images/usa.png";
 import eritrea from "../assets/images/eritrea.png";
 
-const skills = [
-  "React",
-  "JavaScript",
-  "CSS",
-  "Node.js",
-  "Python",
-  "HTML",
-  "Git",
-  "Vite",
-  "REST APIs",
-  "Video Editing",
-  "Graphic Design",
-  "Community Building",
+const skillGroups = [
+  {
+    category: "Backend",
+    skills: [
+      "Java",
+      "Java 21",
+      "Spring Boot",
+      "Spring Batch",
+      "JDBC",
+      "Kafka",
+      "RabbitMQ",
+    ],
+  },
+  {
+    category: "Frontend",
+    skills: [
+      "React",
+      "Angular",
+      "TypeScript",
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "Material UI",
+      "Next.js",
+    ],
+  },
+  {
+    category: "Cloud & DevOps",
+    skills: ["AWS", "Azure", "Docker", "Kubernetes", "Jenkins", "CI/CD"],
+  },
+  {
+    category: "Tools",
+    skills: [
+      "Git",
+      "GitHub",
+      "Gradle",
+      "Maven",
+      "IntelliJ",
+      "VS Code",
+      "Postman",
+      "Figma",
+      "Tableau",
+    ],
+  },
+  {
+    category: "Methodologies",
+    skills: [
+      "Microservices",
+      "Event-Driven Architecture",
+      "REST API Design",
+      "MVC",
+      "OOP",
+      "Agile",
+    ],
+  },
 ];
 
 const experience = [
   {
-    year: "2024",
-    title: "Founded AdamsVerse LLC",
+    year: "2025",
+    title:
+      "Software Engineer Associate — Infosys (Charter Communications/Spectrum)",
     description:
-      "Launched a personal brand and creator hub offering web development, content creation, and consulting services.",
+      "Contributing to UCC Hub, a large-scale customer communications platform. Delivered Appointment Service as a standalone Spring Boot microservice (Java 21), designed REST + RabbitMQ integrations, and led architectural analysis for third-party integrations.",
+  },
+  {
+    year: "2024",
+    title: "Full Stack Developer — Revature",
+    description:
+      "Built a full-stack Employee Reimbursement System using Spring Boot, React, and PostgreSQL with RBAC and approval workflows. Deployed via Docker/Jenkins CI/CD pipelines.",
   },
   {
     year: "2023",
-    title: "Full-Stack Web Development",
+    title: "Web Developer / Technical Lead — GAMEC",
     description:
-      "Built multiple client projects using React, Node.js, and modern web technologies.",
+      "Led design and development of the official website for the Global Association of Muslim Eritrean Communities (GAMEC), a 501(c)(3) nonprofit serving Muslim Eritrean communities worldwide. Built in HTML, CSS, and JavaScript; managed hosting, maintenance, and updates on Netlify.",
   },
   {
-    year: "2022",
-    title: "Content Creation & Community",
+    year: "2023",
+    title: "Frontend Developer — Crocodile Solutions",
     description:
-      "Started creating content on YouTube and Twitch, growing an engaged community of creators and developers.",
+      "Modernized legacy apps into responsive React and Next.js SPAs. Built performance-focused UIs with Material UI and integrated with backend REST APIs.",
   },
 ];
 
@@ -48,11 +97,7 @@ export default function AboutPage() {
       {/* Bio Section */}
       <div className="about-bio">
         <div className="about-bio-header">
-          <img
-            src={logo}
-            alt="AdamsVerse logo"
-            className="about-avatar"
-          />
+          <img src={logo} alt="AdamsVerse logo" className="about-avatar" />
           <div className="about-bio-info">
             <h2 className="about-name">
               Adam Abdulkadir
@@ -71,10 +116,10 @@ export default function AboutPage() {
           </p>
           <p>
             Through AdamsVerse, I combine web development, creative content, and
-            community engagement to help brands and individuals grow their online
-            presence. Whether it's a custom website, a content strategy, or
-            technical consulting, I bring a hands-on, detail-oriented approach to
-            every project.
+            community engagement to help brands and individuals grow their
+            online presence. Whether it's a custom website, a content strategy,
+            or technical consulting, I bring a hands-on, detail-oriented
+            approach to every project.
           </p>
         </div>
       </div>
@@ -82,13 +127,18 @@ export default function AboutPage() {
       {/* Skills Section */}
       <div className="about-section">
         <h2 className="about-section-title">Skills</h2>
-        <div className="skills-grid">
-          {skills.map((skill) => (
-            <span key={skill} className="skill-pill">
-              {skill}
-            </span>
-          ))}
-        </div>
+        {skillGroups.map((group) => (
+          <div key={group.category} className="skill-group">
+            <p className="skill-group-label">{group.category}</p>
+            <div className="skills-grid">
+              {group.skills.map((skill) => (
+                <span key={skill} className="skill-pill">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Experience Timeline */}
