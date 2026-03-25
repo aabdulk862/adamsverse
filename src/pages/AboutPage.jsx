@@ -1,4 +1,4 @@
-import logo from "../assets/images/profile.jpeg";
+import logo from "../assets/images/profile.JPEG";
 import usa from "../assets/images/usa.png";
 import eritrea from "../assets/images/eritrea.png";
 
