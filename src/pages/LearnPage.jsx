@@ -14,6 +14,12 @@ const resources = [
         icon: "fas fa-code",
         desc: "20 most common coding interview questions in Java",
       },
+      {
+        label: "Github Developer Guide",
+        href: "/github.html",
+        icon: "fab fa-github",
+        desc: "A comprehensive guide covering Git fundamentals, GitHub workflows, and IntelliJ IDEA integration",
+      },
     ],
   },
   {
