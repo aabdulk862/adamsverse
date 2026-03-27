@@ -1,5 +1,21 @@
 const projects = [
   {
+    id: "learn-kafka",
+    title: "Kafka Learning Platform",
+    description:
+      "Comprehensive Spring Boot learning platform for Apache Kafka. Covers producer/consumer patterns, transactional messaging with exactly-once semantics, Kafka Streams, Avro schema management, and real-world use cases like order processing, event sourcing, CQRS, and saga patterns.",
+    tags: [
+      "Spring Boot",
+      "Kafka",
+      "Kafka Streams",
+      "Avro",
+      "Docker",
+      "Java 17",
+    ],
+    link: "https://github.com/aabdulk862/learn-kafka",
+    image: null,
+  },
+  {
     id: "learn-angular",
     title: "Learn Angular 18",
     description:
