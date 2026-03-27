@@ -1,5 +1,14 @@
 const projects = [
   {
+    id: "gamec",
+    title: "GAMEC",
+    description:
+      "Official website for the Global Association of Muslim Eritrean Communities, a 501(c)(3) nonprofit serving Muslim Eritrean communities worldwide. Led design and development from scratch, managing hosting and ongoing updates.",
+    tags: ["HTML", "CSS", "JavaScript", "Netlify"],
+    link: "https://igamec.org",
+    image: null,
+  },
+  {
     id: "learn-kafka",
     title: "Kafka Learning Platform",
     description:
