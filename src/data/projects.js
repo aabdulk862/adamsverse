@@ -51,24 +51,7 @@ const projects = [
     link: "https://github.com/aabdulk862/Expense-Reimbursement-System",
     image: null,
   },
-  {
-    id: "dsa-guide",
-    title: "DSA Reference Guide",
-    description:
-      "Single-page interactive reference covering Big O notation, 10 core data structures with complexity tables, algorithm complexity comparisons, and 18 LeetCode patterns with templates and examples.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    link: "/dsa.html",
-    image: null,
-  },
-  {
-    id: "leetcode-guide",
-    title: "LeetCode Java Interview Guide",
-    description:
-      "Curated guide covering the 20 most common coding interview questions in Java, organized by difficulty. Built as a single-page reference for engineers prepping for technical interviews.",
-    tags: ["HTML", "CSS", "JavaScript", "Java"],
-    link: "/leetcode.html",
-    image: null,
-  },
+
 ];
 
 export default projects;
