@@ -21,7 +21,7 @@ const projects = [
     description:
       "Comprehensive learning resource demonstrating core Angular 18 concepts — standalone components, signal-based reactivity, new control flow syntax (@if, @for, @switch), reactive forms, HTTP client, and dependency injection.",
     tags: ["Angular 18", "TypeScript", "Signals", "RxJS"],
-    link: "https://github.com/aabdulk862/learn-angular",
+    link: "https://learn-angular18.netlify.app/",
     image: null,
   },
   {
