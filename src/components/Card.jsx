@@ -17,7 +17,7 @@ function useIsMobile(breakpoint = 600) {
 
 export default function Card({ icon, text, link, fullWidth, index = 0 }) {
   const isMobile = useIsMobile();
-  const duration = isMobile ? 0.3 : 0.6;
+  const duration = isMobile ? 0.3 : 0.5;
   const delay = index * 0.1;
 
   return (
@@ -26,7 +26,7 @@ export default function Card({ icon, text, link, fullWidth, index = 0 }) {
       target="_blank"
       rel="noreferrer"
       className={`card ${fullWidth ? "full-width" : ""}`}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration, delay, ease: "easeOut" }}

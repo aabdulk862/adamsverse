@@ -7,13 +7,18 @@ export default function ServicesPage() {
       <div className="page-header">
         <h1 className="page-title">Services</h1>
         <p className="page-subtitle">
-          Here's what I can do for you. Let's build something great together.
+          End-to-end software solutions designed to scale with your business.
+          From product development to technical strategy, we help teams ship
+          faster and build smarter.
         </p>
       </div>
 
       <div className="services-grid">
         {services.map((service) => (
           <div key={service.id} className="service-card">
+            {service.icon && (
+              <i className={`${service.icon} service-card-icon`}></i>
+            )}
             <h3 className="service-card-title">{service.title}</h3>
             <p className="service-card-desc">{service.description}</p>
             <div className="service-card-price">{service.priceRange}</div>

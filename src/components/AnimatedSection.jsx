@@ -17,11 +17,11 @@ function useIsMobile(breakpoint = 600) {
 
 export default function AnimatedSection({ children, delay = 0, className }) {
   const isMobile = useIsMobile();
-  const duration = isMobile ? 0.3 : 0.6;
+  const duration = isMobile ? 0.3 : 0.5;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration, delay, ease: "easeOut" }}

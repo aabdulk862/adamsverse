@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import emailjs from "emailjs-com";
-import Banner from "../components/Banner";
 import ProfileHeader from "../components/ProfileHeader";
 import Section from "../components/Section";
-import PricingCard from "../components/PricingCard";
-import Card from "../components/Card";
+import services from "../data/services";
+import projects from "../data/projects";
 
 export default function HomePage() {
   const formRef = useRef();
@@ -33,103 +33,95 @@ export default function HomePage() {
       );
   };
 
+  const serviceIcons = {
+    "web-app-development": "fas fa-code",
+    "content-creation": "fas fa-pen-nib",
+    consulting: "fas fa-lightbulb",
+    "add-ons": "fas fa-puzzle-piece",
+  };
+
+  const topServices = services.slice(0, 4);
+  const topProjects = projects.slice(0, 4);
+
   return (
     <div className="container">
-      <Banner />
-
       <ProfileHeader />
 
-      {/* Pricing Section */}
-      <Section title="Pricing" id="pricing">
-        <PricingCard />
-      </Section>
-
-      <Section title="Discord" id="discord">
-        <div className="verse-card">
-          <p className="verse-text">
-            Join the community, collaborate with creators, and stay connected inside the Verse.
-          </p>
-
-          <a
-            href="https://discord.gg/bCyn6j6bh"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="verse-discord-link"
-          >
-            <i className="fa-brands fa-discord"></i>
-            Enter the Verse
-          </a>
+      {/* Services Overview */}
+      <Section title="Services" id="services-overview">
+        <div className="home-services-grid">
+          {topServices.map((service) => (
+            <div key={service.id} className="home-service-card">
+              <div className="home-service-icon">
+                <i
+                  className={
+                    service.icon || serviceIcons[service.id] || "fas fa-cog"
+                  }
+                ></i>
+              </div>
+              <h3 className="home-service-title">{service.title}</h3>
+              <p className="home-service-desc">{service.description}</p>
+              <Link to="/services" className="home-service-link">
+                Learn More <i className="fas fa-arrow-right"></i>
+              </Link>
+            </div>
+          ))}
         </div>
       </Section>
 
-      {/* Socials Section */}
-      <Section title="Content & Socials" id="content-socials">
-        <Card
-          icon="fas fa-envelope"
-          text="Email"
-          link="mailto:adamvmedia@outlook.com"
-          index={0}
-        />
-        <Card
-          icon="fab fa-youtube"
-          text="YouTube"
-          link="https://www.youtube.com/@theadamverse"
-          index={1}
-        />
-        <Card
-          icon="fab fa-twitch"
-          text="Twitch"
-          link="https://twitch.tv/adams_verse"
-          index={2}
-        />
-        <Card
-          icon="fab fa-tiktok"
-          text="TikTok"
-          link="https://www.tiktok.com/@adams_verse"
-          index={3}
-        />
-        <Card
-          icon="fab fa-twitter"
-          text="Twitter"
-          link="https://x.com/theadamverse"
-          index={4}
-        />
-        <Card
-          icon="fab fa-instagram"
-          text="Instagram"
-          link="https://instagram.com/adam.abdulkadir"
-          index={5}
-        />
-      </Section>
-
-      {/* Support Section */}
-      <Section title="Support" id="support">
-        <Card
-          icon="fas fa-dollar-sign"
-          text="Cash App"
-          link="https://cash.app/$AdamAbdulkadir"
-          index={0}
-        />
-        <Card
-          icon="fas fa-money-bill-wave"
-          text="Venmo"
-          link="https://venmo.com/Adam862"
-          index={1}
-        />
+      {/* Portfolio Highlights */}
+      <Section title="Portfolio" id="portfolio-highlights">
+        <div className="home-portfolio-grid">
+          {topProjects.map((project) => (
+            <a
+              key={project.id}
+              href={project.link}
+              target={project.link?.startsWith("http") ? "_blank" : undefined}
+              rel={
+                project.link?.startsWith("http")
+                  ? "noopener noreferrer"
+                  : undefined
+              }
+              className="home-portfolio-card"
+            >
+              <div className="home-portfolio-thumb">
+                {project.image ? (
+                  <img src={project.image} alt={project.title} />
+                ) : (
+                  <div className="home-portfolio-placeholder">
+                    <i className="fas fa-folder-open"></i>
+                  </div>
+                )}
+              </div>
+              <div className="home-portfolio-body">
+                <h3 className="home-portfolio-title">
+                  {project.title}
+                  {project.link && (
+                    <i className="fas fa-external-link-alt home-portfolio-link-icon"></i>
+                  )}
+                </h3>
+                <p className="home-portfolio-desc">{project.description}</p>
+                <div className="home-portfolio-tags">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="home-portfolio-tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
       </Section>
 
       {/* Contact Section */}
-      <Section title="Contact Me" id="contact">
+      <Section title="Contact" id="contact">
         <div className="email-form-card-wrapper">
           <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
-            {/* Intro Message */}
-            <h2 className="contact-heading">Let's Work Together</h2>
+            <h2 className="contact-heading">Get in Touch</h2>
             <p className="contact-intro">
-              I'm excited to hear about your project! Please provide your name,
-              email, and a brief description of your requirements. If you have a
-              budget in mind, let me know — I'll work with you to find the best
-              solution. The more details you share, the better I can understand
-              your needs and deliver exactly what you're looking for.
+              Have a project in mind or need technical expertise? Share your
+              requirements and I'll get back to you with a tailored solution.
             </p>
 
             <div className="form-row">

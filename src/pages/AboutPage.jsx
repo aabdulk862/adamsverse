@@ -91,35 +91,52 @@ export default function AboutPage() {
   return (
     <div className="container">
       <div className="page-header">
-        <h1 className="page-title">About Me</h1>
+        <h1 className="page-title">The Story</h1>
       </div>
 
       {/* Bio Section */}
       <div className="about-bio">
         <div className="about-bio-header">
-          <img src={logo} alt="AdamsVerse logo" className="about-avatar" />
+          <img src={logo} alt="Adverse LLC logo" className="about-avatar" />
           <div className="about-bio-info">
             <h2 className="about-name">
               Adam Abdulkadir
               <img src={usa} alt="United States flag" className="flag" />
               <img src={eritrea} alt="Eritrean flag" className="flag" />
             </h2>
-            <p className="about-role">Creator • Developer • Entrepreneur</p>
+            <p className="about-role">Founder, Adverse LLC</p>
           </div>
         </div>
         <div className="about-bio-text">
           <p>
-            I'm Adam — a developer, content creator, and community builder based
-            in the United States with Eritrean heritage. I'm passionate about
-            building digital experiences that connect people and solve real
-            problems.
+            I grew up in Northern Virginia, the kind of kid who was always on
+            the computer. Gaming was my thing — I'd lose entire weekends to it —
+            and somewhere along the way I started getting curious about how the
+            software behind it all actually worked.
           </p>
           <p>
-            Through AdamsVerse, I combine web development, creative content, and
-            community engagement to help brands and individuals grow their
-            online presence. Whether it's a custom website, a content strategy,
-            or technical consulting, I bring a hands-on, detail-oriented
-            approach to every project.
+            That curiosity turned into something real in high school, when I
+            wrote my first lines of code and realized I could make a computer do
+            whatever I wanted. By the time I got to college, I'd found web
+            development — and that was it. The mix of logic and visual
+            creativity clicked in a way nothing else had. I could solve hard
+            problems and make the solution look good at the same time.
+          </p>
+          <p>
+            After college I jumped into the industry, working on enterprise
+            platforms and startup products alike. I built microservices at
+            scale, shipped full-stack apps, and led projects from architecture
+            to deployment. But I always had this other side — a creative streak
+            that showed up in content creation, design, and the way I thought
+            about user experience.
+          </p>
+          <p>
+            Adverse is where those two sides come together. It's the company I
+            built to combine my engineering mindset — the analytical,
+            problem-solving part — with the creative and artistic instincts I've
+            carried since I was a kid. I'm 26, based in Charlotte now, and I'm
+            building Adverse into something that reflects how I actually think:
+            software should be well-crafted, not just functional.
           </p>
         </div>
       </div>

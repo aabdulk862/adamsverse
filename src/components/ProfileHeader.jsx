@@ -15,16 +15,16 @@ function useIsMobile(breakpoint = 600) {
   return isMobile;
 }
 
-const capabilities = [
-  { icon: "fas fa-code", label: "Web Development" },
-  { icon: "fas fa-video", label: "Content Creation" },
-  { icon: "fas fa-users", label: "Community Building" },
+const features = [
+  { icon: "fas fa-code", label: "Full-Stack Development" },
+  { icon: "fas fa-cloud", label: "Cloud Architecture" },
+  { icon: "fas fa-lightbulb", label: "Technical Consulting" },
 ];
 
-const stats = [
-  { value: "50+", label: "Projects" },
-  { value: "3+", label: "Years" },
-  { value: "100%", label: "Commitment" },
+const trustIndicators = [
+  { value: "20+", label: "Technologies" },
+  { value: "3+", label: "Years Experience" },
+  { value: "50+", label: "Projects Delivered" },
 ];
 
 export default function ProfileHeader() {
@@ -38,10 +38,6 @@ export default function ProfileHeader() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: dur, ease: "easeOut" }}
     >
-      {/* Decorative glow */}
-      <span className="hero-glow hero-glow--1" aria-hidden="true" />
-      <span className="hero-glow hero-glow--2" aria-hidden="true" />
-
       {/* Eyebrow */}
       <motion.p
         className="hero-eyebrow"
@@ -49,7 +45,7 @@ export default function ProfileHeader() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15, duration: dur }}
       >
-        <i className="fas fa-bolt"></i> Available for new projects
+        <i className="fas fa-bolt"></i> Adverse — Available for new projects
       </motion.p>
 
       {/* Headline */}
@@ -59,10 +55,8 @@ export default function ProfileHeader() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25, duration: dur }}
       >
-        I build digital experiences
-        <br />
-        that <span className="hero-accent">connect</span> &amp;{" "}
-        <span className="hero-accent">convert</span>
+        Software Solutions That{" "}
+        <span className="hero-accent">Drive Results</span>
       </motion.h1>
 
       {/* Subheadline */}
@@ -72,8 +66,9 @@ export default function ProfileHeader() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: dur }}
       >
-        Full-stack developer, content creator, and community builder helping
-        brands ship faster and grow audiences.
+        At Adverse, we help startups and businesses build reliable, scalable web
+        applications with modern full-stack development, cloud architecture, and
+        hands-on technical consulting.
       </motion.p>
 
       {/* CTAs */}
@@ -84,52 +79,41 @@ export default function ProfileHeader() {
         transition={{ delay: 0.5, duration: dur }}
       >
         <a href="/#contact" className="hero-btn hero-btn--primary">
-          Start a Project <i className="fas fa-arrow-right"></i>
+          Get Started <i className="fas fa-arrow-right"></i>
         </a>
-        <a href="/#pricing" className="hero-btn hero-btn--ghost">
-          View Pricing
+        <a href="/services" className="hero-btn hero-btn--ghost">
+          View Services
         </a>
       </motion.div>
 
-      {/* Capabilities */}
+      {/* Product-oriented feature highlights */}
       <motion.div
         className="hero-capabilities"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: dur }}
       >
-        {capabilities.map((cap) => (
-          <div key={cap.label} className="hero-cap">
-            <i className={cap.icon}></i>
-            <span>{cap.label}</span>
+        {features.map((f) => (
+          <div key={f.label} className="hero-cap">
+            <i className={f.icon}></i>
+            <span>{f.label}</span>
           </div>
         ))}
       </motion.div>
 
-      {/* Social proof stats */}
+      {/* Professional trust indicators */}
       <motion.div
         className="hero-stats"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7, duration: dur }}
       >
-        {stats.map((s) => (
+        {trustIndicators.map((s) => (
           <div key={s.label} className="hero-stat">
             <span className="hero-stat-value">{s.value}</span>
             <span className="hero-stat-label">{s.label}</span>
           </div>
         ))}
-      </motion.div>
-
-      {/* Powered by */}
-      <motion.div
-        className="hero-powered"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, duration: dur }}
-      >
-        <span className="hero-powered-label">Powered by</span>
-        <span className="hero-powered-brand">Adverse LLC</span>
       </motion.div>
     </motion.section>
   );

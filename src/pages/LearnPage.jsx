@@ -1,7 +1,13 @@
 const resources = [
   {
-    category: "My Guides",
+    category: "My Guides & Projects",
     items: [
+      {
+        label: "GAMEC",
+        href: "https://igamec.org",
+        icon: "fas fa-globe",
+        desc: "Greater Area of Metro Eritrean Community organization",
+      },
       {
         label: "DSA Study Guide",
         href: "/dsa.html",

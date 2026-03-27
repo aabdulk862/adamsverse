@@ -5,7 +5,7 @@ export default function Section({ title, id, children }) {
     <section className="section" id={id}>
       <AnimatedSection>
         <div className="section-title">{title}</div>
-        <div className="grid-container">{children}</div>
+        {children}
       </AnimatedSection>
     </section>
   );

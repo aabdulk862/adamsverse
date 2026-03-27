@@ -6,7 +6,8 @@ export default function PortfolioPage() {
       <div className="page-header">
         <h1 className="page-title">Portfolio</h1>
         <p className="page-subtitle">
-          A collection of projects I've built and contributed to.
+          A selection of projects showcasing our development expertise and
+          technical capabilities.
         </p>
       </div>
 
@@ -29,10 +30,7 @@ export default function PortfolioPage() {
             >
               <div className="portfolio-card-thumb">
                 {project.image ? (
-                  <img
-                    src={project.image}
-                    alt={`${project.title} thumbnail`}
-                  />
+                  <img src={project.image} alt={`${project.title} thumbnail`} />
                 ) : (
                   <div className="portfolio-card-placeholder">
                     <i className="fas fa-code"></i>
