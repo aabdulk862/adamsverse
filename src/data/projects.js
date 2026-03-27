@@ -35,7 +35,7 @@ const projects = [
   },
   {
     id: "better-budget",
-    title: "BetterBudget",
+    title: "Better Budget",
     description:
       "Full-stack envelope budgeting app built with Spring Boot and React + TypeScript. Users allocate money to virtual envelopes, track income/expenses, and manage budgets in real time. Includes admin features, secure auth, and cloud deployment on AWS EC2/RDS/S3.",
     tags: ["Spring Boot", "React", "TypeScript", "PostgreSQL", "Docker", "AWS"],
