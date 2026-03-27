@@ -70,7 +70,7 @@ export default function HomePage() {
       </Section>
 
       {/* Portfolio Highlights */}
-      <Section title="Portfolio" id="portfolio-highlights">
+      <Section title="Projects" id="portfolio-highlights">
         <div className="home-portfolio-grid">
           {topProjects.map((project) => (
             <a
