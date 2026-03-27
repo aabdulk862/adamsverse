@@ -132,6 +132,7 @@ body {
   width: 100%;
   max-width: var(--container-max-width);
   padding: 0 var(--container-padding);
+  margin-top: var(--space-6);
   overflow-x: hidden; /* prevent any scroll */
 }
 

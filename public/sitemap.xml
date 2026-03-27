@@ -32,4 +32,8 @@
     <loc>https://adamsverse.com/github.html</loc>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://adamsverse.com/ai-website.html</loc>
+    <priority>0.7</priority>
+  </url>
 </urlset>
