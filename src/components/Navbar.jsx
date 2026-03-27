@@ -6,7 +6,7 @@ const PROJECTS = [
   { name: "GAMEC", url: "https://igamec.org", external: true },
   { name: "DSA Guide", url: "/dsa.html", external: true },
   { name: "LeetCode Guide", url: "/leetcode.html", external: true },
-  { name: "GitHub", url: "https://github.com/aabdulk862", external: true },
+  { name: "GitHub Guide", url: "/github.html", external: true },
 ];
 
 const PAGE_LINKS = [
