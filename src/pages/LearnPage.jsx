@@ -20,6 +20,12 @@ const resources = [
         icon: "fab fa-github",
         desc: "A comprehensive guide covering Git fundamentals, GitHub workflows, and IntelliJ IDEA integration",
       },
+      {
+        label: "Learn Angular",
+        href: "https://learn-angular18.netlify.app/",
+        icon: "fab fa-angular",
+        desc: "A guide to Angular fundamentals, components, and building modern web apps",
+      },
     ],
   },
   {

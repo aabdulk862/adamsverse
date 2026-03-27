@@ -1,20 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/images/logo3.png";
+import logo from "../assets/images/logo4.png";
 
 const PROJECTS = [
   { name: "GAMEC", url: "https://igamec.org", external: true },
-  { name: "DSA Guide", url: "/dsa.html", external: false },
-  { name: "LeetCode Guide", url: "/leetcode.html", external: false },
+  { name: "DSA Guide", url: "/dsa.html", external: true },
+  { name: "LeetCode Guide", url: "/leetcode.html", external: true },
   { name: "GitHub", url: "https://github.com/aabdulk862", external: true },
-  {
-    name: "LinkedIn",
-    url: "https://linkedin.com/in/adam-abdulkadir",
-    external: true,
-  },
 ];
 
 const PAGE_LINKS = [
+  { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Portfolio", to: "/portfolio" },
   { label: "Services", to: "/services" },

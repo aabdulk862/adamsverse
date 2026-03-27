@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import usa from "../assets/images/usa.png";
-import eritrea from "../assets/images/eritrea.png";
 
 function useIsMobile(breakpoint = 600) {
   const [isMobile, setIsMobile] = useState(false);
@@ -17,102 +15,122 @@ function useIsMobile(breakpoint = 600) {
   return isMobile;
 }
 
-const subtitleText =
-  "Building experiences, creating content, and connecting communities.";
-
-const rolePills = [
-  { label: "Web Development 💻", cls: "role-pill role-pill--dev" },
-  { label: "Content Creation 📲", cls: "role-pill role-pill--content" },
-  { label: "Community Engagement 🌐", cls: "role-pill role-pill--community" },
+const capabilities = [
+  { icon: "fas fa-code", label: "Web Development" },
+  { icon: "fas fa-video", label: "Content Creation" },
+  { icon: "fas fa-users", label: "Community Building" },
 ];
 
-function AnimatedSubtitle({ text, isMobile }) {
-  const words = text.split(" ");
-  const baseDuration = isMobile ? 0.25 : 0.4;
-  const baseDelay = isMobile ? 0.04 : 0.08;
-  const container = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: baseDelay,
-        delayChildren: isMobile ? 0.2 : 0.4,
-      },
-    },
-  };
-  const child = {
-    hidden: { opacity: 0, y: 8 },
-    visible: {
-      opacity: 0.85,
-      y: 0,
-      transition: { duration: baseDuration, ease: "easeOut" },
-    },
-  };
-  return (
-    <motion.p
-      className="profile-subtitle"
-      variants={container}
-      initial="hidden"
-      animate="visible"
-    >
-      {words.map((word, i) => (
-        <motion.span
-          key={i}
-          variants={child}
-          style={{ display: "inline-block", marginRight: "0.3em" }}
-        >
-          {word}
-        </motion.span>
-      ))}
-    </motion.p>
-  );
-}
+const stats = [
+  { value: "50+", label: "Projects" },
+  { value: "3+", label: "Years" },
+  { value: "100%", label: "Commitment" },
+];
 
 export default function ProfileHeader() {
   const isMobile = useIsMobile();
-  const duration = isMobile ? 0.3 : 0.6;
+  const dur = isMobile ? 0.3 : 0.5;
 
   return (
-    <motion.div
-      className="profile-header"
-      initial={{ opacity: 0, y: 30 }}
+    <motion.section
+      className="hero"
+      initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration, ease: "easeOut" }}
+      transition={{ duration: dur, ease: "easeOut" }}
     >
-      <span className="bg-circle circle-1"></span>
-      <span className="bg-circle circle-2"></span>
+      {/* Decorative glow */}
+      <span className="hero-glow hero-glow--1" aria-hidden="true" />
+      <span className="hero-glow hero-glow--2" aria-hidden="true" />
 
-      <div className="profile-identity">
-        <h1 className="profile-title">
-          Content • Community
-          <img src={usa} alt="USA flag" className="flag" />
-          <img src={eritrea} alt="Eritrea flag" className="flag" />
-        </h1>
-        <AnimatedSubtitle text={subtitleText} isMobile={isMobile} />
-      </div>
+      {/* Eyebrow */}
+      <motion.p
+        className="hero-eyebrow"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15, duration: dur }}
+      >
+        <i className="fas fa-bolt"></i> Available for new projects
+      </motion.p>
 
-      <div className="roles">
-        {rolePills.map((pill) => (
-          <span key={pill.label} className={pill.cls}>
-            {pill.label}
-          </span>
-        ))}
-      </div>
+      {/* Headline */}
+      <motion.h1
+        className="hero-headline"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25, duration: dur }}
+      >
+        I build digital experiences
+        <br />
+        that <span className="hero-accent">connect</span> &amp;{" "}
+        <span className="hero-accent">convert</span>
+      </motion.h1>
 
-      <a href="/#contact" className="profile-cta">
-        Let&apos;s Work Together
-      </a>
+      {/* Subheadline */}
+      <motion.p
+        className="hero-sub"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4, duration: dur }}
+      >
+        Full-stack developer, content creator, and community builder helping
+        brands ship faster and grow audiences.
+      </motion.p>
 
-      <div className="adverse-media-cta">
-        <p className="adverse-media-label">Powered by</p>
-        <span className="adverse-media-brand">Adverse Media</span>
-        <p className="adverse-media-tagline">
-          Your vision. Our craft. Let&apos;s build something real.
-        </p>
-        <a href="/#contact" className="adverse-media-btn">
-          <i className="fas fa-bolt"></i> Start a Project
+      {/* CTAs */}
+      <motion.div
+        className="hero-ctas"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: dur }}
+      >
+        <a href="/#contact" className="hero-btn hero-btn--primary">
+          Start a Project <i className="fas fa-arrow-right"></i>
         </a>
-      </div>
-    </motion.div>
+        <a href="/#pricing" className="hero-btn hero-btn--ghost">
+          View Pricing
+        </a>
+      </motion.div>
+
+      {/* Capabilities */}
+      <motion.div
+        className="hero-capabilities"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: dur }}
+      >
+        {capabilities.map((cap) => (
+          <div key={cap.label} className="hero-cap">
+            <i className={cap.icon}></i>
+            <span>{cap.label}</span>
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Social proof stats */}
+      <motion.div
+        className="hero-stats"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7, duration: dur }}
+      >
+        {stats.map((s) => (
+          <div key={s.label} className="hero-stat">
+            <span className="hero-stat-value">{s.value}</span>
+            <span className="hero-stat-label">{s.label}</span>
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Powered by */}
+      <motion.div
+        className="hero-powered"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8, duration: dur }}
+      >
+        <span className="hero-powered-label">Powered by</span>
+        <span className="hero-powered-brand">Adverse LLC</span>
+      </motion.div>
+    </motion.section>
   );
 }
