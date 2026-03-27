@@ -109,34 +109,53 @@ export default function AboutPage() {
         </div>
         <div className="about-bio-text">
           <p>
-            I grew up in Northern Virginia, the kind of kid who was always on
-            the computer. Gaming was my thing — I'd lose entire weekends to it —
-            and somewhere along the way I started getting curious about how the
-            software behind it all actually worked.
+            I grew up in Northern Virginia. Spent most of my time on the
+            computer — gaming, browsing, just being online. I've always been
+            naturally curious, and I got to watch the internet evolve in real
+            time. I remember seeing updates roll out on sites like Facebook and
+            being fascinated by the new changes being made. I didn't have the
+            vocabulary for it then, but later — once I started learning web
+            development — I realized I'd been watching the shift toward modern
+            dynamic web apps. The kind of complexity that eventually led to
+            tools like React.
           </p>
           <p>
-            That curiosity turned into something real in high school, when I
-            wrote my first lines of code and realized I could make a computer do
-            whatever I wanted. By the time I got to college, I'd found web
-            development — and that was it. The mix of logic and visual
-            creativity clicked in a way nothing else had. I could solve hard
-            problems and make the solution look good at the same time.
+            My first computer science class was in high school — Java, taught by
+            Mr. Meermans. Something clicked. I liked that I could write
+            something and see it do exactly what I told it to. He taught me
+            object-oriented programming and ways of thinking about problems that
+            I still use today. That class was enough to keep me going. I kept
+            learning on my own after that, picking up whatever I could.
           </p>
           <p>
-            After college I jumped into the industry, working on enterprise
-            platforms and startup products alike. I built microservices at
-            scale, shipped full-stack apps, and led projects from architecture
-            to deployment. But I always had this other side — a creative streak
-            that showed up in content creation, design, and the way I thought
-            about user experience.
+            College is where web development entered the picture. I liked the
+            immediacy of it — you write code, you see a page, you tweak it, it
+            changes. It sat right at the intersection of logic and design, which
+            appealed to both sides of how I think. I got serious about it and
+            started building real projects.
           </p>
           <p>
-            Adverse is where those two sides come together. It's the company I
-            built to combine my engineering mindset — the analytical,
-            problem-solving part — with the creative and artistic instincts I've
-            carried since I was a kid. I'm 26, based in Charlotte now, and I'm
-            building Adverse into something that reflects how I actually think:
-            software should be well-crafted, not just functional.
+            After graduating I went straight into professional work. Enterprise
+            platforms, microservices, full-stack applications — the kind of
+            stuff where you learn fast because the stakes are real. I worked on
+            large-scale systems, shipped production code, and got comfortable
+            operating across the entire stack from backend APIs to frontend
+            interfaces.
+          </p>
+          <p>
+            But I always had a creative side that didn't fully fit into a
+            typical engineering role. I cared about how things looked, how they
+            felt to use, how content was presented. I did content creation and
+            design work on the side because it scratched an itch that pure
+            backend code didn't.
+          </p>
+          <p>
+            Adverse came out of wanting a place where I didn't have to pick one
+            or the other. It's a company that treats the technical and creative
+            sides as the same discipline — because to me, they are. Good
+            software isn't just code that works. It's something people actually
+            want to use. I'm 26, based in Charlotte, and this is what I'm
+            building toward.
           </p>
         </div>
       </div>

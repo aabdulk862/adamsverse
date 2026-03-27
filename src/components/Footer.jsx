@@ -34,7 +34,9 @@ export default function Footer() {
         </a>
       </div>
 
-      <p className="footer-copyright">&copy; 2026 Adverse LLC</p>
+      <p className="footer-copyright">
+        &copy; {new Date().getFullYear()} Adverse LLC
+      </p>
     </footer>
   );
 }
