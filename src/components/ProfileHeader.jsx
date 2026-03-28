@@ -44,9 +44,8 @@ export default function ProfileHeader() {
 
       {/* Subheadline */}
       <p className="hero-sub">
-        Adverse is a small dev shop focused on full-stack development, cloud
-        infrastructure, and honest consulting. We keep things simple and ship
-        things that last.
+        We build websites and apps, set up cloud hosting, and help you market
+        your brand. Simple as that.
       </p>
 
       {/* CTAs */}
