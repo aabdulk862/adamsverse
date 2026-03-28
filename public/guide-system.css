@@ -51,7 +51,127 @@ body::before {
   opacity: 0.3;
 }
 
-/* ── BACK TO HOME BUTTON ── */
+/* ── SITE NAVBAR (matches main React app) ── */
+.site-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+.site-navbar-inner {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+}
+.site-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.site-navbar-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+.site-navbar-brand-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.site-navbar-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 16px;
+}
+.site-navbar-links a {
+  color: var(--text);
+  font-size: 0.875rem;
+  font-family: var(--sans);
+  text-decoration: none;
+  transition: opacity 0.2s;
+  padding: 4px 8px;
+}
+.site-navbar-links a:hover {
+  opacity: 0.7;
+}
+.site-navbar-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #0066ff;
+  color: #fff !important;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.site-navbar-cta:hover {
+  background: #0052cc;
+  opacity: 1 !important;
+}
+.site-navbar-hamburger {
+  display: none;
+  font-size: 1.4rem;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+}
+.site-navbar-overlay {
+  display: none;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 56px);
+  background: #ffffff;
+  flex-direction: column;
+  padding: 24px;
+  gap: 16px;
+  z-index: 9999;
+}
+.site-navbar-overlay.open {
+  display: flex;
+}
+.site-navbar-overlay a {
+  padding: 12px 8px;
+  font-size: 1.1rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.site-navbar-overlay a:hover {
+  opacity: 0.7;
+}
+.site-navbar-overlay .site-navbar-cta {
+  align-self: flex-start;
+  margin-top: 8px;
+}
+@media (max-width: 600px) {
+  .site-navbar-links {
+    display: none;
+  }
+  .site-navbar-hamburger {
+    display: block;
+  }
+}
+
+/* Legacy topbar (kept for backwards compat) */
 .guide-topbar {
   position: fixed;
   top: 0;

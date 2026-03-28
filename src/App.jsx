@@ -6,6 +6,7 @@ import PortfolioPage from "./pages/PortfolioPage";
 import AboutPage from "./pages/AboutPage";
 import ServicesPage from "./pages/ServicesPage";
 import LearnPage from "./pages/LearnPage";
+import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/learn" element={<LearnPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

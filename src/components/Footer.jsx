@@ -9,7 +9,7 @@ export default function Footer() {
         <Link to="/about">About</Link>
         <Link to="/services">Services</Link>
         <Link to="/learn">Learn</Link>
-        <Link to="/#contact">Contact</Link>
+        <Link to="/contact">Contact</Link>
       </nav>
 
       <div className="footer-socials">

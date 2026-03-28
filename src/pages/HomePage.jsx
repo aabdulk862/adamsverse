@@ -1,38 +1,33 @@
-import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import emailjs from "emailjs-com";
 import ProfileHeader from "../components/ProfileHeader";
 import Section from "../components/Section";
 import services from "../data/services";
 import projects from "../data/projects";
 
+const values = [
+  {
+    icon: "fas fa-handshake",
+    title: "Honest Work",
+    desc: "No fluff, no upsells. We scope it right, build it clean, and ship it on time.",
+  },
+  {
+    icon: "fas fa-layer-group",
+    title: "Full-Stack Ownership",
+    desc: "From database to deploy, one team handles the whole stack. No handoff gaps.",
+  },
+  {
+    icon: "fas fa-bolt",
+    title: "Built to Last",
+    desc: "We write code that scales and stays maintainable long after launch day.",
+  },
+  {
+    icon: "fas fa-comments",
+    title: "Clear Communication",
+    desc: "You'll always know where things stand. No jargon, no disappearing acts.",
+  },
+];
+
 export default function HomePage() {
-  const formRef = useRef();
-  const [status, setStatus] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setStatus("Message sent successfully!");
-          formRef.current.reset();
-        },
-        (error) => {
-          console.error(error.text);
-          setStatus("Failed to send message. Please try again later.");
-        },
-      );
-  };
-
   const serviceIcons = {
     "web-app-development": "fas fa-code",
     "content-creation": "fas fa-pen-nib",
@@ -114,82 +109,32 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Contact Section */}
-      <Section title="Contact" id="contact">
-        <div className="email-form-card-wrapper">
-          <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
-            <h2 className="contact-heading">Get in Touch</h2>
-            <p className="contact-intro">
-              Have a project in mind or need technical expertise? Share your
-              requirements and I'll get back to you with a tailored solution.
+      {/* Why Adverse */}
+      <Section title="Why Adverse" id="why-adverse">
+        <div className="values-banner">
+          <div className="values-banner-text">
+            <h2 className="values-banner-headline">
+              Software that works — built by people who care.
+            </h2>
+            <p className="values-banner-sub">
+              We keep communication clear and code clean. No handoff gaps, no
+              disappearing acts.
             </p>
-
-            <div className="form-row">
-              <label>
-                Name
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter your name"
-                  required
-                />
-              </label>
-
-              <label>
-                Email
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  required
-                />
-              </label>
-            </div>
-
-            <label>
-              Reason
-              <select name="Reason" required>
-                <option value="">Select a reason</option>
-                <option value="Work-Inquiry">Work Inquiry</option>
-                <option value="Collaboration">Collaboration</option>
-                <option value="Feedback">Feedback</option>
-                <option value="Other">Other</option>
-              </select>
-            </label>
-
-            <label>
-              Message
-              <textarea
-                name="message"
-                placeholder="Write your message here..."
-                rows={4}
-                required
-              />
-            </label>
-
-            <button type="submit">
-              <i className="fas fa-paper-plane"></i> Send Message
-            </button>
-
-            {status && (
-              <div
-                className={
-                  status.includes("success")
-                    ? "form-status-success"
-                    : "form-status-error"
-                }
-              >
-                <i
-                  className={
-                    status.includes("success")
-                      ? "fas fa-check-circle"
-                      : "fas fa-exclamation-circle"
-                  }
-                ></i>
-                <span>{status}</span>
+            <Link to="/contact" className="hero-btn hero-btn--primary">
+              Start a conversation <i className="fas fa-arrow-right"></i>
+            </Link>
+          </div>
+          <div className="values-list">
+            {values.map((v) => (
+              <div key={v.title} className="values-list-item">
+                <i className={v.icon}></i>
+                <div>
+                  <span className="values-list-title">{v.title}</span>
+                  <span className="values-list-desc">{v.desc}</span>
+                </div>
               </div>
-            )}
-          </form>
+            ))}
+          </div>
         </div>
       </Section>
     </div>

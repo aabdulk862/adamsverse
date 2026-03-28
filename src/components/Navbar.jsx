@@ -42,7 +42,7 @@ export default function Navbar() {
             </li>
           ))}
           <li>
-            <Link to="/#contact" className="navbar-cta">
+            <Link to="/contact" className="navbar-cta">
               Contact
             </Link>
           </li>
@@ -67,7 +67,7 @@ export default function Navbar() {
               {page.label}
             </Link>
           ))}
-          <Link to="/#contact" className="navbar-cta" onClick={closeMobile}>
+          <Link to="/contact" className="navbar-cta" onClick={closeMobile}>
             Contact
           </Link>
         </div>
