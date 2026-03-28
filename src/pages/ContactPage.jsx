@@ -18,7 +18,7 @@ export default function ContactPage() {
       .then(
         (result) => {
           console.log(result.text);
-          setStatus("Message sent successfully!");
+          setStatus("Message sent! I'll get back to you within 1–2 business days.");
           formRef.current.reset();
         },
         (error) => {
@@ -33,7 +33,8 @@ export default function ContactPage() {
       <div className="page-header">
         <h1 className="page-title">Contact</h1>
         <p className="page-subtitle">
-          Got a project or question? Let's talk.
+          Have a project in mind or want to talk through an idea? I typically
+          respond within 24 hours.
         </p>
       </div>
 
@@ -74,20 +75,6 @@ export default function ContactPage() {
           </div>
         </a>
 
-        <a
-          href="https://github.com/aabdulk862"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="contact-info-card"
-        >
-          <div className="contact-info-icon">
-            <i className="fab fa-github"></i>
-          </div>
-          <div className="contact-info-details">
-            <span className="contact-info-label">GitHub</span>
-            <span className="contact-info-value">aabdulk862</span>
-          </div>
-        </a>
       </div>
 
       {/* Contact Form */}
@@ -95,7 +82,7 @@ export default function ContactPage() {
         <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
           <h2 className="contact-heading">Get in Touch</h2>
           <p className="contact-intro">
-            Drop a message and I'll get back to you.
+            Fill this out and I'll get back to you within 1–2 business days.
           </p>
 
           <div className="form-row">
@@ -148,14 +135,14 @@ export default function ContactPage() {
           {status && (
             <div
               className={
-                status.includes("success")
+                status.includes("sent")
                   ? "form-status-success"
                   : "form-status-error"
               }
             >
               <i
                 className={
-                  status.includes("success")
+                  status.includes("sent")
                     ? "fas fa-check-circle"
                     : "fas fa-exclamation-circle"
                 }

@@ -1,36 +1,46 @@
 const resources = [
   {
-    category: "My Guides & Resources",
+    category: "For Developers",
     items: [
-      {
-        label: "Build a Website with AI",
-        href: "/ai-website.html",
-        icon: "fas fa-robot",
-        desc: "Learn how to create a webpage using AI — no coding experience required",
-      },
-      {
-        label: "Github Developer Guide",
-        href: "/github.html",
-        icon: "fab fa-github",
-        desc: "A comprehensive guide covering Git fundamentals, GitHub workflows, and IntelliJ IDEA integration",
-      },
       {
         label: "DSA Study Guide",
         href: "/dsa.html",
         icon: "fas fa-sitemap",
-        desc: "Big O, data structures, and 18 LeetCode patterns",
+        desc: "Big O notation, core data structures, and 18 LeetCode patterns broken down with explanations and Java examples. Written for developers preparing for technical interviews or brushing up on fundamentals.",
+        meta: "Intermediate · ~12 min read",
       },
       {
         label: "LeetCode Java Companion",
         href: "/leetcode.html",
         icon: "fas fa-code",
-        desc: "20 most common coding interview questions in Java",
+        desc: "The 20 most common coding interview problems solved in Java with step-by-step breakdowns. Each solution includes time/space complexity analysis and notes on common edge cases.",
+        meta: "Intermediate · 20 problems",
       },
       {
-        label: "Learn Angular",
+        label: "GitHub Developer Guide",
+        href: "/github.html",
+        icon: "fab fa-github",
+        desc: "A practical walkthrough of Git fundamentals, branching strategies, pull request workflows, and IntelliJ IDEA integration. Designed for developers who use Git daily but want to tighten their workflow.",
+        meta: "Beginner–Intermediate · ~13 min read",
+      },
+      {
+        label: "Learn Angular 18",
         href: "https://learn-angular18.netlify.app/",
         icon: "fab fa-angular",
-        desc: "A guide to Angular fundamentals, components, and building modern web apps",
+        desc: "Hands-on guide to Angular 18 — standalone components, signal-based reactivity, new control flow syntax (@if, @for, @switch), reactive forms, and dependency injection. Build a working app by the end.",
+        meta: "Beginner–Intermediate · Interactive",
+      },
+    ],
+  },
+  {
+    category: "For Non-Technical Folks",
+    items: [
+      {
+        label: "Build a Website with AI",
+        href: "/ai-website.html",
+        icon: "fas fa-robot",
+        desc: "A step-by-step guide to creating a basic webpage using AI tools — no coding experience needed. Covers prompting, editing, and publishing. Great for understanding what goes into a site before hiring someone to build a real one.",
+        meta: "Beginner · ~8 min read",
       },
     ],
   },
@@ -42,7 +52,8 @@ export default function LearnPage() {
       <div className="page-header">
         <h1 className="page-title">Learn</h1>
         <p className="page-subtitle">
-          Resources I use and recommend for leveling up as a developer.
+          Guides and resources from Adverse — for developers learning the stack
+          and clients understanding the process.
         </p>
       </div>
 
@@ -62,6 +73,7 @@ export default function LearnPage() {
                 <div className="learn-link-text">
                   <span className="learn-link-label">{r.label}</span>
                   {r.desc && <span className="learn-link-desc">{r.desc}</span>}
+                  {r.meta && <span className="learn-link-meta">{r.meta}</span>}
                 </div>
                 <i className="fas fa-arrow-right learn-arrow"></i>
               </a>

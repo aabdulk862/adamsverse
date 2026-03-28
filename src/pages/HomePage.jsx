@@ -29,13 +29,12 @@ const values = [
 
 export default function HomePage() {
   const serviceIcons = {
-    "web-app-development": "fas fa-code",
-    "content-creation": "fas fa-pen-nib",
+    "landing-page": "fas fa-browser",
+    "full-stack-application": "fas fa-code",
     consulting: "fas fa-lightbulb",
-    "add-ons": "fas fa-puzzle-piece",
   };
 
-  const topServices = services.slice(0, 4);
+  const topServices = services.slice(0, 3);
   const topProjects = projects.slice(0, 4);
 
   return (
@@ -63,6 +62,23 @@ export default function HomePage() {
           ))}
         </div>
       </Section>
+
+      {/* AI Tooling CTA */}
+      <div className="ai-cta-banner">
+        <div className="ai-cta-icon">
+          <i className="fas fa-bolt"></i>
+        </div>
+        <div className="ai-cta-text">
+          <p className="ai-cta-headline">Faster delivery. Same quality.</p>
+          <p className="ai-cta-sub">
+            I use modern AI tooling to move faster and iterate without inflating
+            your bill. You get production-ready code on a tighter timeline.
+          </p>
+        </div>
+        <Link to="/services" className="ai-cta-link">
+          See services <i className="fas fa-arrow-right"></i>
+        </Link>
+      </div>
 
       {/* Portfolio Highlights */}
       <Section title="Projects" id="portfolio-highlights">

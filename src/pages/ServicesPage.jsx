@@ -7,9 +7,8 @@ export default function ServicesPage() {
       <div className="page-header">
         <h1 className="page-title">Services</h1>
         <p className="page-subtitle">
-          End-to-end software solutions designed to scale with your business.
-          From product development to technical strategy, we help teams ship
-          faster and build smarter.
+          I build web applications and consult on technical decisions. Here's
+          what that looks like and what it costs.
         </p>
       </div>
 

@@ -6,11 +6,9 @@ const skillGroups = [
   {
     category: "Backend",
     skills: [
-      "Java",
       "Java 21",
       "Spring Boot",
       "Spring Batch",
-      "JDBC",
       "Kafka",
       "RabbitMQ",
     ],
@@ -21,40 +19,19 @@ const skillGroups = [
       "React",
       "Angular",
       "TypeScript",
-      "JavaScript",
-      "HTML",
-      "CSS",
-      "Material UI",
       "Next.js",
     ],
   },
   {
     category: "Cloud & DevOps",
-    skills: ["AWS", "Azure", "Docker", "Kubernetes", "Jenkins", "CI/CD"],
+    skills: ["AWS", "Azure", "Docker", "Kubernetes", "CI/CD"],
   },
   {
-    category: "Tools",
-    skills: [
-      "Git",
-      "GitHub",
-      "Gradle",
-      "Maven",
-      "IntelliJ",
-      "VS Code",
-      "Postman",
-      "Figma",
-      "Tableau",
-    ],
-  },
-  {
-    category: "Methodologies",
+    category: "Architecture",
     skills: [
       "Microservices",
       "Event-Driven Architecture",
       "REST API Design",
-      "MVC",
-      "OOP",
-      "Agile",
     ],
   },
 ];
@@ -63,25 +40,25 @@ const experience = [
   {
     year: "2025",
     title:
-      "Software Engineer Associate — Infosys (Charter Communications/Spectrum)",
+      "Software Engineer — Infosys (Charter Communications/Spectrum)",
     description:
-      "Contributing to UCC Hub, a large-scale customer communications platform. Delivered Appointment Service as a standalone Spring Boot microservice (Java 21), designed REST + RabbitMQ integrations, and led architectural analysis for third-party integrations.",
+      "Building UCC Hub, a large-scale customer communications platform. Delivered Appointment Service as a standalone Spring Boot microservice (Java 21), designed REST + RabbitMQ integrations, and led architectural analysis for third-party integrations.",
   },
   {
     year: "2024",
-    title: "Full Stack Developer — Revature",
+    title: "Full Stack Developer — Revature (Training Contract)",
     description:
       "Built a full-stack Employee Reimbursement System using Spring Boot, React, and PostgreSQL with RBAC and approval workflows. Deployed via Docker/Jenkins CI/CD pipelines.",
   },
   {
     year: "2023",
-    title: "Web Developer / Technical Lead — GAMEC",
+    title: "Technical Lead — GAMEC (Nonprofit, Ongoing)",
     description:
-      "Led design and development of the official website for the Global Association of Muslim Eritrean Communities (GAMEC), a 501(c)(3) nonprofit serving Muslim Eritrean communities worldwide. Built in HTML, CSS, and JavaScript; managed hosting, maintenance, and updates on Netlify.",
+      "Led design and development of the official website for the Global Association of Muslim Eritrean Communities, a 501(c)(3) nonprofit. Built from scratch and continue to manage hosting, maintenance, and updates.",
   },
   {
     year: "2023",
-    title: "Frontend Developer — Crocodile Solutions",
+    title: "Frontend Developer — Crocodile Solutions (Contract)",
     description:
       "Modernized legacy apps into responsive React and Next.js SPAs. Built performance-focused UIs with Material UI and integrated with backend REST APIs.",
   },
@@ -151,11 +128,19 @@ export default function AboutPage() {
           </p>
           <p>
             Adverse came out of wanting a place where I didn't have to pick one
-            or the other. It's a company that treats the technical and creative
-            sides as the same discipline — because to me, they are. Good
-            software isn't just code that works. It's something people actually
-            want to use. I'm 26, based in Charlotte, and this is what I'm
-            building toward.
+            or the other. The name is intentional — "adverse" means going
+            against the current. Most agencies either do engineering or
+            creative, and they outsource the other half. I wanted to build
+            something that treats both as the same discipline, because to me
+            they are. Good software isn't just code that works. It's something
+            people actually want to use.
+          </p>
+          <p>
+            I'm based in Charlotte. If you need a full-stack application built
+            from scratch, a legacy system modernized, or a technical partner who
+            actually picks up the phone — that's what Adverse is for. I work
+            directly with every client. No account managers, no handoffs, no
+            layers between you and the person writing the code.
           </p>
         </div>
       </div>
@@ -163,6 +148,9 @@ export default function AboutPage() {
       {/* Skills Section */}
       <div className="about-section">
         <h2 className="about-section-title">Skills</h2>
+        <p className="about-section-intro">
+          Here's what I work with day to day — the stack behind the projects above.
+        </p>
         {skillGroups.map((group) => (
           <div key={group.category} className="skill-group">
             <p className="skill-group-label">{group.category}</p>

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import logo from "../assets/images/logo5.png";
 
 const PAGE_LINKS = [
-  { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Portfolio", to: "/portfolio" },
   { label: "Services", to: "/services" },
@@ -43,7 +42,7 @@ export default function Navbar() {
           ))}
           <li>
             <Link to="/contact" className="navbar-cta">
-              Contact
+              Get in Touch
             </Link>
           </li>
         </ul>
@@ -68,7 +67,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link to="/contact" className="navbar-cta" onClick={closeMobile}>
-            Contact
+            Get in Touch
           </Link>
         </div>
       )}

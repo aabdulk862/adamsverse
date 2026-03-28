@@ -34,27 +34,28 @@ export default function ProfileHeader() {
     >
       {/* Eyebrow */}
       <p className="hero-eyebrow">
-        <i className="fas fa-circle" style={{ fontSize: "6px", color: "var(--success-color)" }}></i> Open to work
+        <i className="fas fa-circle" style={{ fontSize: "6px", color: "var(--success-color)" }}></i> Available for projects
       </p>
 
       {/* Headline */}
       <h1 className="hero-headline">
-        We build <span className="hero-accent">web apps</span> that work.
+        I build the <span className="hero-accent">software</span>. You run the business.
       </h1>
 
       {/* Subheadline */}
       <p className="hero-sub">
-        We build websites and apps, set up cloud hosting, and help you market
-        your brand. Simple as that.
+        Full-stack applications, cloud infrastructure, and technical consulting
+        for small businesses and startups that need reliable software without
+        the agency overhead.
       </p>
 
       {/* CTAs */}
       <div className="hero-ctas">
         <a href="/contact" className="hero-btn hero-btn--primary">
-          Say hello <i className="fas fa-arrow-right"></i>
+          Start a project <i className="fas fa-arrow-right"></i>
         </a>
-        <a href="/services" className="hero-btn hero-btn--ghost">
-          What we do
+        <a href="/portfolio" className="hero-btn hero-btn--ghost">
+          See my work
         </a>
       </div>
 

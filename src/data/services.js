@@ -1,30 +1,32 @@
 const services = [
   {
-    id: "web-app-development",
-    title: "Web & App Development",
-    icon: "fas fa-code",
+    id: "landing-page",
+    title: "Landing Page",
+    icon: "fas fa-browser",
     description:
-      "Custom websites and web applications built with modern frameworks. From landing pages to full-stack platforms, tailored to your needs.",
-    priceRange: "$35–$50/hr or $500–$1,500/project",
+      "A polished, responsive marketing page built to convert. Ideal for launches, portfolios, or single-product businesses.",
+    priceRange: "$500–$1,500",
     deliverables: [
-      "Custom responsive design",
-      "Frontend & backend development",
-      "API integration",
+      "Up to 5 sections/pages",
+      "Mobile-responsive design",
+      "Contact form integration",
       "Deployment & hosting setup",
+      "1 round of revisions included",
     ],
   },
   {
-    id: "content-creation",
-    title: "Content Creation",
-    icon: "fas fa-pen-nib",
+    id: "full-stack-application",
+    title: "Full-Stack Application",
+    icon: "fas fa-code",
     description:
-      "Engaging digital content for your brand — social media posts, video editing, graphics, and written content that connects with your audience.",
-    priceRange: "$25–$40/hr or $200–$600/month",
+      "Custom web applications with backend APIs, databases, auth, and cloud deployment. Built with Spring Boot, React, and PostgreSQL. Modern tooling including AI assistance — so you get faster delivery without sacrificing quality.",
+    priceRange: "Starting at $3,000+",
     deliverables: [
-      "Social media content",
-      "Video editing & production",
-      "Graphic design assets",
-      "Content strategy planning",
+      "Frontend & backend development",
+      "Database design & API integration",
+      "Authentication & role-based access",
+      "Cloud deployment (AWS/Docker)",
+      "Scoped to your requirements",
     ],
   },
   {
@@ -32,27 +34,13 @@ const services = [
     title: "Consulting",
     icon: "fas fa-lightbulb",
     description:
-      "Technical and creative consulting to help you make informed decisions about your digital presence, tech stack, and growth strategy.",
-    priceRange: "$40–$60/hr",
+      "Technical consulting for teams that need a second opinion on architecture, stack decisions, or code quality before committing.",
+    priceRange: "$50–$75/hr",
     deliverables: [
       "Tech stack evaluation",
       "Code review & architecture advice",
-      "Digital strategy sessions",
+      "Migration & modernization planning",
       "Performance optimization guidance",
-    ],
-  },
-  {
-    id: "add-ons",
-    title: "Optional Add-ons",
-    icon: "fas fa-puzzle-piece",
-    description:
-      "Need it fast or want extra polish? Add rush delivery or additional revision rounds to any service package.",
-    priceRange: "Rush +15–25%, Extra revisions $20–$50",
-    deliverables: [
-      "Rush delivery (15–25% surcharge)",
-      "Additional revision rounds",
-      "Priority support",
-      "Extended maintenance period",
     ],
   },
 ];

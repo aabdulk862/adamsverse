@@ -1044,6 +1044,61 @@ h4 {
   color: var(--text-muted);
 }
 
+/* Featured project card */
+.portfolio-featured {
+  margin-bottom: var(--space-8);
+}
+
+.portfolio-group {
+  margin-bottom: var(--space-10, 3rem);
+}
+
+.portfolio-group-title {
+  font-size: var(--font-size-sm, 0.875rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  margin: 0 0 var(--space-4) 0;
+}
+
+.portfolio-card--featured {
+  border: 1.5px solid var(--accent-primary);
+}
+
+.portfolio-card--featured .portfolio-card-placeholder {
+  min-height: 180px;
+}
+
+/* Type badges */
+.portfolio-card-meta {
+  margin-bottom: var(--space-2);
+}
+
+.portfolio-type-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.portfolio-type-badge--client {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+.portfolio-type-badge--personal {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+.portfolio-type-badge--training {
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+}
+
 @media (max-width: 600px) {
   .portfolio-grid {
     grid-template-columns: 1fr;
@@ -1119,6 +1174,12 @@ h4 {
   padding-bottom: var(--space-2);
   border-bottom: 2px solid var(--accent-primary);
   display: inline-block;
+}
+
+.about-section-intro {
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-6);
 }
 
 /* Skills */
@@ -1230,7 +1291,7 @@ h4 {
 ================================= */
 .services-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-6);
 }
 
@@ -1408,12 +1469,25 @@ h4 {
   font-weight: var(--font-weight-normal);
 }
 
+.learn-link-meta {
+  font-size: 0.7rem;
+  opacity: 0.4;
+  font-weight: var(--font-weight-normal);
+  margin-top: 2px;
+}
+
+.learn-meta-line {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+}
+
 /* =================================
    HOME – SERVICES OVERVIEW
 ================================= */
 .home-services-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-6);
 }
 
@@ -1484,6 +1558,67 @@ h4 {
 @media (max-width: 600px) {
   .home-services-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* =================================
+   HOME – AI CTA BANNER
+================================= */
+.ai-cta-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-8);
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  margin: var(--space-8) 0;
+}
+
+.ai-cta-icon {
+  font-size: var(--font-size-xl);
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.ai-cta-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.ai-cta-headline {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  margin: 0 0 2px 0;
+}
+
+.ai-cta-sub {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.ai-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--accent-primary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: gap var(--transition-fast);
+}
+
+.ai-cta-link:hover {
+  gap: var(--space-3);
+}
+
+@media (max-width: 600px) {
+  .ai-cta-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-5);
   }
 }
 
@@ -1689,7 +1824,7 @@ h4 {
 ================================= */
 .contact-info-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
   margin-bottom: var(--space-8);
 }

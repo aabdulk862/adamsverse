@@ -3,16 +3,40 @@ const projects = [
     id: "gamec",
     title: "GAMEC",
     description:
-      "Official website for the Global Association of Muslim Eritrean Communities, a 501(c)(3) nonprofit serving Muslim Eritrean communities worldwide. Led design and development from scratch, managing hosting and ongoing updates.",
+      "Built the official website for a 501(c)(3) nonprofit serving Muslim Eritrean communities worldwide. Designed and developed from scratch, launched within 4 weeks, and still maintained today.",
     tags: ["HTML", "CSS", "JavaScript", "Netlify"],
     link: "https://igamec.org",
     image: null,
+    type: "client",
+    featured: true,
+  },
+  {
+    id: "jasons-enterprises",
+    title: "Jason's Enterprises",
+    description:
+      "Business website for a home installation and repair company serving the DC, Maryland, and Virginia area. Includes service listings, appointment booking, customer testimonials, and a 90-day warranty guarantee. Built and launched as a client project.",
+    tags: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+    link: "https://aabdulk862.github.io/jasons-enterprises/",
+    image: null,
+    type: "client",
+    featured: false,
+  },
+  {
+    id: "better-budget",
+    title: "Better Budget",
+    description:
+      "Full-stack envelope budgeting app where users allocate money to virtual envelopes and track spending in real time. Includes secure auth, admin controls, and cloud deployment on AWS.",
+    tags: ["Spring Boot", "React", "TypeScript", "PostgreSQL", "Docker", "AWS"],
+    link: "https://github.com/aabdulk862/BetterBudget",
+    image: null,
+    type: "training",
+    featured: false,
   },
   {
     id: "learn-kafka",
     title: "Kafka Learning Platform",
     description:
-      "Comprehensive Spring Boot learning platform for Apache Kafka. Covers producer/consumer patterns, transactional messaging with exactly-once semantics, Kafka Streams, Avro schema management, and real-world use cases like order processing, event sourcing, CQRS, and saga patterns.",
+      "Open-source reference project covering Kafka producer/consumer patterns, transactional messaging, Kafka Streams, Avro schemas, and real-world patterns like event sourcing and CQRS.",
     tags: [
       "Spring Boot",
       "Kafka",
@@ -23,35 +47,31 @@ const projects = [
     ],
     link: "https://github.com/aabdulk862/learn-kafka",
     image: null,
+    type: "personal",
+    featured: false,
   },
   {
     id: "learn-angular",
     title: "Learn Angular 18",
     description:
-      "Comprehensive learning resource demonstrating core Angular 18 concepts — standalone components, signal-based reactivity, new control flow syntax (@if, @for, @switch), reactive forms, HTTP client, and dependency injection.",
+      "Interactive learning resource demonstrating Angular 18 fundamentals — standalone components, signal-based reactivity, new control flow syntax, reactive forms, and dependency injection.",
     tags: ["Angular 18", "TypeScript", "Signals", "RxJS"],
     link: "https://learn-angular18.netlify.app/",
     image: null,
-  },
-  {
-    id: "better-budget",
-    title: "Better Budget",
-    description:
-      "Full-stack envelope budgeting app built with Spring Boot and React + TypeScript. Users allocate money to virtual envelopes, track income/expenses, and manage budgets in real time. Includes admin features, secure auth, and cloud deployment on AWS EC2/RDS/S3.",
-    tags: ["Spring Boot", "React", "TypeScript", "PostgreSQL", "Docker", "AWS"],
-    link: "https://github.com/aabdulk862/BetterBudget",
-    image: null,
+    type: "personal",
+    featured: false,
   },
   {
     id: "ers",
     title: "Expense Reimbursement System",
     description:
-      "Java full-stack app where employees submit reimbursement requests and managers approve or deny them. Features role-based access control, secure login, and full CRUD for reimbursements and users.",
+      "Built during professional training at Revature. Full-stack app with role-based access control, approval workflows, and secure auth — designed to mirror real enterprise reimbursement flows.",
     tags: ["Spring Boot", "React", "PostgreSQL", "REST API", "RBAC"],
     link: "https://github.com/aabdulk862/Expense-Reimbursement-System",
     image: null,
+    type: "training",
+    featured: false,
   },
-
 ];
 
 export default projects;
