@@ -90,7 +90,7 @@ export default function AboutPage() {
             I've been online longer than I've been doing anything else. I grew
             up in Northern Virginia — one of the biggest tech corridors in the
             country — and the computer was where I lived. I'd notice when
-            Facebook changed something and try to figure out how they did it. My
+            Facebook changed something and I would try to figure out how they did it. My
             first CS class was at Battlefield High School in Haymarket, VA,
             where I took Java with Mr. Meermans. Something clicked, and I never
             stopped.
