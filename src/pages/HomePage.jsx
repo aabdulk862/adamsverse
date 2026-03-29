@@ -71,7 +71,7 @@ export default function HomePage() {
         <div className="ai-cta-text">
           <p className="ai-cta-headline">Faster delivery. Same quality.</p>
           <p className="ai-cta-sub">
-            I use modern AI tooling to move faster and iterate without inflating
+            We use modern AI tooling to move faster and iterate without inflating
             your bill. You get production-ready code on a tighter timeline.
           </p>
         </div>
