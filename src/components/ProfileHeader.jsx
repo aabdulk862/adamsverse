@@ -50,7 +50,7 @@ export default function ProfileHeader() {
       {/* Subheadline */}
       <p className="hero-sub">
         Websites, full-stack applications, cloud infrastructure, and technical
-        consulting for businesses that need reliable software without the agency
+        consulting for businesses that need reliable software solutions without the agency
         overhead.
       </p>
 
