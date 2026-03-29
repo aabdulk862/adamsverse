@@ -60,7 +60,7 @@ export default function ProfileHeader() {
           Start a project <i className="fas fa-arrow-right"></i>
         </a>
         <a href="/portfolio" className="hero-btn hero-btn--ghost">
-          See my work
+          See our work
         </a>
       </div>
 
