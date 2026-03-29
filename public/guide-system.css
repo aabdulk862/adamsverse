@@ -142,7 +142,7 @@ body::before {
   background: #ffffff;
   flex-direction: column;
   padding: 24px;
-  gap: 16px;
+  gap: 8px;
   z-index: 9999;
 }
 .site-navbar-overlay.open {
@@ -154,20 +154,31 @@ body::before {
   color: var(--text);
   text-decoration: none;
   transition: opacity 0.2s;
+  border-radius: 12px;
 }
 .site-navbar-overlay a:hover {
   opacity: 0.7;
+  background: #f8f9fa;
 }
 .site-navbar-overlay .site-navbar-cta {
   align-self: flex-start;
   margin-top: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 @media (max-width: 600px) {
   .site-navbar-links {
     display: none;
   }
   .site-navbar-hamburger {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .site-navbar-inner {
+    padding: 12px 16px;
   }
 }
 
@@ -375,7 +386,7 @@ body {
 }
 
 /* ── STICKY NAV ── */
-nav,
+nav:not(.site-navbar),
 .toc {
   position: sticky;
   top: 56px;
@@ -398,7 +409,7 @@ nav,
   white-space: nowrap;
 }
 
-nav a,
+nav:not(.site-navbar) a,
 .toc a {
   font-family: var(--mono);
   font-size: 0.8rem;
@@ -413,7 +424,7 @@ nav a,
   gap: 5px;
   flex-shrink: 0;
 }
-nav a:hover,
+nav:not(.site-navbar) a:hover,
 .toc a:hover {
   color: var(--accent);
   border-bottom-color: var(--accent);
