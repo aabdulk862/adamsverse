@@ -114,7 +114,7 @@ export default function AboutPage() {
             actually want to use.
           </p>
           <p>
-            I'm based in Charlotte. If you need a full-stack application built
+            I'm based in Charlotte, North Carolina. If you need a full-stack application built
             from scratch, a legacy system modernized, or a technical partner who
             actually picks up the phone — that's what Adverse is for. No
             account managers, no handoffs, no layers between you and the person
