@@ -3,7 +3,7 @@ const projects = [
     id: "gamec",
     title: "GAMEC",
     description:
-      "Built the official website for a 501(c)(3) nonprofit serving Muslim Eritrean communities worldwide. Designed and developed from scratch, launched within 4 weeks, and still maintained today.",
+      "Co-founded this 501(c)(3) nonprofit serving Muslim Eritrean communities worldwide. Built the official website from scratch, launched within 4 weeks, and continue to manage hosting and updates.",
     tags: ["HTML", "CSS", "JavaScript", "Netlify"],
     link: "https://igamec.org",
     image: null,

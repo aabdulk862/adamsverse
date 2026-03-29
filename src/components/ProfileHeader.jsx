@@ -39,7 +39,7 @@ export default function ProfileHeader() {
 
       {/* Headline */}
       <h1 className="hero-headline">
-        I build the <span className="hero-accent">software</span>. You run the business.
+        We build the <span className="hero-accent">software</span>. You run the business.
       </h1>
 
       {/* Subheadline */}
