@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import ProfileHeader from "../components/ProfileHeader";
 import Section from "../components/Section";
 import services from "../data/services";
-import projects from "../data/projects";
+import clients from "../data/clients";
 
 const values = [
   {
@@ -35,7 +35,6 @@ export default function HomePage() {
   };
 
   const topServices = services.slice(0, 3);
-  const topProjects = projects.slice(0, 4);
 
   return (
     <div className="container">
@@ -71,8 +70,9 @@ export default function HomePage() {
         <div className="ai-cta-text">
           <p className="ai-cta-headline">Faster delivery. Same quality.</p>
           <p className="ai-cta-sub">
-            We use modern AI tooling to move faster and iterate without inflating
-            your bill. You get production-ready code on a tighter timeline.
+            We use modern AI tooling to move faster and iterate without
+            inflating your bill. You get production-ready code on a tighter
+            timeline.
           </p>
         </div>
         <Link to="/services" className="ai-cta-link">
@@ -80,24 +80,24 @@ export default function HomePage() {
         </Link>
       </div>
 
-      {/* Portfolio Highlights */}
-      <Section title="Projects" id="portfolio-highlights">
+      {/* Clients */}
+      <Section title="Clients" id="clients">
         <div className="home-portfolio-grid">
-          {topProjects.map((project) => (
+          {clients.map((client) => (
             <a
-              key={project.id}
-              href={project.link}
-              target={project.link?.startsWith("http") ? "_blank" : undefined}
+              key={client.id}
+              href={client.link}
+              target={client.link?.startsWith("http") ? "_blank" : undefined}
               rel={
-                project.link?.startsWith("http")
+                client.link?.startsWith("http")
                   ? "noopener noreferrer"
                   : undefined
               }
               className="home-portfolio-card"
             >
               <div className="home-portfolio-thumb">
-                {project.image ? (
-                  <img src={project.image} alt={project.title} />
+                {client.image ? (
+                  <img src={client.image} alt={client.title} />
                 ) : (
                   <div className="home-portfolio-placeholder">
                     <i className="fas fa-folder-open"></i>
@@ -106,14 +106,14 @@ export default function HomePage() {
               </div>
               <div className="home-portfolio-body">
                 <h3 className="home-portfolio-title">
-                  {project.title}
-                  {project.link && (
+                  {client.title}
+                  {client.link && (
                     <i className="fas fa-external-link-alt home-portfolio-link-icon"></i>
                   )}
                 </h3>
-                <p className="home-portfolio-desc">{project.description}</p>
+                <p className="home-portfolio-desc">{client.description}</p>
                 <div className="home-portfolio-tags">
-                  {project.tags.map((tag) => (
+                  {client.tags.map((tag) => (
                     <span key={tag} className="home-portfolio-tag">
                       {tag}
                     </span>

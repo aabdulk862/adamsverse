@@ -16,10 +16,10 @@ const services = [
   },
   {
     id: "full-stack-application",
-    title: "Full-Stack Application",
+    title: "Full-Stack Development",
     icon: "fas fa-code",
     description:
-      "Custom web applications with backend APIs, databases, auth, and cloud deployment. Built with Spring Boot, React, and PostgreSQL. Modern tooling including AI assistance — so you get faster delivery without sacrificing quality.",
+      "Custom web applications with backend APIs, databases, and cloud deployment. Speacializing in: Spring Boot, React, and PostgreSQL. Modern tooling including AI assistance — so you get faster delivery without sacrificing quality.",
     priceRange: "Starting at $3,000+",
     deliverables: [
       "Frontend & backend development",

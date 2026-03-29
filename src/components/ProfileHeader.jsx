@@ -16,9 +16,9 @@ function useIsMobile(breakpoint = 600) {
 }
 
 const features = [
-  { icon: "fas fa-code", label: "Full-Stack Dev" },
-  { icon: "fas fa-cloud", label: "Cloud & Infra" },
-  { icon: "fas fa-lightbulb", label: "Consulting" },
+  { icon: "fas fa-code", label: "Web Development Services" },
+  { icon: "fas fa-cloud", label: "Cloud Deployment & Infracture" },
+  { icon: "fas fa-lightbulb", label: "Content Creation + Consulting" },
 ];
 
 export default function ProfileHeader() {
@@ -34,19 +34,24 @@ export default function ProfileHeader() {
     >
       {/* Eyebrow */}
       <p className="hero-eyebrow">
-        <i className="fas fa-circle" style={{ fontSize: "6px", color: "var(--success-color)" }}></i> Available for projects
+        <i
+          className="fas fa-circle"
+          style={{ fontSize: "6px", color: "var(--success-color)" }}
+        ></i>{" "}
+        Available for projects
       </p>
 
       {/* Headline */}
       <h1 className="hero-headline">
-        We build the <span className="hero-accent">software</span>. You run the business.
+        We build the <span className="hero-accent">software</span>. You run the
+        business.
       </h1>
 
       {/* Subheadline */}
       <p className="hero-sub">
-        Full-stack applications, cloud infrastructure, and technical consulting
-        for small businesses and startups that need reliable software without
-        the agency overhead.
+        Websites, full-stack applications, cloud infrastructure, and technical
+        consulting for businesses that need reliable software without the agency
+        overhead.
       </p>
 
       {/* CTAs */}
