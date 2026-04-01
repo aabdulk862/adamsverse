@@ -35,6 +35,10 @@ const skillGroups = [
       "REST API Design",
     ],
   },
+  {
+    category: "AI & Tooling",
+    skills: ["AI-Assisted Development", "Prompt Engineering", "Code Generation", "AI Code Review"],
+  },
 ];
 
 const experience = [

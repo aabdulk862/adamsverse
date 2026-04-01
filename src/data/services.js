@@ -19,7 +19,7 @@ const services = [
     title: "Full-Stack Development",
     icon: "fas fa-code",
     description:
-      "Custom web applications with backend APIs, databases, and cloud deployment. Speacializing in: Spring Boot, React, and PostgreSQL. Modern tooling including AI assistance — so you get faster delivery without sacrificing quality.",
+      "Custom web applications with backend APIs, databases, and cloud deployment. Specializing in Spring Boot, React, and PostgreSQL. We stay current with the latest AI tooling to keep iteration cycles fast and delivery timelines tight.",
     priceRange: "Starting at $3,000+",
     deliverables: [
       "Frontend & backend development",
@@ -38,6 +38,7 @@ const services = [
     priceRange: "$50–$75/hr",
     deliverables: [
       "Tech stack evaluation",
+      "AI tooling evaluation",
       "Code review & architecture advice",
       "Migration & modernization planning",
       "Performance optimization guidance",

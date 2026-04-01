@@ -68,11 +68,11 @@ export default function HomePage() {
           <i className="fas fa-bolt"></i>
         </div>
         <div className="ai-cta-text">
-          <p className="ai-cta-headline">Faster delivery. Same quality.</p>
+          <p className="ai-cta-headline">AI won't replace good taste.</p>
           <p className="ai-cta-sub">
-            We use modern AI tooling to move faster and iterate without
-            inflating your bill. You get production-ready code on a tighter
-            timeline.
+            The tools change every month. We keep up so you don't have to — and
+            we know when to use them and when to leave them alone. Your project
+            gets the speed without the guesswork.
           </p>
         </div>
         <Link to="/services" className="ai-cta-link">
