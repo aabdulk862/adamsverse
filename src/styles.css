@@ -888,6 +888,13 @@ h4 {
 /* =================================
    NAVBAR MOBILE OVERLAY
 ================================= */
+.navbar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 998;
+}
+
 .navbar-overlay {
   position: fixed;
   top: 0;
@@ -899,10 +906,34 @@ h4 {
   z-index: 999;
   display: flex;
   flex-direction: column;
-  padding: calc(var(--navbar-height) + var(--space-8)) var(--space-6) var(--space-8);
+  padding: var(--space-8) var(--space-6) var(--space-8);
   gap: var(--space-1);
   overflow-y: auto;
   box-shadow: -8px 0 32px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-overlay-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast), background var(--transition-fast);
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-overlay-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .navbar-overlay a {

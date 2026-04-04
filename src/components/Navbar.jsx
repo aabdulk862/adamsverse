@@ -114,20 +114,13 @@ export default function Navbar() {
             </Link>
           </li>
 
-          {/* Auth elements — after existing nav items */}
+          {/* Auth — single button */}
           {!user && (
-            <>
-              <li>
-                <Link to="/login" className="navbar-auth-link">
-                  Sign In
-                </Link>
-              </li>
-              <li>
-                <Link to="/login?mode=signup" className="navbar-auth-btn">
-                  Sign Up
-                </Link>
-              </li>
-            </>
+            <li>
+              <Link to="/login" className="navbar-auth-btn">
+                Sign In
+              </Link>
+            </li>
           )}
 
           {user && (
@@ -213,80 +206,97 @@ export default function Navbar() {
       {/* Mobile overlay */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            className="navbar-overlay"
-            ref={overlayRef}
-            variants={overlayVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            {PAGE_LINKS.map((page) => (
-              <motion.div key={page.to} variants={linkVariants}>
-                <Link to={page.to} onClick={closeMobile}>
-                  {page.label}
+          <>
+            {/* Backdrop — tap to close */}
+            <motion.div
+              className="navbar-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={closeMobile}
+            />
+            {/* Drawer */}
+            <motion.div
+              className="navbar-overlay"
+              ref={overlayRef}
+              variants={overlayVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              {/* Close button */}
+              <button
+                className="navbar-overlay-close"
+                onClick={closeMobile}
+                type="button"
+                aria-label="Close menu"
+              >
+                <i className="fas fa-times"></i>
+              </button>
+
+              {PAGE_LINKS.map((page) => (
+                <motion.div key={page.to} variants={linkVariants}>
+                  <Link to={page.to} onClick={closeMobile}>
+                    {page.label}
+                  </Link>
+                </motion.div>
+              ))}
+              <motion.div variants={linkVariants}>
+                <Link to="/contact" className="navbar-cta" onClick={closeMobile}>
+                  Get in Touch
                 </Link>
               </motion.div>
-            ))}
-            <motion.div variants={linkVariants}>
-              <Link to="/contact" className="navbar-cta" onClick={closeMobile}>
-                Get in Touch
-              </Link>
-            </motion.div>
 
-            {/* Mobile auth elements */}
-            <motion.div className="navbar-overlay-auth" variants={linkVariants}>
-              {!user && (
-                <>
-                  <Link to="/login" className="navbar-auth-link" onClick={closeMobile}>
+              {/* Mobile auth elements */}
+              <motion.div className="navbar-overlay-auth" variants={linkVariants}>
+                {!user && (
+                  <Link to="/login" className="navbar-auth-btn" onClick={closeMobile}>
                     Sign In
                   </Link>
-                  <Link to="/login?mode=signup" className="navbar-auth-btn" onClick={closeMobile}>
-                    Sign Up
-                  </Link>
-                </>
-              )}
+                )}
 
-              {user && (
-                <>
-                  <div className="navbar-overlay-user">
-                    {avatarUrl ? (
-                      <img
-                        src={avatarUrl}
-                        alt={displayName}
-                        className="navbar-avatar"
-                      />
-                    ) : (
-                      <span className="navbar-avatar-fallback">
-                        {displayName.charAt(0).toUpperCase()}
+                {user && (
+                  <>
+                    <div className="navbar-overlay-user">
+                      {avatarUrl ? (
+                        <img
+                          src={avatarUrl}
+                          alt={displayName}
+                          className="navbar-avatar"
+                        />
+                      ) : (
+                        <span className="navbar-avatar-fallback">
+                          {displayName.charAt(0).toUpperCase()}
+                        </span>
+                      )}
+                      <span className="navbar-overlay-user-name">
+                        {displayName}
                       </span>
-                    )}
-                    <span className="navbar-overlay-user-name">
-                      {displayName}
-                    </span>
-                  </div>
-                  <Link to="/dashboard" onClick={closeMobile}>
-                    Dashboard
-                  </Link>
-                  {isAdmin && (
-                    <Link to="/admin" onClick={closeMobile}>
-                      Admin
+                    </div>
+                    <Link to="/dashboard" onClick={closeMobile}>
+                      Dashboard
                     </Link>
-                  )}
-                  <Link to="/dashboard/settings" onClick={closeMobile}>
-                    Settings
-                  </Link>
-                  <button
-                    className="navbar-overlay-signout"
-                    onClick={handleSignOut}
-                    type="button"
-                  >
-                    Sign Out
-                  </button>
-                </>
-              )}
+                    {isAdmin && (
+                      <Link to="/admin" onClick={closeMobile}>
+                        Admin
+                      </Link>
+                    )}
+                    <Link to="/dashboard/settings" onClick={closeMobile}>
+                      Settings
+                    </Link>
+                    <button
+                      className="navbar-overlay-signout"
+                      onClick={handleSignOut}
+                      type="button"
+                    >
+                      Sign Out
+                    </button>
+                  </>
+                )}
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
