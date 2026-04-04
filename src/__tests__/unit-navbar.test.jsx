@@ -44,8 +44,8 @@ describe("15.3 Navbar", () => {
     expect(screen.getByText("Learn")).toBeInTheDocument();
   });
 
-  it('shows "Sign in with Google" button when unauthenticated', () => {
+  it('shows "Sign In" link when unauthenticated', () => {
     renderNavbar();
-    expect(screen.getAllByText("Sign in with Google").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Sign In").length).toBeGreaterThan(0);
   });
 });

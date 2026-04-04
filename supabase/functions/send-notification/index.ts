@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": Deno.env.get("ALLOWED_ORIGIN") || "https://adverse.dev",
+  "Access-Control-Allow-Origin": Deno.env.get("ALLOWED_ORIGIN") || "https://adamsverse.com",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -23,6 +23,7 @@ serve(async (req: Request) => {
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const siteUrl = Deno.env.get("ALLOWED_ORIGIN") || "https://adamsverse.com";
     const resendApiKey = Deno.env.get("RESEND_API_KEY")!;
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
@@ -46,10 +47,10 @@ serve(async (req: Request) => {
         heading: "Project Status Update",
         body: `<p>Your project <strong>${projectName}</strong> has been updated to <strong>${newStatus}</strong>.</p>
                <p>Log in to your dashboard to view details and next steps.</p>`,
-        ctaUrl: `${supabaseUrl.replace(".supabase.co", ".netlify.app")}/dashboard/projects/${record.id}`,
+        ctaUrl: `${siteUrl}/dashboard/projects/${record.id}`,
         ctaText: "View Project",
         clientId: clientId,
-        supabaseUrl,
+        siteUrl,
       });
     }
 
@@ -86,10 +87,10 @@ serve(async (req: Request) => {
         body: `<p>A new invoice has been created for <strong>${projectName}</strong>.</p>
                <p><strong>Amount:</strong> ${amount}<br/>
                <strong>Due Date:</strong> ${dueDate}</p>`,
-        ctaUrl: `${supabaseUrl.replace(".supabase.co", ".netlify.app")}/dashboard/billing`,
+        ctaUrl: `${siteUrl}/dashboard/billing`,
         ctaText: "View Invoice",
         clientId: clientId,
-        supabaseUrl,
+        siteUrl,
       });
     }
 
@@ -145,10 +146,10 @@ serve(async (req: Request) => {
                <p style="padding: 12px 16px; background: #f8f9fa; border-radius: 8px; border-left: 3px solid #0066ff;">
                  ${truncate(record.content as string, 200)}
                </p>`,
-        ctaUrl: `${supabaseUrl.replace(".supabase.co", ".netlify.app")}/dashboard/projects/${projectId}`,
+        ctaUrl: `${siteUrl}/dashboard/projects/${projectId}`,
         ctaText: "View Conversation",
         clientId: clientId,
-        supabaseUrl,
+        siteUrl,
       });
     }
 
@@ -198,7 +199,7 @@ serve(async (req: Request) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Adverse LLC <notifications@adverse.dev>",
+        from: "Adverse LLC <notifications@adamsverse.com>",
         to: [recipient.email],
         subject,
         html: htmlBody,
@@ -240,9 +241,9 @@ function buildEmail(opts: {
   ctaUrl: string;
   ctaText: string;
   clientId: string | null;
-  supabaseUrl: string;
+  siteUrl: string;
 }): string {
-  const unsubscribeUrl = `${opts.supabaseUrl.replace(".supabase.co", ".netlify.app")}/dashboard/settings?unsubscribe=true`;
+  const unsubscribeUrl = `${opts.siteUrl}/dashboard/settings?unsubscribe=true`;
 
   return `<!DOCTYPE html>
 <html>
