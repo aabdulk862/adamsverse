@@ -116,15 +116,18 @@ export default function Navbar() {
 
           {/* Auth elements — after existing nav items */}
           {!user && (
-            <li>
-              <button
-                className="navbar-sign-in"
-                onClick={signInWithGoogle}
-                type="button"
-              >
-                Sign in with Google
-              </button>
-            </li>
+            <>
+              <li>
+                <Link to="/login" className="navbar-auth-link">
+                  Sign In
+                </Link>
+              </li>
+              <li>
+                <Link to="/login?mode=signup" className="navbar-auth-btn">
+                  Sign Up
+                </Link>
+              </li>
+            </>
           )}
 
           {user && (
@@ -234,16 +237,14 @@ export default function Navbar() {
             {/* Mobile auth elements */}
             <motion.div className="navbar-overlay-auth" variants={linkVariants}>
               {!user && (
-                <button
-                  className="navbar-sign-in"
-                  onClick={() => {
-                    closeMobile();
-                    signInWithGoogle();
-                  }}
-                  type="button"
-                >
-                  Sign in with Google
-                </button>
+                <>
+                  <Link to="/login" className="navbar-auth-link" onClick={closeMobile}>
+                    Sign In
+                  </Link>
+                  <Link to="/login?mode=signup" className="navbar-auth-btn" onClick={closeMobile}>
+                    Sign Up
+                  </Link>
+                </>
               )}
 
               {user && (

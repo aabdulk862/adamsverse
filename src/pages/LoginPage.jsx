@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 
 export default function LoginPage() {
   const { session, loading, error, clearError, signInWithGoogle, signUpWithEmail, signInWithEmail } = useAuth()
-  const [mode, setMode] = useState('signin') // 'signin' or 'signup'
+  const [searchParams] = useSearchParams()
+  const [mode, setMode] = useState(searchParams.get('mode') === 'signup' ? 'signup' : 'signin')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
