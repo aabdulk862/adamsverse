@@ -28,7 +28,7 @@ export default function ProfileHeader() {
 
   return (
     <motion.section
-      className="hero"
+      className="hero hero--gradient"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: dur, ease: "easeOut" }}
@@ -43,7 +43,7 @@ export default function ProfileHeader() {
       </p>
 
       {/* Headline */}
-      <h1 className="hero-headline">
+      <h1 className="hero-headline" style={{ fontSize: 'var(--font-size-display)', letterSpacing: '-0.02em' }}>
         We build the <span className="hero-accent">software</span>. You run the
         business.
       </h1>

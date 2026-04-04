@@ -11,10 +11,10 @@ describe("15.5 About Page", () => {
       </MemoryRouter>,
     );
 
-  it('has "Software Engineer • Full-Stack Developer" role descriptor', () => {
+  it('has "Founder, Adverse LLC" role descriptor', () => {
     renderAbout();
     expect(
-      screen.getByText("Software Engineer • Full-Stack Developer"),
+      screen.getByText("Founder, Adverse LLC"),
     ).toBeInTheDocument();
   });
 

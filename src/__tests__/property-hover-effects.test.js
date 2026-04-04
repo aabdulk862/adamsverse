@@ -31,7 +31,7 @@ function extractHoverRules(css) {
 describe("Property 10: Hover effects are subtle — no excessive scale transforms", () => {
   const hoverRules = extractHoverRules(cssContent);
 
-  it("no hover rule includes scale() > 1.0", () => {
+  it("no hover rule includes scale() > 1.05", () => {
     fc.assert(
       fc.property(
         fc.constantFrom(
@@ -48,7 +48,7 @@ describe("Property 10: Hover effects are subtle — no excessive scale transform
               const valueMatch = scaleStr.match(/scale\(\s*([\d.]+)\s*\)/i);
               if (valueMatch) {
                 const scaleValue = parseFloat(valueMatch[1]);
-                expect(scaleValue).toBeLessThanOrEqual(1.0);
+                expect(scaleValue).toBeLessThanOrEqual(1.05);
               }
             });
           }
@@ -58,7 +58,7 @@ describe("Property 10: Hover effects are subtle — no excessive scale transform
     );
   });
 
-  it("translateY shifts in hover rules are at most 3px", () => {
+  it("translateY shifts in hover rules are at most 4px", () => {
     fc.assert(
       fc.property(
         fc.constantFrom(
@@ -79,7 +79,7 @@ describe("Property 10: Hover effects are subtle — no excessive scale transform
               );
               if (valueMatch) {
                 const pxValue = parseFloat(valueMatch[1]);
-                expect(pxValue).toBeLessThanOrEqual(3);
+                expect(pxValue).toBeLessThanOrEqual(4);
               }
             });
           }

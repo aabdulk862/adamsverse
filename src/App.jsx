@@ -1,7 +1,10 @@
-import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { validateEnv } from "./lib/envValidation";
 import HomePage from "./pages/HomePage";
 import PortfolioPage from "./pages/PortfolioPage";
 import AboutPage from "./pages/AboutPage";
@@ -39,76 +42,101 @@ function LoadingFallback() {
   );
 }
 
+const pageTransition = {
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -12 },
+  transition: { duration: 0.25 },
+};
+
 export default function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    validateEnv();
+  }, []);
+
   return (
     <>
       <Navbar />
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/learn" element={<LearnPage />} />
-          <Route path="/login" element={<LoginPage />} />
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={pageTransition.initial}
+              animate={pageTransition.animate}
+              exit={pageTransition.exit}
+              transition={pageTransition.transition}
+            >
+              <Routes location={location}>
+                {/* Public routes */}
+                <Route path="/" element={<HomePage />} />
+                <Route path="/portfolio" element={<PortfolioPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/services" element={<ServicesPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/learn" element={<LearnPage />} />
+                <Route path="/login" element={<LoginPage />} />
 
-          {/* Protected client routes */}
-          <Route
-            path="/dashboard"
-            element={
-              <AuthGuard>
-                <DashboardLayout />
-              </AuthGuard>
-            }
-          >
-            <Route index element={<DashboardPage />} />
-            <Route path="projects" element={<ProjectListPage />} />
-            <Route path="projects/:id" element={<ProjectDetailPage />} />
-            <Route path="billing" element={<BillingPage />} />
-            <Route path="messages" element={<MessagesPage />} />
-            <Route path="settings" element={<SettingsPage />} />
-            <Route path="intake/:tierId" element={<IntakeFormPage />} />
-          </Route>
+                {/* Protected client routes */}
+                <Route
+                  path="/dashboard"
+                  element={
+                    <AuthGuard>
+                      <DashboardLayout />
+                    </AuthGuard>
+                  }
+                >
+                  <Route index element={<DashboardPage />} />
+                  <Route path="projects" element={<ProjectListPage />} />
+                  <Route path="projects/:id" element={<ProjectDetailPage />} />
+                  <Route path="billing" element={<BillingPage />} />
+                  <Route path="messages" element={<MessagesPage />} />
+                  <Route path="settings" element={<SettingsPage />} />
+                  <Route path="intake/:tierId" element={<IntakeFormPage />} />
+                </Route>
 
-          {/* Admin routes */}
-          <Route
-            path="/admin"
-            element={
-              <AdminGuard>
-                <AdminDashboardPage />
-              </AdminGuard>
-            }
-          />
-          <Route
-            path="/admin/clients"
-            element={
-              <AdminGuard>
-                <AdminClientsPage />
-              </AdminGuard>
-            }
-          />
-          <Route
-            path="/admin/projects"
-            element={
-              <AdminGuard>
-                <AdminProjectsPage />
-              </AdminGuard>
-            }
-          />
-          <Route
-            path="/admin/invoices"
-            element={
-              <AdminGuard>
-                <AdminInvoicesPage />
-              </AdminGuard>
-            }
-          />
+                {/* Admin routes */}
+                <Route
+                  path="/admin"
+                  element={
+                    <AdminGuard>
+                      <AdminDashboardPage />
+                    </AdminGuard>
+                  }
+                />
+                <Route
+                  path="/admin/clients"
+                  element={
+                    <AdminGuard>
+                      <AdminClientsPage />
+                    </AdminGuard>
+                  }
+                />
+                <Route
+                  path="/admin/projects"
+                  element={
+                    <AdminGuard>
+                      <AdminProjectsPage />
+                    </AdminGuard>
+                  }
+                />
+                <Route
+                  path="/admin/invoices"
+                  element={
+                    <AdminGuard>
+                      <AdminInvoicesPage />
+                    </AdminGuard>
+                  }
+                />
 
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </motion.div>
+          </AnimatePresence>
+        </Suspense>
+      </ErrorBoundary>
       <Footer />
     </>
   );

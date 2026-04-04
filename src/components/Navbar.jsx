@@ -1,7 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../hooks/useAuth";
 import logo from "../assets/images/logo5.png";
+
+const overlayVariants = {
+  hidden: { x: "100%" },
+  visible: { x: 0, transition: { type: "tween", duration: 0.3, when: "beforeChildren", staggerChildren: 0.06 } },
+  exit: { x: "100%", transition: { type: "tween", duration: 0.25 } },
+};
+
+const linkVariants = {
+  hidden: { opacity: 0, x: 30 },
+  visible: { opacity: 1, x: 0, transition: { type: "tween", duration: 0.2 } },
+};
 
 const PAGE_LINKS = [
   { label: "About", to: "/about" },
@@ -13,9 +25,20 @@ const PAGE_LINKS = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef(null);
+  const hamburgerRef = useRef(null);
+  const overlayRef = useRef(null);
   const { user, profile, loading, isAdmin, signInWithGoogle, signOut } =
     useAuth();
+
+  // Toggle navbar--scrolled class when scrolled past 10px
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    handleScroll(); // check initial position
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close mobile overlay on resize above 600px
   useEffect(() => {
@@ -39,6 +62,25 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Focus management: move focus into overlay on open, return to hamburger on close
+  useEffect(() => {
+    if (mobileOpen) {
+      // Wait for overlay animation to start, then focus first link
+      const timer = setTimeout(() => {
+        if (overlayRef.current) {
+          const firstFocusable = overlayRef.current.querySelector("a, button");
+          if (firstFocusable) firstFocusable.focus();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    } else {
+      // Return focus to hamburger button when overlay closes
+      if (hamburgerRef.current) {
+        hamburgerRef.current.focus();
+      }
+    }
+  }, [mobileOpen]);
+
   const closeMobile = () => setMobileOpen(false);
 
   const handleSignOut = async () => {
@@ -52,7 +94,7 @@ export default function Navbar() {
     profile?.display_name || user?.user_metadata?.full_name || "User";
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <div className="navbar-inner">
         <Link to="/" className="navbar-brand">
           <img src={logo} alt="Adverse LLC logo" className="navbar-logo" />
@@ -157,6 +199,7 @@ export default function Navbar() {
         <button
           className="navbar-hamburger"
           type="button"
+          ref={hamburgerRef}
           onClick={() => setMobileOpen((prev) => !prev)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
@@ -165,73 +208,86 @@ export default function Navbar() {
       </div>
 
       {/* Mobile overlay */}
-      {mobileOpen && (
-        <div className="navbar-overlay">
-          {PAGE_LINKS.map((page) => (
-            <Link key={page.to} to={page.to} onClick={closeMobile}>
-              {page.label}
-            </Link>
-          ))}
-          <Link to="/contact" className="navbar-cta" onClick={closeMobile}>
-            Get in Touch
-          </Link>
-
-          {/* Mobile auth elements */}
-          <div className="navbar-overlay-auth">
-            {!user && (
-              <button
-                className="navbar-sign-in"
-                onClick={() => {
-                  closeMobile();
-                  signInWithGoogle();
-                }}
-                type="button"
-              >
-                Sign in with Google
-              </button>
-            )}
-
-            {user && (
-              <>
-                <div className="navbar-overlay-user">
-                  {avatarUrl ? (
-                    <img
-                      src={avatarUrl}
-                      alt={displayName}
-                      className="navbar-avatar"
-                    />
-                  ) : (
-                    <span className="navbar-avatar-fallback">
-                      {displayName.charAt(0).toUpperCase()}
-                    </span>
-                  )}
-                  <span className="navbar-overlay-user-name">
-                    {displayName}
-                  </span>
-                </div>
-                <Link to="/dashboard" onClick={closeMobile}>
-                  Dashboard
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            className="navbar-overlay"
+            ref={overlayRef}
+            variants={overlayVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            {PAGE_LINKS.map((page) => (
+              <motion.div key={page.to} variants={linkVariants}>
+                <Link to={page.to} onClick={closeMobile}>
+                  {page.label}
                 </Link>
-                {isAdmin && (
-                  <Link to="/admin" onClick={closeMobile}>
-                    Admin
-                  </Link>
-                )}
-                <Link to="/dashboard/settings" onClick={closeMobile}>
-                  Settings
-                </Link>
+              </motion.div>
+            ))}
+            <motion.div variants={linkVariants}>
+              <Link to="/contact" className="navbar-cta" onClick={closeMobile}>
+                Get in Touch
+              </Link>
+            </motion.div>
+
+            {/* Mobile auth elements */}
+            <motion.div className="navbar-overlay-auth" variants={linkVariants}>
+              {!user && (
                 <button
-                  className="navbar-overlay-signout"
-                  onClick={handleSignOut}
+                  className="navbar-sign-in"
+                  onClick={() => {
+                    closeMobile();
+                    signInWithGoogle();
+                  }}
                   type="button"
                 >
-                  Sign Out
+                  Sign in with Google
                 </button>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+              )}
+
+              {user && (
+                <>
+                  <div className="navbar-overlay-user">
+                    {avatarUrl ? (
+                      <img
+                        src={avatarUrl}
+                        alt={displayName}
+                        className="navbar-avatar"
+                      />
+                    ) : (
+                      <span className="navbar-avatar-fallback">
+                        {displayName.charAt(0).toUpperCase()}
+                      </span>
+                    )}
+                    <span className="navbar-overlay-user-name">
+                      {displayName}
+                    </span>
+                  </div>
+                  <Link to="/dashboard" onClick={closeMobile}>
+                    Dashboard
+                  </Link>
+                  {isAdmin && (
+                    <Link to="/admin" onClick={closeMobile}>
+                      Admin
+                    </Link>
+                  )}
+                  <Link to="/dashboard/settings" onClick={closeMobile}>
+                    Settings
+                  </Link>
+                  <button
+                    className="navbar-overlay-signout"
+                    onClick={handleSignOut}
+                    type="button"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

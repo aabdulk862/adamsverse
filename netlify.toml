@@ -3,6 +3,23 @@
   publish = "dist"
   environment = { NODE_VERSION = "20" }
 
+# Security headers for all pages
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://*.supabase.co https://js.stripe.com https://cdn.jsdelivr.net/npm/emailjs-com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co https://api.stripe.com https://api.emailjs.com; frame-src https://js.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+# Immutable cache for hashed static assets
+[[headers]]
+  for = "/_assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[redirects]]
   from = "/dsa"
   to = "/dsa.html"

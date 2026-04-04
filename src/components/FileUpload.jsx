@@ -1,7 +1,21 @@
 import { useState, useRef, useCallback } from 'react'
 import { supabase } from '../lib/supabase'
 
-const DEFAULT_MAX_SIZE = 100 * 1024 * 1024 // 100 MB
+const DEFAULT_MAX_SIZE = 10 * 1024 * 1024 // 10 MB
+
+const ALLOWED_MIME_TYPES = [
+  'image/png',
+  'image/jpeg',
+  'image/gif',
+  'image/webp',
+  'application/pdf',
+  'text/plain',
+  'application/zip',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+]
+
+const ACCEPTED_TYPES_LABEL = 'PNG, JPEG, GIF, WebP, PDF, TXT, ZIP, DOC, DOCX'
 
 function formatFileSize(bytes) {
   if (bytes < 1024) return `${bytes} B`
@@ -23,6 +37,9 @@ export default function FileUpload({ projectId, maxSize = DEFAULT_MAX_SIZE, onUp
 
   const validateFile = useCallback((file) => {
     if (!file) return 'No file selected'
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+      return `This file type is not accepted. Allowed types: ${ACCEPTED_TYPES_LABEL}.`
+    }
     if (file.size > maxSize) {
       return `File size (${formatFileSize(file.size)}) exceeds the ${formatMaxSize(maxSize)} limit`
     }
@@ -155,13 +172,14 @@ export default function FileUpload({ projectId, maxSize = DEFAULT_MAX_SIZE, onUp
         onKeyDown={handleKeyDown}
         role="button"
         tabIndex={0}
-        aria-label={`Upload file, maximum size ${formatMaxSize(maxSize)}`}
+        aria-label={`Upload file. Accepted types: ${ACCEPTED_TYPES_LABEL}. Maximum size ${formatMaxSize(maxSize)}`}
       >
         <input
           ref={fileInputRef}
           type="file"
           className="file-upload-input"
           onChange={handleFileSelect}
+          accept={ALLOWED_MIME_TYPES.join(',')}
           tabIndex={-1}
           aria-hidden="true"
         />
@@ -189,7 +207,7 @@ export default function FileUpload({ projectId, maxSize = DEFAULT_MAX_SIZE, onUp
               Drag &amp; drop a file here, or click to browse
             </span>
             <span className="file-upload-hint">
-              Max file size: {formatMaxSize(maxSize)}
+              Accepted types: {ACCEPTED_TYPES_LABEL}. Max size: {formatMaxSize(maxSize)}
             </span>
           </div>
         )}

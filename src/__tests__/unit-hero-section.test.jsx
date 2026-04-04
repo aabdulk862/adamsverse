@@ -45,29 +45,29 @@ describe("15.1 Hero Section (ProfileHeader)", () => {
     expect(screen.queryByText(/Adverse LLC/i)).toBeNull();
   });
 
-  it('has headline "Software Solutions That Drive Results"', () => {
+  it('has headline "We build the software. You run the business."', () => {
     renderHero();
-    expect(screen.getByText(/Software Solutions That/i)).toBeInTheDocument();
-    expect(screen.getByText(/Drive Results/i)).toBeInTheDocument();
+    expect(screen.getByText(/We build the/i)).toBeInTheDocument();
+    expect(screen.getByText(/You run the/i)).toBeInTheDocument();
   });
 
-  it('has "Get Started" and "View Services" CTA buttons', () => {
+  it('has "Start a project" and "See our work" CTA buttons', () => {
     renderHero();
-    expect(screen.getByText(/Get Started/i)).toBeInTheDocument();
-    expect(screen.getByText(/View Services/i)).toBeInTheDocument();
+    expect(screen.getByText(/Start a project/i)).toBeInTheDocument();
+    expect(screen.getByText(/See our work/i)).toBeInTheDocument();
   });
 
-  it("has feature highlights: Full-Stack Development, Cloud Architecture, Technical Consulting", () => {
+  it("has feature highlights: Web Development Services, Cloud Deployment & Infracture, Content Creation + Consulting, AI-Assisted Development", () => {
     renderHero();
-    expect(screen.getByText("Full-Stack Development")).toBeInTheDocument();
-    expect(screen.getByText("Cloud Architecture")).toBeInTheDocument();
-    expect(screen.getByText("Technical Consulting")).toBeInTheDocument();
+    expect(screen.getByText("Web Development Services")).toBeInTheDocument();
+    expect(screen.getByText("Cloud Deployment & Infracture")).toBeInTheDocument();
+    expect(screen.getByText("Content Creation + Consulting")).toBeInTheDocument();
+    expect(screen.getByText("AI-Assisted Development")).toBeInTheDocument();
   });
 
-  it('has trust indicators: "20+", "3+", "50+"', () => {
+  it("does not render old trust indicators", () => {
     renderHero();
-    expect(screen.getByText("20+")).toBeInTheDocument();
-    expect(screen.getByText("3+")).toBeInTheDocument();
-    expect(screen.getByText("50+")).toBeInTheDocument();
+    expect(screen.queryByText("20+")).toBeNull();
+    expect(screen.queryByText("50+")).toBeNull();
   });
 });

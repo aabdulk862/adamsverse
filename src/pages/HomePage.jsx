@@ -40,6 +40,8 @@ export default function HomePage() {
     <div className="container">
       <ProfileHeader />
 
+      <div className="section-divider" />
+
       {/* Services Overview */}
       <Section title="Services" id="services-overview">
         <div className="home-services-grid">
@@ -62,6 +64,8 @@ export default function HomePage() {
         </div>
       </Section>
 
+      <div className="section-divider" />
+
       {/* AI Tooling CTA */}
       <div className="ai-cta-banner">
         <div className="ai-cta-icon">
@@ -80,6 +84,8 @@ export default function HomePage() {
         </Link>
       </div>
 
+      <div className="section-divider" />
+
       {/* Clients */}
       <Section title="Clients" id="clients">
         <div className="home-portfolio-grid">
@@ -97,7 +103,7 @@ export default function HomePage() {
             >
               <div className="home-portfolio-thumb">
                 {client.image ? (
-                  <img src={client.image} alt={client.title} />
+                  <img src={client.image} alt={client.title} loading="lazy" decoding="async" />
                 ) : (
                   <div className="home-portfolio-placeholder">
                     <i className="fas fa-folder-open"></i>
@@ -124,6 +130,8 @@ export default function HomePage() {
           ))}
         </div>
       </Section>
+
+      <div className="section-divider" />
 
       {/* Why Adverse */}
       <Section title="Why Adverse" id="why-adverse">

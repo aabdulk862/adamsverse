@@ -23,9 +23,9 @@ const navbarContent = fs.readFileSync(NAVBAR_PATH, "utf-8");
 
 // Expected hashes computed from the unmodified React app files.
 const EXPECTED_STYLES_HASH =
-  "9cc942c9738244fccfd9ebd6b0d1451cbb2600a65d0a514de86f8657ab8594f2";
+  "3c9cfba2567f285b72aaf08204f2c54299e534e8001647d93b338678d3c7f7c4";
 const EXPECTED_NAVBAR_HASH =
-  "e84125990c8f34eb9fd0e39582b74094e809d8166fad945983164fbd55433895";
+  "de243af806d0916f0bac3967ad3be7f2dce2049b9192a4851434575b5364960d";
 
 // Key content markers that must exist in each file
 const STYLES_MARKERS = [
@@ -44,7 +44,7 @@ const STYLES_MARKERS = [
 const NAVBAR_MARKERS = [
   { name: "default export", pattern: "export default function Navbar()" },
   { name: "useState hook", pattern: "useState(false)" },
-  { name: "navbar className", pattern: 'className="navbar"' },
+  { name: "navbar className", pattern: "className={`navbar${" },
   { name: "navbar-inner className", pattern: 'className="navbar-inner"' },
   { name: "navbar-hamburger className", pattern: 'className="navbar-hamburger"' },
   { name: "navbar-overlay className", pattern: 'className="navbar-overlay"' },

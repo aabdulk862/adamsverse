@@ -1,12 +1,47 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import emailjs from "emailjs-com";
+import { canSubmit, recordSubmission, getTimeUntilReset } from "../lib/rateLimiter";
+
+const RATE_LIMIT_KEY = "contact-form";
 
 export default function ContactPage() {
   const formRef = useRef();
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [envReady, setEnvReady] = useState(true);
+
+  useEffect(() => {
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (!serviceId || !templateId || !publicKey) {
+      setEnvReady(false);
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Honeypot check — silently discard if filled
+    const honeypot = formRef.current.elements.website;
+    if (honeypot && honeypot.value) {
+      setStatus("Message sent! I'll get back to you within 1–2 business days.");
+      formRef.current.reset();
+      return;
+    }
+
+    // Rate limit check
+    if (!canSubmit(RATE_LIMIT_KEY)) {
+      const waitMs = getTimeUntilReset(RATE_LIMIT_KEY);
+      const waitMin = Math.ceil(waitMs / 60000);
+      setStatus(
+        `You've sent several messages recently. Please wait ${waitMin > 0 ? waitMin : "a few"} minute${waitMin !== 1 ? "s" : ""} before trying again.`
+      );
+      return;
+    }
+
+    setLoading(true);
+    setStatus("");
 
     emailjs
       .sendForm(
@@ -16,14 +51,19 @@ export default function ContactPage() {
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       )
       .then(
-        (result) => {
-          console.log(result.text);
+        () => {
+          recordSubmission(RATE_LIMIT_KEY);
           setStatus("Message sent! I'll get back to you within 1–2 business days.");
           formRef.current.reset();
+          setLoading(false);
         },
         (error) => {
-          console.error(error.text);
-          setStatus("Failed to send message. Please try again later.");
+          setLoading(false);
+          if (!navigator.onLine || (error && error.message && /network/i.test(error.message))) {
+            setStatus("Network issue — please check your connection and try again.");
+          } else {
+            setStatus("Unable to send message. Please try again or email adamvmedia@outlook.com directly.");
+          }
         },
       );
   };
@@ -74,83 +114,118 @@ export default function ContactPage() {
             <span className="contact-info-value">adam-abdulkadir</span>
           </div>
         </a>
-
       </div>
 
       {/* Contact Form */}
       <div className="email-form-card-wrapper">
-        <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
-          <h2 className="contact-heading">Get in Touch</h2>
-          <p className="contact-intro">
-            Fill this out and I'll get back to you within 1–2 business days.
-          </p>
-
-          <div className="form-row">
-            <label>
-              Name
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter your name"
-                required
-              />
-            </label>
-
-            <label>
-              Email
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                required
-              />
-            </label>
+        {!envReady ? (
+          <div className="form-status-error" role="alert">
+            <i className="fas fa-exclamation-circle"></i>
+            <span>Contact form is currently unavailable. Please email us directly at adamvmedia@outlook.com.</span>
           </div>
+        ) : (
+          <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
+            <h2 className="contact-heading">Get in Touch</h2>
+            <p className="contact-intro">
+              Fill this out and I'll get back to you within 1–2 business days.
+            </p>
 
-          <label>
-            Reason
-            <select name="Reason" required>
-              <option value="">Select a reason</option>
-              <option value="Work-Inquiry">Work Inquiry</option>
-              <option value="Collaboration">Collaboration</option>
-              <option value="Feedback">Feedback</option>
-              <option value="Other">Other</option>
-            </select>
-          </label>
-
-          <label>
-            Message
-            <textarea
-              name="message"
-              placeholder="Write your message here..."
-              rows={4}
-              required
+            {/* Honeypot field */}
+            <input
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              style={{ display: "none" }}
+              aria-hidden="true"
             />
-          </label>
 
-          <button type="submit">
-            <i className="fas fa-paper-plane"></i> Send Message
-          </button>
+            <div className="form-row">
+              <label htmlFor="contact-name">
+                Name
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name"
+                  required
+                  aria-required="true"
+                />
+              </label>
 
-          {status && (
-            <div
-              className={
-                status.includes("sent")
-                  ? "form-status-success"
-                  : "form-status-error"
-              }
-            >
-              <i
+              <label htmlFor="contact-email">
+                Email
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                  aria-required="true"
+                />
+              </label>
+            </div>
+
+            <label htmlFor="contact-reason">
+              Reason
+              <select
+                id="contact-reason"
+                name="Reason"
+                required
+                aria-required="true"
+              >
+                <option value="">Select a reason</option>
+                <option value="Work-Inquiry">Work Inquiry</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Feedback">Feedback</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+
+            <label htmlFor="contact-message">
+              Message
+              <textarea
+                id="contact-message"
+                name="message"
+                placeholder="Write your message here..."
+                rows={4}
+                required
+                aria-required="true"
+              />
+            </label>
+
+            <button type="submit" disabled={loading}>
+              {loading ? (
+                <>
+                  <i className="fas fa-spinner fa-spin"></i> Sending...
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-paper-plane"></i> Send Message
+                </>
+              )}
+            </button>
+
+            {status && (
+              <div
+                role="alert"
                 className={
                   status.includes("sent")
-                    ? "fas fa-check-circle"
-                    : "fas fa-exclamation-circle"
+                    ? "form-status-success"
+                    : "form-status-error"
                 }
-              ></i>
-              <span>{status}</span>
-            </div>
-          )}
-        </form>
+              >
+                <i
+                  className={
+                    status.includes("sent")
+                      ? "fas fa-check-circle"
+                      : "fas fa-exclamation-circle"
+                  }
+                ></i>
+                <span>{status}</span>
+              </div>
+            )}
+          </form>
+        )}
       </div>
     </div>
   );

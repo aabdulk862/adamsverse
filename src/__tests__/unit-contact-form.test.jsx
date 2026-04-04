@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import HomePage from "../pages/HomePage";
+import ContactPage from "../pages/ContactPage";
 
 // Mock framer-motion
 vi.mock("framer-motion", () => ({
@@ -31,20 +31,25 @@ function filterDomProps(props) {
 }
 
 describe("15.6 Contact Form", () => {
-  const renderHome = () =>
-    render(
+  const renderContact = () => {
+    // Set EmailJS env vars so envReady stays true and the form renders
+    vi.stubEnv("VITE_EMAILJS_SERVICE_ID", "test_service");
+    vi.stubEnv("VITE_EMAILJS_TEMPLATE_ID", "test_template");
+    vi.stubEnv("VITE_EMAILJS_PUBLIC_KEY", "test_key");
+    return render(
       <MemoryRouter>
-        <HomePage />
+        <ContactPage />
       </MemoryRouter>,
     );
+  };
 
   it('has "Get in Touch" heading', () => {
-    renderHome();
+    renderContact();
     expect(screen.getByText("Get in Touch")).toBeInTheDocument();
   });
 
   it("has form fields: name, email, reason (select), message (textarea)", () => {
-    renderHome();
+    renderContact();
     expect(screen.getByPlaceholderText("Enter your name")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Enter your email")).toBeInTheDocument();
     // Reason select
@@ -56,7 +61,7 @@ describe("15.6 Contact Form", () => {
   });
 
   it("has submit button", () => {
-    renderHome();
+    renderContact();
     const submitBtn = screen.getByRole("button", { name: /Send Message/i });
     expect(submitBtn).toBeInTheDocument();
     expect(submitBtn).toHaveAttribute("type", "submit");

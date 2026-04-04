@@ -79,12 +79,13 @@ export default function AboutPage() {
       {/* Bio Section */}
       <div className="about-bio">
         <div className="about-bio-header">
-          <img src={logo} alt="Adverse LLC logo" className="about-avatar" />
+          {/* TODO: Convert profile.JPEG to WebP with JPEG fallback for production optimization */}
+          <img src={logo} alt="Adverse LLC logo" className="about-avatar" loading="lazy" decoding="async" />
           <div className="about-bio-info">
             <h2 className="about-name">
               Adam Abdulkadir
-              <img src={usa} alt="United States flag" className="flag" />
-              <img src={eritrea} alt="Eritrean flag" className="flag" />
+              <img src={usa} alt="United States flag" className="flag" loading="lazy" decoding="async" />
+              <img src={eritrea} alt="Eritrean flag" className="flag" loading="lazy" decoding="async" />
             </h2>
             <p className="about-role">Founder, Adverse LLC</p>
           </div>
@@ -152,7 +153,7 @@ export default function AboutPage() {
         <h2 className="about-section-title">Experience</h2>
         <div className="timeline">
           {experience.map((entry) => (
-            <div key={entry.year} className="timeline-entry">
+            <div key={entry.title} className="timeline-entry">
               <div className="timeline-year">{entry.year}</div>
               <div className="timeline-content">
                 <h3 className="timeline-title">{entry.title}</h3>

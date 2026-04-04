@@ -74,17 +74,17 @@ describe("15.2 Home Page Structure", () => {
     expect(serviceCards.length).toBeGreaterThan(0);
   });
 
-  it("has Portfolio Highlights section with portfolio cards", () => {
+  it("has Clients section with client cards", () => {
     const { container } = renderHome();
-    expect(screen.getByText("Portfolio")).toBeInTheDocument();
+    expect(screen.getByText("Clients")).toBeInTheDocument();
     expect(container.querySelector(".home-portfolio-grid")).toBeInTheDocument();
     const portfolioCards = container.querySelectorAll(".home-portfolio-card");
     expect(portfolioCards.length).toBeGreaterThan(0);
   });
 
-  it("has Contact Form section", () => {
+  it("does not have a contact form on the home page", () => {
     renderHome();
-    expect(screen.getByText("Get in Touch")).toBeInTheDocument();
-    expect(screen.getByText(/Send Message/i)).toBeInTheDocument();
+    expect(screen.queryByText("Get in Touch")).toBeNull();
+    expect(screen.queryByText(/Send Message/i)).toBeNull();
   });
 });
