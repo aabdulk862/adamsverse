@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import logo from "../assets/images/logo5.png";
 
 const PAGE_LINKS = [
@@ -11,6 +12,10 @@ const PAGE_LINKS = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const { user, profile, loading, isAdmin, signInWithGoogle, signOut } =
+    useAuth();
 
   // Close mobile overlay on resize above 600px
   useEffect(() => {
@@ -23,7 +28,28 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const closeMobile = () => setMobileOpen(false);
+
+  const handleSignOut = async () => {
+    setDropdownOpen(false);
+    closeMobile();
+    await signOut();
+  };
+
+  const avatarUrl = profile?.avatar_url || user?.user_metadata?.avatar_url;
+  const displayName =
+    profile?.display_name || user?.user_metadata?.full_name || "User";
 
   return (
     <nav className="navbar">
@@ -33,7 +59,7 @@ export default function Navbar() {
           <span className="navbar-brand-name">Adverse</span>
         </Link>
 
-        {/* Desktop nav links + CTA */}
+        {/* Desktop nav links + CTA + Auth */}
         <ul className="navbar-links">
           {PAGE_LINKS.map((page) => (
             <li key={page.to}>
@@ -45,6 +71,86 @@ export default function Navbar() {
               Get in Touch
             </Link>
           </li>
+
+          {/* Auth elements — after existing nav items */}
+          {!user && (
+            <li>
+              <button
+                className="navbar-sign-in"
+                onClick={signInWithGoogle}
+                type="button"
+              >
+                Sign in with Google
+              </button>
+            </li>
+          )}
+
+          {user && (
+            <li className="navbar-user-menu" ref={dropdownRef}>
+              <button
+                className="navbar-avatar-btn"
+                onClick={() => setDropdownOpen((prev) => !prev)}
+                type="button"
+                aria-label="User menu"
+                aria-expanded={dropdownOpen}
+              >
+                {avatarUrl ? (
+                  <img
+                    src={avatarUrl}
+                    alt={displayName}
+                    className="navbar-avatar"
+                  />
+                ) : (
+                  <span className="navbar-avatar-fallback">
+                    {displayName.charAt(0).toUpperCase()}
+                  </span>
+                )}
+              </button>
+
+              {dropdownOpen && (
+                <div className="navbar-dropdown">
+                  <div className="navbar-dropdown-header">
+                    <span className="navbar-dropdown-name">{displayName}</span>
+                    <span className="navbar-dropdown-email">
+                      {profile?.email || user?.email}
+                    </span>
+                  </div>
+                  <div className="navbar-dropdown-divider" />
+                  <Link
+                    to="/dashboard"
+                    className="navbar-dropdown-item"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  {isAdmin && (
+                    <Link
+                      to="/admin"
+                      className="navbar-dropdown-item"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Admin
+                    </Link>
+                  )}
+                  <Link
+                    to="/dashboard/settings"
+                    className="navbar-dropdown-item"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    Settings
+                  </Link>
+                  <div className="navbar-dropdown-divider" />
+                  <button
+                    className="navbar-dropdown-item navbar-dropdown-signout"
+                    onClick={handleSignOut}
+                    type="button"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )}
+            </li>
+          )}
         </ul>
 
         {/* Hamburger button (mobile) */}
@@ -69,6 +175,61 @@ export default function Navbar() {
           <Link to="/contact" className="navbar-cta" onClick={closeMobile}>
             Get in Touch
           </Link>
+
+          {/* Mobile auth elements */}
+          <div className="navbar-overlay-auth">
+            {!user && (
+              <button
+                className="navbar-sign-in"
+                onClick={() => {
+                  closeMobile();
+                  signInWithGoogle();
+                }}
+                type="button"
+              >
+                Sign in with Google
+              </button>
+            )}
+
+            {user && (
+              <>
+                <div className="navbar-overlay-user">
+                  {avatarUrl ? (
+                    <img
+                      src={avatarUrl}
+                      alt={displayName}
+                      className="navbar-avatar"
+                    />
+                  ) : (
+                    <span className="navbar-avatar-fallback">
+                      {displayName.charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                  <span className="navbar-overlay-user-name">
+                    {displayName}
+                  </span>
+                </div>
+                <Link to="/dashboard" onClick={closeMobile}>
+                  Dashboard
+                </Link>
+                {isAdmin && (
+                  <Link to="/admin" onClick={closeMobile}>
+                    Admin
+                  </Link>
+                )}
+                <Link to="/dashboard/settings" onClick={closeMobile}>
+                  Settings
+                </Link>
+                <button
+                  className="navbar-overlay-signout"
+                  onClick={handleSignOut}
+                  type="button"
+                >
+                  Sign Out
+                </button>
+              </>
+            )}
+          </div>
         </div>
       )}
     </nav>

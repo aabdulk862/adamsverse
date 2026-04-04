@@ -1,7 +1,20 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import services from "../data/services";
+import { useAuth } from "../hooks/useAuth";
 
 export default function ServicesPage() {
+  const { session, signInWithGoogle } = useAuth();
+  const navigate = useNavigate();
+
+  function handleGetStarted(tierId) {
+    if (session) {
+      navigate(`/dashboard/intake/${tierId}`);
+    } else {
+      sessionStorage.setItem("selectedTier", tierId);
+      signInWithGoogle();
+    }
+  }
+
   return (
     <div className="container">
       <div className="page-header">
@@ -26,9 +39,13 @@ export default function ServicesPage() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <Link to="/#contact" className="service-cta">
+            <button
+              type="button"
+              className="service-cta"
+              onClick={() => handleGetStarted(service.id)}
+            >
               Get Started <i className="fas fa-arrow-right"></i>
-            </Link>
+            </button>
           </div>
         ))}
       </div>
