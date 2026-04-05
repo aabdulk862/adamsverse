@@ -139,17 +139,22 @@ export function useAuth() {
 
         setSession(currentSession)
         setUser(currentSession?.user ?? null)
+        // Set loading false immediately — don't block on profile fetch
+        setLoading(false)
 
+        // Profile operations happen in background
         if (currentSession?.user) {
-          await upsertProfile(currentSession.user)
-          const profileData = await fetchProfile(currentSession.user.id)
-          if (mounted) setProfile(profileData)
+          upsertProfile(currentSession.user).catch(() => {})
+          fetchProfile(currentSession.user.id).then((data) => {
+            if (mounted) setProfile(data)
+          }).catch(() => {})
         }
       } catch (err) {
         logError(err, { context: 'authInit' })
-        if (mounted) setError(err.message)
-      } finally {
-        if (mounted) setLoading(false)
+        if (mounted) {
+          setError(err.message)
+          setLoading(false)
+        }
       }
     }
 
