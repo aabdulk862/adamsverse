@@ -29,7 +29,7 @@ const values = [
 
 export default function HomePage() {
   const serviceIcons = {
-    "landing-page": "fas fa-browser",
+    "landing-page": "fas fa-window-maximize",
     "full-stack-application": "fas fa-code",
     consulting: "fas fa-lightbulb",
   };

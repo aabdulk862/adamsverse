@@ -2,7 +2,7 @@ const services = [
   {
     id: "landing-page",
     title: "Landing Page",
-    icon: "fas fa-browser",
+    icon: "fas fa-window-maximize",
     description:
       "A polished, responsive marketing page built to convert. Ideal for launches, portfolios, or single-product businesses.",
     priceRange: "$500–$1,500",
