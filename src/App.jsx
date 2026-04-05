@@ -56,6 +56,13 @@ export default function App() {
     validateEnv();
   }, []);
 
+  // Group dashboard routes under one key so layout doesn't remount on sub-navigation
+  const animationKey = location.pathname.startsWith('/dashboard')
+    ? '/dashboard'
+    : location.pathname.startsWith('/admin')
+      ? '/admin'
+      : location.pathname
+
   return (
     <>
       <Navbar />
@@ -63,7 +70,7 @@ export default function App() {
         <Suspense fallback={<LoadingFallback />}>
           <AnimatePresence mode="wait">
             <motion.div
-              key={location.pathname}
+              key={animationKey}
               initial={pageTransition.initial}
               animate={pageTransition.animate}
               exit={pageTransition.exit}
