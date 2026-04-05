@@ -57,10 +57,10 @@ describe("15.1 Hero Section (ProfileHeader)", () => {
     expect(screen.getByText(/See our work/i)).toBeInTheDocument();
   });
 
-  it("has feature highlights: Web Development Services, Cloud Deployment & Infracture, Content Creation + Consulting, AI-Assisted Development", () => {
+  it("has feature highlights: Web Development Services, Cloud Deployment & Infrastructure, Content Creation + Consulting, AI-Assisted Development", () => {
     renderHero();
     expect(screen.getByText("Web Development Services")).toBeInTheDocument();
-    expect(screen.getByText("Cloud Deployment & Infracture")).toBeInTheDocument();
+    expect(screen.getByText("Cloud Deployment & Infrastructure")).toBeInTheDocument();
     expect(screen.getByText("Content Creation + Consulting")).toBeInTheDocument();
     expect(screen.getByText("AI-Assisted Development")).toBeInTheDocument();
   });

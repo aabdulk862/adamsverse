@@ -18,7 +18,7 @@ const skillGroups = [
     skills: [
       "React",
       "Angular",
-      "JavaScipt",
+      "JavaScript",
       "TypeScript",
       "Next.js",
     ],

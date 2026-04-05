@@ -17,7 +17,7 @@ function useIsMobile(breakpoint = 600) {
 
 const features = [
   { icon: "fas fa-code", label: "Web Development Services" },
-  { icon: "fas fa-cloud", label: "Cloud Deployment & Infracture" },
+  { icon: "fas fa-cloud", label: "Cloud Deployment & Infrastructure" },
   { icon: "fas fa-lightbulb", label: "Content Creation + Consulting" },
   { icon: "fas fa-microchip", label: "AI-Assisted Development" },
 ];
