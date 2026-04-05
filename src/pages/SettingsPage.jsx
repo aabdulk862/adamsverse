@@ -20,7 +20,7 @@ export default function SettingsPage() {
       .from('notification_preferences')
       .select('project_updates, invoice_updates, message_updates')
       .eq('client_id', user.id)
-      .single()
+      .maybeSingle()
 
     if (data && !error) {
       setPreferences({
