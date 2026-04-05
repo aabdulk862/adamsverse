@@ -11,20 +11,25 @@ export function useInvoices() {
     setLoading(true)
     setError(null)
 
-    const { data, error: fetchError } = await supabase
-      .from('invoices')
-      .select('id, project_id, status, total_amount, tax_amount, due_date, paid_at, created_at')
-      .order('due_date', { ascending: true })
+    try {
+      const { data, error: fetchError } = await supabase
+        .from('invoices')
+        .select('id, project_id, status, total_amount, tax_amount, due_date, paid_at, created_at')
+        .order('due_date', { ascending: true })
 
-    if (fetchError) {
-      setError(fetchError.message)
+      if (fetchError) {
+        setError(fetchError.message)
+        setLoading(false)
+        return []
+      }
+
+      setInvoices(data || [])
+      setLoading(false)
+      return data || []
+    } catch {
       setLoading(false)
       return []
     }
-
-    setInvoices(data)
-    setLoading(false)
-    return data
   }, [])
 
   const fetchInvoice = useCallback(async (id) => {

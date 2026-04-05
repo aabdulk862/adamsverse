@@ -122,7 +122,6 @@ export function useAuth() {
         // If user explicitly signed out, don't restore session
         if (localStorage.getItem(SIGNED_OUT_KEY)) {
           localStorage.removeItem(SIGNED_OUT_KEY)
-          await supabase.auth.signOut()
           if (mounted) setLoading(false)
           return
         }

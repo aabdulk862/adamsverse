@@ -11,20 +11,25 @@ export function useProjects() {
     setLoading(true)
     setError(null)
 
-    const { data, error: fetchError } = await supabase
-      .from('projects')
-      .select('id, name, status, service_tier, updated_at')
-      .order('updated_at', { ascending: false })
+    try {
+      const { data, error: fetchError } = await supabase
+        .from('projects')
+        .select('id, name, status, service_tier, updated_at')
+        .order('updated_at', { ascending: false })
 
-    if (fetchError) {
-      setError(fetchError.message)
+      if (fetchError) {
+        setError(fetchError.message)
+        setLoading(false)
+        return []
+      }
+
+      setProjects(data || [])
+      setLoading(false)
+      return data || []
+    } catch {
       setLoading(false)
       return []
     }
-
-    setProjects(data)
-    setLoading(false)
-    return data
   }, [])
 
   const fetchProject = useCallback(async (id) => {
