@@ -4,21 +4,21 @@ const resources = [
     items: [
       {
         label: "DSA Study Guide",
-        href: "/dsa.html",
+        href: "/dsa",
         icon: "fas fa-sitemap",
         desc: "Big O notation, core data structures, and 18 LeetCode patterns broken down with explanations and Java examples. Written for developers preparing for technical interviews or brushing up on fundamentals.",
         meta: "Intermediate · ~12 min read",
       },
       {
         label: "LeetCode Java Companion",
-        href: "/leetcode.html",
+        href: "/leetcode",
         icon: "fas fa-code",
         desc: "The 20 most common coding interview problems solved in Java with step-by-step breakdowns. Each solution includes time/space complexity analysis and notes on common edge cases.",
         meta: "Intermediate · 20 problems",
       },
       {
         label: "GitHub Developer Guide",
-        href: "/github.html",
+        href: "/github",
         icon: "fab fa-github",
         desc: "A practical walkthrough of Git fundamentals, branching strategies, pull request workflows, and IntelliJ IDEA integration. Designed for developers who use Git daily but want to tighten their workflow.",
         meta: "Beginner–Intermediate · ~13 min read",
@@ -37,7 +37,7 @@ const resources = [
     items: [
       {
         label: "Build a Website with AI",
-        href: "/ai-website.html",
+        href: "/ai-website",
         icon: "fas fa-robot",
         desc: "A step-by-step guide to creating a basic webpage using AI tools — no coding experience needed. Covers prompting, editing, and publishing. Great for understanding what goes into a site before hiring someone to build a real one.",
         meta: "Beginner · ~8 min read",

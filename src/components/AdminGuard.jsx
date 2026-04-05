@@ -2,9 +2,10 @@ import { Navigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 
 export default function AdminGuard({ children }) {
-  const { session, loading, isAdmin } = useAuth()
+  const { session, profile, loading } = useAuth()
 
-  if (loading) {
+  // Wait for both session and profile to resolve
+  if (loading || (session && !profile)) {
     return (
       <div className="auth-guard-loading" role="status" aria-label="Loading">
         <div className="auth-guard-spinner" />
@@ -17,7 +18,7 @@ export default function AdminGuard({ children }) {
     return <Navigate to="/login" replace />
   }
 
-  if (!isAdmin) {
+  if (profile?.role !== 'admin') {
     return <Navigate to="/dashboard" replace />
   }
 

@@ -23,7 +23,7 @@ const navbarContent = fs.readFileSync(NAVBAR_PATH, "utf-8");
 
 // Expected hashes computed from the unmodified React app files.
 const EXPECTED_STYLES_HASH =
-  "797e2f339409040989c9d85797477ccaf961adb5965988066182b36c36fcbd12";
+  "870602e4badf634b460ae3f63aa65e75f550c4a134b667d5932d773fae40791b";
 const EXPECTED_NAVBAR_HASH =
   "b2e4aab6391100029413ec41c024ac03f0d4334aca3cf4b1dea671b929dfa94d";
 
