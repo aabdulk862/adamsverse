@@ -45,7 +45,7 @@
           <li><a href="/learn">Learn</a></li>
           <li><a href="/contact" class="site-navbar-cta">Get in Touch</a></li>
         </ul>
-        <button class="site-navbar-hamburger" type="button" onclick="document.querySelector('.site-navbar-overlay').classList.toggle('open')" aria-label="Toggle menu">☰</button>
+        <button class="site-navbar-hamburger" type="button" aria-label="Toggle menu">☰</button>
       </div>
       <div class="site-navbar-overlay">
         <a href="/about">About</a>
@@ -1453,23 +1453,6 @@
       </div>
     </footer>
 
-    <script>
-      // Scroll reveal
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-            }
-          });
-        },
-        { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
-      );
-
-      document.querySelectorAll(".reveal").forEach((el, i) => {
-        el.style.transitionDelay = (i % 4) * 0.06 + "s";
-        observer.observe(el);
-      });
-    </script>
+    <script src="/guide-dsa.js"></script>
   </body>
 </html>

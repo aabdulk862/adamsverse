@@ -45,7 +45,7 @@
           <li><a href="/learn">Learn</a></li>
           <li><a href="/contact" class="site-navbar-cta">Get in Touch</a></li>
         </ul>
-        <button class="site-navbar-hamburger" type="button" onclick="document.querySelector('.site-navbar-overlay').classList.toggle('open')" aria-label="Toggle menu">☰</button>
+        <button class="site-navbar-hamburger" type="button" aria-label="Toggle menu">☰</button>
       </div>
       <div class="site-navbar-overlay">
         <a href="/about">About</a>
@@ -498,16 +498,6 @@
 
     <footer>built by <span>adam abdulkadir</span> · helping you build with AI</footer>
 
-    <script>
-      var reveals = document.querySelectorAll('.reveal');
-      function checkReveal() {
-        for (var i = 0; i < reveals.length; i++) {
-          var top = reveals[i].getBoundingClientRect().top;
-          if (top < window.innerHeight - 60) reveals[i].classList.add('visible');
-        }
-      }
-      window.addEventListener('scroll', checkReveal);
-      window.addEventListener('load', checkReveal);
-    </script>
+    <script src="/guide-ai-website.js"></script>
   </body>
 </html>

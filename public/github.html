@@ -46,7 +46,7 @@
           <li><a href="/learn">Learn</a></li>
           <li><a href="/contact" class="site-navbar-cta">Get in Touch</a></li>
         </ul>
-        <button class="site-navbar-hamburger" type="button" onclick="document.querySelector('.site-navbar-overlay').classList.toggle('open')" aria-label="Toggle menu">☰</button>
+        <button class="site-navbar-hamburger" type="button" aria-label="Toggle menu">☰</button>
       </div>
       <div class="site-navbar-overlay">
         <a href="/about">About</a>
@@ -1590,55 +1590,6 @@ logs/</code></pre>
       </p>
     </div>
 
-    <script>
-      // ---- Scroll spy: highlight active nav link ----
-      const sections = document.querySelectorAll(".section[id]");
-      const navLinks = document.querySelectorAll('.toc a[href^="#"]');
-      const progressBar = document.getElementById("tocProgress");
-
-      function updateNav() {
-        // Progress bar
-        const scrollTop = window.scrollY;
-        const docHeight =
-          document.documentElement.scrollHeight - window.innerHeight;
-        progressBar.style.width = (scrollTop / docHeight) * 100 + "%";
-
-        // Active link
-        let currentId = "";
-        sections.forEach((section) => {
-          const top = section.offsetTop - 90;
-          if (scrollTop >= top) currentId = section.id;
-        });
-
-        navLinks.forEach((link) => {
-          link.classList.toggle(
-            "active",
-            link.getAttribute("href") === "#" + currentId,
-          );
-        });
-
-        // Auto-scroll active link into view in the nav bar
-        const activeLink = document.querySelector(".toc a.active");
-        if (activeLink) {
-          const linksEl = document.getElementById("tocLinks");
-          const linkLeft = activeLink.offsetLeft;
-          const linkWidth = activeLink.offsetWidth;
-          const containerWidth = linksEl.offsetWidth;
-          const scrollLeft = linksEl.scrollLeft;
-          if (
-            linkLeft < scrollLeft + 20 ||
-            linkLeft + linkWidth > scrollLeft + containerWidth - 20
-          ) {
-            linksEl.scrollTo({
-              left: linkLeft - containerWidth / 2 + linkWidth / 2,
-              behavior: "smooth",
-            });
-          }
-        }
-      }
-
-      window.addEventListener("scroll", updateNav, { passive: true });
-      updateNav();
-    </script>
+    <script src="/guide-github.js"></script>
   </body>
 </html>
