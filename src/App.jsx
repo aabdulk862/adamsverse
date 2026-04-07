@@ -65,6 +65,7 @@ export default function App() {
 
   return (
     <>
+      <a href="#main-content" className="skip-to-content">Skip to content</a>
       <Navbar />
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
@@ -75,6 +76,7 @@ export default function App() {
               animate={pageTransition.animate}
               exit={pageTransition.exit}
               transition={pageTransition.transition}
+              id="main-content"
             >
               <Routes location={location}>
                 {/* Public routes */}

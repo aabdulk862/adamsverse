@@ -43,7 +43,7 @@ export default function ProfileHeader() {
       </p>
 
       {/* Headline */}
-      <h1 className="hero-headline" style={{ fontSize: 'var(--font-size-display)', letterSpacing: '-0.02em' }}>
+      <h1 className="hero-headline">
         We build the <span className="hero-accent">software</span>. You run the
         business.
       </h1>

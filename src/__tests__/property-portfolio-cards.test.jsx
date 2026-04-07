@@ -23,7 +23,7 @@ function PortfolioCard({ project }) {
           <img src={project.image} alt={`${project.title} thumbnail`} />
         ) : (
           <div className="portfolio-card-placeholder">
-            <i className="fas fa-code"></i>
+            <span>{project.title.charAt(0)}</span>
           </div>
         )}
       </div>

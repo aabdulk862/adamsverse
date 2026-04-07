@@ -68,15 +68,10 @@ export default function HomePage() {
 
       {/* AI Tooling CTA */}
       <div className="ai-cta-banner">
-        <div className="ai-cta-icon">
-          <i className="fas fa-bolt"></i>
-        </div>
         <div className="ai-cta-text">
           <p className="ai-cta-headline">AI won't replace good taste.</p>
           <p className="ai-cta-sub">
-            The tools change every month. We keep up so you don't have to — and
-            we know when to use them and when to leave them alone. Your project
-            gets the speed without the guesswork.
+            We keep up with the tools so you don't have to — and we know when to use them.
           </p>
         </div>
         <Link to="/services" className="ai-cta-link">
@@ -106,7 +101,7 @@ export default function HomePage() {
                   <img src={client.image} alt={client.title} loading="lazy" decoding="async" />
                 ) : (
                   <div className="home-portfolio-placeholder">
-                    <i className="fas fa-folder-open"></i>
+                    <span>{client.title.charAt(0)}</span>
                   </div>
                 )}
               </div>
@@ -144,8 +139,8 @@ export default function HomePage() {
               We keep communication clear and code clean. No handoff gaps, no
               disappearing acts.
             </p>
-            <Link to="/contact" className="hero-btn hero-btn--primary">
-              Start a conversation <i className="fas fa-arrow-right"></i>
+            <Link to="/contact" className="hero-btn hero-btn--ghost">
+              Work with us <i className="fas fa-arrow-right"></i>
             </Link>
           </div>
           <div className="values-list">

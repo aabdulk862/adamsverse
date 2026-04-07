@@ -65,7 +65,7 @@ function ProjectCard({ project, featured = false }) {
           <img src={project.image} alt={`${project.title} thumbnail`} loading="lazy" decoding="async" />
         ) : (
           <div className="portfolio-card-placeholder">
-            <i className="fas fa-code"></i>
+            <span>{project.title.charAt(0)}</span>
           </div>
         )}
       </div>
