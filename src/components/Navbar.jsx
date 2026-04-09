@@ -114,7 +114,7 @@ export default function Navbar() {
             </Link>
           </li>
 
-          {/* Auth — single button */}
+          {/* Auth — hidden until functionality is complete
           {!user && (
             <li>
               <Link to="/login" className="navbar-auth-btn">
@@ -122,6 +122,7 @@ export default function Navbar() {
               </Link>
             </li>
           )}
+          */}
 
           {user && (
             <li className="navbar-user-menu" ref={dropdownRef}>
@@ -248,7 +249,8 @@ export default function Navbar() {
                 </Link>
               </motion.div>
 
-              {/* Mobile auth elements */}
+              {/* Mobile auth — hidden until functionality is complete */}
+              {/*
               <motion.div className="navbar-overlay-auth" variants={linkVariants}>
                 {!user && (
                   <Link to="/login" className="navbar-auth-btn" onClick={closeMobile}>
@@ -295,6 +297,7 @@ export default function Navbar() {
                   </>
                 )}
               </motion.div>
+              */}
             </motion.div>
           </>
         )}

@@ -25,7 +25,7 @@ const navbarContent = fs.readFileSync(NAVBAR_PATH, "utf-8");
 const EXPECTED_STYLES_HASH =
   "6e70aea036c55df4b61c6370d405be0824233f1619996b613566edfa6e4f6608";
 const EXPECTED_NAVBAR_HASH =
-  "b2e4aab6391100029413ec41c024ac03f0d4334aca3cf4b1dea671b929dfa94d";
+  "a1882c91e9b6a7993efc7b6dace7fce401682ab94d3bbbf0977dbf354705a2c2";
 
 // Key content markers that must exist in each file
 const STYLES_MARKERS = [

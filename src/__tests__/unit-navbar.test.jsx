@@ -44,8 +44,8 @@ describe("15.3 Navbar", () => {
     expect(screen.getByText("Learn")).toBeInTheDocument();
   });
 
-  it('shows "Sign In" link when unauthenticated', () => {
+  it('hides "Sign In" link when auth is disabled', () => {
     renderNavbar();
-    expect(screen.getAllByText("Sign In").length).toBeGreaterThan(0);
+    expect(screen.queryByText("Sign In")).toBeNull();
   });
 });
