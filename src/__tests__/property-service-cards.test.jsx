@@ -20,8 +20,8 @@ function ServiceCard({ service }) {
           <li key={item}>{item}</li>
         ))}
       </ul>
-      <a href="/#contact" className="service-cta">
-        Get Started <i className="fas fa-arrow-right"></i>
+      <a href="/contact" className="service-cta">
+        Get in Touch <i className="fas fa-arrow-right"></i>
       </a>
     </div>
   );
