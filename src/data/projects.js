@@ -81,7 +81,7 @@ const projects = [
       "Built during professional training at Revature. Full-stack app with role-based access control, approval workflows, and secure auth — designed to mirror real enterprise reimbursement flows.",
     tags: ["Spring Boot", "React", "PostgreSQL", "REST API", "RBAC"],
     link: "https://github.com/aabdulk862/Expense-Reimbursement-System",
-    image: null,
+    image: new URL("../assets/images/ERS.jpg", import.meta.url).href,
     type: "training",
     featured: false,
   },

@@ -7,7 +7,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./context/ThemeContext";
 import { validateEnv } from "./lib/envValidation";
 import HomePage from "./pages/HomePage";
-import PortfolioPage from "./pages/PortfolioPage";
+import PortfolioPage from "./pages/ProjectsPage";
 import AboutPage from "./pages/AboutPage";
 import ServicesPage from "./pages/ServicesPage";
 import LearnPage from "./pages/LearnPage";

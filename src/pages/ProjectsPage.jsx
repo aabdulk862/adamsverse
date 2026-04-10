@@ -20,7 +20,7 @@ export default function PortfolioPage() {
   return (
     <div className="container">
       <div className="page-header">
-        <h1 className="page-title">Portfolio</h1>
+        <h1 className="page-title">Projects</h1>
         <p className="page-subtitle">
           Real projects — client work, open-source tools, and technical deep
           dives. More available on request.
