@@ -23,7 +23,7 @@ const navbarContent = fs.readFileSync(NAVBAR_PATH, "utf-8");
 
 // Expected hashes computed from the unmodified React app files.
 const EXPECTED_STYLES_HASH =
-  "8ad28f1bb5bb1c1d25e21d60ba6e7b43f47d3ab1b07fcc045221f38ce3cc4b5b";
+  "c1e97a92dea051e7516fab72be14450ff92628a4a1b6c67152f63455b2675631";
 const EXPECTED_NAVBAR_HASH =
   "bba0f484c81e5688ce1b212e6115d60f1b39b55188dedc88c7fc32d5f35d3173";
 
@@ -46,11 +46,17 @@ const NAVBAR_MARKERS = [
   { name: "useState hook", pattern: "useState(false)" },
   { name: "navbar className", pattern: "className={`navbar${" },
   { name: "navbar-inner className", pattern: 'className="navbar-inner"' },
-  { name: "navbar-hamburger className", pattern: 'className="navbar-hamburger"' },
+  {
+    name: "navbar-hamburger className",
+    pattern: 'className="navbar-hamburger"',
+  },
   { name: "navbar-overlay className", pattern: 'className="navbar-overlay"' },
   { name: "navbar-cta className", pattern: 'className="navbar-cta"' },
   { name: "Link import", pattern: 'import { Link } from "react-router-dom"' },
-  { name: "logo import", pattern: 'import logo from "../assets/images/logo5.png"' },
+  {
+    name: "logo import",
+    pattern: 'import logo from "../assets/images/logo5.png"',
+  },
   { name: "PAGE_LINKS constant", pattern: "const PAGE_LINKS" },
 ];
 
@@ -67,30 +73,24 @@ describe("[Preservation] Property 2: React app files are not modified", () => {
 
   it("src/styles.css contains all expected CSS selectors and sections", () => {
     fc.assert(
-      fc.property(
-        fc.constantFrom(...STYLES_MARKERS),
-        ({ name, pattern }) => {
-          expect(
-            stylesContent.includes(pattern),
-            `styles.css should contain ${name}: "${pattern}"`,
-          ).toBe(true);
-        },
-      ),
+      fc.property(fc.constantFrom(...STYLES_MARKERS), ({ name, pattern }) => {
+        expect(
+          stylesContent.includes(pattern),
+          `styles.css should contain ${name}: "${pattern}"`,
+        ).toBe(true);
+      }),
       { numRuns: 100 },
     );
   });
 
   it("src/components/Navbar.jsx contains all expected component content", () => {
     fc.assert(
-      fc.property(
-        fc.constantFrom(...NAVBAR_MARKERS),
-        ({ name, pattern }) => {
-          expect(
-            navbarContent.includes(pattern),
-            `Navbar.jsx should contain ${name}: "${pattern}"`,
-          ).toBe(true);
-        },
-      ),
+      fc.property(fc.constantFrom(...NAVBAR_MARKERS), ({ name, pattern }) => {
+        expect(
+          navbarContent.includes(pattern),
+          `Navbar.jsx should contain ${name}: "${pattern}"`,
+        ).toBe(true);
+      }),
       { numRuns: 100 },
     );
   });

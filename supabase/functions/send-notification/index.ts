@@ -1,8 +1,12 @@
+// deno-lint-ignore-file
+// @ts-nocheck — Deno globals are available at runtime in Supabase Edge Functions
+
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": Deno.env.get("ALLOWED_ORIGIN") || "https://adamsverse.com",
+  "Access-Control-Allow-Origin":
+    Deno.env.get("ALLOWED_ORIGIN") || "https://adamsverse.com",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -33,10 +37,18 @@ serve(async (req: Request) => {
     let clientId: string | null = null;
     let subject = "";
     let htmlBody = "";
-    let preferenceKey: "project_updates" | "invoice_updates" | "message_updates" | null = null;
+    let preferenceKey:
+      | "project_updates"
+      | "invoice_updates"
+      | "message_updates"
+      | null = null;
 
     // --- Project status change ---
-    if (table === "projects" && type === "UPDATE" && record.status !== old_record?.status) {
+    if (
+      table === "projects" &&
+      type === "UPDATE" &&
+      record.status !== old_record?.status
+    ) {
       clientId = record.client_id as string;
       preferenceKey = "project_updates";
       const projectName = record.name as string;
@@ -110,7 +122,10 @@ serve(async (req: Request) => {
       if (!project) {
         return new Response(
           JSON.stringify({ error: "Project not found for message" }),
-          { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          {
+            status: 404,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          },
         );
       }
 
@@ -157,7 +172,10 @@ serve(async (req: Request) => {
     if (!clientId || !subject || !htmlBody) {
       return new Response(
         JSON.stringify({ message: "No notification needed for this event" }),
-        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
       );
     }
 
@@ -171,8 +189,13 @@ serve(async (req: Request) => {
 
       if (prefs && prefs[preferenceKey] === false) {
         return new Response(
-          JSON.stringify({ message: "Notification suppressed by user preferences" }),
-          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          JSON.stringify({
+            message: "Notification suppressed by user preferences",
+          }),
+          {
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          },
         );
       }
     }
@@ -187,7 +210,10 @@ serve(async (req: Request) => {
     if (!recipient?.email) {
       return new Response(
         JSON.stringify({ error: "Recipient email not found" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        {
+          status: 404,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
       );
     }
 
@@ -210,19 +236,33 @@ serve(async (req: Request) => {
 
     if (!resendResponse.ok) {
       return new Response(
-        JSON.stringify({ error: "Failed to send email", details: resendResult }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        JSON.stringify({
+          error: "Failed to send email",
+          details: resendResult,
+        }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        },
       );
     }
 
     return new Response(
       JSON.stringify({ message: "Notification sent", id: resendResult.id }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
     );
   } catch (err) {
     return new Response(
-      JSON.stringify({ error: (err as Error).message || "Internal server error" }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      JSON.stringify({
+        error: (err as Error).message || "Internal server error",
+      }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
     );
   }
 });
