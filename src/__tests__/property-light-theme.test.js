@@ -49,11 +49,12 @@ describe("Property 1: Light theme — no dark theme remnants", () => {
   });
 
   it("body background resolves to a light color (luminance > 0.8)", () => {
-    // Body background is now hardcoded to #ffffff
-    const bodyBgMatch = cssContent.match(/body\s*\{[^}]*background:\s*(#[0-9a-fA-F]{6})/);
-    expect(bodyBgMatch).not.toBeNull();
+    // Body background uses var(--bg-primary) which resolves to #ffffff in light theme
+    // Check that :root defines --bg-primary as a light color
+    const rootBgMatch = cssContent.match(/--bg-primary:\s*(#[0-9a-fA-F]{6})/);
+    expect(rootBgMatch).not.toBeNull();
 
-    const bgColor = bodyBgMatch[1];
+    const bgColor = rootBgMatch[1];
     const rgb = hexToRgb(bgColor);
     const luminance = relativeLuminance(rgb);
 

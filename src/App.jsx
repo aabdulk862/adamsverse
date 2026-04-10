@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { ThemeProvider } from "./context/ThemeContext";
 import { validateEnv } from "./lib/envValidation";
 import HomePage from "./pages/HomePage";
 import PortfolioPage from "./pages/PortfolioPage";
@@ -64,7 +65,7 @@ export default function App() {
       : location.pathname
 
   return (
-    <>
+    <ThemeProvider>
       <a href="#main-content" className="skip-to-content">Skip to content</a>
       <Navbar />
       <ErrorBoundary>
@@ -147,6 +148,6 @@ export default function App() {
         </Suspense>
       </ErrorBoundary>
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }

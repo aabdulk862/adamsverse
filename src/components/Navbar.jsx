@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../hooks/useAuth";
+import { useTheme } from "../context/ThemeContext";
 import logo from "../assets/images/logo5.png";
 
 const overlayVariants = {
@@ -31,6 +32,7 @@ export default function Navbar() {
   const overlayRef = useRef(null);
   const { user, profile, loading, isAdmin, signInWithGoogle, signOut } =
     useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   // Toggle navbar--scrolled class when scrolled past 10px
   useEffect(() => {
@@ -108,6 +110,16 @@ export default function Navbar() {
               <Link to={page.to}>{page.label}</Link>
             </li>
           ))}
+          <li>
+            <button
+              className="theme-toggle"
+              onClick={toggleTheme}
+              aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+              type="button"
+            >
+              <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'} />
+            </button>
+          </li>
           <li>
             <Link to="/contact" className="navbar-cta">
               Get in Touch
@@ -243,6 +255,17 @@ export default function Navbar() {
                   </Link>
                 </motion.div>
               ))}
+              <motion.div variants={linkVariants}>
+                <button
+                  className="theme-toggle theme-toggle--mobile"
+                  onClick={toggleTheme}
+                  aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+                  type="button"
+                >
+                  <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'} />
+                  {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                </button>
+              </motion.div>
               <motion.div variants={linkVariants}>
                 <Link to="/contact" className="navbar-cta" onClick={closeMobile}>
                   Get in Touch

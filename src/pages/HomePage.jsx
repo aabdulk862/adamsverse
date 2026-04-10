@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
 import ProfileHeader from "../components/ProfileHeader";
 import Section from "../components/Section";
+import AnimatedSection from "../components/AnimatedSection";
 import services from "../data/services";
 import clients from "../data/clients";
+
+const metrics = [
+  { value: "10+", label: "Projects Delivered" },
+  { value: "100%", label: "Client Satisfaction" },
+  { value: "5+", label: "Years Experience" },
+  { value: "< 48hr", label: "Response Time" },
+];
 
 const values = [
   {
@@ -38,12 +46,27 @@ export default function HomePage() {
 
   return (
     <div className="container">
-      <ProfileHeader />
+      <div className="hero-viewport">
+        <ProfileHeader />
+      </div>
 
-      <div className="section-divider" />
+      {/* Social Proof Metrics Bar */}
+      <div className="social-proof-bar">
+        {metrics.map((metric, index) => (
+          <AnimatedSection key={metric.label} delay={index * 0.1} className="social-proof-metric">
+            <span className="social-proof-value">{metric.value}</span>
+            <span className="social-proof-label">{metric.label}</span>
+          </AnimatedSection>
+        ))}
+      </div>
 
       {/* Services Overview */}
-      <Section title="Services" id="services-overview">
+      <Section
+        title="Services"
+        subtitle="Straightforward pricing. No scope creep. Pick what fits."
+        id="services-overview"
+        className="home-section"
+      >
         <div className="home-services-grid">
           {topServices.map((service) => (
             <div key={service.id} className="home-service-card">
@@ -56,6 +79,7 @@ export default function HomePage() {
               </div>
               <h3 className="home-service-title">{service.title}</h3>
               <p className="home-service-desc">{service.description}</p>
+              <span className="home-service-price">{service.priceRange}</span>
               <Link to="/services" className="home-service-link">
                 Learn More <i className="fas fa-arrow-right"></i>
               </Link>
@@ -64,9 +88,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <div className="section-divider" />
-
-      {/* AI Tooling CTA */}
+      {/* AI Tooling Banner */}
       <div className="ai-cta-banner">
         <div className="ai-cta-text">
           <p className="ai-cta-headline">AI won't replace good taste.</p>
@@ -79,57 +101,56 @@ export default function HomePage() {
         </Link>
       </div>
 
-      <div className="section-divider" />
-
-      {/* Clients */}
-      <Section title="Clients" id="clients">
-        <div className="home-portfolio-grid">
-          {clients.map((client) => (
-            <a
-              key={client.id}
-              href={client.link}
-              target={client.link?.startsWith("http") ? "_blank" : undefined}
-              rel={
-                client.link?.startsWith("http")
-                  ? "noopener noreferrer"
-                  : undefined
-              }
-              className="home-portfolio-card"
-            >
-              <div className="home-portfolio-thumb">
-                {client.image ? (
-                  <img src={client.image} alt={client.title} loading="lazy" decoding="async" />
-                ) : (
-                  <div className="home-portfolio-placeholder">
-                    <span>{client.title.charAt(0)}</span>
-                  </div>
-                )}
-              </div>
-              <div className="home-portfolio-body">
-                <h3 className="home-portfolio-title">
-                  {client.title}
-                  {client.link && (
-                    <i className="fas fa-external-link-alt home-portfolio-link-icon"></i>
+      {/* Testimonials / Client Proof */}
+      <AnimatedSection>
+        <Section
+          title="Clients"
+          subtitle="Real work for real businesses. Here's who we've built for."
+          id="clients"
+          className="home-section"
+        >
+          <div className="home-portfolio-grid">
+            {clients.map((client) => (
+              <a
+                key={client.id}
+                href={client.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="home-portfolio-card"
+              >
+                <div className="home-portfolio-thumb">
+                  {client.image ? (
+                    <img src={client.image} alt={client.title} loading="lazy" decoding="async" />
+                  ) : (
+                    <div className="home-portfolio-placeholder">
+                      <span>{client.title.charAt(0)}</span>
+                    </div>
                   )}
-                </h3>
-                <p className="home-portfolio-desc">{client.description}</p>
-                <div className="home-portfolio-tags">
-                  {client.tags.map((tag) => (
-                    <span key={tag} className="home-portfolio-tag">
-                      {tag}
-                    </span>
-                  ))}
                 </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </Section>
-
-      <div className="section-divider" />
+                <div className="home-portfolio-body">
+                  <h3 className="home-portfolio-title">
+                    {client.title}
+                    {client.link && (
+                      <i className="fas fa-external-link-alt home-portfolio-link-icon"></i>
+                    )}
+                  </h3>
+                  <p className="home-portfolio-desc">{client.description}</p>
+                  <div className="home-portfolio-tags">
+                    {client.tags.map((tag) => (
+                      <span key={tag} className="home-portfolio-tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </Section>
+      </AnimatedSection>
 
       {/* Why Adverse */}
-      <Section title="Why Adverse" id="why-adverse">
+      <Section title="Why Adverse" id="why-adverse" className="home-section">
         <div className="values-banner">
           <div className="values-banner-text">
             <h2 className="values-banner-headline">
@@ -156,6 +177,19 @@ export default function HomePage() {
           </div>
         </div>
       </Section>
+
+      {/* Final CTA */}
+      <AnimatedSection>
+        <div className="final-cta">
+          <h2 className="final-cta-headline">Ready to build something?</h2>
+          <p className="final-cta-sub">
+            We'll scope it, price it, and get to work. No surprises.
+          </p>
+          <Link to="/contact" className="hero-btn hero-btn--primary">
+            Start a project <i className="fas fa-arrow-right"></i>
+          </Link>
+        </div>
+      </AnimatedSection>
     </div>
   );
 }

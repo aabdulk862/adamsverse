@@ -57,12 +57,27 @@ describe("15.1 Hero Section (ProfileHeader)", () => {
     expect(screen.getByText(/See our work/i)).toBeInTheDocument();
   });
 
-  it("has feature highlights: Web Development Services, Cloud Deployment & Infrastructure, Content Creation + Consulting, AI-Assisted Development", () => {
+  it("does not render capability pills", () => {
     renderHero();
-    expect(screen.getByText("Web Development Services")).toBeInTheDocument();
-    expect(screen.getByText("Cloud Deployment & Infrastructure")).toBeInTheDocument();
-    expect(screen.getByText("Content Creation + Consulting")).toBeInTheDocument();
-    expect(screen.getByText("AI-Assisted Development")).toBeInTheDocument();
+    expect(screen.queryByText("Web Development Services")).toBeNull();
+    expect(screen.queryByText("Cloud Deployment & Infrastructure")).toBeNull();
+    expect(screen.queryByText("Content Creation + Consulting")).toBeNull();
+    expect(screen.queryByText("AI-Assisted Development")).toBeNull();
+  });
+
+  it("renders trust tagline instead of capability pills", () => {
+    renderHero();
+    expect(
+      screen.getByText(/Transparent pricing · Full-stack ownership · No agency overhead/i),
+    ).toBeInTheDocument();
+  });
+
+  it("uses React Router Link components for CTAs", () => {
+    const { container } = renderHero();
+    const primaryCta = screen.getByText(/Start a project/i).closest("a");
+    const ghostCta = screen.getByText(/See our work/i).closest("a");
+    expect(primaryCta).toHaveAttribute("href", "/contact");
+    expect(ghostCta).toHaveAttribute("href", "/portfolio");
   });
 
   it("does not render old trust indicators", () => {

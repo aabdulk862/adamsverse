@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 function useIsMobile(breakpoint = 600) {
   const [isMobile, setIsMobile] = useState(false);
@@ -14,13 +15,6 @@ function useIsMobile(breakpoint = 600) {
 
   return isMobile;
 }
-
-const features = [
-  { icon: "fas fa-code", label: "Web Development Services" },
-  { icon: "fas fa-cloud", label: "Cloud Deployment & Infrastructure" },
-  { icon: "fas fa-lightbulb", label: "Content Creation + Consulting" },
-  { icon: "fas fa-microchip", label: "AI-Assisted Development" },
-];
 
 export default function ProfileHeader() {
   const isMobile = useIsMobile();
@@ -57,23 +51,18 @@ export default function ProfileHeader() {
 
       {/* CTAs */}
       <div className="hero-ctas">
-        <a href="/contact" className="hero-btn hero-btn--primary">
+        <Link to="/contact" className="hero-btn hero-btn--primary">
           Start a project <i className="fas fa-arrow-right"></i>
-        </a>
-        <a href="/portfolio" className="hero-btn hero-btn--ghost">
+        </Link>
+        <Link to="/portfolio" className="hero-btn hero-btn--ghost">
           See our work
-        </a>
+        </Link>
       </div>
 
-      {/* Feature highlights */}
-      <div className="hero-capabilities">
-        {features.map((f) => (
-          <div key={f.label} className="hero-cap">
-            <i className={f.icon}></i>
-            <span>{f.label}</span>
-          </div>
-        ))}
-      </div>
+      {/* Trust tagline */}
+      <p className="hero-trust-tagline">
+        Transparent pricing · Full-stack ownership · No agency overhead
+      </p>
     </motion.section>
   );
 }
