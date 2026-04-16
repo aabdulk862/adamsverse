@@ -33,17 +33,14 @@ export default function ContactPage() {
     setLoading(true);
     setStatus("");
 
-    const data = Object.fromEntries(new FormData(formRef.current));
-    delete data.website; // strip honeypot
+    const formData = new FormData(formRef.current);
+    formData.delete("website"); // strip honeypot
 
     try {
-      const res = await fetch(SHEET_URL, {
+      await fetch(SHEET_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: formData,
       });
-
-      if (!res.ok) throw new Error("Request failed");
 
       recordSubmission(RATE_LIMIT_KEY);
       setStatus("Message sent! I'll get back to you within 1–2 business days.");

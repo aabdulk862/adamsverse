@@ -23,7 +23,7 @@ Column names must match the form field `name` attributes exactly (`Reason` is ca
 ```javascript
 function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var data = JSON.parse(e.postData.contents);
+  var data = e.parameter;
 
   sheet.appendRow([
     new Date(),
