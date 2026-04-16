@@ -19,10 +19,9 @@ vi.mock("framer-motion", () => ({
   },
 }));
 
-// Mock emailjs-com
-vi.mock("emailjs-com", () => ({
-  default: { sendForm: vi.fn() },
-}));
+// Mock global fetch for Google Sheets
+const mockFetch = vi.fn();
+global.fetch = mockFetch;
 
 function filterDomProps(props) {
   const { initial, animate, transition, whileInView, viewport, ...rest } =
@@ -32,10 +31,7 @@ function filterDomProps(props) {
 
 describe("15.6 Contact Form", () => {
   const renderContact = () => {
-    // Set EmailJS env vars so envReady stays true and the form renders
-    vi.stubEnv("VITE_EMAILJS_SERVICE_ID", "test_service");
-    vi.stubEnv("VITE_EMAILJS_TEMPLATE_ID", "test_template");
-    vi.stubEnv("VITE_EMAILJS_PUBLIC_KEY", "test_key");
+    vi.stubEnv("VITE_GOOGLE_SHEET_URL", "https://script.google.com/macros/s/test/exec");
     return render(
       <MemoryRouter>
         <ContactPage />

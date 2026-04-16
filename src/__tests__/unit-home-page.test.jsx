@@ -19,10 +19,8 @@ vi.mock("framer-motion", () => ({
   },
 }));
 
-// Mock emailjs-com
-vi.mock("emailjs-com", () => ({
-  default: { sendForm: vi.fn() },
-}));
+// Mock global fetch for Google Sheets
+global.fetch = vi.fn();
 
 function filterDomProps(props) {
   const { initial, animate, transition, whileInView, viewport, ...rest } =

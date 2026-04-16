@@ -1,25 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import emailjs from "emailjs-com";
+import { useRef, useState } from "react";
 import { canSubmit, recordSubmission, getTimeUntilReset } from "../lib/rateLimiter";
 
 const RATE_LIMIT_KEY = "contact-form";
+const SHEET_URL = import.meta.env.VITE_GOOGLE_SHEET_URL;
 
 export default function ContactPage() {
   const formRef = useRef();
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
-  const [envReady, setEnvReady] = useState(true);
 
-  useEffect(() => {
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-    if (!serviceId || !templateId || !publicKey) {
-      setEnvReady(false);
-    }
-  }, []);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Honeypot check — silently discard if filled
@@ -43,29 +33,30 @@ export default function ContactPage() {
     setLoading(true);
     setStatus("");
 
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      )
-      .then(
-        () => {
-          recordSubmission(RATE_LIMIT_KEY);
-          setStatus("Message sent! I'll get back to you within 1–2 business days.");
-          formRef.current.reset();
-          setLoading(false);
-        },
-        (error) => {
-          setLoading(false);
-          if (!navigator.onLine || (error && error.message && /network/i.test(error.message))) {
-            setStatus("Network issue — please check your connection and try again.");
-          } else {
-            setStatus("Unable to send message. Please try again or email adamvmedia@outlook.com directly.");
-          }
-        },
-      );
+    const data = Object.fromEntries(new FormData(formRef.current));
+    delete data.website; // strip honeypot
+
+    try {
+      const res = await fetch(SHEET_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Request failed");
+
+      recordSubmission(RATE_LIMIT_KEY);
+      setStatus("Message sent! I'll get back to you within 1–2 business days.");
+      formRef.current.reset();
+    } catch (error) {
+      if (!navigator.onLine) {
+        setStatus("Network issue — please check your connection and try again.");
+      } else {
+        setStatus("Unable to send message. Please try again or email adamvmedia@outlook.com directly.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -118,12 +109,6 @@ export default function ContactPage() {
 
       {/* Contact Form */}
       <div className="email-form-card-wrapper">
-        {!envReady ? (
-          <div className="form-status-error" role="alert">
-            <i className="fas fa-exclamation-circle"></i>
-            <span>Contact form is currently unavailable. Please email us directly at adamvmedia@outlook.com.</span>
-          </div>
-        ) : (
           <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
             <h2 className="contact-heading">Get in Touch</h2>
             <p className="contact-intro">
@@ -164,6 +149,17 @@ export default function ContactPage() {
                 />
               </label>
             </div>
+
+            <label htmlFor="contact-phone">
+              Phone <span style={{ fontWeight: 400, opacity: 0.6 }}>(optional)</span>
+              <input
+                id="contact-phone"
+                type="tel"
+                name="phone"
+                placeholder="(123) 456-7890"
+                autoComplete="tel"
+              />
+            </label>
 
             <label htmlFor="contact-reason">
               Reason
@@ -225,7 +221,6 @@ export default function ContactPage() {
               </div>
             )}
           </form>
-        )}
       </div>
     </div>
   );
