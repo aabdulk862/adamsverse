@@ -49,7 +49,7 @@ export default function ContactPage() {
       if (!navigator.onLine) {
         setStatus("Network issue — please check your connection and try again.");
       } else {
-        setStatus("Unable to send message. Please try again or email adamvmedia@outlook.com directly.");
+        setStatus("Unable to send message. Please try again later.");
       }
     } finally {
       setLoading(false);
@@ -75,16 +75,6 @@ export default function ContactPage() {
           <div className="contact-info-details">
             <span className="contact-info-label">Phone</span>
             <span className="contact-info-value">(703) 364-8616</span>
-          </div>
-        </a>
-
-        <a href="mailto:adamvmedia@outlook.com" className="contact-info-card">
-          <div className="contact-info-icon">
-            <i className="fas fa-envelope"></i>
-          </div>
-          <div className="contact-info-details">
-            <span className="contact-info-label">Email</span>
-            <span className="contact-info-value">adverse@adversesolutions.com</span>
           </div>
         </a>
 
