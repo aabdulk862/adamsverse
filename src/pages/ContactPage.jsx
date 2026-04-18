@@ -84,7 +84,7 @@ export default function ContactPage() {
           </div>
           <div className="contact-info-details">
             <span className="contact-info-label">Email</span>
-            <span className="contact-info-value">adamvmedia@outlook.com</span>
+            <span className="contact-info-value">adverse@adversesolutions.com</span>
           </div>
         </a>
 
