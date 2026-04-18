@@ -78,6 +78,16 @@ export default function ContactPage() {
           </div>
         </a>
 
+        <a href="mailto:adamvmedia@outlook.com" className="contact-info-card">
+          <div className="contact-info-icon">
+            <i className="fas fa-envelope"></i>
+          </div>
+          <div className="contact-info-details">
+            <span className="contact-info-label">Email</span>
+            <span className="contact-info-value">adamvmedia@outlook.com</span>
+          </div>
+        </a>
+
         <a
           href="https://linkedin.com/in/adam-abdulkadir"
           target="_blank"
