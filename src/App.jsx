@@ -7,7 +7,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./context/ThemeContext";
 import { validateEnv } from "./lib/envValidation";
 import HomePage from "./pages/HomePage";
-import PortfolioPage from "./pages/ProjectsPage";
+import PackagesPage from "./pages/PackagesPage";
 import AboutPage from "./pages/AboutPage";
 import ServicesPage from "./pages/ServicesPage";
 import LearnPage from "./pages/LearnPage";
@@ -16,6 +16,9 @@ import NotFoundPage from "./pages/NotFoundPage";
 import AuthGuard from "./components/AuthGuard";
 import AdminGuard from "./components/AdminGuard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
+// Lazy-loaded public pages
+const PackageDetailPage = lazy(() => import("./pages/PackageDetailPage"));
 
 // Lazy-loaded authenticated pages
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -57,12 +60,14 @@ export default function App() {
     validateEnv();
   }, []);
 
-  // Group dashboard routes under one key so layout doesn't remount on sub-navigation
+  // Group dashboard and packages routes under one key so layout doesn't remount on sub-navigation
   const animationKey = location.pathname.startsWith('/dashboard')
     ? '/dashboard'
     : location.pathname.startsWith('/admin')
       ? '/admin'
-      : location.pathname
+      : location.pathname.startsWith('/packages')
+        ? '/packages'
+        : location.pathname
 
   return (
     <ThemeProvider>
@@ -82,7 +87,8 @@ export default function App() {
               <Routes location={location}>
                 {/* Public routes */}
                 <Route path="/" element={<HomePage />} />
-                <Route path="/portfolio" element={<PortfolioPage />} />
+                <Route path="/packages" element={<PackagesPage />} />
+                <Route path="/packages/:slug" element={<PackageDetailPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/services" element={<ServicesPage />} />
                 <Route path="/contact" element={<ContactPage />} />

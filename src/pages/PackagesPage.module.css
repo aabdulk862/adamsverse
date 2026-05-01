@@ -1,0 +1,100 @@
+/* =================================
+   PACKAGES BROWSE PAGE
+================================= */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.cardName {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.cardDescription {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+  flex: 1;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.previewLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  color: var(--accent-primary);
+  background: var(--accent-bg-subtle);
+  border: 1px solid var(--accent-border);
+  transition: all 0.2s ease;
+}
+
+.previewLink:hover {
+  background: var(--accent-bg-medium);
+  border-color: var(--accent-border-strong);
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  color: #fff;
+  background: var(--accent-primary);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ctaButton:hover {
+  background: var(--accent-primary-dark);
+  transform: translateY(-1px);
+}

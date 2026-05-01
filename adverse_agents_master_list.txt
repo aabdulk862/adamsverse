@@ -1,0 +1,82 @@
+ADVERSE SOLUTIONS — MASTER AI AGENT REPO LIST
+
+CORE CHAT / INTERACTIVE AGENTS
+--------------------------------
+Open Interpreter (Local AI terminal agent)
+https://github.com/KillianLucas/open-interpreter
+
+ChatDev (Multi-agent chat software team)
+https://github.com/OpenBMB/ChatDev
+
+AgentGPT (Goal-based autonomous agent)
+https://github.com/reworkd/AgentGPT
+
+AutoGen Studio (Multi-agent chat UI)
+https://github.com/microsoft/autogen/tree/main/python/packages/autogen-studio
+
+
+AUTONOMOUS DEV / BUILD AGENTS
+--------------------------------
+Devika AI (Autonomous software engineer)
+https://github.com/stitionai/devika
+
+gpt-engineer (Generate full codebases)
+https://github.com/AntonOsika/gpt-engineer
+
+smol-developer (Lightweight dev agent)
+https://github.com/smol-ai/developer
+
+MetaGPT (AI software company simulation)
+https://github.com/geekan/MetaGPT
+
+OpenDevin (Full dev agent system)
+https://github.com/OpenDevin/OpenDevin
+
+
+WORKFLOW / AUTOMATION AGENTS
+--------------------------------
+n8n (Workflow automation + AI)
+https://github.com/n8n-io/n8n
+
+Flowise (Visual AI workflow builder)
+https://github.com/FlowiseAI/Flowise
+
+SuperAGI (Autonomous agent framework)
+https://github.com/TransformerOptimus/SuperAGI
+
+
+LOCAL MODEL / INFRASTRUCTURE
+--------------------------------
+LocalAI (Run models locally)
+https://github.com/go-skynet/LocalAI
+
+Ollama (Local LLM runtime)
+https://github.com/ollama/ollama
+
+
+SPECIALIZED AGENTS (USEFUL FOR YOUR BUSINESS)
+--------------------------------
+LocalGPT (Local document Q&A)
+https://github.com/PromtEngineer/localGPT
+
+BabyAGI (Task-driven agent loop)
+https://github.com/yoheinakajima/babyagi
+
+AutoGPT (Classic autonomous agent)
+https://github.com/Significant-Gravitas/AutoGPT
+
+
+RECOMMENDED STARTING STACK (DO THIS FIRST)
+--------------------------------
+1. Open Interpreter (main chat agent)
+2. Devika OR gpt-engineer (build agent)
+3. n8n (automation layer)
+4. Ollama or LocalAI (optional local model)
+
+GOAL:
+- Talk to agent in Kiro
+- Audit businesses
+- Generate outreach
+- Build websites
+- Automate workflows
+

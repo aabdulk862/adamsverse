@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="footer">
       <nav className="footer-nav">
         <Link to="/">Home</Link>
-        <Link to="/portfolio">Portfolio</Link>
+        <Link to="/packages">Packages</Link>
         <Link to="/about">About</Link>
         <Link to="/services">Services</Link>
         <Link to="/learn">Learn</Link>
