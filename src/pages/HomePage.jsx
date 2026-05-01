@@ -127,22 +127,6 @@ export default function HomePage() {
                     </div>
                   )}
                 </div>
-                <div className="home-portfolio-body">
-                  <h3 className="home-portfolio-title">
-                    {client.title}
-                    {client.link && (
-                      <i className="fas fa-external-link-alt home-portfolio-link-icon"></i>
-                    )}
-                  </h3>
-                  <p className="home-portfolio-desc">{client.description}</p>
-                  <div className="home-portfolio-tags">
-                    {client.tags.map((tag) => (
-                      <span key={tag} className="home-portfolio-tag">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
               </a>
             ))}
           </div>

@@ -54,8 +54,8 @@ export default function ProfileHeader() {
         <Link to="/contact" className="hero-btn hero-btn--primary">
           Start a project <i className="fas fa-arrow-right"></i>
         </Link>
-        <Link to="/portfolio" className="hero-btn hero-btn--ghost">
-          See our work
+        <Link to="/packages" className="hero-btn hero-btn--ghost">
+          View packages
         </Link>
       </div>
 

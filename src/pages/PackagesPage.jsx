@@ -9,7 +9,8 @@ export default function PackagesPage() {
         <h1 className="page-title">Packages</h1>
         <p className="page-subtitle">
           Browse our AI-powered website packages. Preview any design and make it
-          yours.
+          yours. Each package includes a base fee determined by the scope of your
+          project. We're also available for ongoing maintenance at a monthly rate.
         </p>
       </div>
 
