@@ -2,6 +2,7 @@ const packages = [
   {
     slug: "restaurant",
     name: "Restaurant",
+    category: "Food & Hospitality",
     description:
       "An elegant dining experience website with menus, reservations, and a gallery of signature dishes.",
     sections: {
@@ -98,6 +99,7 @@ const packages = [
   {
     slug: "lash-studio",
     name: "Lash & Beauty Studio",
+    category: "Beauty & Wellness",
     description:
       "A polished beauty studio site showcasing lash extensions, brow services, and booking options.",
     sections: {
@@ -144,6 +146,7 @@ const packages = [
   {
     slug: "auto-repair",
     name: "Auto Repair Shop",
+    category: "Home Services",
     description:
       "A trustworthy auto repair website with service listings, appointment scheduling, and customer reviews.",
     sections: {
@@ -190,6 +193,7 @@ const packages = [
   {
     slug: "hair-salon",
     name: "Hair Salon & Barber",
+    category: "Beauty & Wellness",
     description:
       "A stylish salon website featuring service menus, stylist profiles, and online booking.",
     sections: {
@@ -236,6 +240,7 @@ const packages = [
   {
     slug: "gym-trainer",
     name: "Gym & Personal Trainer",
+    category: "Beauty & Wellness",
     description:
       "A high-energy fitness website with class schedules, trainer bios, and membership sign-up.",
     sections: {
@@ -282,6 +287,7 @@ const packages = [
   {
     slug: "cleaning-service",
     name: "Cleaning Service",
+    category: "Home Services",
     description:
       "A clean, professional website for residential and commercial cleaning with instant quotes and booking.",
     sections: {
@@ -326,10 +332,11 @@ const packages = [
     },
   },
   {
-    slug: "hvac-plumbing",
-    name: "HVAC & Plumbing",
+    slug: "landscaping",
+    name: "Landscaping & Lawn Care",
+    category: "Home Services",
     description:
-      "A dependable contractor website with emergency service info, service areas, and request forms.",
+      "A fresh, outdoor-focused website for lawn care and landscaping businesses with service areas, seasonal offerings, and free estimate requests.",
     sections: {
       hero: {
         headline: "Coming Soon",
@@ -374,6 +381,7 @@ const packages = [
   {
     slug: "real-estate-agent",
     name: "Real Estate Agent",
+    category: "Professional",
     description:
       "A sleek real estate site with property listings, agent bio, and contact forms for buyers and sellers.",
     sections: {
@@ -420,6 +428,7 @@ const packages = [
   {
     slug: "photographer",
     name: "Photographer",
+    category: "Professional",
     description:
       "A visual-first portfolio site for photographers with galleries, pricing packages, and a booking flow.",
     sections: {
@@ -464,10 +473,105 @@ const packages = [
     },
   },
   {
-    slug: "med-spa",
-    name: "Med Spa",
+    slug: "attorney",
+    name: "Attorney & Law Firm",
+    category: "Professional",
     description:
-      "A luxurious med spa website with treatment menus, before-and-after galleries, and appointment booking.",
+      "A professional law firm website with practice areas, attorney profiles, case results, and consultation booking.",
+    sections: {
+      hero: {
+        headline: "Coming Soon",
+        subheadline: "This package is under development.",
+        ctaText: "Get Notified",
+      },
+      services: {
+        heading: "Services",
+        items: [
+          {
+            title: "Service details coming soon",
+            description: "Check back for a full list of offerings.",
+          },
+        ],
+      },
+      gallery: {
+        heading: "Gallery",
+        images: [
+          {
+            src: "https://placehold.co/800x600",
+            alt: "Placeholder image",
+          },
+        ],
+      },
+      testimonials: {
+        heading: "Testimonials",
+        items: [
+          {
+            quote: "Testimonial coming soon.",
+            author: "Client Name",
+            role: "Customer",
+          },
+        ],
+      },
+      cta: {
+        heading: "Stay Tuned",
+        body: "This package is currently being built. Check back soon for the full experience.",
+        buttonText: "Learn More",
+      },
+    },
+  },
+  {
+    slug: "cafe-coffee-shop",
+    name: "Café & Coffee Shop",
+    category: "Food & Hospitality",
+    description:
+      "A warm, inviting website for cafés and coffee shops with menus, location info, and online ordering.",
+    sections: {
+      hero: {
+        headline: "Coming Soon",
+        subheadline: "This package is under development.",
+        ctaText: "Get Notified",
+      },
+      services: {
+        heading: "Services",
+        items: [
+          {
+            title: "Service details coming soon",
+            description: "Check back for a full list of offerings.",
+          },
+        ],
+      },
+      gallery: {
+        heading: "Gallery",
+        images: [
+          {
+            src: "https://placehold.co/800x600",
+            alt: "Placeholder image",
+          },
+        ],
+      },
+      testimonials: {
+        heading: "Testimonials",
+        items: [
+          {
+            quote: "Testimonial coming soon.",
+            author: "Client Name",
+            role: "Customer",
+          },
+        ],
+      },
+      cta: {
+        heading: "Stay Tuned",
+        body: "This package is currently being built. Check back soon for the full experience.",
+        buttonText: "Learn More",
+      },
+    },
+  },
+  {
+    slug: "hotel-bnb",
+    name: "Hotel & B&B",
+    category: "Food & Hospitality",
+    description:
+      "A polished hospitality website for hotels and bed-and-breakfasts with room galleries, amenities, and reservation booking.",
     sections: {
       hero: {
         headline: "Coming Soon",

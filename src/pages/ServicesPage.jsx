@@ -20,7 +20,6 @@ export default function ServicesPage() {
             )}
             <h3 className="service-card-title">{service.title}</h3>
             <p className="service-card-desc">{service.description}</p>
-            <div className="service-card-price">{service.priceRange}</div>
             <ul className="service-card-deliverables">
               {service.deliverables.map((item) => (
                 <li key={item}>{item}</li>

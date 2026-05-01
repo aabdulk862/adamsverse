@@ -1,6 +1,21 @@
 /* =================================
    PACKAGES BROWSE PAGE
 ================================= */
+.categorySection {
+  margin-bottom: 48px;
+}
+
+.categoryHeading {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -97,4 +112,57 @@
 .ctaButton:hover {
   background: var(--accent-primary-dark);
   transform: translateY(-1px);
+}
+
+/* =================================
+   PRICING INFO
+================================= */
+.pricingNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 16px;
+  padding: 12px 20px;
+  background: var(--accent-bg-subtle);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.pricingNote p {
+  margin: 0;
+}
+
+.pricingNote strong {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.pricingNote a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.pricingNote a:hover {
+  text-decoration: underline;
+}
+
+.pricingDivider {
+  width: 1px;
+  height: 16px;
+  background: var(--border-light);
+}
+
+@media (max-width: 600px) {
+  .pricingNote {
+    border-radius: var(--radius-md);
+  }
+
+  .pricingDivider {
+    display: none;
+  }
 }

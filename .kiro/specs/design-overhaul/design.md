@@ -46,7 +46,7 @@ The architecture shifts from a single monolithic `App.jsx` to a shared layout pa
 **ProfileHeader** (`src/components/ProfileHeader.jsx`)
 - Add flag images (`usa.png`, `eritrea.png`) inline with the title
 - Add animated subtitle using framer-motion (fade-in word-by-word or typewriter effect)
-- Add CTA button ("Let's Work Together" → links to `/#contact`)
+- Add CTA buttons: "Start a project" (primary, links to `/contact`) and "See our work" (ghost, links to `/packages`)
 - Role pills get individual gradient/accent colors
 - Wrap in framer-motion `motion.div` with `whileInView` fade-up
 
@@ -81,7 +81,9 @@ The architecture shifts from a single monolithic `App.jsx` to a shared layout pa
 
 **HomePage** (`src/pages/HomePage.jsx`)
 - Extracts current App.jsx body: Banner, ProfileHeader, all Sections, Contact form
-- No new logic — just a reorganization
+- Services section shows title, description, and "Learn More" link per service (no prices displayed)
+- Clients section renders image-only cards (no title, description, or tags) linking to client sites
+- "See our work" hero CTA links to `/packages`
 
 **PortfolioPage** (`src/pages/PortfolioPage.jsx`)
 - Imports project data from `src/data/projects.js` (array of `{ title, description, tags[], link?, image? }`)
@@ -97,6 +99,7 @@ The architecture shifts from a single monolithic `App.jsx` to a shared layout pa
 
 **ServicesPage** (`src/pages/ServicesPage.jsx`)
 - Imports service data from `src/data/services.js` (array of `{ title, description, priceRange, deliverables[] }`)
+- Each service card shows title, description, and deliverables (price range is stored in data but not rendered)
 - Each service card has a CTA button linking to `/#contact`
 - Wrapped in AnimatedSection
 
@@ -129,7 +132,7 @@ The architecture shifts from a single monolithic `App.jsx` to a shared layout pa
   id: string,
   title: string,
   description: string,
-  priceRange: string,    // e.g. "$35–$50/hr"
+  priceRange: string,    // e.g. "$35–$50/hr" — stored in data but not displayed on public pages
   deliverables: string[] // e.g. ["Custom design", "Responsive layout"]
 }
 ```
@@ -168,7 +171,7 @@ The architecture shifts from a single monolithic `App.jsx` to a shared layout pa
 
 ### Property 3: Service card completeness
 
-*For any* service object in the services data array, the rendered service card shall display the service's title, description, price range, and list of included deliverables.
+*For any* service object in the services data array, the rendered service card shall display the service's title, description, and list of included deliverables. Price range is stored in data but not rendered on public pages.
 
 **Validates: Requirements 10.2**
 

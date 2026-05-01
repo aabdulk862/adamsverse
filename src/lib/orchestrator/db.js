@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import { validateAgainstSchema } from '../agents/contracts.js'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseServiceRoleKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY
@@ -148,14 +149,54 @@ export async function getTasksByPipeline(pipelineId) {
 
 /**
  * Creates a new artifact record.
- * @param {object} artifact - Artifact data to insert
+ * Validates content against the producing agent role's output_schema before storage.
+ * Serializes content to JSON for round-trip guarantee.
+ * @param {object} artifact - Artifact data to insert (must include agent_role_id and content)
  * @returns {Promise<{ data: object|null, error: object|null }>}
  */
 export async function createArtifact(artifact) {
   try {
+    // Validate content against the producing agent role's output_schema
+    if (artifact.agent_role_id && artifact.content !== undefined) {
+      const { data: role, error: roleError } = await getAgentRoleById(artifact.agent_role_id)
+
+      if (roleError) {
+        return {
+          data: null,
+          error: {
+            message: `Failed to fetch agent role for schema validation: ${roleError.message}`,
+            code: 'ROLE_FETCH_ERROR'
+          }
+        }
+      }
+
+      if (role && role.output_schema) {
+        const validation = validateAgainstSchema(artifact.content, role.output_schema)
+        if (!validation.valid) {
+          return {
+            data: null,
+            error: {
+              message: `Artifact content does not conform to agent role output_schema: ${validation.errors.join('; ')}`,
+              code: 'SCHEMA_VALIDATION_ERROR',
+              validationErrors: validation.errors
+            }
+          }
+        }
+      }
+    }
+
+    // Serialize content to JSON string for round-trip guarantee, then parse back
+    // This ensures the content survives a full JSON round-trip before storage
+    const serializedContent = JSON.parse(JSON.stringify(artifact.content))
+
+    const artifactToStore = {
+      ...artifact,
+      content: serializedContent
+    }
+
     const { data, error } = await supabaseAdmin
       .from('artifacts')
-      .insert(artifact)
+      .insert(artifactToStore)
       .select()
       .single()
 
@@ -167,8 +208,43 @@ export async function createArtifact(artifact) {
 }
 
 /**
+ * Deserializes an artifact's content field from JSON.
+ * Supabase JSONB typically returns objects, but this handles edge cases
+ * where content may be a JSON string that needs parsing.
+ * @param {object} artifact - The artifact record from Supabase
+ * @returns {{ artifact: object|null, error: object|null }}
+ */
+function deserializeArtifactContent(artifact) {
+  if (!artifact) return { artifact: null, error: null }
+
+  try {
+    let content = artifact.content
+
+    // If content is a string, attempt to parse it as JSON
+    if (typeof content === 'string') {
+      content = JSON.parse(content)
+    }
+
+    // Verify round-trip: serialize and deserialize to ensure structural integrity
+    content = JSON.parse(JSON.stringify(content))
+
+    return { artifact: { ...artifact, content }, error: null }
+  } catch (err) {
+    return {
+      artifact: null,
+      error: {
+        message: `Failed to deserialize artifact content for artifact ${artifact.id}: ${err.message}`,
+        code: 'DESERIALIZATION_ERROR',
+        artifactId: artifact.id
+      }
+    }
+  }
+}
+
+/**
  * Retrieves artifacts with optional filtering by artifact_type.
  * Results are sorted by created_at descending (newest first).
+ * Deserializes content fields back to structured objects.
  * @param {object} [filters={}] - Optional filters
  * @param {string} [filters.artifact_type] - Filter by artifact type
  * @returns {Promise<{ data: object[]|null, error: object|null }>}
@@ -187,7 +263,32 @@ export async function getArtifacts(filters = {}) {
     const { data, error } = await query
 
     if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+
+    // Deserialize content for each artifact
+    const deserialized = []
+    const deserializationErrors = []
+
+    for (const artifact of data) {
+      const result = deserializeArtifactContent(artifact)
+      if (result.error) {
+        deserializationErrors.push(result.error)
+      } else {
+        deserialized.push(result.artifact)
+      }
+    }
+
+    if (deserializationErrors.length > 0) {
+      return {
+        data: deserialized,
+        error: {
+          message: `Failed to deserialize ${deserializationErrors.length} artifact(s)`,
+          code: 'PARTIAL_DESERIALIZATION_ERROR',
+          details: deserializationErrors
+        }
+      }
+    }
+
+    return { data: deserialized, error: null }
   } catch (err) {
     return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
   }
@@ -195,6 +296,7 @@ export async function getArtifacts(filters = {}) {
 
 /**
  * Retrieves a single artifact by ID.
+ * Deserializes content field back to a structured object.
  * @param {string} id - Artifact UUID
  * @returns {Promise<{ data: object|null, error: object|null }>}
  */
@@ -207,7 +309,14 @@ export async function getArtifactById(id) {
       .single()
 
     if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+
+    // Deserialize content
+    const result = deserializeArtifactContent(data)
+    if (result.error) {
+      return { data: null, error: result.error }
+    }
+
+    return { data: result.artifact, error: null }
   } catch (err) {
     return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
   }

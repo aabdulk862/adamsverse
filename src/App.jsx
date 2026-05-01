@@ -31,6 +31,11 @@ const MessagesPage = lazy(() => import("./pages/MessagesPage"));
 const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const IntakeFormPage = lazy(() => import("./pages/IntakeFormPage"));
 
+// Lazy-loaded agent pages
+const AgentChatPage = lazy(() => import("./pages/AgentChatPage"));
+const AgentRegistryPage = lazy(() => import("./pages/AgentRegistryPage"));
+const ArtifactBrowserPage = lazy(() => import("./pages/ArtifactBrowserPage"));
+
 // Lazy-loaded admin pages
 const AdminDashboardPage = lazy(() => import("./pages/AdminDashboardPage"));
 const AdminClientsPage = lazy(() => import("./pages/AdminClientsPage"));
@@ -111,6 +116,9 @@ export default function App() {
                   <Route path="messages" element={<MessagesPage />} />
                   <Route path="settings" element={<SettingsPage />} />
                   <Route path="intake/:tierId" element={<IntakeFormPage />} />
+                  <Route path="agents" element={<AgentChatPage />} />
+                  <Route path="agents/registry" element={<AgentRegistryPage />} />
+                  <Route path="agents/artifacts" element={<ArtifactBrowserPage />} />
                 </Route>
 
                 {/* Admin routes */}

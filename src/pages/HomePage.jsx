@@ -79,7 +79,6 @@ export default function HomePage() {
               </div>
               <h3 className="home-service-title">{service.title}</h3>
               <p className="home-service-desc">{service.description}</p>
-              <span className="home-service-price">{service.priceRange}</span>
               <Link to="/services" className="home-service-link">
                 Learn More <i className="fas fa-arrow-right"></i>
               </Link>
