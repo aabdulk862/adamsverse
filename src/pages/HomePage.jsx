@@ -5,6 +5,7 @@ import Section from "../components/Section";
 import AnimatedSection from "../components/AnimatedSection";
 import services from "../data/services";
 import clients from "../data/clients";
+import packages from "../data/packages";
 
 const metrics = [
   { value: "10+", label: "Projects Delivered" },
@@ -46,16 +47,18 @@ export default function HomePage() {
   const topServices = services.slice(0, 3);
 
   useEffect(() => {
-    document.title = "Adverse Solutions — Full-Stack Web Development & Consulting | Charlotte, NC";
+    document.title =
+      "Adverse Solutions — Full-Stack Web Development & Consulting | Charlotte, NC";
   }, []);
 
   return (
     <div className="container">
+      {/* 1. Hero */}
       <div className="hero-viewport">
         <ProfileHeader />
       </div>
 
-      {/* Social Proof Metrics Bar */}
+      {/* 2. Social Proof Metrics */}
       <div className="social-proof-bar">
         {metrics.map((metric, index) => (
           <AnimatedSection
@@ -69,48 +72,65 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* Services Overview */}
-      <Section
-        title="Services"
-        subtitle="Straightforward pricing. No scope creep. Pick what fits."
-        id="services-overview"
-        className="home-section"
-      >
-        <div className="home-services-grid">
-          {topServices.map((service) => (
-            <div key={service.id} className="home-service-card">
-              <div className="home-service-icon">
-                <i
-                  className={
-                    service.icon || serviceIcons[service.id] || "fas fa-cog"
-                  }
-                ></i>
-              </div>
-              <h3 className="home-service-title">{service.title}</h3>
-              <p className="home-service-desc">{service.description}</p>
-              <Link to="/services" className="home-service-link">
-                Learn More <i className="fas fa-arrow-right"></i>
-              </Link>
-            </div>
-          ))}
-        </div>
-      </Section>
+      {/* 3. Website Packages — the product */}
+      <AnimatedSection>
+        <Section
+          title="Website Packages"
+          subtitle="Ready-to-launch designs for your industry. Preview live, pick a theme, launch."
+          id="packages-showcase"
+          className="home-section"
+        >
+          <div className="home-packages-grid">
+            {packages
+              .filter((p) =>
+                [
+                  "restaurant",
+                  "real-estate-agent",
+                  "auto-repair",
+                  "hair-salon",
+                ].includes(p.slug),
+              )
+              .map((pkg) => (
+                <Link
+                  key={pkg.slug}
+                  to={`/packages/${pkg.slug}`}
+                  className="home-package-card"
+                >
+                  <div className="home-package-thumb">
+                    {pkg.sections?.hero?.heroImage ? (
+                      <img
+                        src={pkg.sections.hero.heroImage.replace(
+                          "w=800",
+                          "w=400",
+                        )}
+                        alt={`${pkg.name} preview`}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <div className="home-package-placeholder">
+                        <span>{pkg.name.charAt(0)}</span>
+                      </div>
+                    )}
+                    <div className="home-package-overlay">
+                      <span className="home-package-name">{pkg.name}</span>
+                      <span className="home-package-category">
+                        {pkg.category}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+          </div>
+          <div className="home-packages-cta">
+            <Link to="/packages" className="hero-btn hero-btn--ghost">
+              Browse all packages <i className="fas fa-arrow-right"></i>
+            </Link>
+          </div>
+        </Section>
+      </AnimatedSection>
 
-      {/* AI Tooling Banner */}
-      <div className="ai-cta-banner">
-        <div className="ai-cta-text">
-          <p className="ai-cta-headline">AI won't replace good taste.</p>
-          <p className="ai-cta-sub">
-            Adverse keeps up with the tools so you don't have to — and we know
-            when to use them.
-          </p>
-        </div>
-        <Link to="/services" className="ai-cta-link">
-          See services <i className="fas fa-arrow-right"></i>
-        </Link>
-      </div>
-
-      {/* Testimonials / Client Proof */}
+      {/* 4. Clients — proof right after the product */}
       <AnimatedSection>
         <Section
           title="Clients"
@@ -147,8 +167,53 @@ export default function HomePage() {
         </Section>
       </AnimatedSection>
 
-      {/* Why Adverse */}
-      <Section title="Why Adverse Solutions" id="why-adverse" className="home-section">
+      {/* 5. Services — the how */}
+      <Section
+        title="Services"
+        subtitle="Straightforward pricing. No scope creep. Pick what fits."
+        id="services-overview"
+        className="home-section"
+      >
+        <div className="home-services-grid">
+          {topServices.map((service) => (
+            <div key={service.id} className="home-service-card">
+              <div className="home-service-icon">
+                <i
+                  className={
+                    service.icon || serviceIcons[service.id] || "fas fa-cog"
+                  }
+                ></i>
+              </div>
+              <h3 className="home-service-title">{service.title}</h3>
+              <p className="home-service-desc">{service.description}</p>
+              <Link to="/services" className="home-service-link">
+                Learn More <i className="fas fa-arrow-right"></i>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* 6. AI Banner — differentiator after services */}
+      <div className="ai-cta-banner">
+        <div className="ai-cta-text">
+          <p className="ai-cta-headline">AI won't replace good taste.</p>
+          <p className="ai-cta-sub">
+            Adverse keeps up with the tools so you don't have to — and we know
+            when to use them.
+          </p>
+        </div>
+        <Link to="/services" className="ai-cta-link">
+          See services <i className="fas fa-arrow-right"></i>
+        </Link>
+      </div>
+
+      {/* 7. Why Adverse — trust/values */}
+      <Section
+        title="Why Adverse Solutions"
+        id="why-adverse"
+        className="home-section"
+      >
         <div className="values-banner">
           <div className="values-banner-text">
             <h2 className="values-banner-headline">
@@ -176,7 +241,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Final CTA */}
+      {/* 8. Final CTA */}
       <AnimatedSection>
         <div className="final-cta">
           <h2 className="final-cta-headline">Ready to build something?</h2>
