@@ -1,16 +1,35 @@
 import styles from "./Testimonials.module.css";
 
-export default function Testimonials({ content, theme }) {
+const LAYOUT_CLASS_MAP = {
+  professional: "testimonialsProfessional",
+  beauty: "testimonialsBeauty",
+  homeServices: "testimonialsHomeServices",
+  foodHospitality: "testimonialsFoodHospitality",
+};
+
+export default function Testimonials({ content, theme, layout }) {
   const { heading, items } = content || {};
+  const variantClass = LAYOUT_CLASS_MAP[layout];
+  const sectionClassName = [
+    styles.testimonials,
+    variantClass ? styles[variantClass] : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <section className={styles.testimonials}>
+    <section className={sectionClassName}>
       <div className={styles.inner}>
         {heading && <h2 className={styles.heading}>{heading}</h2>}
         {items && items.length > 0 && (
           <div className={styles.grid}>
             {items.map((item, index) => (
               <blockquote key={index} className={styles.card}>
+                {layout === "homeServices" && (
+                  <div className={styles.stars} aria-label="5 out of 5 stars">
+                    ★★★★★
+                  </div>
+                )}
                 {item.quote && (
                   <p className={styles.quote}>{item.quote}</p>
                 )}

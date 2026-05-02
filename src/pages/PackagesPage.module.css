@@ -1,28 +1,4 @@
-/* =================================
-   GRADIENT PAGE HEADER
-================================= */
-.gradientHeader {
-  text-align: center;
-  padding: 48px 24px 32px;
-  margin: -24px -24px 32px;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
-  color: #fff;
-}
-
-.gradientHeaderTitle {
-  font-size: var(--font-size-3xl, 2rem);
-  font-weight: var(--font-weight-bold, 700);
-  color: #fff;
-  margin: 0 0 8px;
-}
-
-.gradientHeaderSubtitle {
-  font-size: var(--font-size-md, 1rem);
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0 0 20px;
-  line-height: var(--line-height-relaxed, 1.6);
-}
+/* Gradient header styles removed — now uses global .page-header / .page-title */
 
 /* =================================
    PACKAGES BROWSE PAGE
@@ -188,13 +164,13 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 8px 16px;
-  margin-top: 16px;
+  margin-bottom: 32px;
   padding: 12px 20px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--text-secondary);
 }
 
 .pricingNote p {
@@ -202,26 +178,26 @@
 }
 
 .pricingNote strong {
-  color: #fff;
+  color: var(--text-primary);
   font-weight: var(--font-weight-semibold);
 }
 
 .pricingNote a {
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--accent-primary);
   text-decoration: underline;
-  text-decoration-color: rgba(255, 255, 255, 0.4);
+  text-decoration-color: var(--accent-border);
   text-underline-offset: 2px;
   font-weight: var(--font-weight-medium);
 }
 
 .pricingNote a:hover {
-  text-decoration-color: rgba(255, 255, 255, 0.8);
+  text-decoration-color: var(--accent-primary);
 }
 
 .pricingDivider {
   width: 1px;
   height: 16px;
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--border-light);
 }
 
 @media (max-width: 600px) {

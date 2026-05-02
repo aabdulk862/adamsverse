@@ -37,16 +37,23 @@ export default function Hero({ content, theme, layout }) {
             className={styles.splitImage}
             role="img"
             aria-label="Professional service image placeholder"
-          />
+          >
+            <span className={styles.photoPlaceholder}>Add your photo here</span>
+          </div>
         </div>
       </section>
     );
   }
 
   // Beauty, Home Services, Food & Hospitality — centered overlay text
+  const showBgPhotoHint = layout === "homeServices" || layout === "foodHospitality";
+
   return (
     <section className={heroClassName} data-testid="hero">
       <div className={styles.overlay} />
+      {showBgPhotoHint && (
+        <span className={styles.bgPhotoPlaceholder}>Add your photo here</span>
+      )}
       <div className={styles.inner}>
         {headline && <h1 className={styles.headline}>{headline}</h1>}
         {subheadline && <p className={styles.subheadline}>{subheadline}</p>}

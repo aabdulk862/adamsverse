@@ -1,3 +1,4 @@
+/* ── Base CTA Styles ── */
 .cta {
   background-color: var(--color-bgSurface);
   color: var(--color-textPrimary);
@@ -94,5 +95,228 @@
   .button {
     font-size: 1.125rem;
     padding: 1rem 2.5rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Layout Variant: Professional
+   Left-aligned text, horizontal rule above,
+   button aligned left. Minimal, authoritative.
+   ═══════════════════════════════════════════════ */
+.ctaProfessional {
+  text-align: left;
+  position: relative;
+}
+
+.ctaProfessional .inner {
+  align-items: flex-start;
+  max-width: 720px;
+  padding-top: 2rem;
+  border-top: 2px solid var(--color-border);
+}
+
+.ctaProfessional .heading {
+  font-size: 1.5rem;
+}
+
+.ctaProfessional .body {
+  max-width: none;
+}
+
+.ctaProfessional .button {
+  border-radius: var(--shape-radiusSmall, 0.25rem);
+}
+
+@media (min-width: 768px) {
+  .ctaProfessional .heading {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ctaProfessional .inner {
+    max-width: 800px;
+  }
+
+  .ctaProfessional .heading {
+    font-size: 2.25rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Layout Variant: Beauty & Wellness
+   Centered with extra padding, pill-shaped button,
+   decorative gradient background overlay
+   ═══════════════════════════════════════════════ */
+.ctaBeauty {
+  padding: 5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--color-bgSurface),
+    var(--color-bgMuted),
+    var(--color-bgSurface)
+  );
+}
+
+.ctaBeauty::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(0, 0, 0, 0.02) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.ctaBeauty .inner {
+  position: relative;
+  z-index: 1;
+}
+
+.ctaBeauty .heading {
+  font-weight: var(--font-weightMedium, 500);
+  letter-spacing: 0.03em;
+}
+
+.ctaBeauty .body {
+  font-style: italic;
+}
+
+.ctaBeauty .button {
+  border-radius: 9999px;
+  padding: 1rem 3rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 768px) {
+  .ctaBeauty {
+    padding: 6rem 2rem;
+  }
+
+  .ctaBeauty .button {
+    padding: 1.125rem 3.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ctaBeauty {
+    padding: 8rem 2rem;
+  }
+
+  .ctaBeauty .button {
+    padding: 1.25rem 4rem;
+    font-size: 1.0625rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Layout Variant: Home Services
+   Full-width dark background band, white text,
+   bold uppercase heading, prominent button
+   ═══════════════════════════════════════════════ */
+.ctaHomeServices {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.75)
+  ),
+  var(--color-bgBase);
+  padding: 4rem 1.5rem;
+}
+
+.ctaHomeServices .heading {
+  font-weight: var(--font-weightBold, 800);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-textPrimary, #ffffff);
+  font-size: 1.75rem;
+}
+
+.ctaHomeServices .body {
+  color: var(--color-textSecondary, #d1d5db);
+}
+
+.ctaHomeServices .button {
+  font-weight: var(--font-weightBold, 700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1rem 2.5rem;
+  font-size: 1.0625rem;
+  border-radius: var(--shape-radiusSmall, 0.25rem);
+}
+
+@media (min-width: 768px) {
+  .ctaHomeServices {
+    padding: 5rem 2rem;
+  }
+
+  .ctaHomeServices .heading {
+    font-size: 2.25rem;
+  }
+
+  .ctaHomeServices .button {
+    padding: 1.125rem 3rem;
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ctaHomeServices {
+    padding: 6rem 2rem;
+  }
+
+  .ctaHomeServices .heading {
+    font-size: 2.75rem;
+  }
+
+  .ctaHomeServices .button {
+    padding: 1.25rem 3.5rem;
+    font-size: 1.1875rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Layout Variant: Food & Hospitality
+   Centered with warm background, elegant typography
+   (current default style, refined)
+   ═══════════════════════════════════════════════ */
+.ctaFoodHospitality {
+  background-color: var(--color-bgMuted);
+}
+
+.ctaFoodHospitality .heading {
+  font-weight: var(--font-weightMedium, 500);
+  letter-spacing: var(--font-trackingDisplay);
+}
+
+.ctaFoodHospitality .body {
+  font-style: italic;
+  line-height: 1.8;
+}
+
+.ctaFoodHospitality .button {
+  border-radius: var(--shape-radiusMedium);
+  padding: 0.875rem 2.25rem;
+}
+
+@media (min-width: 768px) {
+  .ctaFoodHospitality .heading {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ctaFoodHospitality .heading {
+    font-size: 2.5rem;
+  }
+
+  .ctaFoodHospitality .button {
+    padding: 1rem 2.75rem;
   }
 }

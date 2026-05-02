@@ -113,19 +113,20 @@ export default function PackagesPage() {
 
   return (
     <div className="container">
-      <div className={styles.gradientHeader}>
-        <h1 className={styles.gradientHeaderTitle}>Packages</h1>
-        <p className={styles.gradientHeaderSubtitle}>
+      <div className="page-header">
+        <h1 className="page-title">Packages</h1>
+        <p className="page-subtitle">
           Browse our AI-powered website packages. Preview any design and make it
           yours.
         </p>
-        <div className={styles.pricingNote}>
-          <p><strong>Base fee</strong> per package · determined by project scope</p>
-          <span className={styles.pricingDivider}></span>
-          <p><strong>Maintenance</strong> available · billed monthly</p>
-          <span className={styles.pricingDivider}></span>
-          <p><strong>Custom requests</strong> welcome · <Link to="/contact">let's talk</Link></p>
-        </div>
+      </div>
+
+      <div className={styles.pricingNote}>
+        <p><strong>Base fee</strong> per package · determined by project scope</p>
+        <span className={styles.pricingDivider}></span>
+        <p><strong>Maintenance</strong> available · billed monthly</p>
+        <span className={styles.pricingDivider}></span>
+        <p><strong>Custom requests</strong> welcome · <Link to="/contact">let's talk</Link></p>
       </div>
 
       {grouped.map((group) => {

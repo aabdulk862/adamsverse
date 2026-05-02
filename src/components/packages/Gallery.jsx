@@ -53,6 +53,9 @@ export default function Gallery({ content, theme, layout }) {
                     onError={() => handleImageError(index)}
                   />
                 )}
+                {layout === "professional" && image.alt && (
+                  <div className={styles.caption}>{image.alt}</div>
+                )}
               </div>
             ))}
           </div>

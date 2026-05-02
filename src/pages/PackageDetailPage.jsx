@@ -89,8 +89,8 @@ export default function PackageDetailPage() {
         <Hero content={pkg.sections.hero} theme={theme} layout={layout} />
         <Services content={pkg.sections.services} theme={theme} layout={layout} />
         <Gallery content={pkg.sections.gallery} theme={theme} layout={layout} />
-        <Testimonials content={pkg.sections.testimonials} theme={theme} />
-        <CTA content={pkg.sections.cta} theme={theme} />
+        <Testimonials content={pkg.sections.testimonials} theme={theme} layout={layout} />
+        <CTA content={pkg.sections.cta} theme={theme} layout={layout} />
       </div>
 
       {/* Persistent "Get Started" CTA */}
