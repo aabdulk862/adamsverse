@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   canSubmit,
   recordSubmission,
@@ -12,10 +13,30 @@ export default function ContactPage() {
   const formRef = useRef();
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     document.title = "Contact Adverse Solutions — Start a Project";
   }, []);
+
+  // Pre-fill form from URL params (e.g. from package pages)
+  useEffect(() => {
+    const packageName = searchParams.get("package");
+    if (packageName && formRef.current) {
+      const themeName = searchParams.get("theme");
+      let message = `Hi, I'm interested in the ${packageName} website package`;
+      if (themeName) {
+        message += ` with the ${themeName} theme`;
+      }
+      message += ".";
+
+      const messageEl = formRef.current.elements.message;
+      if (messageEl) messageEl.value = message;
+
+      const reasonEl = formRef.current.elements.Reason;
+      if (reasonEl) reasonEl.value = "Work-Inquiry";
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

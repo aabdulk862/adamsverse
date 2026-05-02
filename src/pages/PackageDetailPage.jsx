@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import packages from "../data/packages";
 import themes from "../data/themes";
@@ -49,6 +49,40 @@ export default function PackageDetailPage() {
     }
   }, [activeTheme, packageThemes]);
 
+  // Set document title and OG meta tags
+  useEffect(() => {
+    if (pkg) {
+      document.title = `${pkg.name} Website Package — Adverse Solutions`;
+
+      const setMeta = (property, content) => {
+        let tag = document.querySelector(`meta[property="${property}"]`);
+        if (!tag) {
+          tag = document.createElement("meta");
+          tag.setAttribute("property", property);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute("content", content);
+      };
+
+      setMeta("og:title", `${pkg.name} Website Package — Adverse Solutions`);
+      setMeta("og:description", pkg.description);
+      setMeta("og:type", "website");
+      if (pkg.sections?.hero?.heroImage) {
+        setMeta("og:image", pkg.sections.hero.heroImage);
+      }
+    }
+  }, [pkg]);
+
+  // Build contact link with package + theme params
+  const contactLink = useMemo(() => {
+    if (!pkg) return "/contact";
+    const theme = packageThemes[activeTheme];
+    const params = new URLSearchParams();
+    params.set("package", pkg.name);
+    if (theme?.label) params.set("theme", theme.label);
+    return `/contact?${params.toString()}`;
+  }, [pkg, packageThemes, activeTheme]);
+
   // Package not found
   if (!pkg) {
     return (
@@ -78,7 +112,11 @@ export default function PackageDetailPage() {
       <div
         className={styles.themeToggle}
         data-testid="theme-toggle"
-        style={activeAccentColor ? { "--theme-accent": activeAccentColor } : undefined}
+        style={
+          activeAccentColor
+            ? { "--theme-accent": activeAccentColor }
+            : undefined
+        }
       >
         <Link to="/packages" className={styles.backLink}>
           ← All Packages
@@ -99,13 +137,19 @@ export default function PackageDetailPage() {
                 aria-pressed={activeTheme === index}
                 style={
                   activeTheme === index && themeObj.colors?.accent
-                    ? { borderColor: themeObj.colors.accent, color: themeObj.colors.accent }
+                    ? {
+                        borderColor: themeObj.colors.accent,
+                        color: themeObj.colors.accent,
+                      }
                     : undefined
                 }
               >
                 <span
                   className={styles.themeSwatch}
-                  style={{ backgroundColor: themeObj.colors?.accent || "var(--accent-primary)" }}
+                  style={{
+                    backgroundColor:
+                      themeObj.colors?.accent || "var(--accent-primary)",
+                  }}
                   aria-hidden="true"
                 />
                 {themeObj.label}
@@ -121,7 +165,12 @@ export default function PackageDetailPage() {
         className={`${styles.previewWrapper}${LAYOUT_SPACING_MAP[layout] ? ` ${LAYOUT_SPACING_MAP[layout]}` : ""}`}
         data-testid="preview-wrapper"
       >
-        <Hero content={pkg.sections.hero} theme={theme} layout={layout} packageName={pkg.name} />
+        <Hero
+          content={pkg.sections.hero}
+          theme={theme}
+          layout={layout}
+          packageName={pkg.name}
+        />
 
         <SectionDivider layout={layout} />
 
@@ -142,7 +191,11 @@ export default function PackageDetailPage() {
           ref={galleryAnim.ref}
           className={`${styles.sectionAnimated} ${galleryAnim.isVisible ? styles.sectionVisible : ""}`}
         >
-          <Gallery content={pkg.sections.gallery} theme={theme} layout={layout} />
+          <Gallery
+            content={pkg.sections.gallery}
+            theme={theme}
+            layout={layout}
+          />
         </div>
 
         <SectionDivider layout={layout} />
@@ -171,10 +224,16 @@ export default function PackageDetailPage() {
       {/* Persistent "Get Started" CTA */}
       <div
         className={styles.persistentCta}
-        style={activeAccentColor ? { "--theme-accent": activeAccentColor } : undefined}
+        style={
+          activeAccentColor
+            ? { "--theme-accent": activeAccentColor }
+            : undefined
+        }
       >
-        <span>Like what you see?</span>
-        <Link to="/contact" className={styles.persistentCtaButton}>
+        <span>
+          Launch with {pkg.name} · {theme?.label || "Default"}
+        </span>
+        <Link to={contactLink} className={styles.persistentCtaButton}>
           Get Started
         </Link>
       </div>

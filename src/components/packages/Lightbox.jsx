@@ -11,11 +11,18 @@ import styles from "./Lightbox.module.css";
  *  - onPrev: () => void
  *  - onNext: () => void
  */
-export default function Lightbox({ images, activeIndex, onClose, onPrev, onNext }) {
+export default function Lightbox({
+  images,
+  activeIndex,
+  onClose,
+  onPrev,
+  onNext,
+}) {
   const backdropRef = useRef(null);
   const closeRef = useRef(null);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const touchStartX = useRef(0);
 
   const [isOpen, setIsOpen] = useState(false);
   const [imageReady, setImageReady] = useState(false);
@@ -75,17 +82,23 @@ export default function Lightbox({ images, activeIndex, onClose, onPrev, onNext 
           break;
         case "Tab": {
           // Focus trap: cycle through close, prev, next buttons
-          const focusable = [closeRef.current, prevRef.current, nextRef.current].filter(Boolean);
+          const focusable = [
+            closeRef.current,
+            prevRef.current,
+            nextRef.current,
+          ].filter(Boolean);
           if (focusable.length === 0) return;
 
           const currentIndex = focusable.indexOf(document.activeElement);
           if (e.shiftKey) {
             e.preventDefault();
-            const prevIndex = currentIndex <= 0 ? focusable.length - 1 : currentIndex - 1;
+            const prevIndex =
+              currentIndex <= 0 ? focusable.length - 1 : currentIndex - 1;
             focusable[prevIndex].focus();
           } else {
             e.preventDefault();
-            const nextIndex = currentIndex >= focusable.length - 1 ? 0 : currentIndex + 1;
+            const nextIndex =
+              currentIndex >= focusable.length - 1 ? 0 : currentIndex + 1;
             focusable[nextIndex].focus();
           }
           break;
@@ -132,6 +145,16 @@ export default function Lightbox({ images, activeIndex, onClose, onPrev, onNext 
       onClick={(e) => {
         // Close when clicking the backdrop (not the content)
         if (e.target === backdropRef.current) onClose();
+      }}
+      onTouchStart={(e) => {
+        touchStartX.current = e.touches[0].clientX;
+      }}
+      onTouchEnd={(e) => {
+        const delta = e.changedTouches[0].clientX - touchStartX.current;
+        if (Math.abs(delta) > 50 && images.length > 1) {
+          if (delta > 0) onPrev();
+          else onNext();
+        }
       }}
       data-testid="lightbox"
     >

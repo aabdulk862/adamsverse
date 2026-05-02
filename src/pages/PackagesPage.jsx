@@ -94,7 +94,10 @@ function PackageCard({ pkg, categoryColors }) {
         <Link to={`/packages/${pkg.slug}`} className={styles.previewLink}>
           Preview
         </Link>
-        <Link to="/contact" className={styles.ctaButton}>
+        <Link
+          to={`/contact?package=${encodeURIComponent(pkg.name)}`}
+          className={styles.ctaButton}
+        >
           Get Started
         </Link>
       </div>
@@ -154,10 +157,30 @@ export default function PackagesPage() {
         </div>
       </div>
 
+      {/* Category jump links */}
+      <nav className={styles.categoryNav} aria-label="Package categories">
+        {grouped.map((group) => (
+          <a
+            key={group.category}
+            href={`#${group.category.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")}`}
+            className={styles.categoryNavLink}
+          >
+            {group.category}
+          </a>
+        ))}
+      </nav>
+
       {grouped.map((group) => {
         const colors = CATEGORY_COLORS[group.category] || {};
         return (
-          <section key={group.category} className={styles.categorySection}>
+          <section
+            key={group.category}
+            className={styles.categorySection}
+            id={group.category
+              .toLowerCase()
+              .replace(/ & /g, "-")
+              .replace(/ /g, "-")}
+          >
             <h2 className={styles.categoryHeading}>{group.category}</h2>
             <div className={styles.grid}>
               {group.items.map((pkg) => (

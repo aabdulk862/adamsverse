@@ -62,6 +62,7 @@
    CARD THUMBNAIL
 ================================= */
 .cardThumbnailWrapper {
+  position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
   border-radius: var(--radius-md, 8px);
@@ -274,4 +275,70 @@
     height: 1px;
     background: var(--border-light);
   }
+}
+
+/* =================================
+   CATEGORY JUMP LINKS
+================================= */
+.categoryNav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.categoryNavLink {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: var(--radius-full, 9999px);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--card-border);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.categoryNavLink:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-border);
+  background: var(--accent-bg-subtle);
+}
+
+/* =================================
+   THEME COUNT BADGE
+================================= */
+.themeBadge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full, 9999px);
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-muted);
+  background: var(--bg-muted, #f1f5f9);
+  vertical-align: middle;
+}
+
+/* =================================
+   FEATURED / POPULAR / NEW BADGE
+================================= */
+.featuredBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full, 9999px);
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-semibold);
+  color: #fff;
+  background: var(--accent-primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+  line-height: 1.4;
 }
