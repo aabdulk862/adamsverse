@@ -1,3 +1,4 @@
+/* ── Base gallery styles ── */
 .gallery {
   background-color: var(--color-bgBase);
   color: var(--color-textPrimary);
@@ -45,7 +46,24 @@
   object-fit: cover;
 }
 
-/* Tablet: 768px+ — 2 columns */
+/* ── Fallback placeholder for broken images ── */
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-color: var(--color-bgMuted);
+  color: var(--color-textMuted);
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.875rem;
+}
+
+.fallbackText {
+  opacity: 0.7;
+}
+
+/* ── Tablet: 768px+ ── */
 @media (min-width: 768px) {
   .gallery {
     padding: 5rem 2rem;
@@ -61,7 +79,7 @@
   }
 }
 
-/* Desktop: 1024px+ — 3 columns */
+/* ── Desktop: 1024px+ ── */
 @media (min-width: 1024px) {
   .gallery {
     padding: 6rem 2rem;
@@ -74,5 +92,175 @@
   .grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Layout Variant: Professional
+   Structured portfolio grid with uniform sizing
+   ═══════════════════════════════════════════════ */
+.galleryProfessional .grid {
+  gap: 1.5rem;
+}
+
+.galleryProfessional .imageWrapper {
+  border-radius: var(--shape-radiusSmall);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.galleryProfessional .image {
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 768px) {
+  .galleryProfessional .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .galleryProfessional .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Layout Variant: Beauty & Wellness
+   Masonry / staggered grid with rounded corners
+   ═══════════════════════════════════════════════ */
+.galleryBeauty .imageWrapper {
+  border-radius: var(--shape-radiusLarge);
+  border: none;
+}
+
+.galleryBeauty .image {
+  aspect-ratio: auto;
+}
+
+.galleryBeauty .fallback {
+  aspect-ratio: auto;
+  min-height: 220px;
+}
+
+/* Staggered heights for masonry effect */
+.galleryBeauty .grid > :nth-child(odd) .image {
+  aspect-ratio: 3 / 4;
+}
+
+.galleryBeauty .grid > :nth-child(even) .image {
+  aspect-ratio: 4 / 3;
+}
+
+.galleryBeauty .grid > :nth-child(odd) .fallback {
+  aspect-ratio: 3 / 4;
+}
+
+.galleryBeauty .grid > :nth-child(even) .fallback {
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 768px) {
+  .galleryBeauty .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .galleryBeauty .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Layout Variant: Home Services
+   Two-column simple grid
+   ═══════════════════════════════════════════════ */
+.galleryHomeServices .imageWrapper {
+  border-radius: var(--shape-radiusMedium);
+}
+
+.galleryHomeServices .image {
+  aspect-ratio: 16 / 10;
+}
+
+.galleryHomeServices .fallback {
+  aspect-ratio: 16 / 10;
+}
+
+@media (min-width: 768px) {
+  .galleryHomeServices .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Home Services stays at 2 columns on desktop */
+@media (min-width: 1024px) {
+  .galleryHomeServices .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Layout Variant: Food & Hospitality
+   Three-column masonry grid
+   ═══════════════════════════════════════════════ */
+.galleryFoodHospitality .imageWrapper {
+  border-radius: var(--shape-radiusMedium);
+}
+
+.galleryFoodHospitality .image {
+  aspect-ratio: auto;
+}
+
+.galleryFoodHospitality .fallback {
+  aspect-ratio: auto;
+  min-height: 200px;
+}
+
+/* Masonry-style staggered heights */
+.galleryFoodHospitality .grid > :nth-child(3n+1) .image {
+  aspect-ratio: 4 / 5;
+}
+
+.galleryFoodHospitality .grid > :nth-child(3n+2) .image {
+  aspect-ratio: 1 / 1;
+}
+
+.galleryFoodHospitality .grid > :nth-child(3n) .image {
+  aspect-ratio: 3 / 4;
+}
+
+.galleryFoodHospitality .grid > :nth-child(3n+1) .fallback {
+  aspect-ratio: 4 / 5;
+}
+
+.galleryFoodHospitality .grid > :nth-child(3n+2) .fallback {
+  aspect-ratio: 1 / 1;
+}
+
+.galleryFoodHospitality .grid > :nth-child(3n) .fallback {
+  aspect-ratio: 3 / 4;
+}
+
+@media (min-width: 768px) {
+  .galleryFoodHospitality .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    align-items: start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .galleryFoodHospitality .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
   }
 }

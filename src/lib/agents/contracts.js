@@ -233,7 +233,13 @@ export async function logTransfer(sourceRole, targetRole, data) {
   const dataHash = simpleHash(JSON.stringify(data))
 
   try {
-    const { data: logEntry, error } = await supabaseAdmin
+    const client = supabaseAdmin()
+    if (!client) {
+      // Supabase not configured — skip logging
+      return { data: { source_role_id: sourceRole, target_role_id: targetRole, data_hash: dataHash }, error: null }
+    }
+
+    const { data: logEntry, error } = await client
       .from('transfer_logs')
       .insert({
         source_role_id: sourceRole,

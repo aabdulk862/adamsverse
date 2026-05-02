@@ -11,20 +11,27 @@ import Testimonials from "../components/packages/Testimonials";
 import CTA from "../components/packages/CTA";
 import styles from "./PackageDetailPage.module.css";
 
-const THEME_KEYS = ["luxury", "light", "feminine"];
+const CATEGORY_LAYOUT_MAP = {
+  "Professional": "professional",
+  "Beauty & Wellness": "beauty",
+  "Home Services": "homeServices",
+  "Food & Hospitality": "foodHospitality",
+};
 
 export default function PackageDetailPage() {
   const { slug } = useParams();
   const pkg = packages.find((p) => p.slug === slug);
   const wrapperRef = useRef(null);
-  const [activeTheme, setActiveTheme] = useState("luxury");
+  const [activeTheme, setActiveTheme] = useState(0);
+
+  const packageThemes = themes[slug] || [];
 
   useEffect(() => {
-    if (wrapperRef.current && themes[activeTheme]) {
-      applyTheme(wrapperRef.current, themes[activeTheme]);
-      loadFonts(themes[activeTheme]);
+    if (wrapperRef.current && packageThemes[activeTheme]) {
+      applyTheme(wrapperRef.current, packageThemes[activeTheme]);
+      loadFonts(packageThemes[activeTheme]);
     }
-  }, [activeTheme]);
+  }, [activeTheme, packageThemes]);
 
   // Package not found
   if (!pkg) {
@@ -44,23 +51,9 @@ export default function PackageDetailPage() {
     );
   }
 
-  // Valid slug but not restaurant — coming soon
-  if (slug !== "restaurant") {
-    return (
-      <div className="container">
-        <div className={styles.comingSoon} data-testid="coming-soon">
-          <h2>{pkg.name}</h2>
-          <p>This package is coming soon. Check back for the full preview.</p>
-          <Link to="/packages" className={styles.backLink}>
-            ← Back to Packages
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  // Restaurant — full preview
-  const theme = themes[activeTheme];
+  // Derive layout from category
+  const layout = CATEGORY_LAYOUT_MAP[pkg.category];
+  const theme = packageThemes[activeTheme];
 
   return (
     <div>
@@ -69,19 +62,22 @@ export default function PackageDetailPage() {
         <Link to="/packages" className={styles.backLink}>
           ← All Packages
         </Link>
-        <span className={styles.themeLabel}>Theme:</span>
-        {THEME_KEYS.map((key) => (
-          <button
-            key={key}
-            type="button"
-            className={`${styles.themeButton}${activeTheme === key ? ` ${styles.themeButtonActive}` : ""}`}
-            onClick={() => setActiveTheme(key)}
-            aria-pressed={activeTheme === key}
-          >
-            {themes[key].label}
-          </button>
-        ))}
-        <span className={styles.themeHint}>More themes coming soon</span>
+        {packageThemes.length > 0 && (
+          <>
+            <span className={styles.themeLabel}>Theme:</span>
+            {packageThemes.map((themeObj, index) => (
+              <button
+                key={themeObj.name}
+                type="button"
+                className={`${styles.themeButton}${activeTheme === index ? ` ${styles.themeButtonActive}` : ""}`}
+                onClick={() => setActiveTheme(index)}
+                aria-pressed={activeTheme === index}
+              >
+                {themeObj.label}
+              </button>
+            ))}
+          </>
+        )}
       </div>
 
       {/* Preview Wrapper — theme tokens scoped here */}
@@ -90,9 +86,9 @@ export default function PackageDetailPage() {
         className={styles.previewWrapper}
         data-testid="preview-wrapper"
       >
-        <Hero content={pkg.sections.hero} theme={theme} />
-        <Services content={pkg.sections.services} theme={theme} />
-        <Gallery content={pkg.sections.gallery} theme={theme} />
+        <Hero content={pkg.sections.hero} theme={theme} layout={layout} />
+        <Services content={pkg.sections.services} theme={theme} layout={layout} />
+        <Gallery content={pkg.sections.gallery} theme={theme} layout={layout} />
         <Testimonials content={pkg.sections.testimonials} theme={theme} />
         <CTA content={pkg.sections.cta} theme={theme} />
       </div>

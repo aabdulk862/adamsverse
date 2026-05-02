@@ -1,6 +1,6 @@
-// Feature: ai-website-packages, Property 3: Non-restaurant slugs render placeholder
+// Feature: design-packages-overhaul, Property 3: All valid slugs render full preview
 // Feature: ai-website-packages, Property 4: Invalid slugs render not-found
-// **Validates: Requirements 2.3, 2.4**
+// **Validates: Requirements 1.6, 2.3, 2.4, 6.1, 6.2**
 
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
@@ -10,7 +10,6 @@ import PackageDetailPage from "../pages/PackageDetailPage";
 import packages from "../data/packages";
 
 const allSlugs = packages.map((p) => p.slug);
-const nonRestaurantSlugs = allSlugs.filter((s) => s !== "restaurant");
 
 function renderWithSlug(slug) {
   return render(
@@ -22,14 +21,14 @@ function renderWithSlug(slug) {
   );
 }
 
-describe("Property 3: Non-restaurant slugs render placeholder", () => {
-  it("for any valid non-restaurant slug, coming-soon placeholder content is rendered", () => {
+describe("Property 3: All valid slugs render full preview", () => {
+  it("for any valid slug, the full preview wrapper is rendered instead of coming-soon", () => {
     fc.assert(
-      fc.property(fc.constantFrom(...nonRestaurantSlugs), (slug) => {
-        const { getByTestId, unmount } = renderWithSlug(slug);
+      fc.property(fc.constantFrom(...allSlugs), (slug) => {
+        const { getByTestId, queryByTestId, unmount } = renderWithSlug(slug);
 
-        const comingSoon = getByTestId("coming-soon");
-        expect(comingSoon).toBeInTheDocument();
+        expect(getByTestId("preview-wrapper")).toBeInTheDocument();
+        expect(queryByTestId("coming-soon")).not.toBeInTheDocument();
 
         unmount();
       }),

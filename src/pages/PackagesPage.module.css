@@ -1,4 +1,30 @@
 /* =================================
+   GRADIENT PAGE HEADER
+================================= */
+.gradientHeader {
+  text-align: center;
+  padding: 48px 24px 32px;
+  margin: -24px -24px 32px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+  color: #fff;
+}
+
+.gradientHeaderTitle {
+  font-size: var(--font-size-3xl, 2rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+.gradientHeaderSubtitle {
+  font-size: var(--font-size-md, 1rem);
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 20px;
+  line-height: var(--line-height-relaxed, 1.6);
+}
+
+/* =================================
    PACKAGES BROWSE PAGE
 ================================= */
 .categorySection {
@@ -12,8 +38,9 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin: 0 0 20px 0;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-light);
+  padding: 10px 12px;
+  border-bottom: none;
+  border-radius: var(--radius-md, 8px);
 }
 
 .grid {
@@ -47,9 +74,47 @@
 }
 
 .card:hover {
-  border-color: var(--border-hover);
+  border-color: var(--category-border, var(--border-hover));
   transform: translateY(-2px);
-  box-shadow: var(--card-shadow-hover);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 0 2px var(--category-accent-light, transparent);
+}
+
+/* =================================
+   CARD THUMBNAIL
+================================= */
+.cardThumbnailWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-md, 8px);
+  overflow: hidden;
+  margin-bottom: 4px;
+  background: var(--bg-muted, #f1f5f9);
+}
+
+.cardThumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .cardThumbnail {
+  transform: scale(1.03);
+}
+
+.cardThumbnailPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md, 8px);
+}
+
+.placeholderIcon {
+  font-size: 2rem;
+  opacity: 0.5;
 }
 
 .cardName {
@@ -125,11 +190,11 @@
   gap: 8px 16px;
   margin-top: 16px;
   padding: 12px 20px;
-  background: var(--accent-bg-subtle);
-  border: 1px solid var(--accent-border);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .pricingNote p {
@@ -137,24 +202,26 @@
 }
 
 .pricingNote strong {
-  color: var(--text-primary);
+  color: #fff;
   font-weight: var(--font-weight-semibold);
 }
 
 .pricingNote a {
-  color: var(--accent-primary);
-  text-decoration: none;
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+  text-underline-offset: 2px;
   font-weight: var(--font-weight-medium);
 }
 
 .pricingNote a:hover {
-  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.8);
 }
 
 .pricingDivider {
   width: 1px;
   height: 16px;
-  background: var(--border-light);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 @media (max-width: 600px) {

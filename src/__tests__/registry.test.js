@@ -4,14 +4,17 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 // Mock the db module before importing registry
 // ---------------------------------------------------------------------------
 
-vi.mock('../lib/orchestrator/db.js', () => ({
-  supabaseAdmin: {
-    from: vi.fn()
-  },
-  getActiveAgentRoles: vi.fn(),
-  getAgentRoleById: vi.fn(),
-  createAgentRole: vi.fn()
-}))
+vi.mock('../lib/orchestrator/db.js', () => {
+  const mockFrom = vi.fn()
+  const supabaseAdmin = vi.fn(() => ({ from: mockFrom }))
+  supabaseAdmin.from = mockFrom
+  return {
+    supabaseAdmin,
+    getActiveAgentRoles: vi.fn(),
+    getAgentRoleById: vi.fn(),
+    createAgentRole: vi.fn()
+  }
+})
 
 import {
   getActiveRoles,
@@ -67,22 +70,18 @@ describe('registry.js', () => {
   // -------------------------------------------------------------------------
 
   describe('getActiveRoles', () => {
-    it('returns active roles from the database', async () => {
-      const roles = [makeRole(), makeRole({ id: 'uuid-2', name: 'Research', role_type: 'research' })]
-      getActiveAgentRoles.mockResolvedValue({ data: roles, error: null })
-
+    it('returns default roles in memory mode (no service-role key)', async () => {
       const result = await getActiveRoles()
-      expect(result).toEqual(roles)
-      expect(getActiveAgentRoles).toHaveBeenCalledOnce()
+      expect(result).toHaveLength(5)
+      expect(result[0].id).toBe('default-planner')
+      expect(result[0].name).toBe('Planner')
+      expect(result[4].id).toBe('default-automation')
     })
 
-    it('throws on database error', async () => {
-      getActiveAgentRoles.mockResolvedValue({
-        data: null,
-        error: { message: 'connection failed' }
-      })
-
-      await expect(getActiveRoles()).rejects.toThrow('Failed to fetch active roles')
+    it('returns all five role types', async () => {
+      const result = await getActiveRoles()
+      const types = result.map((r) => r.role_type)
+      expect(types).toEqual(['planner', 'research', 'builder', 'audit', 'automation'])
     })
   })
 
@@ -91,13 +90,11 @@ describe('registry.js', () => {
   // -------------------------------------------------------------------------
 
   describe('getRoleById', () => {
-    it('returns a role by id', async () => {
-      const role = makeRole()
-      getAgentRoleById.mockResolvedValue({ data: role, error: null })
-
-      const result = await getRoleById('uuid-1')
-      expect(result).toEqual(role)
-      expect(getAgentRoleById).toHaveBeenCalledWith('uuid-1')
+    it('returns a default role by id in memory mode', async () => {
+      const result = await getRoleById('default-planner')
+      expect(result.name).toBe('Planner')
+      expect(result.role_type).toBe('planner')
+      expect(result.id).toBe('default-planner')
     })
 
     it('throws when id is falsy', async () => {
@@ -106,13 +103,8 @@ describe('registry.js', () => {
       await expect(getRoleById(undefined)).rejects.toThrow('requires a valid id')
     })
 
-    it('throws on database error', async () => {
-      getAgentRoleById.mockResolvedValue({
-        data: null,
-        error: { message: 'not found' }
-      })
-
-      await expect(getRoleById('bad-id')).rejects.toThrow('Failed to fetch role by id')
+    it('throws when id does not match any default role', async () => {
+      await expect(getRoleById('bad-id')).rejects.toThrow('No role found with id')
     })
   })
 
@@ -121,20 +113,12 @@ describe('registry.js', () => {
   // -------------------------------------------------------------------------
 
   describe('getRoleByType', () => {
-    it('queries supabase for active role by type', async () => {
-      const role = makeRole()
-      const mockSingle = vi.fn().mockResolvedValue({ data: role, error: null })
-      const mockEqStatus = vi.fn().mockReturnValue({ single: mockSingle })
-      const mockEqType = vi.fn().mockReturnValue({ eq: mockEqStatus })
-      const mockSelect = vi.fn().mockReturnValue({ eq: mockEqType })
-      supabaseAdmin.from.mockReturnValue({ select: mockSelect })
-
+    it('returns the matching default role by type in memory mode', async () => {
       const result = await getRoleByType('planner')
-      expect(result).toEqual(role)
-      expect(supabaseAdmin.from).toHaveBeenCalledWith('agent_roles')
-      expect(mockSelect).toHaveBeenCalledWith('*')
-      expect(mockEqType).toHaveBeenCalledWith('role_type', 'planner')
-      expect(mockEqStatus).toHaveBeenCalledWith('status', 'active')
+      expect(result.id).toBe('default-planner')
+      expect(result.name).toBe('Planner')
+      expect(result.role_type).toBe('planner')
+      expect(result.status).toBe('active')
     })
 
     it('throws when roleType is falsy', async () => {
@@ -145,19 +129,12 @@ describe('registry.js', () => {
       await expect(getRoleByType('invalid')).rejects.toThrow('Invalid role_type')
     })
 
-    it('throws on database error', async () => {
-      const mockSingle = vi.fn().mockResolvedValue({
-        data: null,
-        error: { message: 'not found' }
-      })
-      const mockEqStatus = vi.fn().mockReturnValue({ single: mockSingle })
-      const mockEqType = vi.fn().mockReturnValue({ eq: mockEqStatus })
-      const mockSelect = vi.fn().mockReturnValue({ eq: mockEqType })
-      supabaseAdmin.from.mockReturnValue({ select: mockSelect })
-
-      await expect(getRoleByType('planner')).rejects.toThrow(
-        'Failed to fetch role by type'
-      )
+    it('returns each of the five role types', async () => {
+      for (const type of ['planner', 'research', 'builder', 'audit', 'automation']) {
+        const result = await getRoleByType(type)
+        expect(result.role_type).toBe(type)
+        expect(result.id).toBe(`default-${type}`)
+      }
     })
   })
 

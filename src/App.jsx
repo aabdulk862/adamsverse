@@ -15,6 +15,8 @@ import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AuthGuard from "./components/AuthGuard";
 import AdminGuard from "./components/AdminGuard";
+import BasicAuthGate from "./components/BasicAuthGate";
+import AgentLayout from "./components/agents/AgentLayout";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // Lazy-loaded public pages
@@ -72,12 +74,16 @@ export default function App() {
       ? '/admin'
       : location.pathname.startsWith('/packages')
         ? '/packages'
-        : location.pathname
+        : location.pathname.startsWith('/agents')
+          ? '/agents'
+          : location.pathname
+
+  const isAgentRoute = location.pathname.startsWith('/agents')
 
   return (
     <ThemeProvider>
       <a href="#main-content" className="skip-to-content">Skip to content</a>
-      <Navbar />
+      {!isAgentRoute && <Navbar />}
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
           <AnimatePresence mode="wait">
@@ -116,9 +122,20 @@ export default function App() {
                   <Route path="messages" element={<MessagesPage />} />
                   <Route path="settings" element={<SettingsPage />} />
                   <Route path="intake/:tierId" element={<IntakeFormPage />} />
-                  <Route path="agents" element={<AgentChatPage />} />
-                  <Route path="agents/registry" element={<AgentRegistryPage />} />
-                  <Route path="agents/artifacts" element={<ArtifactBrowserPage />} />
+                </Route>
+
+                {/* Agent console — own layout, no site Navbar/Footer */}
+                <Route
+                  path="/agents"
+                  element={
+                    <BasicAuthGate>
+                      <AgentLayout />
+                    </BasicAuthGate>
+                  }
+                >
+                  <Route index element={<AgentChatPage />} />
+                  <Route path="registry" element={<AgentRegistryPage />} />
+                  <Route path="artifacts" element={<ArtifactBrowserPage />} />
                 </Route>
 
                 {/* Admin routes */}
@@ -161,7 +178,7 @@ export default function App() {
           </AnimatePresence>
         </Suspense>
       </ErrorBoundary>
-      <Footer />
+      {!isAgentRoute && <Footer />}
     </ThemeProvider>
   );
 }

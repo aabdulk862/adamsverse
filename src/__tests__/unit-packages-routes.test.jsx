@@ -117,9 +117,9 @@ describe("Route and Navigation Updates", () => {
 
       // PackagesPage renders a heading "Packages"
       expect(screen.getByRole("heading", { name: /Packages/i })).toBeInTheDocument();
-      // Should render package cards (data has 10 packages)
+      // Should render package cards (data has 12 packages)
       const cards = screen.getAllByTestId("package-card");
-      expect(cards.length).toBe(10);
+      expect(cards.length).toBe(12);
     });
   });
 

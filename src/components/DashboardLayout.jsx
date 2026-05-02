@@ -9,7 +9,6 @@ const navItems = [
   { to: '/dashboard/billing', label: 'Billing', icon: 'fa-solid fa-file-invoice-dollar', badgeKey: 'invoices' },
   { to: '/dashboard/messages', label: 'Messages', icon: 'fa-solid fa-comments', badgeKey: 'messages' },
   { to: '/dashboard/settings', label: 'Settings', icon: 'fa-solid fa-gear' },
-  { to: '/dashboard/agents', label: 'AI Agents', icon: 'fa-solid fa-robot' },
 ]
 
 export default function DashboardLayout() {

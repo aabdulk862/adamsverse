@@ -6,7 +6,7 @@ vi.mock('../lib/orchestrator/db.js', () => {
   const mockSelect = vi.fn()
   const mockSingle = vi.fn()
 
-  const supabaseAdmin = {
+  const mockClient = {
     from: vi.fn(() => ({
       insert: mockInsert.mockReturnValue({
         select: mockSelect.mockReturnValue({
@@ -18,6 +18,12 @@ vi.mock('../lib/orchestrator/db.js', () => {
     _mockSelect: mockSelect,
     _mockSingle: mockSingle
   }
+
+  const supabaseAdmin = vi.fn(() => mockClient)
+  supabaseAdmin.from = mockClient.from
+  supabaseAdmin._mockInsert = mockInsert
+  supabaseAdmin._mockSelect = mockSelect
+  supabaseAdmin._mockSingle = mockSingle
 
   return { supabaseAdmin }
 })

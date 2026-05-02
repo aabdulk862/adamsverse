@@ -1,11 +1,20 @@
+/* ===== Base Hero Styles ===== */
 .hero {
+  position: relative;
   background-color: var(--color-bgBase);
   color: var(--color-textPrimary);
   padding: 6rem 1.5rem;
   text-align: center;
+  overflow: hidden;
+}
+
+.overlay {
+  display: none;
 }
 
 .inner {
+  position: relative;
+  z-index: 1;
   max-width: 720px;
   margin: 0 auto;
   display: flex;
@@ -58,7 +67,136 @@
   outline-offset: 2px;
 }
 
-/* Tablet: 768px+ */
+/* ===== Professional — Split Layout ===== */
+.heroProfessional {
+  text-align: left;
+  padding: 0;
+}
+
+.splitInner {
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+}
+
+.splitText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 4rem 1.5rem;
+  flex: 1;
+}
+
+.splitImage {
+  flex: 1;
+  min-height: 280px;
+  background: linear-gradient(135deg, var(--color-bgMuted, #e2e8f0), var(--color-bgSurface, #f1f5f9));
+  border-left: none;
+  border-top: 4px solid var(--color-accent, #2563eb);
+}
+
+/* ===== Beauty — Full-Bleed Background with Overlay ===== */
+.heroBeauty {
+  padding: 8rem 1.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-bgSurface, #fdf2f8),
+    var(--color-bgBase, #fce7f3),
+    var(--color-bgSurface, #fdf2f8)
+  );
+}
+
+.heroBeauty .overlay {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  pointer-events: none;
+}
+
+.heroBeauty .headline {
+  font-weight: var(--font-weightMedium, 500);
+  letter-spacing: 0.04em;
+}
+
+.heroBeauty .subheadline {
+  font-style: italic;
+}
+
+.heroBeauty .cta {
+  border-radius: var(--shape-radiusLarge, 9999px);
+  padding: 0.875rem 2.5rem;
+}
+
+/* ===== Home Services — Bold Headline over Darkened Background ===== */
+.heroHomeServices {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.7)
+  ),
+  var(--color-bgBase, #1a1a2e);
+}
+
+.heroHomeServices .overlay {
+  display: none;
+}
+
+.heroHomeServices .headline {
+  font-size: 2.5rem;
+  font-weight: var(--font-weightBold, 800);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-textPrimary, #ffffff);
+}
+
+.heroHomeServices .subheadline {
+  color: var(--color-textSecondary, #d1d5db);
+}
+
+.heroHomeServices .cta {
+  font-weight: var(--font-weightBold, 700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--shape-radiusSmall, 4px);
+}
+
+/* ===== Food & Hospitality — Full-Width with Centered Overlay (Default) ===== */
+.heroFoodHospitality {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.5)
+  ),
+  var(--color-bgBase, #1c1917);
+}
+
+.heroFoodHospitality .overlay {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  pointer-events: none;
+}
+
+.heroFoodHospitality .headline {
+  color: var(--color-textPrimary);
+}
+
+.heroFoodHospitality .subheadline {
+  color: var(--color-textSecondary);
+}
+
+/* ===== Responsive — Tablet: 768px+ ===== */
 @media (min-width: 768px) {
   .hero {
     padding: 8rem 2rem;
@@ -71,9 +209,37 @@
   .subheadline {
     font-size: 1.25rem;
   }
+
+  /* Professional split — side by side on tablet */
+  .splitInner {
+    flex-direction: row;
+    min-height: 520px;
+  }
+
+  .splitText {
+    padding: 4rem 3rem;
+    flex: 1;
+  }
+
+  .splitImage {
+    flex: 1;
+    min-height: auto;
+    border-top: none;
+    border-left: 4px solid var(--color-accent, #2563eb);
+  }
+
+  /* Home Services — larger bold headline */
+  .heroHomeServices .headline {
+    font-size: 3.25rem;
+  }
+
+  /* Beauty — more padding */
+  .heroBeauty {
+    padding: 10rem 2rem;
+  }
 }
 
-/* Desktop: 1024px+ */
+/* ===== Responsive — Desktop: 1024px+ ===== */
 @media (min-width: 1024px) {
   .hero {
     padding: 10rem 2rem;
@@ -94,5 +260,29 @@
   .cta {
     font-size: 1.125rem;
     padding: 1rem 2.5rem;
+  }
+
+  /* Professional split — wider image area */
+  .splitInner {
+    min-height: 600px;
+  }
+
+  .splitText {
+    padding: 5rem 4rem;
+    max-width: 50%;
+  }
+
+  .splitImage {
+    flex: 1;
+  }
+
+  /* Home Services — even bolder */
+  .heroHomeServices .headline {
+    font-size: 4rem;
+  }
+
+  /* Beauty — generous spacing */
+  .heroBeauty {
+    padding: 12rem 2rem;
   }
 }

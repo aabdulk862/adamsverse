@@ -1,16 +1,35 @@
 import { createClient } from '@supabase/supabase-js'
 import { validateAgainstSchema } from '../agents/contracts.js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseServiceRoleKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY
+let _supabaseAdmin = null
 
-if (!supabaseUrl || !supabaseServiceRoleKey) {
-  throw new Error(
-    'Missing Supabase environment variables. Set VITE_SUPABASE_URL and VITE_SUPABASE_SERVICE_ROLE_KEY in .env.local'
-  )
+function getSupabaseAdmin() {
+  if (_supabaseAdmin) return _supabaseAdmin
+
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+  const supabaseServiceRoleKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY
+
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
+    console.warn('[db.js] Supabase service-role not configured. DB operations will return errors.')
+    return null
+  }
+
+  _supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey)
+  return _supabaseAdmin
 }
 
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey)
+export { getSupabaseAdmin as supabaseAdmin }
+
+// ---------------------------------------------------------------------------
+// Internal helper — get the lazily-initialized client
+// ---------------------------------------------------------------------------
+const db = () => {
+  const client = getSupabaseAdmin()
+  if (!client) {
+    throw new Error('Supabase is not configured. Set VITE_SUPABASE_URL and VITE_SUPABASE_SERVICE_ROLE_KEY to enable persistence.')
+  }
+  return client
+}
 
 // ---------------------------------------------------------------------------
 // Pipeline Run operations
@@ -23,7 +42,7 @@ export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey)
  */
 export async function createPipelineRun(run) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('pipeline_runs')
       .insert(run)
       .select()
@@ -44,7 +63,7 @@ export async function createPipelineRun(run) {
  */
 export async function updatePipelineRun(id, updates) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('pipeline_runs')
       .update(updates)
       .eq('id', id)
@@ -65,7 +84,7 @@ export async function updatePipelineRun(id, updates) {
  */
 export async function getPipelineRun(id) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('pipeline_runs')
       .select('*')
       .eq('id', id)
@@ -89,7 +108,7 @@ export async function getPipelineRun(id) {
  */
 export async function createTasks(tasks) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('tasks')
       .insert(tasks)
       .select()
@@ -109,7 +128,7 @@ export async function createTasks(tasks) {
  */
 export async function updateTask(id, updates) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('tasks')
       .update(updates)
       .eq('id', id)
@@ -130,7 +149,7 @@ export async function updateTask(id, updates) {
  */
 export async function getTasksByPipeline(pipelineId) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('tasks')
       .select('*')
       .eq('pipeline_id', pipelineId)
@@ -194,7 +213,7 @@ export async function createArtifact(artifact) {
       content: serializedContent
     }
 
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('artifacts')
       .insert(artifactToStore)
       .select()
@@ -251,7 +270,7 @@ function deserializeArtifactContent(artifact) {
  */
 export async function getArtifacts(filters = {}) {
   try {
-    let query = supabaseAdmin
+    let query = db()
       .from('artifacts')
       .select('*')
       .order('created_at', { ascending: false })
@@ -302,7 +321,7 @@ export async function getArtifacts(filters = {}) {
  */
 export async function getArtifactById(id) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('artifacts')
       .select('*')
       .eq('id', id)
@@ -332,7 +351,7 @@ export async function getArtifactById(id) {
  */
 export async function getActiveAgentRoles() {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('agent_roles')
       .select('*')
       .eq('status', 'active')
@@ -352,7 +371,7 @@ export async function getActiveAgentRoles() {
  */
 export async function getAgentRoleById(id) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('agent_roles')
       .select('*')
       .eq('id', id)
@@ -372,7 +391,7 @@ export async function getAgentRoleById(id) {
  */
 export async function createAgentRole(role) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('agent_roles')
       .insert(role)
       .select()
@@ -393,7 +412,7 @@ export async function createAgentRole(role) {
  */
 export async function updateAgentRole(id, updates) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await db()
       .from('agent_roles')
       .update(updates)
       .eq('id', id)

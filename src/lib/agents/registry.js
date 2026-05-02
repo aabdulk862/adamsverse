@@ -3,7 +3,14 @@ import {
   getAgentRoleById,
   createAgentRole
 } from '../orchestrator/db.js'
-import { supabaseAdmin } from '../orchestrator/db.js'
+
+// ---------------------------------------------------------------------------
+// Persistence mode: use in-memory defaults when Supabase service-role key
+// is not configured (i.e. no VITE_SUPABASE_SERVICE_ROLE_KEY in env).
+// This lets the agent console work without any backend.
+// ---------------------------------------------------------------------------
+
+const USE_MEMORY = !import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY
 
 // ---------------------------------------------------------------------------
 // Required fields for a valid agent role configuration
@@ -237,11 +244,19 @@ const DEFAULT_ROLES = [
  * @returns {Promise<AgentRole[]>}
  */
 export async function getActiveRoles() {
-  const { data, error } = await getActiveAgentRoles()
-  if (error) {
-    throw new Error(`Failed to fetch active roles: ${error.message}`)
+  if (USE_MEMORY) {
+    return DEFAULT_ROLES.map((r) => ({ id: `default-${r.role_type}`, ...r }))
   }
-  return data
+  try {
+    const { data, error } = await getActiveAgentRoles()
+    if (error) {
+      console.warn('[registry] Supabase unavailable, using default roles:', error.message)
+      return DEFAULT_ROLES.map((r) => ({ id: `default-${r.role_type}`, ...r }))
+    }
+    return data
+  } catch {
+    return DEFAULT_ROLES.map((r) => ({ id: `default-${r.role_type}`, ...r }))
+  }
 }
 
 /**
@@ -252,6 +267,11 @@ export async function getActiveRoles() {
 export async function getRoleById(id) {
   if (!id) {
     throw new Error('getRoleById requires a valid id')
+  }
+  if (USE_MEMORY) {
+    const role = DEFAULT_ROLES.find((r) => `default-${r.role_type}` === id)
+    if (!role) throw new Error(`No role found with id "${id}"`)
+    return { id, ...role }
   }
   const { data, error } = await getAgentRoleById(id)
   if (error) {
@@ -276,17 +296,21 @@ export async function getRoleByType(roleType) {
     )
   }
 
-  const { data, error } = await supabaseAdmin
-    .from('agent_roles')
-    .select('*')
-    .eq('role_type', roleType)
-    .eq('status', 'active')
-    .single()
-
-  if (error) {
-    throw new Error(`Failed to fetch role by type "${roleType}": ${error.message}`)
+  if (USE_MEMORY) {
+    const defaultRole = DEFAULT_ROLES.find((r) => r.role_type === roleType)
+    if (!defaultRole) throw new Error(`No default role found for type "${roleType}"`)
+    return { id: `default-${roleType}`, ...defaultRole }
   }
-  return data
+
+  try {
+    const { data, error } = await getActiveAgentRoles()
+    if (error) throw new Error(error.message)
+    const match = (data || []).find((r) => r.role_type === roleType && r.status === 'active')
+    if (!match) throw new Error(`No active role for type "${roleType}"`)
+    return match
+  } catch (err) {
+    throw new Error(`Failed to fetch role by type "${roleType}": ${err.message}`)
+  }
 }
 
 /**
