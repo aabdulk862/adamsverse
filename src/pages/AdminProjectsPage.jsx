@@ -1,78 +1,92 @@
-import { useState, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
-import { supabase } from '../lib/supabase'
+import { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { supabase } from "../lib/supabase";
 
-const PROJECT_STATUSES = ['Discovery', 'In Progress', 'Review', 'Revision', 'Delivered', 'Closed']
+const PROJECT_STATUSES = [
+  "Discovery",
+  "In Progress",
+  "Review",
+  "Revision",
+  "Delivered",
+  "Closed",
+];
 
 export default function AdminProjectsPage() {
-  const { loading: authLoading } = useAuth()
-  const [projects, setProjects] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [statusFilter, setStatusFilter] = useState('all')
-  const [updating, setUpdating] = useState(null)
-  const [updateError, setUpdateError] = useState(null)
+  const { loading: authLoading } = useAuth();
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [updating, setUpdating] = useState(null);
+  const [updateError, setUpdateError] = useState(null);
 
   const fetchProjects = useCallback(async () => {
-    setLoading(true)
-    setError(null)
+    setLoading(true);
+    setError(null);
 
     try {
       const { data, error: fetchErr } = await supabase
-        .from('projects')
-        .select('id, name, status, service_tier, client_id, created_at, updated_at, profiles:client_id(display_name)')
-        .order('updated_at', { ascending: false })
+        .from("projects")
+        .select(
+          "id, name, status, service_tier, client_id, created_at, updated_at, profiles:client_id(display_name)",
+        )
+        .order("updated_at", { ascending: false });
 
-      if (fetchErr) throw fetchErr
-      setProjects(data || [])
+      if (fetchErr) throw fetchErr;
+      setProjects(data || []);
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if (!authLoading) fetchProjects()
-  }, [authLoading, fetchProjects])
+    if (!authLoading) fetchProjects();
+  }, [authLoading, fetchProjects]);
 
   const handleStatusUpdate = async (projectId, newStatus) => {
-    setUpdating(projectId)
-    setUpdateError(null)
+    setUpdating(projectId);
+    setUpdateError(null);
 
     try {
       // Call admin-mutations edge function for status update
-      const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('admin-mutations', {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      const res = await supabase.functions.invoke("admin-mutations", {
         body: {
-          action: 'update_project_status',
+          action: "update_project_status",
           project_id: projectId,
           status: newStatus,
         },
         headers: {
           Authorization: `Bearer ${session?.access_token}`,
         },
-      })
+      });
 
-      if (res.error) throw res.error
+      if (res.error) throw res.error;
 
       // Update local state
       setProjects((prev) =>
         prev.map((p) =>
-          p.id === projectId ? { ...p, status: newStatus, updated_at: new Date().toISOString() } : p
-        )
-      )
+          p.id === projectId
+            ? { ...p, status: newStatus, updated_at: new Date().toISOString() }
+            : p,
+        ),
+      );
     } catch (err) {
-      setUpdateError(`Failed to update project: ${err.message}`)
+      setUpdateError(`Failed to update project: ${err.message}`);
     } finally {
-      setUpdating(null)
+      setUpdating(null);
     }
-  }
+  };
 
-  const filtered = statusFilter === 'all'
-    ? projects
-    : projects.filter((p) => p.status === statusFilter)
+  const filtered =
+    statusFilter === "all"
+      ? projects
+      : projects.filter((p) => p.status === statusFilter);
 
   if (authLoading || loading) {
     return (
@@ -82,7 +96,7 @@ export default function AdminProjectsPage() {
           <span>Loading projects…</span>
         </div>
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -92,10 +106,12 @@ export default function AdminProjectsPage() {
         <div className="admin-error">
           <i className="fa-solid fa-circle-exclamation" />
           <span>{error}</span>
-          <button onClick={fetchProjects} className="admin-retry-btn">Retry</button>
+          <button onClick={fetchProjects} className="admin-retry-btn">
+            Retry
+          </button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -111,7 +127,11 @@ export default function AdminProjectsPage() {
         <div className="admin-error admin-error--inline">
           <i className="fa-solid fa-circle-exclamation" />
           <span>{updateError}</span>
-          <button onClick={() => setUpdateError(null)} className="admin-dismiss-btn" aria-label="Dismiss">
+          <button
+            onClick={() => setUpdateError(null)}
+            className="admin-dismiss-btn"
+            aria-label="Dismiss"
+          >
             <i className="fa-solid fa-xmark" />
           </button>
         </div>
@@ -119,7 +139,9 @@ export default function AdminProjectsPage() {
 
       <div className="admin-toolbar">
         <div className="admin-filter-wrap">
-          <label htmlFor="status-filter" className="admin-filter-label">Status:</label>
+          <label htmlFor="status-filter" className="admin-filter-label">
+            Status:
+          </label>
           <select
             id="status-filter"
             className="admin-filter-select"
@@ -128,14 +150,18 @@ export default function AdminProjectsPage() {
           >
             <option value="all">All ({projects.length})</option>
             {PROJECT_STATUSES.map((s) => {
-              const count = projects.filter((p) => p.status === s).length
+              const count = projects.filter((p) => p.status === s).length;
               return (
-                <option key={s} value={s}>{s} ({count})</option>
-              )
+                <option key={s} value={s}>
+                  {s} ({count})
+                </option>
+              );
             })}
           </select>
         </div>
-        <span className="admin-result-count">{filtered.length} project{filtered.length !== 1 ? 's' : ''}</span>
+        <span className="admin-result-count">
+          {filtered.length} project{filtered.length !== 1 ? "s" : ""}
+        </span>
       </div>
 
       {filtered.length === 0 ? (
@@ -157,10 +183,14 @@ export default function AdminProjectsPage() {
               {filtered.map((p) => (
                 <tr key={p.id}>
                   <td className="admin-table-name">{p.name}</td>
-                  <td>{p.profiles?.display_name || '—'}</td>
-                  <td className="admin-table-tier">{formatTier(p.service_tier)}</td>
+                  <td>{p.profiles?.display_name || "—"}</td>
+                  <td className="admin-table-tier">
+                    {formatTier(p.service_tier)}
+                  </td>
                   <td>
-                    <span className={`admin-status-badge admin-status--${p.status?.toLowerCase().replace(/\s+/g, '-')}`}>
+                    <span
+                      className={`admin-status-badge admin-status--${p.status?.toLowerCase().replace(/\s+/g, "-")}`}
+                    >
                       {p.status}
                     </span>
                   </td>
@@ -173,13 +203,22 @@ export default function AdminProjectsPage() {
                       aria-label={`Update status for ${p.name}`}
                     >
                       {PROJECT_STATUSES.map((s) => (
-                        <option key={s} value={s}>{s}</option>
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
                       ))}
                     </select>
-                    {updating === p.id && <span className="admin-updating-indicator" />}
+                    {updating === p.id && (
+                      <span className="admin-updating-indicator" />
+                    )}
                   </td>
                   <td className="admin-table-date">
-                    {p.updated_at ? new Date(p.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}
+                    {p.updated_at
+                      ? new Date(p.updated_at).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                        })
+                      : "—"}
                   </td>
                 </tr>
               ))}
@@ -188,10 +227,13 @@ export default function AdminProjectsPage() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 function formatTier(tier) {
-  if (!tier) return '—'
-  return tier.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+  if (!tier) return "—";
+  return tier
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
 }

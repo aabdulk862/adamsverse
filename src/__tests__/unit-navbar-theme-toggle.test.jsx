@@ -22,7 +22,7 @@ const renderNavbar = () =>
       <ThemeProvider>
         <Navbar />
       </ThemeProvider>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 
 describe("4.4 Navbar theme toggle", () => {
@@ -36,8 +36,12 @@ describe("4.4 Navbar theme toggle", () => {
     const items = Array.from(navbarLinks.querySelectorAll(":scope > li"));
 
     // Find indices by content
-    const learnIndex = items.findIndex((li) => li.textContent.includes("Learn"));
-    const toggleIndex = items.findIndex((li) => li.querySelector(".theme-toggle"));
+    const learnIndex = items.findIndex((li) =>
+      li.textContent.includes("Learn"),
+    );
+    const toggleIndex = items.findIndex((li) =>
+      li.querySelector(".theme-toggle"),
+    );
     const ctaIndex = items.findIndex((li) => li.querySelector(".navbar-cta"));
 
     expect(learnIndex).toBeGreaterThanOrEqual(0);
@@ -67,15 +71,15 @@ describe("4.4 Navbar theme toggle", () => {
 
     // Get all direct children (motion.div wrappers) in the overlay, excluding the close button
     const children = Array.from(overlay.children).filter(
-      (el) => !el.classList.contains("navbar-overlay-close")
+      (el) => !el.classList.contains("navbar-overlay-close"),
     );
 
     // Find the mobile toggle and CTA among overlay children
     const toggleChildIndex = children.findIndex((el) =>
-      el.querySelector(".theme-toggle--mobile")
+      el.querySelector(".theme-toggle--mobile"),
     );
     const ctaChildIndex = children.findIndex((el) =>
-      el.querySelector(".navbar-cta")
+      el.querySelector(".navbar-cta"),
     );
 
     expect(toggleChildIndex).toBeGreaterThanOrEqual(0);

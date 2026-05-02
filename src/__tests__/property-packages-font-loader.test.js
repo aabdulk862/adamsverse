@@ -18,15 +18,25 @@ function cleanupFontLinks() {
 /** Generate a simple alphanumeric font family name (1-3 words) */
 const fontFamilyArb = () =>
   fc
-    .array(
-      fc.stringMatching(/^[A-Za-z][A-Za-z0-9]{1,10}$/),
-      { minLength: 1, maxLength: 3 },
-    )
+    .array(fc.stringMatching(/^[A-Za-z][A-Za-z0-9]{1,10}$/), {
+      minLength: 1,
+      maxLength: 3,
+    })
     .map((parts) => parts.join(" "));
 
 /** Generate a valid CSS font weight string */
 const weightArb = () =>
-  fc.constantFrom("100", "200", "300", "400", "500", "600", "700", "800", "900");
+  fc.constantFrom(
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+  );
 
 /** Generate a theme object with random typography values */
 const themeArb = () =>
@@ -93,9 +103,20 @@ describe("Property 12: Font loader injects correct Google Fonts links", () => {
 
         loadFonts(theme);
 
-        const { fontDisplay, fontBody, weightLight, weightRegular, weightMedium, weightBold } =
-          theme.typography;
-        const expectedWeights = [weightLight, weightRegular, weightMedium, weightBold]
+        const {
+          fontDisplay,
+          fontBody,
+          weightLight,
+          weightRegular,
+          weightMedium,
+          weightBold,
+        } = theme.typography;
+        const expectedWeights = [
+          weightLight,
+          weightRegular,
+          weightMedium,
+          weightBold,
+        ]
           .filter(Boolean)
           .join(";");
 

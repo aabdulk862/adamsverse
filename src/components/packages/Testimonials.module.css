@@ -2,7 +2,7 @@
 .testimonials {
   background-color: var(--color-bgSurface);
   color: var(--color-textPrimary);
-  padding: 4rem 1.5rem;
+  padding: var(--section-padding, 4rem) 1.5rem;
 }
 
 .inner {
@@ -41,6 +41,23 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  transition: box-shadow 200ms ease;
+}
+
+.card:hover,
+.card:active {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:active {
+    box-shadow: none;
+  }
 }
 
 .quote {
@@ -82,10 +99,46 @@
   display: none;
 }
 
+/* ── Avatar & Placeholder Styles ── */
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.avatarPlaceholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-display), serif;
+  font-weight: var(--font-weightBold);
+  font-size: 0.875rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.attributionRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatarCentered {
+  display: flex;
+  justify-content: center;
+}
+
 /* Tablet: 768px+ — 2 columns */
 @media (min-width: 768px) {
   .testimonials {
-    padding: 5rem 2rem;
+    padding: var(--section-padding, 5rem) 2rem;
   }
 
   .heading {
@@ -112,12 +165,23 @@
   .role {
     font-size: 0.875rem;
   }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .avatarPlaceholder {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+  }
 }
 
 /* Desktop: 1024px+ — 3 columns */
 @media (min-width: 1024px) {
   .testimonials {
-    padding: 6rem 2rem;
+    padding: var(--section-padding, 6rem) 2rem;
   }
 
   .heading {
@@ -154,6 +218,13 @@
 .testimonialsProfessional .heading {
   text-align: left;
   align-self: flex-start;
+  padding-left: 1rem;
+  border-left: 3px solid var(--color-accent);
+}
+
+.testimonialsProfessional .card:hover,
+.testimonialsProfessional .card:active {
+  box-shadow: none;
 }
 
 .testimonialsProfessional .grid {
@@ -229,6 +300,32 @@
    Centered cards with decorative quotation marks,
    rounded corners, soft shadows
    ═══════════════════════════════════════════════ */
+.testimonialsBeauty {
+  background: linear-gradient(
+    180deg,
+    var(--color-bgSurface),
+    var(--color-bgMuted) 50%,
+    var(--color-bgSurface)
+  );
+}
+
+.testimonialsBeauty .heading {
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.testimonialsBeauty .heading::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: 1px;
+}
+
 .testimonialsBeauty .card {
   background: linear-gradient(
     135deg,
@@ -314,6 +411,11 @@
    Compact horizontal cards with star ratings,
    author on the right side, two-column grid
    ═══════════════════════════════════════════════ */
+.testimonialsHomeServices .heading {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 .testimonialsHomeServices .card {
   flex-direction: column;
   background-color: var(--color-bgSurface);
@@ -412,6 +514,17 @@
    Large opening quotation mark, italic text,
    dash separator attribution, three-column grid
    ═══════════════════════════════════════════════ */
+.testimonialsFoodHospitality .heading {
+  letter-spacing: 0.02em;
+}
+
+/* Mobile inner gap override */
+@media (max-width: 767px) {
+  .inner {
+    gap: 1.5rem;
+  }
+}
+
 .testimonialsFoodHospitality .card {
   background-color: var(--color-bgMuted);
   border: 1px solid var(--color-border);

@@ -1,8 +1,8 @@
 import {
   getActiveAgentRoles,
   getAgentRoleById,
-  createAgentRole
-} from '../orchestrator/db.js'
+  createAgentRole,
+} from "../orchestrator/db.js";
 
 // ---------------------------------------------------------------------------
 // Persistence mode: use in-memory defaults when Supabase service-role key
@@ -10,24 +10,30 @@ import {
 // This lets the agent console work without any backend.
 // ---------------------------------------------------------------------------
 
-const USE_MEMORY = !import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY
+const USE_MEMORY = !import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY;
 
 // ---------------------------------------------------------------------------
 // Required fields for a valid agent role configuration
 // ---------------------------------------------------------------------------
 
 const REQUIRED_ROLE_FIELDS = [
-  'name',
-  'description',
-  'role_type',
-  'system_prompt',
-  'input_schema',
-  'output_schema',
-  'status'
-]
+  "name",
+  "description",
+  "role_type",
+  "system_prompt",
+  "input_schema",
+  "output_schema",
+  "status",
+];
 
-const VALID_ROLE_TYPES = ['planner', 'research', 'builder', 'audit', 'automation']
-const VALID_STATUSES = ['active', 'inactive', 'draft']
+const VALID_ROLE_TYPES = [
+  "planner",
+  "research",
+  "builder",
+  "audit",
+  "automation",
+];
+const VALID_STATUSES = ["active", "inactive", "draft"];
 
 // ---------------------------------------------------------------------------
 // Default agent roles seed data
@@ -35,205 +41,226 @@ const VALID_STATUSES = ['active', 'inactive', 'draft']
 
 const DEFAULT_ROLES = [
   {
-    name: 'Planner',
+    name: "Planner",
     description:
-      'Decomposes goals into structured plans and synthesizes findings into reports',
-    role_type: 'planner',
+      "Decomposes goals into structured plans and synthesizes findings into reports",
+    role_type: "planner",
     system_prompt:
-      'You are a planning agent. Your job is to decompose high-level goals into structured, actionable plans and synthesize findings from other agents into coherent reports. Always produce clear, ordered steps with defined inputs and outputs.',
+      "You are a planning agent. Your job is to decompose high-level goals into structured, actionable plans and synthesize findings from other agents into coherent reports. Always produce clear, ordered steps with defined inputs and outputs.",
     input_schema: {
-      type: 'object',
+      type: "object",
       properties: {
-        goal: { type: 'string', description: 'The high-level goal to decompose' },
-        context: { type: 'string', description: 'Additional context for planning' }
+        goal: {
+          type: "string",
+          description: "The high-level goal to decompose",
+        },
+        context: {
+          type: "string",
+          description: "Additional context for planning",
+        },
       },
-      required: ['goal']
+      required: ["goal"],
     },
     output_schema: {
-      type: 'object',
+      type: "object",
       properties: {
         plan: {
-          type: 'array',
+          type: "array",
           items: {
-            type: 'object',
+            type: "object",
             properties: {
-              step: { type: 'number' },
-              description: { type: 'string' },
-              agent_role: { type: 'string' },
-              expected_output: { type: 'string' }
+              step: { type: "number" },
+              description: { type: "string" },
+              agent_role: { type: "string" },
+              expected_output: { type: "string" },
             },
-            required: ['step', 'description']
-          }
+            required: ["step", "description"],
+          },
         },
-        summary: { type: 'string' }
+        summary: { type: "string" },
       },
-      required: ['plan', 'summary']
+      required: ["plan", "summary"],
     },
-    status: 'active'
+    status: "active",
   },
   {
-    name: 'Research',
-    description:
-      'Gathers and validates information using iterative search',
-    role_type: 'research',
+    name: "Research",
+    description: "Gathers and validates information using iterative search",
+    role_type: "research",
     system_prompt:
-      'You are a research agent. Your job is to gather, validate, and organize information from available sources. Use iterative search to build comprehensive, factual summaries. Always cite your sources and flag uncertain data.',
+      "You are a research agent. Your job is to gather, validate, and organize information from available sources. Use iterative search to build comprehensive, factual summaries. Always cite your sources and flag uncertain data.",
     input_schema: {
-      type: 'object',
+      type: "object",
       properties: {
-        query: { type: 'string', description: 'The research query or topic' },
-        url: { type: 'string', description: 'Optional URL to extract information from' }
+        query: { type: "string", description: "The research query or topic" },
+        url: {
+          type: "string",
+          description: "Optional URL to extract information from",
+        },
       },
-      required: ['query']
+      required: ["query"],
     },
     output_schema: {
-      type: 'object',
+      type: "object",
       properties: {
         findings: {
-          type: 'array',
+          type: "array",
           items: {
-            type: 'object',
+            type: "object",
             properties: {
-              topic: { type: 'string' },
-              content: { type: 'string' },
-              confidence: { type: 'string' }
+              topic: { type: "string" },
+              content: { type: "string" },
+              confidence: { type: "string" },
             },
-            required: ['topic', 'content']
-          }
+            required: ["topic", "content"],
+          },
         },
-        summary: { type: 'string' }
+        summary: { type: "string" },
       },
-      required: ['findings', 'summary']
+      required: ["findings", "summary"],
     },
-    status: 'active'
+    status: "active",
   },
   {
-    name: 'Builder',
-    description:
-      'Generates code, configurations, and structured documents',
-    role_type: 'builder',
+    name: "Builder",
+    description: "Generates code, configurations, and structured documents",
+    role_type: "builder",
     system_prompt:
-      'You are a builder agent. Your job is to generate code, configurations, and structured documents based on specifications. Produce clean, well-documented output that follows best practices for the target format.',
+      "You are a builder agent. Your job is to generate code, configurations, and structured documents based on specifications. Produce clean, well-documented output that follows best practices for the target format.",
     input_schema: {
-      type: 'object',
+      type: "object",
       properties: {
-        specification: { type: 'string', description: 'What to build' },
-        format: { type: 'string', description: 'Target output format' },
-        context: { type: 'string', description: 'Additional context or constraints' }
+        specification: { type: "string", description: "What to build" },
+        format: { type: "string", description: "Target output format" },
+        context: {
+          type: "string",
+          description: "Additional context or constraints",
+        },
       },
-      required: ['specification']
+      required: ["specification"],
     },
     output_schema: {
-      type: 'object',
+      type: "object",
       properties: {
-        content: { type: 'string', description: 'The generated content' },
-        format: { type: 'string', description: 'The output format used' },
-        notes: { type: 'string', description: 'Implementation notes' }
+        content: { type: "string", description: "The generated content" },
+        format: { type: "string", description: "The output format used" },
+        notes: { type: "string", description: "Implementation notes" },
       },
-      required: ['content', 'format']
+      required: ["content", "format"],
     },
-    status: 'active'
+    status: "active",
   },
   {
-    name: 'Audit',
+    name: "Audit",
     description:
-      'Evaluates systems, workflows, and designs against quality criteria',
-    role_type: 'audit',
+      "Evaluates systems, workflows, and designs against quality criteria",
+    role_type: "audit",
     system_prompt:
-      'You are an audit agent. Your job is to evaluate systems, workflows, and designs against defined quality criteria. Produce structured evaluations with numeric scores, specific findings, and prioritized recommendations. Be objective and evidence-based.',
+      "You are an audit agent. Your job is to evaluate systems, workflows, and designs against defined quality criteria. Produce structured evaluations with numeric scores, specific findings, and prioritized recommendations. Be objective and evidence-based.",
     input_schema: {
-      type: 'object',
+      type: "object",
       properties: {
-        target: { type: 'string', description: 'What to audit' },
+        target: { type: "string", description: "What to audit" },
         criteria: {
-          type: 'array',
-          items: { type: 'string' },
-          description: 'Quality criteria to evaluate against'
+          type: "array",
+          items: { type: "string" },
+          description: "Quality criteria to evaluate against",
         },
-        data: { type: 'object', description: 'Supporting data for the audit' }
+        data: { type: "object", description: "Supporting data for the audit" },
       },
-      required: ['target']
+      required: ["target"],
     },
     output_schema: {
-      type: 'object',
+      type: "object",
       properties: {
-        executive_summary: { type: 'string' },
+        executive_summary: { type: "string" },
         categories: {
-          type: 'array',
+          type: "array",
           items: {
-            type: 'object',
+            type: "object",
             properties: {
               name: {
-                type: 'string',
+                type: "string",
                 enum: [
-                  'operations_efficiency',
-                  'ux_quality',
-                  'automation_gaps',
-                  'technology_stack',
-                  'customer_experience'
-                ]
+                  "operations_efficiency",
+                  "ux_quality",
+                  "automation_gaps",
+                  "technology_stack",
+                  "customer_experience",
+                ],
               },
-              score: { type: 'number', minimum: 1, maximum: 10 },
-              findings: { type: 'array', items: { type: 'string' }, minItems: 1 },
+              score: { type: "number", minimum: 1, maximum: 10 },
+              findings: {
+                type: "array",
+                items: { type: "string" },
+                minItems: 1,
+              },
               recommendations: {
-                type: 'array',
+                type: "array",
                 items: {
-                  type: 'object',
+                  type: "object",
                   properties: {
-                    text: { type: 'string' },
-                    priority: { type: 'string', enum: ['high', 'medium', 'low'] },
-                    estimated_effort: { type: 'string' },
-                    expected_impact: { type: 'string' }
+                    text: { type: "string" },
+                    priority: {
+                      type: "string",
+                      enum: ["high", "medium", "low"],
+                    },
+                    estimated_effort: { type: "string" },
+                    expected_impact: { type: "string" },
                   },
-                  required: ['text', 'priority', 'estimated_effort', 'expected_impact']
-                }
-              }
+                  required: [
+                    "text",
+                    "priority",
+                    "estimated_effort",
+                    "expected_impact",
+                  ],
+                },
+              },
             },
-            required: ['name', 'score', 'findings', 'recommendations']
-          }
-        }
+            required: ["name", "score", "findings", "recommendations"],
+          },
+        },
       },
-      required: ['executive_summary', 'categories']
+      required: ["executive_summary", "categories"],
     },
-    status: 'active'
+    status: "active",
   },
   {
-    name: 'Automation',
-    description:
-      'Defines and connects workflow automations via n8n',
-    role_type: 'automation',
+    name: "Automation",
+    description: "Defines and connects workflow automations via n8n",
+    role_type: "automation",
     system_prompt:
-      'You are an automation agent. Your job is to define workflow automations compatible with n8n. Produce valid n8n workflow definitions with properly configured nodes, connections, and triggers. Ensure workflows are testable and well-documented.',
+      "You are an automation agent. Your job is to define workflow automations compatible with n8n. Produce valid n8n workflow definitions with properly configured nodes, connections, and triggers. Ensure workflows are testable and well-documented.",
     input_schema: {
-      type: 'object',
+      type: "object",
       properties: {
         workflow_description: {
-          type: 'string',
-          description: 'Description of the workflow to automate'
+          type: "string",
+          description: "Description of the workflow to automate",
         },
         triggers: {
-          type: 'array',
-          items: { type: 'string' },
-          description: 'Events that should trigger the workflow'
-        }
+          type: "array",
+          items: { type: "string" },
+          description: "Events that should trigger the workflow",
+        },
       },
-      required: ['workflow_description']
+      required: ["workflow_description"],
     },
     output_schema: {
-      type: 'object',
+      type: "object",
       properties: {
         workflow_definition: {
-          type: 'object',
-          description: 'n8n-compatible workflow definition'
+          type: "object",
+          description: "n8n-compatible workflow definition",
         },
-        description: { type: 'string' },
-        notes: { type: 'string' }
+        description: { type: "string" },
+        notes: { type: "string" },
       },
-      required: ['workflow_definition', 'description']
+      required: ["workflow_definition", "description"],
     },
-    status: 'active'
-  }
-]
+    status: "active",
+  },
+];
 
 // ---------------------------------------------------------------------------
 // Registry functions
@@ -245,17 +272,20 @@ const DEFAULT_ROLES = [
  */
 export async function getActiveRoles() {
   if (USE_MEMORY) {
-    return DEFAULT_ROLES.map((r) => ({ id: `default-${r.role_type}`, ...r }))
+    return DEFAULT_ROLES.map((r) => ({ id: `default-${r.role_type}`, ...r }));
   }
   try {
-    const { data, error } = await getActiveAgentRoles()
+    const { data, error } = await getActiveAgentRoles();
     if (error) {
-      console.warn('[registry] Supabase unavailable, using default roles:', error.message)
-      return DEFAULT_ROLES.map((r) => ({ id: `default-${r.role_type}`, ...r }))
+      console.warn(
+        "[registry] Supabase unavailable, using default roles:",
+        error.message,
+      );
+      return DEFAULT_ROLES.map((r) => ({ id: `default-${r.role_type}`, ...r }));
     }
-    return data
+    return data;
   } catch {
-    return DEFAULT_ROLES.map((r) => ({ id: `default-${r.role_type}`, ...r }))
+    return DEFAULT_ROLES.map((r) => ({ id: `default-${r.role_type}`, ...r }));
   }
 }
 
@@ -266,18 +296,18 @@ export async function getActiveRoles() {
  */
 export async function getRoleById(id) {
   if (!id) {
-    throw new Error('getRoleById requires a valid id')
+    throw new Error("getRoleById requires a valid id");
   }
   if (USE_MEMORY) {
-    const role = DEFAULT_ROLES.find((r) => `default-${r.role_type}` === id)
-    if (!role) throw new Error(`No role found with id "${id}"`)
-    return { id, ...role }
+    const role = DEFAULT_ROLES.find((r) => `default-${r.role_type}` === id);
+    if (!role) throw new Error(`No role found with id "${id}"`);
+    return { id, ...role };
   }
-  const { data, error } = await getAgentRoleById(id)
+  const { data, error } = await getAgentRoleById(id);
   if (error) {
-    throw new Error(`Failed to fetch role by id "${id}": ${error.message}`)
+    throw new Error(`Failed to fetch role by id "${id}": ${error.message}`);
   }
-  return data
+  return data;
 }
 
 /**
@@ -288,28 +318,33 @@ export async function getRoleById(id) {
  */
 export async function getRoleByType(roleType) {
   if (!roleType) {
-    throw new Error('getRoleByType requires a valid roleType')
+    throw new Error("getRoleByType requires a valid roleType");
   }
   if (!VALID_ROLE_TYPES.includes(roleType)) {
     throw new Error(
-      `Invalid role_type "${roleType}". Must be one of: ${VALID_ROLE_TYPES.join(', ')}`
-    )
+      `Invalid role_type "${roleType}". Must be one of: ${VALID_ROLE_TYPES.join(", ")}`,
+    );
   }
 
   if (USE_MEMORY) {
-    const defaultRole = DEFAULT_ROLES.find((r) => r.role_type === roleType)
-    if (!defaultRole) throw new Error(`No default role found for type "${roleType}"`)
-    return { id: `default-${roleType}`, ...defaultRole }
+    const defaultRole = DEFAULT_ROLES.find((r) => r.role_type === roleType);
+    if (!defaultRole)
+      throw new Error(`No default role found for type "${roleType}"`);
+    return { id: `default-${roleType}`, ...defaultRole };
   }
 
   try {
-    const { data, error } = await getActiveAgentRoles()
-    if (error) throw new Error(error.message)
-    const match = (data || []).find((r) => r.role_type === roleType && r.status === 'active')
-    if (!match) throw new Error(`No active role for type "${roleType}"`)
-    return match
+    const { data, error } = await getActiveAgentRoles();
+    if (error) throw new Error(error.message);
+    const match = (data || []).find(
+      (r) => r.role_type === roleType && r.status === "active",
+    );
+    if (!match) throw new Error(`No active role for type "${roleType}"`);
+    return match;
   } catch (err) {
-    throw new Error(`Failed to fetch role by type "${roleType}": ${err.message}`)
+    throw new Error(
+      `Failed to fetch role by type "${roleType}": ${err.message}`,
+    );
   }
 }
 
@@ -319,20 +354,21 @@ export async function getRoleByType(roleType) {
  * @returns {Promise<void>}
  */
 export async function seedDefaultRoles() {
-  const { data: existingRoles, error: fetchError } = await getActiveAgentRoles()
+  const { data: existingRoles, error: fetchError } =
+    await getActiveAgentRoles();
   if (fetchError) {
-    throw new Error(`Failed to check existing roles: ${fetchError.message}`)
+    throw new Error(`Failed to check existing roles: ${fetchError.message}`);
   }
 
-  const existingTypes = new Set((existingRoles || []).map((r) => r.role_type))
+  const existingTypes = new Set((existingRoles || []).map((r) => r.role_type));
 
   for (const role of DEFAULT_ROLES) {
     if (!existingTypes.has(role.role_type)) {
-      const { error: createError } = await createAgentRole(role)
+      const { error: createError } = await createAgentRole(role);
       if (createError) {
         throw new Error(
-          `Failed to seed default role "${role.name}": ${createError.message}`
-        )
+          `Failed to seed default role "${role.name}": ${createError.message}`,
+        );
       }
     }
   }
@@ -349,10 +385,10 @@ export async function seedDefaultRoles() {
  * @returns {string} JSON string representation
  */
 export function serializeConfig(role) {
-  if (!role || typeof role !== 'object') {
-    throw new Error('serializeConfig requires a valid role object')
+  if (!role || typeof role !== "object") {
+    throw new Error("serializeConfig requires a valid role object");
   }
-  return JSON.stringify(role)
+  return JSON.stringify(role);
 }
 
 /**
@@ -364,74 +400,90 @@ export function serializeConfig(role) {
  * @returns {object} The deserialized agent role configuration
  */
 export function deserializeConfig(json) {
-  if (typeof json !== 'string') {
+  if (typeof json !== "string") {
     throw new Error(
-      'deserializeConfig requires a JSON string argument, received ' + typeof json
-    )
+      "deserializeConfig requires a JSON string argument, received " +
+        typeof json,
+    );
   }
 
-  let parsed
+  let parsed;
   try {
-    parsed = JSON.parse(json)
+    parsed = JSON.parse(json);
   } catch (err) {
-    throw new Error(`Malformed JSON: ${err.message}`)
+    throw new Error(`Malformed JSON: ${err.message}`);
   }
 
-  if (parsed === null || typeof parsed !== 'object' || Array.isArray(parsed)) {
+  if (parsed === null || typeof parsed !== "object" || Array.isArray(parsed)) {
     throw new Error(
-      'Deserialized value must be a plain object, received ' +
-        (parsed === null ? 'null' : Array.isArray(parsed) ? 'array' : typeof parsed)
-    )
+      "Deserialized value must be a plain object, received " +
+        (parsed === null
+          ? "null"
+          : Array.isArray(parsed)
+            ? "array"
+            : typeof parsed),
+    );
   }
 
   // Validate required fields
-  const missingFields = REQUIRED_ROLE_FIELDS.filter((field) => !(field in parsed))
+  const missingFields = REQUIRED_ROLE_FIELDS.filter(
+    (field) => !(field in parsed),
+  );
   if (missingFields.length > 0) {
     throw new Error(
-      `Agent role config is missing required fields: ${missingFields.join(', ')}`
-    )
+      `Agent role config is missing required fields: ${missingFields.join(", ")}`,
+    );
   }
 
   // Validate field types
-  if (typeof parsed.name !== 'string' || parsed.name.trim() === '') {
-    throw new Error('Agent role "name" must be a non-empty string')
+  if (typeof parsed.name !== "string" || parsed.name.trim() === "") {
+    throw new Error('Agent role "name" must be a non-empty string');
   }
-  if (typeof parsed.description !== 'string') {
-    throw new Error('Agent role "description" must be a string')
+  if (typeof parsed.description !== "string") {
+    throw new Error('Agent role "description" must be a string');
   }
   if (!VALID_ROLE_TYPES.includes(parsed.role_type)) {
     throw new Error(
-      `Agent role "role_type" must be one of: ${VALID_ROLE_TYPES.join(', ')}. Got "${parsed.role_type}"`
-    )
+      `Agent role "role_type" must be one of: ${VALID_ROLE_TYPES.join(", ")}. Got "${parsed.role_type}"`,
+    );
   }
-  if (typeof parsed.system_prompt !== 'string') {
-    throw new Error('Agent role "system_prompt" must be a string')
+  if (typeof parsed.system_prompt !== "string") {
+    throw new Error('Agent role "system_prompt" must be a string');
   }
   if (
     parsed.input_schema === null ||
-    typeof parsed.input_schema !== 'object' ||
+    typeof parsed.input_schema !== "object" ||
     Array.isArray(parsed.input_schema)
   ) {
-    throw new Error('Agent role "input_schema" must be a valid JSON Schema object')
+    throw new Error(
+      'Agent role "input_schema" must be a valid JSON Schema object',
+    );
   }
   if (
     parsed.output_schema === null ||
-    typeof parsed.output_schema !== 'object' ||
+    typeof parsed.output_schema !== "object" ||
     Array.isArray(parsed.output_schema)
   ) {
-    throw new Error('Agent role "output_schema" must be a valid JSON Schema object')
+    throw new Error(
+      'Agent role "output_schema" must be a valid JSON Schema object',
+    );
   }
   if (!VALID_STATUSES.includes(parsed.status)) {
     throw new Error(
-      `Agent role "status" must be one of: ${VALID_STATUSES.join(', ')}. Got "${parsed.status}"`
-    )
+      `Agent role "status" must be one of: ${VALID_STATUSES.join(", ")}. Got "${parsed.status}"`,
+    );
   }
 
-  return parsed
+  return parsed;
 }
 
 // ---------------------------------------------------------------------------
 // Exports for testing
 // ---------------------------------------------------------------------------
 
-export { DEFAULT_ROLES, REQUIRED_ROLE_FIELDS, VALID_ROLE_TYPES, VALID_STATUSES }
+export {
+  DEFAULT_ROLES,
+  REQUIRED_ROLE_FIELDS,
+  VALID_ROLE_TYPES,
+  VALID_STATUSES,
+};

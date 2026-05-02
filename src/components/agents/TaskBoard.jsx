@@ -1,98 +1,105 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
-import { supabase } from '../../lib/supabase'
-import { getTasksByPipeline } from '../../lib/orchestrator/db.js'
-import styles from './TaskBoard.module.css'
+import { useState, useEffect, useCallback, useRef } from "react";
+import { supabase } from "../../lib/supabase";
+import { getTasksByPipeline } from "../../lib/orchestrator/db.js";
+import styles from "./TaskBoard.module.css";
 
 const STATUS_LABELS = {
-  pending: 'Pending',
-  in_progress: 'In Progress',
-  completed: 'Completed',
-  failed: 'Failed',
-}
+  pending: "Pending",
+  in_progress: "In Progress",
+  completed: "Completed",
+  failed: "Failed",
+};
 
 const STATUS_BADGE = {
   pending: styles.badgePending,
   in_progress: styles.badgeInProgress,
   completed: styles.badgeCompleted,
   failed: styles.badgeFailed,
-}
+};
 
-export default function TaskBoard({ tasks: initialTasks = [], pipelineStatus }) {
-  const [tasks, setTasks] = useState(initialTasks)
+export default function TaskBoard({
+  tasks: initialTasks = [],
+  pipelineStatus,
+}) {
+  const [tasks, setTasks] = useState(initialTasks);
 
   // Sync local state when parent passes new tasks
   useEffect(() => {
-    setTasks(initialTasks)
-  }, [initialTasks])
+    setTasks(initialTasks);
+  }, [initialTasks]);
 
   // Derive the pipeline_id from the first task (all tasks share the same pipeline)
-  const pipelineId = tasks.length > 0 ? tasks[0].pipeline_id : null
+  const pipelineId = tasks.length > 0 ? tasks[0].pipeline_id : null;
 
   // Handle realtime update payload
   const handleRealtimeUpdate = useCallback((payload) => {
-    const updated = payload.new
+    const updated = payload.new;
     setTasks((prev) =>
-      prev.map((t) => (t.id === updated.id ? { ...t, ...updated } : t))
-    )
-  }, [])
+      prev.map((t) => (t.id === updated.id ? { ...t, ...updated } : t)),
+    );
+  }, []);
 
   // Ref to hold the polling interval so we can start/stop it from callbacks
-  const pollingRef = useRef(null)
+  const pollingRef = useRef(null);
 
   // Start polling: fetch tasks every 5 seconds as a fallback
   const startPolling = useCallback(() => {
-    if (pollingRef.current || !pipelineId) return
+    if (pollingRef.current || !pipelineId) return;
     pollingRef.current = setInterval(async () => {
-      const { data } = await getTasksByPipeline(pipelineId)
+      const { data } = await getTasksByPipeline(pipelineId);
       if (data) {
-        setTasks(data)
+        setTasks(data);
       }
-    }, 5000)
-  }, [pipelineId])
+    }, 5000);
+  }, [pipelineId]);
 
   // Stop polling when realtime reconnects
   const stopPolling = useCallback(() => {
     if (pollingRef.current) {
-      clearInterval(pollingRef.current)
-      pollingRef.current = null
+      clearInterval(pollingRef.current);
+      pollingRef.current = null;
     }
-  }, [])
+  }, []);
 
   // Subscribe to Supabase realtime for live task status updates
   // Falls back to polling every 5 seconds if the channel disconnects
   useEffect(() => {
-    if (!pipelineId) return
+    if (!pipelineId) return;
 
     const channel = supabase
       .channel(`tasks-${pipelineId}`)
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'tasks',
+          event: "UPDATE",
+          schema: "public",
+          table: "tasks",
           filter: `pipeline_id=eq.${pipelineId}`,
         },
-        handleRealtimeUpdate
+        handleRealtimeUpdate,
       )
       .subscribe((status) => {
-        if (status === 'SUBSCRIBED') {
-          stopPolling()
-        } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
-          startPolling()
+        if (status === "SUBSCRIBED") {
+          stopPolling();
+        } else if (
+          status === "CHANNEL_ERROR" ||
+          status === "TIMED_OUT" ||
+          status === "CLOSED"
+        ) {
+          startPolling();
         }
-      })
+      });
 
     return () => {
-      stopPolling()
-      supabase.removeChannel(channel)
-    }
-  }, [pipelineId, handleRealtimeUpdate, startPolling, stopPolling])
+      stopPolling();
+      supabase.removeChannel(channel);
+    };
+  }, [pipelineId, handleRealtimeUpdate, startPolling, stopPolling]);
 
   // Progress calculation
-  const completedCount = tasks.filter((t) => t.status === 'completed').length
-  const totalCount = tasks.length
-  const progressPct = totalCount > 0 ? (completedCount / totalCount) * 100 : 0
+  const completedCount = tasks.filter((t) => t.status === "completed").length;
+  const totalCount = tasks.length;
+  const progressPct = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
 
   if (tasks.length === 0) {
     return (
@@ -102,7 +109,7 @@ export default function TaskBoard({ tasks: initialTasks = [], pipelineStatus }) 
           <p>No tasks in this pipeline yet.</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -133,8 +140,8 @@ export default function TaskBoard({ tasks: initialTasks = [], pipelineStatus }) 
       {/* Task cards */}
       <ul className={styles.taskList}>
         {tasks.map((task) => {
-          const badgeClass = STATUS_BADGE[task.status] || STATUS_BADGE.pending
-          const label = STATUS_LABELS[task.status] || task.status
+          const badgeClass = STATUS_BADGE[task.status] || STATUS_BADGE.pending;
+          const label = STATUS_LABELS[task.status] || task.status;
 
           return (
             <li key={task.id} className={styles.taskCard}>
@@ -146,9 +153,9 @@ export default function TaskBoard({ tasks: initialTasks = [], pipelineStatus }) 
               </div>
               <span className={`${styles.badge} ${badgeClass}`}>{label}</span>
             </li>
-          )
+          );
         })}
       </ul>
     </div>
-  )
+  );
 }

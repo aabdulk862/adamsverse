@@ -119,14 +119,14 @@ export async function loadCodeMirror() {
       langJsModule,
       languageModule,
       commandsModule,
-      themeModule
+      themeModule,
     ] = await Promise.all([
       import("https://esm.sh/@codemirror/state"),
       import("https://esm.sh/@codemirror/view"),
       import("https://esm.sh/@codemirror/lang-javascript"),
       import("https://esm.sh/@codemirror/language"),
       import("https://esm.sh/@codemirror/commands"),
-      import("https://esm.sh/@codemirror/theme-one-dark")
+      import("https://esm.sh/@codemirror/theme-one-dark"),
     ]);
 
     return {
@@ -140,7 +140,7 @@ export async function loadCodeMirror() {
       syntaxHighlighting: languageModule.syntaxHighlighting,
       defaultKeymap: commandsModule.defaultKeymap,
       indentWithTab: commandsModule.indentWithTab,
-      oneDark: themeModule.oneDark
+      oneDark: themeModule.oneDark,
     };
   } catch (_) {
     // CDN failed — show fallback notice on each .code-block
@@ -199,7 +199,8 @@ export function createPlayground(container, code, cm, workerRef) {
   runBtn.type = "button";
   var runIcon = document.createElement("span");
   runIcon.className = "btn-icon";
-  runIcon.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 1.5L10 6L2.5 10.5V1.5Z" fill="currentColor"/></svg>';
+  runIcon.innerHTML =
+    '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 1.5L10 6L2.5 10.5V1.5Z" fill="currentColor"/></svg>';
   var runLabel = document.createElement("span");
   runLabel.className = "btn-label";
   runLabel.textContent = "Run";
@@ -212,7 +213,8 @@ export function createPlayground(container, code, cm, workerRef) {
   resetBtn.type = "button";
   var resetIcon = document.createElement("span");
   resetIcon.className = "btn-icon";
-  resetIcon.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 1.5V4.5H4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.1 7.5A4.5 4.5 0 1 0 3 3L1.5 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  resetIcon.innerHTML =
+    '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 1.5V4.5H4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.1 7.5A4.5 4.5 0 1 0 3 3L1.5 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var resetLabel = document.createElement("span");
   resetLabel.className = "btn-label";
   resetLabel.textContent = "Reset";
@@ -243,32 +245,32 @@ export function createPlayground(container, code, cm, workerRef) {
   var customTheme = cm.EditorView.theme({
     "&": {
       backgroundColor: "var(--surface2)",
-      fontFamily: "'Space Mono', monospace"
+      fontFamily: "'Space Mono', monospace",
     },
     ".cm-content": {
       fontFamily: "'Space Mono', monospace",
       fontSize: "0.88rem",
-      lineHeight: "1.7"
+      lineHeight: "1.7",
     },
     ".cm-gutters": {
       backgroundColor: "var(--surface2)",
       borderRight: "1px solid var(--border)",
-      color: "var(--text-dim)"
+      color: "var(--text-dim)",
     },
     ".cm-activeLineGutter": {
-      backgroundColor: "rgba(0, 102, 255, 0.06)"
+      backgroundColor: "rgba(0, 102, 255, 0.06)",
     },
     ".cm-activeLine": {
-      backgroundColor: "rgba(0, 102, 255, 0.04)"
+      backgroundColor: "rgba(0, 102, 255, 0.04)",
     },
     "&.cm-focused": {
-      outline: "none"
+      outline: "none",
     },
     ".cm-scroller": {
       minHeight: "120px",
       maxHeight: "400px",
-      overflow: "auto"
-    }
+      overflow: "auto",
+    },
   });
 
   var editor = new cm.EditorView({
@@ -279,12 +281,21 @@ export function createPlayground(container, code, cm, workerRef) {
         cm.lineNumbers(),
         cm.bracketMatching(),
         cm.highlightActiveLine(),
-        cm.keymap.of([{ key: "Ctrl-Enter", mac: "Cmd-Enter", run: function () { run(); return true; } }]),
+        cm.keymap.of([
+          {
+            key: "Ctrl-Enter",
+            mac: "Cmd-Enter",
+            run: function () {
+              run();
+              return true;
+            },
+          },
+        ]),
         cm.keymap.of([cm.indentWithTab, ...cm.defaultKeymap]),
-        customTheme
-      ]
+        customTheme,
+      ],
     }),
-    parent: editorDiv
+    parent: editorDiv,
   });
 
   // ── Run handler ──
@@ -359,13 +370,17 @@ export function createPlayground(container, code, cm, workerRef) {
     };
 
     // Send code to worker
-    workerRef.current.postMessage({ id: runId, code: editor.state.doc.toString(), timeout: 3000 });
+    workerRef.current.postMessage({
+      id: runId,
+      code: editor.state.doc.toString(),
+      timeout: 3000,
+    });
   }
 
   // ── Reset handler ──
   function reset() {
     editor.dispatch({
-      changes: { from: 0, to: editor.state.doc.length, insert: originalCode }
+      changes: { from: 0, to: editor.state.doc.length, insert: originalCode },
     });
   }
 

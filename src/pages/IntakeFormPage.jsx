@@ -1,53 +1,135 @@
-import { useState } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
-import { useProjects } from '../hooks/useProjects'
-import services from '../data/services'
+import { useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useProjects } from "../hooks/useProjects";
+import services from "../data/services";
 
 const TIER_CONFIG = {
-  'landing-page': {
+  "landing-page": {
     fields: [
-      { name: 'businessName', label: 'Business Name', type: 'text', required: true, placeholder: 'e.g. Acme Corp' },
-      { name: 'targetAudience', label: 'Target Audience', type: 'textarea', required: true, placeholder: 'Describe your ideal customer or visitor' },
-      { name: 'sectionCount', label: 'Number of Sections (1–5)', type: 'select', required: true, options: [1, 2, 3, 4, 5] },
-      { name: 'referenceUrls', label: 'Reference URLs', type: 'textarea', required: false, placeholder: 'Paste any reference sites, one per line' },
+      {
+        name: "businessName",
+        label: "Business Name",
+        type: "text",
+        required: true,
+        placeholder: "e.g. Acme Corp",
+      },
+      {
+        name: "targetAudience",
+        label: "Target Audience",
+        type: "textarea",
+        required: true,
+        placeholder: "Describe your ideal customer or visitor",
+      },
+      {
+        name: "sectionCount",
+        label: "Number of Sections (1–5)",
+        type: "select",
+        required: true,
+        options: [1, 2, 3, 4, 5],
+      },
+      {
+        name: "referenceUrls",
+        label: "Reference URLs",
+        type: "textarea",
+        required: false,
+        placeholder: "Paste any reference sites, one per line",
+      },
     ],
-    projectName: (data) => `${data.businessName || 'Untitled'} — Landing Page`,
+    projectName: (data) => `${data.businessName || "Untitled"} — Landing Page`,
   },
-  'full-stack-application': {
+  "full-stack-application": {
     fields: [
-      { name: 'projectDescription', label: 'Project Description', type: 'textarea', required: true, placeholder: 'What are you building and why?' },
-      { name: 'featureList', label: 'Feature List', type: 'textarea', required: true, placeholder: 'List the key features, one per line' },
-      { name: 'expectedUserCount', label: 'Expected User Count', type: 'text', required: false, placeholder: 'e.g. 500 monthly active users' },
-      { name: 'techStackPreferences', label: 'Tech Stack Preferences', type: 'textarea', required: false, placeholder: 'Any preferred languages, frameworks, or services?' },
-      { name: 'deploymentRequirements', label: 'Deployment Requirements', type: 'textarea', required: false, placeholder: 'e.g. AWS, Docker, specific region requirements' },
+      {
+        name: "projectDescription",
+        label: "Project Description",
+        type: "textarea",
+        required: true,
+        placeholder: "What are you building and why?",
+      },
+      {
+        name: "featureList",
+        label: "Feature List",
+        type: "textarea",
+        required: true,
+        placeholder: "List the key features, one per line",
+      },
+      {
+        name: "expectedUserCount",
+        label: "Expected User Count",
+        type: "text",
+        required: false,
+        placeholder: "e.g. 500 monthly active users",
+      },
+      {
+        name: "techStackPreferences",
+        label: "Tech Stack Preferences",
+        type: "textarea",
+        required: false,
+        placeholder: "Any preferred languages, frameworks, or services?",
+      },
+      {
+        name: "deploymentRequirements",
+        label: "Deployment Requirements",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g. AWS, Docker, specific region requirements",
+      },
     ],
     projectName: (data) => {
-      const desc = data.projectDescription || ''
-      const short = desc.split(/[.\n]/)[0].slice(0, 50)
-      return `${short || 'Untitled'} — Full-Stack App`
+      const desc = data.projectDescription || "";
+      const short = desc.split(/[.\n]/)[0].slice(0, 50);
+      return `${short || "Untitled"} — Full-Stack App`;
     },
   },
   consulting: {
     fields: [
-      { name: 'topicArea', label: 'Topic Area', type: 'text', required: true, placeholder: 'e.g. Architecture review, migration planning' },
-      { name: 'estimatedHours', label: 'Estimated Hours', type: 'text', required: true, placeholder: 'e.g. 10' },
-      { name: 'meetingFormat', label: 'Meeting Format', type: 'select', required: true, options: ['video', 'async'] },
-      { name: 'availabilityWindows', label: 'Availability Windows', type: 'textarea', required: false, placeholder: 'e.g. Weekdays 9am–5pm EST' },
+      {
+        name: "topicArea",
+        label: "Topic Area",
+        type: "text",
+        required: true,
+        placeholder: "e.g. Architecture review, migration planning",
+      },
+      {
+        name: "estimatedHours",
+        label: "Estimated Hours",
+        type: "text",
+        required: true,
+        placeholder: "e.g. 10",
+      },
+      {
+        name: "meetingFormat",
+        label: "Meeting Format",
+        type: "select",
+        required: true,
+        options: ["video", "async"],
+      },
+      {
+        name: "availabilityWindows",
+        label: "Availability Windows",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g. Weekdays 9am–5pm EST",
+      },
     ],
-    projectName: (data) => `${data.topicArea || 'Untitled'} — Consulting`,
+    projectName: (data) => `${data.topicArea || "Untitled"} — Consulting`,
   },
-}
+};
 
 export default function IntakeFormPage() {
-  const { tierId } = useParams()
-  const navigate = useNavigate()
-  const { createProject, loading: submitting, error: projectError } = useProjects()
+  const { tierId } = useParams();
+  const navigate = useNavigate();
+  const {
+    createProject,
+    loading: submitting,
+    error: projectError,
+  } = useProjects();
 
-  const service = services.find((s) => s.id === tierId)
-  const tierConfig = TIER_CONFIG[tierId]
+  const service = services.find((s) => s.id === tierId);
+  const tierConfig = TIER_CONFIG[tierId];
 
-  const [formData, setFormData] = useState({})
-  const [validationErrors, setValidationErrors] = useState({})
+  const [formData, setFormData] = useState({});
+  const [validationErrors, setValidationErrors] = useState({});
 
   if (!service || !tierConfig) {
     return (
@@ -55,112 +137,139 @@ export default function IntakeFormPage() {
         <div className="intake-not-found">
           <i className="fa-solid fa-circle-exclamation" />
           <h2>Service tier not found</h2>
-          <p>The selected service doesn't exist. Choose a service to get started.</p>
+          <p>
+            The selected service doesn't exist. Choose a service to get started.
+          </p>
           <Link to="/services" className="intake-back-link">
             <i className="fa-solid fa-arrow-left" /> Back to Services
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   const handleChange = (name, value) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (validationErrors[name]) {
       setValidationErrors((prev) => {
-        const next = { ...prev }
-        delete next[name]
-        return next
-      })
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
     }
-  }
+  };
 
   const validate = () => {
-    const errors = {}
+    const errors = {};
     for (const field of tierConfig.fields) {
       if (field.required && !formData[field.name]?.toString().trim()) {
-        errors[field.name] = `${field.label} is required`
+        errors[field.name] = `${field.label} is required`;
       }
     }
-    setValidationErrors(errors)
-    return Object.keys(errors).length === 0
-  }
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!validate()) return
+    e.preventDefault();
+    if (!validate()) return;
 
-    const projectName = tierConfig.projectName(formData)
+    const projectName = tierConfig.projectName(formData);
     const result = await createProject({
       name: projectName,
       service_tier: tierId,
       intake_data: formData,
-    })
+    });
 
     if (result) {
-      navigate('/dashboard/projects')
+      navigate("/dashboard/projects");
     }
-  }
+  };
 
   const renderField = (field) => {
-    const value = formData[field.name] || ''
-    const hasError = !!validationErrors[field.name]
-    const fieldId = `intake-${field.name}`
+    const value = formData[field.name] || "";
+    const hasError = !!validationErrors[field.name];
+    const fieldId = `intake-${field.name}`;
 
-    if (field.type === 'select') {
+    if (field.type === "select") {
       return (
         <label key={field.name} htmlFor={fieldId} className="intake-field">
           <span className="intake-label">
             {field.label}
-            {field.required && <span className="intake-required" aria-hidden="true"> *</span>}
+            {field.required && (
+              <span className="intake-required" aria-hidden="true">
+                {" "}
+                *
+              </span>
+            )}
           </span>
           <select
             id={fieldId}
             value={value}
             onChange={(e) => handleChange(field.name, e.target.value)}
-            className={hasError ? 'intake-input--error' : ''}
+            className={hasError ? "intake-input--error" : ""}
             aria-required={field.required}
             aria-invalid={hasError}
           >
             <option value="">Select…</option>
             {field.options.map((opt) => (
               <option key={opt} value={opt}>
-                {typeof opt === 'string' ? opt.charAt(0).toUpperCase() + opt.slice(1) : opt}
+                {typeof opt === "string"
+                  ? opt.charAt(0).toUpperCase() + opt.slice(1)
+                  : opt}
               </option>
             ))}
           </select>
-          {hasError && <span className="intake-error" role="alert">{validationErrors[field.name]}</span>}
+          {hasError && (
+            <span className="intake-error" role="alert">
+              {validationErrors[field.name]}
+            </span>
+          )}
         </label>
-      )
+      );
     }
 
-    if (field.type === 'textarea') {
+    if (field.type === "textarea") {
       return (
         <label key={field.name} htmlFor={fieldId} className="intake-field">
           <span className="intake-label">
             {field.label}
-            {field.required && <span className="intake-required" aria-hidden="true"> *</span>}
+            {field.required && (
+              <span className="intake-required" aria-hidden="true">
+                {" "}
+                *
+              </span>
+            )}
           </span>
           <textarea
             id={fieldId}
             value={value}
             onChange={(e) => handleChange(field.name, e.target.value)}
             placeholder={field.placeholder}
-            className={hasError ? 'intake-input--error' : ''}
+            className={hasError ? "intake-input--error" : ""}
             aria-required={field.required}
             aria-invalid={hasError}
             rows={4}
           />
-          {hasError && <span className="intake-error" role="alert">{validationErrors[field.name]}</span>}
+          {hasError && (
+            <span className="intake-error" role="alert">
+              {validationErrors[field.name]}
+            </span>
+          )}
         </label>
-      )
+      );
     }
 
     return (
       <label key={field.name} htmlFor={fieldId} className="intake-field">
         <span className="intake-label">
           {field.label}
-          {field.required && <span className="intake-required" aria-hidden="true"> *</span>}
+          {field.required && (
+            <span className="intake-required" aria-hidden="true">
+              {" "}
+              *
+            </span>
+          )}
         </span>
         <input
           id={fieldId}
@@ -168,14 +277,18 @@ export default function IntakeFormPage() {
           value={value}
           onChange={(e) => handleChange(field.name, e.target.value)}
           placeholder={field.placeholder}
-          className={hasError ? 'intake-input--error' : ''}
+          className={hasError ? "intake-input--error" : ""}
           aria-required={field.required}
           aria-invalid={hasError}
         />
-        {hasError && <span className="intake-error" role="alert">{validationErrors[field.name]}</span>}
+        {hasError && (
+          <span className="intake-error" role="alert">
+            {validationErrors[field.name]}
+          </span>
+        )}
       </label>
-    )
-  }
+    );
+  };
 
   return (
     <div className="intake-page">
@@ -200,19 +313,22 @@ export default function IntakeFormPage() {
       <form className="intake-form" onSubmit={handleSubmit} noValidate>
         {tierConfig.fields.map(renderField)}
 
-        {tierId === 'landing-page' && (
+        {tierId === "landing-page" && (
           <div className="intake-field">
             <span className="intake-label">Brand Assets</span>
             <p className="intake-hint">
-              Upload logos, color palettes, or style guides. You can also add files after project creation.
+              Upload logos, color palettes, or style guides. You can also add
+              files after project creation.
             </p>
             <input
               type="file"
               multiple
               className="intake-file-input"
               onChange={(e) => {
-                const names = Array.from(e.target.files || []).map((f) => f.name)
-                handleChange('brandAssets', names.join(', '))
+                const names = Array.from(e.target.files || []).map(
+                  (f) => f.name,
+                );
+                handleChange("brandAssets", names.join(", "));
               }}
               aria-label="Upload brand assets"
             />
@@ -239,5 +355,5 @@ export default function IntakeFormPage() {
         </button>
       </form>
     </div>
-  )
+  );
 }

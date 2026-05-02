@@ -1,11 +1,15 @@
-import { NavLink, Outlet } from 'react-router-dom'
-import styles from './AgentLayout.module.css'
+import { NavLink, Outlet } from "react-router-dom";
+import styles from "./AgentLayout.module.css";
 
 const navItems = [
-  { to: '/agents', label: 'Chat', icon: 'fa-solid fa-comments', end: true },
-  { to: '/agents/registry', label: 'Agents', icon: 'fa-solid fa-robot' },
-  { to: '/agents/artifacts', label: 'Artifacts', icon: 'fa-solid fa-box-archive' },
-]
+  { to: "/agents", label: "Chat", icon: "fa-solid fa-comments", end: true },
+  { to: "/agents/registry", label: "Agents", icon: "fa-solid fa-robot" },
+  {
+    to: "/agents/artifacts",
+    label: "Artifacts",
+    icon: "fa-solid fa-box-archive",
+  },
+];
 
 export default function AgentLayout() {
   return (
@@ -22,7 +26,7 @@ export default function AgentLayout() {
               to={item.to}
               end={item.end || false}
               className={({ isActive }) =>
-                `${styles.navLink} ${isActive ? styles.navLinkActive : ''}`
+                `${styles.navLink} ${isActive ? styles.navLinkActive : ""}`
               }
             >
               <i className={item.icon} />
@@ -39,5 +43,5 @@ export default function AgentLayout() {
         <Outlet />
       </main>
     </div>
-  )
+  );
 }

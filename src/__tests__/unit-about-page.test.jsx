@@ -13,9 +13,7 @@ describe("15.5 About Page", () => {
 
   it('has "Founder, Adverse LLC" role descriptor', () => {
     renderAbout();
-    expect(
-      screen.getByText("Founder, Adverse LLC"),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Founder, Adverse LLC")).toBeInTheDocument();
   });
 
   it('does NOT have "Creator • Developer • Entrepreneur"', () => {

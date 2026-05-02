@@ -29,7 +29,9 @@
   font-weight: 500;
   color: var(--text-primary, #333);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
   user-select: none;
 }
 
@@ -64,7 +66,10 @@
   border-radius: var(--radius-md, 6px);
   background: var(--bg-secondary, #f9f9f9);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
 }
 
 .artifactItem:hover {

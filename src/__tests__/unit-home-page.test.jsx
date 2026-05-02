@@ -110,11 +110,21 @@ describe("15.2 Home Page Structure", () => {
     // Verify DOM order using compareDocumentPosition
     const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING;
     expect(hero.compareDocumentPosition(socialProof) & FOLLOWING).toBeTruthy();
-    expect(socialProof.compareDocumentPosition(servicesSection) & FOLLOWING).toBeTruthy();
-    expect(servicesSection.compareDocumentPosition(aiBanner) & FOLLOWING).toBeTruthy();
-    expect(aiBanner.compareDocumentPosition(clientsSection) & FOLLOWING).toBeTruthy();
-    expect(clientsSection.compareDocumentPosition(whyAdverse) & FOLLOWING).toBeTruthy();
-    expect(whyAdverse.compareDocumentPosition(finalCta) & FOLLOWING).toBeTruthy();
+    expect(
+      socialProof.compareDocumentPosition(servicesSection) & FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      servicesSection.compareDocumentPosition(aiBanner) & FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      aiBanner.compareDocumentPosition(clientsSection) & FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      clientsSection.compareDocumentPosition(whyAdverse) & FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      whyAdverse.compareDocumentPosition(finalCta) & FOLLOWING,
+    ).toBeTruthy();
   });
 
   it("renders Social Proof Bar with metrics", () => {

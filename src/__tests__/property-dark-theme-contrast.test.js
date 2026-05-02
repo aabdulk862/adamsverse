@@ -77,9 +77,7 @@ function contrastRatio(color1, color2) {
  * Extract the [data-theme="dark"] block from the CSS.
  */
 function getDarkBlock() {
-  const match = cssContent.match(
-    /\[data-theme=["']dark["']\]\s*\{([^}]+)\}/,
-  );
+  const match = cssContent.match(/\[data-theme=["']dark["']\]\s*\{([^}]+)\}/);
   return match ? match[1] : "";
 }
 
@@ -95,9 +93,7 @@ function getDarkVar(name) {
   const hexMatch = darkBlock.match(hexRegex);
   if (hexMatch) return hexMatch[1];
   // Try rgba
-  const rgbaRegex = new RegExp(
-    `${escaped}:\\s*(rgba\\([^)]+\\))`,
-  );
+  const rgbaRegex = new RegExp(`${escaped}:\\s*(rgba\\([^)]+\\))`);
   const rgbaMatch = darkBlock.match(rgbaRegex);
   if (rgbaMatch) return rgbaMatch[1];
   return null;

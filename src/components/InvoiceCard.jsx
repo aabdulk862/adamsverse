@@ -1,25 +1,25 @@
-import React from 'react';
+import React from "react";
 
 const STATUS_CONFIG = {
-  Draft: { className: 'invoice-status--draft', label: 'Draft' },
-  Sent: { className: 'invoice-status--sent', label: 'Sent' },
-  Paid: { className: 'invoice-status--paid', label: 'Paid' },
-  Overdue: { className: 'invoice-status--overdue', label: 'Overdue' },
+  Draft: { className: "invoice-status--draft", label: "Draft" },
+  Sent: { className: "invoice-status--sent", label: "Sent" },
+  Paid: { className: "invoice-status--paid", label: "Paid" },
+  Overdue: { className: "invoice-status--overdue", label: "Overdue" },
 };
 
 function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
   }).format(amount ?? 0);
 }
 
 function formatDate(dateString) {
-  if (!dateString) return '—';
-  return new Date(dateString).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
+  if (!dateString) return "—";
+  return new Date(dateString).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
   });
 }
 
@@ -38,14 +38,20 @@ export default function InvoiceCard({ invoice, onPayClick }) {
   } = invoice;
 
   const statusConfig = STATUS_CONFIG[status] || STATUS_CONFIG.Draft;
-  const showPayButton = status === 'Sent' || status === 'Overdue';
+  const showPayButton = status === "Sent" || status === "Overdue";
   const subtotal = (total_amount ?? 0) - (tax_amount ?? 0);
 
   return (
-    <div className="invoice-card" role="article" aria-label={`Invoice ${id ? id.slice(0, 8) : ''}`}>
+    <div
+      className="invoice-card"
+      role="article"
+      aria-label={`Invoice ${id ? id.slice(0, 8) : ""}`}
+    >
       <div className="invoice-card-header">
         <div className="invoice-card-title-row">
-          <span className="invoice-card-id">Invoice #{id ? id.slice(0, 8) : '—'}</span>
+          <span className="invoice-card-id">
+            Invoice #{id ? id.slice(0, 8) : "—"}
+          </span>
           <span className={`invoice-status ${statusConfig.className}`}>
             {statusConfig.label}
           </span>
@@ -76,8 +82,10 @@ export default function InvoiceCard({ invoice, onPayClick }) {
             <tbody>
               {line_items.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.description || '—'}</td>
-                  <td className="invoice-card-amount">{formatCurrency(item.amount)}</td>
+                  <td>{item.description || "—"}</td>
+                  <td className="invoice-card-amount">
+                    {formatCurrency(item.amount)}
+                  </td>
                 </tr>
               ))}
             </tbody>

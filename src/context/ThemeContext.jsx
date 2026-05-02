@@ -1,10 +1,16 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 
-const VALID_THEMES = ['light', 'dark'];
-const STORAGE_KEY = 'theme';
+const VALID_THEMES = ["light", "dark"];
+const STORAGE_KEY = "theme";
 
 const ThemeContext = createContext({
-  theme: 'light',
+  theme: "light",
   toggleTheme: () => {},
 });
 
@@ -39,9 +45,11 @@ function setStoredTheme(theme) {
  */
 function getSystemPreference() {
   try {
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
   } catch {
-    return 'dark';
+    return "light";
   }
 }
 
@@ -57,7 +65,7 @@ function resolveInitialTheme() {
  */
 function prefersReducedMotion() {
   try {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   } catch {
     return false;
   }
@@ -80,16 +88,16 @@ export function ThemeProvider({ children }) {
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {
-      const next = prev === 'light' ? 'dark' : 'light';
+      const next = prev === "light" ? "dark" : "light";
 
       applyThemeToDOM(next);
       setStoredTheme(next);
 
       // Add transition class unless user prefers reduced motion
       if (!prefersReducedMotion()) {
-        document.documentElement.classList.add('theme-transitioning');
+        document.documentElement.classList.add("theme-transitioning");
         setTimeout(() => {
-          document.documentElement.classList.remove('theme-transitioning');
+          document.documentElement.classList.remove("theme-transitioning");
         }, 300);
       }
 

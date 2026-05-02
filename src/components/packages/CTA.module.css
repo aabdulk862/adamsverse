@@ -2,7 +2,7 @@
 .cta {
   background-color: var(--color-bgSurface);
   color: var(--color-textPrimary);
-  padding: 4rem 1.5rem;
+  padding: var(--section-padding, 4rem) 1.5rem;
   text-align: center;
 }
 
@@ -47,11 +47,30 @@
   background-color: var(--color-accent);
   color: var(--color-accentText);
   border-radius: var(--shape-radiusMedium);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .button:hover {
   background-color: var(--color-accentHover);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.button:active {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: background-color 0.2s ease;
+  }
+
+  .button:hover,
+  .button:active {
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 .button:focus-visible {
@@ -59,10 +78,22 @@
   outline-offset: 2px;
 }
 
+/* Mobile: below 768px — reduced padding and full-width button */
+@media (max-width: 767px) {
+  .cta {
+    padding: var(--section-padding, 3rem) 1.5rem;
+  }
+
+  .button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 /* Tablet: 768px+ */
 @media (min-width: 768px) {
   .cta {
-    padding: 5rem 2rem;
+    padding: var(--section-padding, 5rem) 2rem;
   }
 
   .heading {
@@ -77,7 +108,7 @@
 /* Desktop: 1024px+ */
 @media (min-width: 1024px) {
   .cta {
-    padding: 6rem 2rem;
+    padding: var(--section-padding, 6rem) 2rem;
   }
 
   .inner {
@@ -124,7 +155,7 @@
 }
 
 .ctaProfessional .button {
-  border-radius: var(--shape-radiusSmall, 0.25rem);
+  border-radius: 0;
 }
 
 @media (min-width: 768px) {
@@ -149,7 +180,7 @@
    decorative gradient background overlay
    ═══════════════════════════════════════════════ */
 .ctaBeauty {
-  padding: 5rem 1.5rem;
+  padding: var(--section-padding, 5rem) 1.5rem;
   position: relative;
   overflow: hidden;
   background: linear-gradient(
@@ -175,11 +206,33 @@
 .ctaBeauty .inner {
   position: relative;
   z-index: 1;
+  background: linear-gradient(
+    135deg,
+    var(--color-bgMuted),
+    var(--color-bgSurface)
+  );
+  border-radius: var(--shape-radiusLarge, 1rem);
+  padding: 3rem 2rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
 }
 
 .ctaBeauty .heading {
   font-weight: var(--font-weightMedium, 500);
   letter-spacing: 0.03em;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.ctaBeauty .heading::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: 1px;
 }
 
 .ctaBeauty .body {
@@ -195,7 +248,7 @@
 
 @media (min-width: 768px) {
   .ctaBeauty {
-    padding: 6rem 2rem;
+    padding: var(--section-padding, 6rem) 2rem;
   }
 
   .ctaBeauty .button {
@@ -206,7 +259,7 @@
 
 @media (min-width: 1024px) {
   .ctaBeauty {
-    padding: 8rem 2rem;
+    padding: var(--section-padding, 8rem) 2rem;
   }
 
   .ctaBeauty .button {
@@ -221,25 +274,22 @@
    bold uppercase heading, prominent button
    ═══════════════════════════════════════════════ */
 .ctaHomeServices {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.6),
-    rgba(0, 0, 0, 0.75)
-  ),
-  var(--color-bgBase);
-  padding: 4rem 1.5rem;
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.75)),
+    var(--color-bgBase);
+  padding: var(--section-padding, 4rem) 1.5rem;
 }
 
 .ctaHomeServices .heading {
   font-weight: var(--font-weightBold, 800);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-textPrimary, #ffffff);
+  color: #ffffff;
   font-size: 1.75rem;
 }
 
 .ctaHomeServices .body {
-  color: var(--color-textSecondary, #d1d5db);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .ctaHomeServices .button {
@@ -253,7 +303,7 @@
 
 @media (min-width: 768px) {
   .ctaHomeServices {
-    padding: 5rem 2rem;
+    padding: var(--section-padding, 5rem) 2rem;
   }
 
   .ctaHomeServices .heading {
@@ -268,7 +318,7 @@
 
 @media (min-width: 1024px) {
   .ctaHomeServices {
-    padding: 6rem 2rem;
+    padding: var(--section-padding, 6rem) 2rem;
   }
 
   .ctaHomeServices .heading {
@@ -292,7 +342,7 @@
 
 .ctaFoodHospitality .heading {
   font-weight: var(--font-weightMedium, 500);
-  letter-spacing: var(--font-trackingDisplay);
+  letter-spacing: 0.02em;
 }
 
 .ctaFoodHospitality .body {

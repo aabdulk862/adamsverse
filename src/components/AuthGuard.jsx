@@ -1,8 +1,8 @@
-import { Navigate } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export default function AuthGuard({ children }) {
-  const { session, loading } = useAuth()
+  const { session, loading } = useAuth();
 
   if (loading) {
     return (
@@ -10,12 +10,12 @@ export default function AuthGuard({ children }) {
         <div className="auth-guard-spinner" />
         <p>Loading…</p>
       </div>
-    )
+    );
   }
 
   if (!session) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/login" replace />;
   }
 
-  return children
+  return children;
 }

@@ -1,27 +1,29 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { vi } from 'vitest'
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { vi } from "vitest";
 
 // Hoist mock fns for supabase realtime (needed by TaskBoard)
-const { mockSubscribe, mockOn, mockRemoveChannel, mockChannel } = vi.hoisted(() => {
-  const mockSubscribe = vi.fn().mockReturnThis()
-  const mockOn = vi.fn().mockReturnThis()
-  const mockRemoveChannel = vi.fn()
-  const mockChannel = vi.fn(() => ({
-    on: mockOn,
-    subscribe: mockSubscribe,
-  }))
-  return { mockSubscribe, mockOn, mockRemoveChannel, mockChannel }
-})
+const { mockSubscribe, mockOn, mockRemoveChannel, mockChannel } = vi.hoisted(
+  () => {
+    const mockSubscribe = vi.fn().mockReturnThis();
+    const mockOn = vi.fn().mockReturnThis();
+    const mockRemoveChannel = vi.fn();
+    const mockChannel = vi.fn(() => ({
+      on: mockOn,
+      subscribe: mockSubscribe,
+    }));
+    return { mockSubscribe, mockOn, mockRemoveChannel, mockChannel };
+  },
+);
 
-vi.mock('../lib/supabase', () => ({
+vi.mock("../lib/supabase", () => ({
   supabase: {
     channel: mockChannel,
     removeChannel: mockRemoveChannel,
   },
-}))
+}));
 
 // Mock db.js to prevent top-level env var check from throwing
-vi.mock('../lib/orchestrator/db.js', () => ({
+vi.mock("../lib/orchestrator/db.js", () => ({
   getTasksByPipeline: vi.fn(),
   getArtifacts: vi.fn(),
   getArtifactById: vi.fn(),
@@ -36,259 +38,344 @@ vi.mock('../lib/orchestrator/db.js', () => ({
   createTasks: vi.fn(),
   updateTask: vi.fn(),
   supabaseAdmin: {},
-}))
+}));
 
 // Mock orchestrator modules
-vi.mock('../lib/orchestrator/index.js', () => ({
+vi.mock("../lib/orchestrator/index.js", () => ({
   classifyIntent: vi.fn(),
   decomposeRequest: vi.fn(),
   synthesizeResults: vi.fn(),
-}))
+}));
 
-vi.mock('../lib/orchestrator/pipeline.js', () => ({
+vi.mock("../lib/orchestrator/pipeline.js", () => ({
   createPipeline: vi.fn(),
   executePipeline: vi.fn(),
-}))
+}));
 
-vi.mock('../lib/orchestrator/alignment.js', () => ({
+vi.mock("../lib/orchestrator/alignment.js", () => ({
   formatAlignmentCheck: vi.fn(),
   parseAlignmentResponse: vi.fn(),
-}))
+}));
 
-vi.mock('../lib/agents/registry.js', () => ({
+vi.mock("../lib/agents/registry.js", () => ({
   getActiveRoles: vi.fn(),
-}))
+}));
 
-import AgentChatPage from './AgentChatPage'
-import { classifyIntent, decomposeRequest, synthesizeResults } from '../lib/orchestrator/index.js'
-import { createPipeline, executePipeline } from '../lib/orchestrator/pipeline.js'
-import { formatAlignmentCheck, parseAlignmentResponse } from '../lib/orchestrator/alignment.js'
-import { getActiveRoles } from '../lib/agents/registry.js'
+import AgentChatPage from "./AgentChatPage";
+import {
+  classifyIntent,
+  decomposeRequest,
+  synthesizeResults,
+} from "../lib/orchestrator/index.js";
+import {
+  createPipeline,
+  executePipeline,
+} from "../lib/orchestrator/pipeline.js";
+import {
+  formatAlignmentCheck,
+  parseAlignmentResponse,
+} from "../lib/orchestrator/alignment.js";
+import { getActiveRoles } from "../lib/agents/registry.js";
 
-describe('AgentChatPage', () => {
+describe("AgentChatPage", () => {
   beforeEach(() => {
-    vi.clearAllMocks()
-    vi.stubGlobal('crypto', {
+    vi.clearAllMocks();
+    vi.stubGlobal("crypto", {
       ...globalThis.crypto,
-      randomUUID: vi.fn(() => `test-uuid-${Math.random().toString(36).slice(2, 9)}`),
-    })
-  })
+      randomUUID: vi.fn(
+        () => `test-uuid-${Math.random().toString(36).slice(2, 9)}`,
+      ),
+    });
+  });
 
   afterEach(() => {
-    vi.unstubAllGlobals()
-  })
+    vi.unstubAllGlobals();
+  });
 
-  it('renders ChatInterface with empty state', () => {
-    render(<AgentChatPage />)
-    expect(screen.getByRole('region', { name: /chat interface/i })).toBeInTheDocument()
-    expect(screen.getByText(/send a message to start/i)).toBeInTheDocument()
-  })
+  it("renders ChatInterface with empty state", () => {
+    render(<AgentChatPage />);
+    expect(
+      screen.getByRole("region", { name: /chat interface/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/send a message to start/i)).toBeInTheDocument();
+  });
 
-  it('sends a message and shows the alignment card on successful classification', async () => {
-    classifyIntent.mockResolvedValue({ data: 'audit', error: null })
+  it("sends a message and shows the alignment card on successful classification", async () => {
+    classifyIntent.mockResolvedValue({ data: "audit", error: null });
     decomposeRequest.mockResolvedValue({
-      data: [{ name: 'Define scope', agent_role_id: 'role-1', depends_on: [], input_data: {} }],
+      data: [
+        {
+          name: "Define scope",
+          agent_role_id: "role-1",
+          depends_on: [],
+          input_data: {},
+        },
+      ],
       error: null,
-    })
-    getActiveRoles.mockResolvedValue([{ id: 'role-1', name: 'Planner' }])
-    formatAlignmentCheck.mockReturnValue('Proposed plan: Step 1 - Define scope')
+    });
+    getActiveRoles.mockResolvedValue([{ id: "role-1", name: "Planner" }]);
+    formatAlignmentCheck.mockReturnValue(
+      "Proposed plan: Step 1 - Define scope",
+    );
 
-    render(<AgentChatPage />)
+    render(<AgentChatPage />);
 
-    const input = screen.getByLabelText('Message input')
-    fireEvent.change(input, { target: { value: 'Run an audit' } })
-    fireEvent.submit(input.closest('form'))
+    const input = screen.getByLabelText("Message input");
+    fireEvent.change(input, { target: { value: "Run an audit" } });
+    fireEvent.submit(input.closest("form"));
 
-    expect(screen.getByText('Run an audit')).toBeInTheDocument()
-
-    await waitFor(() => {
-      expect(classifyIntent).toHaveBeenCalledWith('Run an audit')
-    })
+    expect(screen.getByText("Run an audit")).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByRole('region', { name: /alignment check/i })).toBeInTheDocument()
-    })
+      expect(classifyIntent).toHaveBeenCalledWith("Run an audit");
+    });
 
-    expect(formatAlignmentCheck).toHaveBeenCalled()
-  })
+    await waitFor(() => {
+      expect(
+        screen.getByRole("region", { name: /alignment check/i }),
+      ).toBeInTheDocument();
+    });
 
-  it('shows error message when classifyIntent fails', async () => {
+    expect(formatAlignmentCheck).toHaveBeenCalled();
+  });
+
+  it("shows error message when classifyIntent fails", async () => {
     classifyIntent.mockResolvedValue({
       data: null,
-      error: { message: 'Classification failed' },
-    })
+      error: { message: "Classification failed" },
+    });
 
-    render(<AgentChatPage />)
+    render(<AgentChatPage />);
 
-    const input = screen.getByLabelText('Message input')
-    fireEvent.change(input, { target: { value: 'something' } })
-    fireEvent.submit(input.closest('form'))
+    const input = screen.getByLabelText("Message input");
+    fireEvent.change(input, { target: { value: "something" } });
+    fireEvent.submit(input.closest("form"));
 
     await waitFor(() => {
-      expect(screen.getByText(/couldn't understand your request/i)).toBeInTheDocument()
-    })
-  })
+      expect(
+        screen.getByText(/couldn't understand your request/i),
+      ).toBeInTheDocument();
+    });
+  });
 
-  it('shows error message when decomposeRequest fails', async () => {
-    classifyIntent.mockResolvedValue({ data: 'plan', error: null })
+  it("shows error message when decomposeRequest fails", async () => {
+    classifyIntent.mockResolvedValue({ data: "plan", error: null });
     decomposeRequest.mockResolvedValue({
       data: null,
-      error: { message: 'Zero tasks produced' },
-    })
+      error: { message: "Zero tasks produced" },
+    });
 
-    render(<AgentChatPage />)
+    render(<AgentChatPage />);
 
-    const input = screen.getByLabelText('Message input')
-    fireEvent.change(input, { target: { value: 'do something' } })
-    fireEvent.submit(input.closest('form'))
+    const input = screen.getByLabelText("Message input");
+    fireEvent.change(input, { target: { value: "do something" } });
+    fireEvent.submit(input.closest("form"));
 
     await waitFor(() => {
-      expect(screen.getByText(/trouble breaking down/i)).toBeInTheDocument()
-    })
-  })
+      expect(screen.getByText(/trouble breaking down/i)).toBeInTheDocument();
+    });
+  });
 
-  it('executes pipeline and shows TaskBoard after approval', async () => {
-    classifyIntent.mockResolvedValue({ data: 'audit', error: null })
+  it("executes pipeline and shows TaskBoard after approval", async () => {
+    classifyIntent.mockResolvedValue({ data: "audit", error: null });
     decomposeRequest.mockResolvedValue({
-      data: [{ name: 'Task A', agent_role_id: 'r1', depends_on: [], input_data: {} }],
+      data: [
+        { name: "Task A", agent_role_id: "r1", depends_on: [], input_data: {} },
+      ],
       error: null,
-    })
-    getActiveRoles.mockResolvedValue([{ id: 'r1', name: 'Planner' }])
-    formatAlignmentCheck.mockReturnValue('Plan text')
+    });
+    getActiveRoles.mockResolvedValue([{ id: "r1", name: "Planner" }]);
+    formatAlignmentCheck.mockReturnValue("Plan text");
 
     const pipelineData = {
-      id: 'pipeline-1',
-      status: 'pending',
-      tasks: [{ id: 't1', name: 'Task A', status: 'pending', agent_role_id: 'r1', pipeline_id: 'pipeline-1' }],
-    }
-    createPipeline.mockResolvedValue({ data: pipelineData, error: null })
+      id: "pipeline-1",
+      status: "pending",
+      tasks: [
+        {
+          id: "t1",
+          name: "Task A",
+          status: "pending",
+          agent_role_id: "r1",
+          pipeline_id: "pipeline-1",
+        },
+      ],
+    };
+    createPipeline.mockResolvedValue({ data: pipelineData, error: null });
     executePipeline.mockResolvedValue({
-      data: { ...pipelineData, status: 'completed' },
+      data: { ...pipelineData, status: "completed" },
       error: null,
-    })
+    });
     synthesizeResults.mockResolvedValue({
       data: {
-        pipeline_id: 'pipeline-1',
+        pipeline_id: "pipeline-1",
         total_tasks: 1,
         completed_tasks: 1,
         failed_tasks: 0,
         artifacts: [],
-        tasks: [{ id: 't1', name: 'Task A', status: 'completed', agent_role_id: 'r1' }],
+        tasks: [
+          {
+            id: "t1",
+            name: "Task A",
+            status: "completed",
+            agent_role_id: "r1",
+          },
+        ],
       },
       error: null,
-    })
+    });
 
-    render(<AgentChatPage />)
+    render(<AgentChatPage />);
 
-    const input = screen.getByLabelText('Message input')
-    fireEvent.change(input, { target: { value: 'Run audit' } })
-    fireEvent.submit(input.closest('form'))
-
-    await waitFor(() => {
-      expect(screen.getByRole('region', { name: /alignment check/i })).toBeInTheDocument()
-    })
-
-    fireEvent.click(screen.getByLabelText('Approve plan'))
+    const input = screen.getByLabelText("Message input");
+    fireEvent.change(input, { target: { value: "Run audit" } });
+    fireEvent.submit(input.closest("form"));
 
     await waitFor(() => {
-      expect(createPipeline).toHaveBeenCalled()
-    })
+      expect(
+        screen.getByRole("region", { name: /alignment check/i }),
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByLabelText("Approve plan"));
 
     await waitFor(() => {
-      expect(screen.getByText(/pipeline complete/i)).toBeInTheDocument()
-    })
+      expect(createPipeline).toHaveBeenCalled();
+    });
 
-    expect(screen.getByRole('region', { name: /task board/i })).toBeInTheDocument()
-  })
+    await waitFor(() => {
+      expect(screen.getByText(/pipeline complete/i)).toBeInTheDocument();
+    });
 
-  it('renders ArtifactViewer when artifacts are produced', async () => {
-    classifyIntent.mockResolvedValue({ data: 'audit', error: null })
+    expect(
+      screen.getByRole("region", { name: /task board/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("renders ArtifactViewer when artifacts are produced", async () => {
+    classifyIntent.mockResolvedValue({ data: "audit", error: null });
     decomposeRequest.mockResolvedValue({
-      data: [{ name: 'Audit task', agent_role_id: 'r1', depends_on: [], input_data: {} }],
+      data: [
+        {
+          name: "Audit task",
+          agent_role_id: "r1",
+          depends_on: [],
+          input_data: {},
+        },
+      ],
       error: null,
-    })
-    getActiveRoles.mockResolvedValue([{ id: 'r1', name: 'Audit' }])
-    formatAlignmentCheck.mockReturnValue('Plan')
+    });
+    getActiveRoles.mockResolvedValue([{ id: "r1", name: "Audit" }]);
+    formatAlignmentCheck.mockReturnValue("Plan");
 
     createPipeline.mockResolvedValue({
       data: {
-        id: 'p1',
-        status: 'pending',
-        tasks: [{ id: 't1', name: 'Audit task', status: 'pending', agent_role_id: 'r1', pipeline_id: 'p1' }],
+        id: "p1",
+        status: "pending",
+        tasks: [
+          {
+            id: "t1",
+            name: "Audit task",
+            status: "pending",
+            agent_role_id: "r1",
+            pipeline_id: "p1",
+          },
+        ],
       },
       error: null,
-    })
+    });
     executePipeline.mockResolvedValue({
-      data: { id: 'p1', status: 'completed' },
+      data: { id: "p1", status: "completed" },
       error: null,
-    })
+    });
     synthesizeResults.mockResolvedValue({
       data: {
-        pipeline_id: 'p1',
+        pipeline_id: "p1",
         total_tasks: 1,
         completed_tasks: 1,
         failed_tasks: 0,
         artifacts: [
           {
-            task_id: 't1',
-            task_name: 'Audit task',
-            agent_role_id: 'r1',
-            artifact_type: 'audit_report',
-            content: { executive_summary: 'Good results', categories: [] },
+            task_id: "t1",
+            task_name: "Audit task",
+            agent_role_id: "r1",
+            artifact_type: "audit_report",
+            content: { executive_summary: "Good results", categories: [] },
           },
         ],
-        tasks: [{ id: 't1', name: 'Audit task', status: 'completed', agent_role_id: 'r1' }],
+        tasks: [
+          {
+            id: "t1",
+            name: "Audit task",
+            status: "completed",
+            agent_role_id: "r1",
+          },
+        ],
       },
       error: null,
-    })
+    });
 
-    render(<AgentChatPage />)
+    render(<AgentChatPage />);
 
-    const input = screen.getByLabelText('Message input')
-    fireEvent.change(input, { target: { value: 'Audit my business' } })
-    fireEvent.submit(input.closest('form'))
-
-    await waitFor(() => {
-      expect(screen.getByRole('region', { name: /alignment check/i })).toBeInTheDocument()
-    })
-
-    fireEvent.click(screen.getByLabelText('Approve plan'))
+    const input = screen.getByLabelText("Message input");
+    fireEvent.change(input, { target: { value: "Audit my business" } });
+    fireEvent.submit(input.closest("form"));
 
     await waitFor(() => {
-      expect(screen.getByRole('region', { name: /artifact viewer/i })).toBeInTheDocument()
-    })
+      expect(
+        screen.getByRole("region", { name: /alignment check/i }),
+      ).toBeInTheDocument();
+    });
 
-    expect(screen.getByText(/1 artifact\(s\) produced/i)).toBeInTheDocument()
-  })
+    fireEvent.click(screen.getByLabelText("Approve plan"));
 
-  it('handles revision feedback and clears alignment', async () => {
-    classifyIntent.mockResolvedValue({ data: 'plan', error: null })
+    await waitFor(() => {
+      expect(
+        screen.getByRole("region", { name: /artifact viewer/i }),
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.getByText(/1 artifact\(s\) produced/i)).toBeInTheDocument();
+  });
+
+  it("handles revision feedback and clears alignment", async () => {
+    classifyIntent.mockResolvedValue({ data: "plan", error: null });
     decomposeRequest.mockResolvedValue({
-      data: [{ name: 'Plan task', agent_role_id: 'r1', depends_on: [], input_data: {} }],
+      data: [
+        {
+          name: "Plan task",
+          agent_role_id: "r1",
+          depends_on: [],
+          input_data: {},
+        },
+      ],
       error: null,
-    })
-    getActiveRoles.mockResolvedValue([{ id: 'r1', name: 'Planner' }])
-    formatAlignmentCheck.mockReturnValue('Plan text')
+    });
+    getActiveRoles.mockResolvedValue([{ id: "r1", name: "Planner" }]);
+    formatAlignmentCheck.mockReturnValue("Plan text");
 
-    render(<AgentChatPage />)
+    render(<AgentChatPage />);
 
-    const input = screen.getByLabelText('Message input')
-    fireEvent.change(input, { target: { value: 'Make a plan' } })
-    fireEvent.submit(input.closest('form'))
-
-    await waitFor(() => {
-      expect(screen.getByRole('region', { name: /alignment check/i })).toBeInTheDocument()
-    })
-
-    fireEvent.click(screen.getByLabelText('Revise plan'))
-    const feedbackInput = screen.getByLabelText('Revision feedback')
-    fireEvent.change(feedbackInput, { target: { value: 'Add more detail' } })
-    fireEvent.click(screen.getByLabelText('Submit feedback'))
+    const input = screen.getByLabelText("Message input");
+    fireEvent.change(input, { target: { value: "Make a plan" } });
+    fireEvent.submit(input.closest("form"));
 
     await waitFor(() => {
-      expect(screen.getByText(/revise the plan/i)).toBeInTheDocument()
-    })
+      expect(
+        screen.getByRole("region", { name: /alignment check/i }),
+      ).toBeInTheDocument();
+    });
 
-    expect(screen.queryByRole('region', { name: /alignment check/i })).not.toBeInTheDocument()
-  })
-})
+    fireEvent.click(screen.getByLabelText("Revise plan"));
+    const feedbackInput = screen.getByLabelText("Revision feedback");
+    fireEvent.change(feedbackInput, { target: { value: "Add more detail" } });
+    fireEvent.click(screen.getByLabelText("Submit feedback"));
+
+    await waitFor(() => {
+      expect(screen.getByText(/revise the plan/i)).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByRole("region", { name: /alignment check/i }),
+    ).not.toBeInTheDocument();
+  });
+});

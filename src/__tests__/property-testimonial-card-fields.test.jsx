@@ -20,7 +20,12 @@ function TestimonialCard({ client }) {
     >
       <div className="home-portfolio-thumb">
         {client.image ? (
-          <img src={client.image} alt={client.title} loading="lazy" decoding="async" />
+          <img
+            src={client.image}
+            alt={client.title}
+            loading="lazy"
+            decoding="async"
+          />
         ) : (
           <div className="home-portfolio-placeholder">
             <span>{client.title.charAt(0)}</span>
@@ -52,7 +57,10 @@ const clientArb = fc.record({
   title: fc.string({ minLength: 1, maxLength: 50 }),
   description: fc.string({ minLength: 1, maxLength: 200 }),
   tags: fc
-    .array(fc.string({ minLength: 1, maxLength: 20 }), { minLength: 1, maxLength: 5 })
+    .array(fc.string({ minLength: 1, maxLength: 20 }), {
+      minLength: 1,
+      maxLength: 5,
+    })
     .filter((arr) => new Set(arr).size === arr.length),
   link: fc.constant("https://example.com"),
   image: fc.constant(null),

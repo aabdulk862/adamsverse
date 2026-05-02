@@ -1,4 +1,4 @@
-import styles from './AgentCard.module.css'
+import styles from "./AgentCard.module.css";
 
 const BADGE_CLASS = {
   planner: styles.badgePlanner,
@@ -6,39 +6,39 @@ const BADGE_CLASS = {
   builder: styles.badgeBuilder,
   audit: styles.badgeAudit,
   automation: styles.badgeAutomation,
-}
+};
 
 const STATUS_CLASS = {
   active: styles.statusActive,
   inactive: styles.statusInactive,
   draft: styles.statusDraft,
-}
+};
 
 const STATUS_LABEL = {
-  active: 'Active',
-  inactive: 'Inactive',
-  draft: 'Draft',
-}
+  active: "Active",
+  inactive: "Inactive",
+  draft: "Draft",
+};
 
 export default function AgentCard({ role, onClick }) {
-  if (!role) return null
+  if (!role) return null;
 
-  const badgeCls = BADGE_CLASS[role.role_type] || ''
-  const statusCls = STATUS_CLASS[role.status] || styles.statusDraft
-  const statusLabel = STATUS_LABEL[role.status] || role.status
+  const badgeCls = BADGE_CLASS[role.role_type] || "";
+  const statusCls = STATUS_CLASS[role.status] || styles.statusDraft;
+  const statusLabel = STATUS_LABEL[role.status] || role.status;
 
   const handleClick = () => {
-    if (typeof onClick === 'function') {
-      onClick(role)
+    if (typeof onClick === "function") {
+      onClick(role);
     }
-  }
+  };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      handleClick()
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleClick();
     }
-  }
+  };
 
   return (
     <div
@@ -63,5 +63,5 @@ export default function AgentCard({ role, onClick }) {
 
       <p className={styles.description}>{role.description}</p>
     </div>
-  )
+  );
 }

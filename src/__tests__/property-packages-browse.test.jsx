@@ -19,7 +19,9 @@ describe("Property 1: Package card count matches data array length", () => {
           </MemoryRouter>,
         );
 
-        const cards = container.querySelectorAll('[data-testid="package-card"]');
+        const cards = container.querySelectorAll(
+          '[data-testid="package-card"]',
+        );
         expect(cards.length).toBe(pkgs.length);
 
         unmount();

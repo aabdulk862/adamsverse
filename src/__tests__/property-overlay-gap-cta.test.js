@@ -43,7 +43,10 @@ function extractDeclarations(cssBlock, selector) {
   if (!match) return {};
 
   const declarations = {};
-  const lines = match[1].split(";").map((l) => l.trim()).filter(Boolean);
+  const lines = match[1]
+    .split(";")
+    .map((l) => l.trim())
+    .filter(Boolean);
   for (const line of lines) {
     const colonIdx = line.indexOf(":");
     if (colonIdx === -1) continue;
@@ -56,7 +59,10 @@ function extractDeclarations(cssBlock, selector) {
 
 describe("[Exploration] Property 1: Overlay gap, mobile padding, and CTA typography", () => {
   it(".site-navbar-overlay has gap: 8px", () => {
-    const declarations = extractDeclarations(cssContent, ".site-navbar-overlay");
+    const declarations = extractDeclarations(
+      cssContent,
+      ".site-navbar-overlay",
+    );
 
     fc.assert(
       fc.property(

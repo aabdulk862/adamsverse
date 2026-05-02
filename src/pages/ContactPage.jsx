@@ -1,5 +1,9 @@
-import { useRef, useState } from "react";
-import { canSubmit, recordSubmission, getTimeUntilReset } from "../lib/rateLimiter";
+import { useRef, useState, useEffect } from "react";
+import {
+  canSubmit,
+  recordSubmission,
+  getTimeUntilReset,
+} from "../lib/rateLimiter";
 
 const RATE_LIMIT_KEY = "contact-form";
 const SHEET_URL = import.meta.env.VITE_GOOGLE_SHEET_URL;
@@ -8,6 +12,10 @@ export default function ContactPage() {
   const formRef = useRef();
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    document.title = "Contact Adverse Solutions — Start a Project";
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +33,7 @@ export default function ContactPage() {
       const waitMs = getTimeUntilReset(RATE_LIMIT_KEY);
       const waitMin = Math.ceil(waitMs / 60000);
       setStatus(
-        `You've sent several messages recently. Please wait ${waitMin > 0 ? waitMin : "a few"} minute${waitMin !== 1 ? "s" : ""} before trying again.`
+        `You've sent several messages recently. Please wait ${waitMin > 0 ? waitMin : "a few"} minute${waitMin !== 1 ? "s" : ""} before trying again.`,
       );
       return;
     }
@@ -47,7 +55,9 @@ export default function ContactPage() {
       formRef.current.reset();
     } catch (error) {
       if (!navigator.onLine) {
-        setStatus("Network issue — please check your connection and try again.");
+        setStatus(
+          "Network issue — please check your connection and try again.",
+        );
       } else {
         setStatus("Unable to send message. Please try again later.");
       }
@@ -59,7 +69,7 @@ export default function ContactPage() {
   return (
     <div className="container">
       <div className="page-header">
-        <h1 className="page-title">Contact</h1>
+        <h1 className="page-title">Contact Us</h1>
         <p className="page-subtitle">
           Have a project in mind or want to talk through an idea? I typically
           respond within 24 hours.
@@ -106,118 +116,119 @@ export default function ContactPage() {
 
       {/* Contact Form */}
       <div className="email-form-card-wrapper">
-          <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
-            <h2 className="contact-heading">Get in Touch</h2>
-            <p className="contact-intro">
-              Fill this out and I'll get back to you within 1–2 business days.
-            </p>
+        <form ref={formRef} className="email-form" onSubmit={handleSubmit}>
+          <h2 className="contact-heading">Get in Touch</h2>
+          <p className="contact-intro">
+            Fill this out and I'll get back to you within 1–2 business days.
+          </p>
 
-            {/* Honeypot field */}
-            <input
-              name="website"
-              tabIndex={-1}
-              autoComplete="off"
-              style={{ display: "none" }}
-              aria-hidden="true"
-            />
+          {/* Honeypot field */}
+          <input
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            style={{ display: "none" }}
+            aria-hidden="true"
+          />
 
-            <div className="form-row">
-              <label htmlFor="contact-name">
-                Name
-                <input
-                  id="contact-name"
-                  type="text"
-                  name="name"
-                  placeholder="Enter your name"
-                  required
-                  aria-required="true"
-                />
-              </label>
-
-              <label htmlFor="contact-email">
-                Email
-                <input
-                  id="contact-email"
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  required
-                  aria-required="true"
-                />
-              </label>
-            </div>
-
-            <label htmlFor="contact-phone">
-              Phone <span style={{ fontWeight: 400, opacity: 0.6 }}>(optional)</span>
+          <div className="form-row">
+            <label htmlFor="contact-name">
+              Name
               <input
-                id="contact-phone"
-                type="tel"
-                name="phone"
-                placeholder="(123) 456-7890"
-                autoComplete="tel"
-              />
-            </label>
-
-            <label htmlFor="contact-reason">
-              Reason
-              <select
-                id="contact-reason"
-                name="Reason"
-                required
-                aria-required="true"
-              >
-                <option value="">Select a reason</option>
-                <option value="Work-Inquiry">Work Inquiry</option>
-                <option value="Collaboration">Collaboration</option>
-                <option value="Feedback">Feedback</option>
-                <option value="Other">Other</option>
-              </select>
-            </label>
-
-            <label htmlFor="contact-message">
-              Message
-              <textarea
-                id="contact-message"
-                name="message"
-                placeholder="Write your message here..."
-                rows={4}
+                id="contact-name"
+                type="text"
+                name="name"
+                placeholder="Enter your name"
                 required
                 aria-required="true"
               />
             </label>
 
-            <button type="submit" disabled={loading}>
-              {loading ? (
-                <>
-                  <i className="fas fa-spinner fa-spin"></i> Sending...
-                </>
-              ) : (
-                <>
-                  <i className="fas fa-paper-plane"></i> Send Message
-                </>
-              )}
-            </button>
+            <label htmlFor="contact-email">
+              Email
+              <input
+                id="contact-email"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                aria-required="true"
+              />
+            </label>
+          </div>
 
-            {status && (
-              <div
-                role="alert"
+          <label htmlFor="contact-phone">
+            Phone{" "}
+            <span style={{ fontWeight: 400, opacity: 0.6 }}>(optional)</span>
+            <input
+              id="contact-phone"
+              type="tel"
+              name="phone"
+              placeholder="(123) 456-7890"
+              autoComplete="tel"
+            />
+          </label>
+
+          <label htmlFor="contact-reason">
+            Reason
+            <select
+              id="contact-reason"
+              name="Reason"
+              required
+              aria-required="true"
+            >
+              <option value="">Select a reason</option>
+              <option value="Work-Inquiry">Work Inquiry</option>
+              <option value="Collaboration">Collaboration</option>
+              <option value="Feedback">Feedback</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+
+          <label htmlFor="contact-message">
+            Message
+            <textarea
+              id="contact-message"
+              name="message"
+              placeholder="Write your message here..."
+              rows={4}
+              required
+              aria-required="true"
+            />
+          </label>
+
+          <button type="submit" disabled={loading}>
+            {loading ? (
+              <>
+                <i className="fas fa-spinner fa-spin"></i> Sending...
+              </>
+            ) : (
+              <>
+                <i className="fas fa-paper-plane"></i> Send Message
+              </>
+            )}
+          </button>
+
+          {status && (
+            <div
+              role="alert"
+              className={
+                status.includes("sent")
+                  ? "form-status-success"
+                  : "form-status-error"
+              }
+            >
+              <i
                 className={
                   status.includes("sent")
-                    ? "form-status-success"
-                    : "form-status-error"
+                    ? "fas fa-check-circle"
+                    : "fas fa-exclamation-circle"
                 }
-              >
-                <i
-                  className={
-                    status.includes("sent")
-                      ? "fas fa-check-circle"
-                      : "fas fa-exclamation-circle"
-                  }
-                ></i>
-                <span>{status}</span>
-              </div>
-            )}
-          </form>
+              ></i>
+              <span>{status}</span>
+            </div>
+          )}
+        </form>
       </div>
     </div>
   );

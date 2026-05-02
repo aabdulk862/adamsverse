@@ -39,9 +39,13 @@ describe("Property 1: Metrics bar renders all metrics with value and label", () 
   it("for any array of 3–5 metrics, the bar renders each metric's value and label", () => {
     fc.assert(
       fc.property(metricsArrayArb, (metrics) => {
-        const { container, unmount } = render(<SocialProofBar metrics={metrics} />);
+        const { container, unmount } = render(
+          <SocialProofBar metrics={metrics} />,
+        );
 
-        const renderedMetrics = container.querySelectorAll(".social-proof-metric");
+        const renderedMetrics = container.querySelectorAll(
+          ".social-proof-metric",
+        );
         expect(renderedMetrics.length).toBe(metrics.length);
 
         metrics.forEach((metric) => {

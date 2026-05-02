@@ -237,7 +237,9 @@ function render(data) {
 
     var header = document.createElement("div");
     header.className = "card-header";
-    header.addEventListener("click", function () { toggle(this); });
+    header.addEventListener("click", function () {
+      toggle(this);
+    });
     header.innerHTML =
       '<span class="q-number">#' +
       pad(q.num) +
@@ -300,8 +302,7 @@ function toggle(h) {
 
 function filter(type, btn) {
   var btns = document.querySelectorAll(".filter-btn");
-  for (var i = 0; i < btns.length; i++)
-    btns[i].classList.remove("active");
+  for (var i = 0; i < btns.length; i++) btns[i].classList.remove("active");
   btn.classList.add("active");
 
   if (type === "all") {

@@ -7,7 +7,15 @@ import logo from "../assets/images/logo5.png";
 
 const overlayVariants = {
   hidden: { x: "100%" },
-  visible: { x: 0, transition: { type: "tween", duration: 0.3, when: "beforeChildren", staggerChildren: 0.06 } },
+  visible: {
+    x: 0,
+    transition: {
+      type: "tween",
+      duration: 0.3,
+      when: "beforeChildren",
+      staggerChildren: 0.06,
+    },
+  },
   exit: { x: "100%", transition: { type: "tween", duration: 0.25 } },
 };
 
@@ -20,7 +28,6 @@ const PAGE_LINKS = [
   { label: "About", to: "/about" },
   { label: "Packages", to: "/packages" },
   { label: "Services", to: "/services" },
-  { label: "Learn", to: "/learn" },
 ];
 
 export default function Navbar() {
@@ -96,11 +103,11 @@ export default function Navbar() {
     profile?.display_name || user?.user_metadata?.full_name || "User";
 
   return (
-    <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
+    <nav className={`navbar${scrolled ? " navbar--scrolled" : ""}`}>
       <div className="navbar-inner">
         <Link to="/" className="navbar-brand">
-          <img src={logo} alt="Adverse LLC logo" className="navbar-logo" />
-          <span className="navbar-brand-name">Adverse</span>
+          <img src={logo} alt="Adverse Solutions logo" className="navbar-logo" />
+          <span className="navbar-brand-name">Adverse Solutions</span>
         </Link>
 
         {/* Desktop nav links + CTA + Auth */}
@@ -114,10 +121,14 @@ export default function Navbar() {
             <button
               className="theme-toggle"
               onClick={toggleTheme}
-              aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+              aria-label={
+                theme === "light"
+                  ? "Switch to dark mode"
+                  : "Switch to light mode"
+              }
               type="button"
             >
-              <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'} />
+              <i className={theme === "dark" ? "fas fa-sun" : "fas fa-moon"} />
             </button>
           </li>
           <li>
@@ -259,15 +270,25 @@ export default function Navbar() {
                 <button
                   className="theme-toggle theme-toggle--mobile"
                   onClick={toggleTheme}
-                  aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+                  aria-label={
+                    theme === "light"
+                      ? "Switch to dark mode"
+                      : "Switch to light mode"
+                  }
                   type="button"
                 >
-                  <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'} />
-                  {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                  <i
+                    className={theme === "dark" ? "fas fa-sun" : "fas fa-moon"}
+                  />
+                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
                 </button>
               </motion.div>
               <motion.div variants={linkVariants}>
-                <Link to="/contact" className="navbar-cta" onClick={closeMobile}>
+                <Link
+                  to="/contact"
+                  className="navbar-cta"
+                  onClick={closeMobile}
+                >
                   Get in Touch
                 </Link>
               </motion.div>

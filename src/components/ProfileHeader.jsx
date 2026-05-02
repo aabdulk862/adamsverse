@@ -44,9 +44,9 @@ export default function ProfileHeader() {
 
       {/* Subheadline */}
       <p className="hero-sub">
-        Websites, full-stack applications, cloud infrastructure, and technical
-        consulting for businesses that need reliable software solutions without the agency
-        overhead.
+        Adverse Solutions builds websites, full-stack applications, cloud
+        infrastructure, and provides technical consulting for businesses that
+        need reliable software without the agency overhead.
       </p>
 
       {/* CTAs */}
@@ -61,7 +61,7 @@ export default function ProfileHeader() {
 
       {/* Trust tagline */}
       <p className="hero-trust-tagline">
-        Transparent pricing · Full-stack ownership · No agency overhead
+        Adverse Solutions · Transparent pricing · Full-stack ownership · No agency overhead
       </p>
     </motion.section>
   );

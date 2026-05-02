@@ -8,7 +8,6 @@ export default function Footer() {
         <Link to="/packages">Packages</Link>
         <Link to="/about">About</Link>
         <Link to="/services">Services</Link>
-        <Link to="/learn">Learn</Link>
         <Link to="/contact">Contact</Link>
       </nav>
 
@@ -35,7 +34,7 @@ export default function Footer() {
       </div>
 
       <p className="footer-copyright">
-        &copy; {new Date().getFullYear()} Adverse LLC
+        &copy; {new Date().getFullYear()} Adverse Solutions LLC
       </p>
     </footer>
   );

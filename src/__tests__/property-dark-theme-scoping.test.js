@@ -50,12 +50,7 @@ function extractDarkBlock(css) {
 }
 
 // Dark theme hex colors that must only appear inside [data-theme="dark"] selectors
-const darkThemeHexColors = [
-  "#0b0f19",
-  "#111827",
-  "#1e293b",
-  "#1a2744",
-];
+const darkThemeHexColors = ["#0b0f19", "#111827", "#1e293b", "#1a2744"];
 
 // Light theme values that must remain in :root
 const lightThemeValues = [
@@ -87,7 +82,7 @@ describe("Property 5: Dark theme overrides are scoped exclusively", () => {
     );
   });
 
-  it("dark theme hex colors only appear within [data-theme=\"dark\"] selectors", () => {
+  it('dark theme hex colors only appear within [data-theme="dark"] selectors', () => {
     // Strip all [data-theme="dark"] blocks from the CSS, then verify
     // none of the dark-only hex colors remain
     const cssWithoutDarkBlocks = cssContent.replace(
@@ -110,7 +105,10 @@ describe("Property 5: Dark theme overrides are scoped exclusively", () => {
       fc.property(fc.constantFrom(...lightThemeValues), ({ prop, value }) => {
         // Build a regex that matches the property declaration with the expected value
         const escaped = prop.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
-        const regex = new RegExp(`${escaped}:\\s*${value.replace(/[()]/g, "\\$&")}`, "i");
+        const regex = new RegExp(
+          `${escaped}:\\s*${value.replace(/[()]/g, "\\$&")}`,
+          "i",
+        );
         expect(rootBlock).toMatch(regex);
       }),
       { numRuns: 100 },

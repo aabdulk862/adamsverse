@@ -1,35 +1,39 @@
-import { createClient } from '@supabase/supabase-js'
-import { validateAgainstSchema } from '../agents/contracts.js'
+import { createClient } from "@supabase/supabase-js";
+import { validateAgainstSchema } from "../agents/contracts.js";
 
-let _supabaseAdmin = null
+let _supabaseAdmin = null;
 
 function getSupabaseAdmin() {
-  if (_supabaseAdmin) return _supabaseAdmin
+  if (_supabaseAdmin) return _supabaseAdmin;
 
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-  const supabaseServiceRoleKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const supabaseServiceRoleKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
-    console.warn('[db.js] Supabase service-role not configured. DB operations will return errors.')
-    return null
+    console.warn(
+      "[db.js] Supabase service-role not configured. DB operations will return errors.",
+    );
+    return null;
   }
 
-  _supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey)
-  return _supabaseAdmin
+  _supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey);
+  return _supabaseAdmin;
 }
 
-export { getSupabaseAdmin as supabaseAdmin }
+export { getSupabaseAdmin as supabaseAdmin };
 
 // ---------------------------------------------------------------------------
 // Internal helper — get the lazily-initialized client
 // ---------------------------------------------------------------------------
 const db = () => {
-  const client = getSupabaseAdmin()
+  const client = getSupabaseAdmin();
   if (!client) {
-    throw new Error('Supabase is not configured. Set VITE_SUPABASE_URL and VITE_SUPABASE_SERVICE_ROLE_KEY to enable persistence.')
+    throw new Error(
+      "Supabase is not configured. Set VITE_SUPABASE_URL and VITE_SUPABASE_SERVICE_ROLE_KEY to enable persistence.",
+    );
   }
-  return client
-}
+  return client;
+};
 
 // ---------------------------------------------------------------------------
 // Pipeline Run operations
@@ -43,15 +47,22 @@ const db = () => {
 export async function createPipelineRun(run) {
   try {
     const { data, error } = await db()
-      .from('pipeline_runs')
+      .from("pipeline_runs")
       .insert(run)
       .select()
-      .single()
+      .single();
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -64,16 +75,23 @@ export async function createPipelineRun(run) {
 export async function updatePipelineRun(id, updates) {
   try {
     const { data, error } = await db()
-      .from('pipeline_runs')
+      .from("pipeline_runs")
       .update(updates)
-      .eq('id', id)
+      .eq("id", id)
       .select()
-      .single()
+      .single();
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -85,15 +103,22 @@ export async function updatePipelineRun(id, updates) {
 export async function getPipelineRun(id) {
   try {
     const { data, error } = await db()
-      .from('pipeline_runs')
-      .select('*')
-      .eq('id', id)
-      .single()
+      .from("pipeline_runs")
+      .select("*")
+      .eq("id", id)
+      .single();
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -108,15 +133,19 @@ export async function getPipelineRun(id) {
  */
 export async function createTasks(tasks) {
   try {
-    const { data, error } = await db()
-      .from('tasks')
-      .insert(tasks)
-      .select()
+    const { data, error } = await db().from("tasks").insert(tasks).select();
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -129,16 +158,23 @@ export async function createTasks(tasks) {
 export async function updateTask(id, updates) {
   try {
     const { data, error } = await db()
-      .from('tasks')
+      .from("tasks")
       .update(updates)
-      .eq('id', id)
+      .eq("id", id)
       .select()
-      .single()
+      .single();
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -150,15 +186,22 @@ export async function updateTask(id, updates) {
 export async function getTasksByPipeline(pipelineId) {
   try {
     const { data, error } = await db()
-      .from('tasks')
-      .select('*')
-      .eq('pipeline_id', pipelineId)
-      .order('created_at', { ascending: true })
+      .from("tasks")
+      .select("*")
+      .eq("pipeline_id", pipelineId)
+      .order("created_at", { ascending: true });
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -177,52 +220,64 @@ export async function createArtifact(artifact) {
   try {
     // Validate content against the producing agent role's output_schema
     if (artifact.agent_role_id && artifact.content !== undefined) {
-      const { data: role, error: roleError } = await getAgentRoleById(artifact.agent_role_id)
+      const { data: role, error: roleError } = await getAgentRoleById(
+        artifact.agent_role_id,
+      );
 
       if (roleError) {
         return {
           data: null,
           error: {
             message: `Failed to fetch agent role for schema validation: ${roleError.message}`,
-            code: 'ROLE_FETCH_ERROR'
-          }
-        }
+            code: "ROLE_FETCH_ERROR",
+          },
+        };
       }
 
       if (role && role.output_schema) {
-        const validation = validateAgainstSchema(artifact.content, role.output_schema)
+        const validation = validateAgainstSchema(
+          artifact.content,
+          role.output_schema,
+        );
         if (!validation.valid) {
           return {
             data: null,
             error: {
-              message: `Artifact content does not conform to agent role output_schema: ${validation.errors.join('; ')}`,
-              code: 'SCHEMA_VALIDATION_ERROR',
-              validationErrors: validation.errors
-            }
-          }
+              message: `Artifact content does not conform to agent role output_schema: ${validation.errors.join("; ")}`,
+              code: "SCHEMA_VALIDATION_ERROR",
+              validationErrors: validation.errors,
+            },
+          };
         }
       }
     }
 
     // Serialize content to JSON string for round-trip guarantee, then parse back
     // This ensures the content survives a full JSON round-trip before storage
-    const serializedContent = JSON.parse(JSON.stringify(artifact.content))
+    const serializedContent = JSON.parse(JSON.stringify(artifact.content));
 
     const artifactToStore = {
       ...artifact,
-      content: serializedContent
-    }
+      content: serializedContent,
+    };
 
     const { data, error } = await db()
-      .from('artifacts')
+      .from("artifacts")
       .insert(artifactToStore)
       .select()
-      .single()
+      .single();
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -234,29 +289,29 @@ export async function createArtifact(artifact) {
  * @returns {{ artifact: object|null, error: object|null }}
  */
 function deserializeArtifactContent(artifact) {
-  if (!artifact) return { artifact: null, error: null }
+  if (!artifact) return { artifact: null, error: null };
 
   try {
-    let content = artifact.content
+    let content = artifact.content;
 
     // If content is a string, attempt to parse it as JSON
-    if (typeof content === 'string') {
-      content = JSON.parse(content)
+    if (typeof content === "string") {
+      content = JSON.parse(content);
     }
 
     // Verify round-trip: serialize and deserialize to ensure structural integrity
-    content = JSON.parse(JSON.stringify(content))
+    content = JSON.parse(JSON.stringify(content));
 
-    return { artifact: { ...artifact, content }, error: null }
+    return { artifact: { ...artifact, content }, error: null };
   } catch (err) {
     return {
       artifact: null,
       error: {
         message: `Failed to deserialize artifact content for artifact ${artifact.id}: ${err.message}`,
-        code: 'DESERIALIZATION_ERROR',
-        artifactId: artifact.id
-      }
-    }
+        code: "DESERIALIZATION_ERROR",
+        artifactId: artifact.id,
+      },
+    };
   }
 }
 
@@ -271,28 +326,32 @@ function deserializeArtifactContent(artifact) {
 export async function getArtifacts(filters = {}) {
   try {
     let query = db()
-      .from('artifacts')
-      .select('*')
-      .order('created_at', { ascending: false })
+      .from("artifacts")
+      .select("*")
+      .order("created_at", { ascending: false });
 
     if (filters.artifact_type) {
-      query = query.eq('artifact_type', filters.artifact_type)
+      query = query.eq("artifact_type", filters.artifact_type);
     }
 
-    const { data, error } = await query
+    const { data, error } = await query;
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
 
     // Deserialize content for each artifact
-    const deserialized = []
-    const deserializationErrors = []
+    const deserialized = [];
+    const deserializationErrors = [];
 
     for (const artifact of data) {
-      const result = deserializeArtifactContent(artifact)
+      const result = deserializeArtifactContent(artifact);
       if (result.error) {
-        deserializationErrors.push(result.error)
+        deserializationErrors.push(result.error);
       } else {
-        deserialized.push(result.artifact)
+        deserialized.push(result.artifact);
       }
     }
 
@@ -301,15 +360,18 @@ export async function getArtifacts(filters = {}) {
         data: deserialized,
         error: {
           message: `Failed to deserialize ${deserializationErrors.length} artifact(s)`,
-          code: 'PARTIAL_DESERIALIZATION_ERROR',
-          details: deserializationErrors
-        }
-      }
+          code: "PARTIAL_DESERIALIZATION_ERROR",
+          details: deserializationErrors,
+        },
+      };
     }
 
-    return { data: deserialized, error: null }
+    return { data: deserialized, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -322,22 +384,29 @@ export async function getArtifacts(filters = {}) {
 export async function getArtifactById(id) {
   try {
     const { data, error } = await db()
-      .from('artifacts')
-      .select('*')
-      .eq('id', id)
-      .single()
+      .from("artifacts")
+      .select("*")
+      .eq("id", id)
+      .single();
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
 
     // Deserialize content
-    const result = deserializeArtifactContent(data)
+    const result = deserializeArtifactContent(data);
     if (result.error) {
-      return { data: null, error: result.error }
+      return { data: null, error: result.error };
     }
 
-    return { data: result.artifact, error: null }
+    return { data: result.artifact, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -352,15 +421,22 @@ export async function getArtifactById(id) {
 export async function getActiveAgentRoles() {
   try {
     const { data, error } = await db()
-      .from('agent_roles')
-      .select('*')
-      .eq('status', 'active')
-      .order('created_at', { ascending: true })
+      .from("agent_roles")
+      .select("*")
+      .eq("status", "active")
+      .order("created_at", { ascending: true });
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -372,15 +448,22 @@ export async function getActiveAgentRoles() {
 export async function getAgentRoleById(id) {
   try {
     const { data, error } = await db()
-      .from('agent_roles')
-      .select('*')
-      .eq('id', id)
-      .single()
+      .from("agent_roles")
+      .select("*")
+      .eq("id", id)
+      .single();
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -392,15 +475,22 @@ export async function getAgentRoleById(id) {
 export async function createAgentRole(role) {
   try {
     const { data, error } = await db()
-      .from('agent_roles')
+      .from("agent_roles")
       .insert(role)
       .select()
-      .single()
+      .single();
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }
 
@@ -413,15 +503,22 @@ export async function createAgentRole(role) {
 export async function updateAgentRole(id, updates) {
   try {
     const { data, error } = await db()
-      .from('agent_roles')
+      .from("agent_roles")
       .update(updates)
-      .eq('id', id)
+      .eq("id", id)
       .select()
-      .single()
+      .single();
 
-    if (error) return { data: null, error: { message: error.message, code: error.code } }
-    return { data, error: null }
+    if (error)
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
+    return { data, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }

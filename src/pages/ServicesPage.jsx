@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import services from "../data/services";
 
 export default function ServicesPage() {
+  useEffect(() => {
+    document.title = "Services — Adverse Solutions | Web Development, Cloud & Consulting";
+  }, []);
+
   return (
     <div className="container">
       <div className="page-header">
         <h1 className="page-title">Services</h1>
         <p className="page-subtitle">
-          We build web applications and consult on technical decisions. Here's
-          what that looks like and what it costs.
+          Adverse builds web applications and consults on technical decisions.
+          Here's what that looks like and what it costs.
         </p>
       </div>
 

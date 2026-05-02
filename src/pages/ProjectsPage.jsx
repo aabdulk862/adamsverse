@@ -62,7 +62,12 @@ function ProjectCard({ project, featured = false }) {
     >
       <div className="portfolio-card-thumb">
         {project.image ? (
-          <img src={project.image} alt={`${project.title} thumbnail`} loading="lazy" decoding="async" />
+          <img
+            src={project.image}
+            alt={`${project.title} thumbnail`}
+            loading="lazy"
+            decoding="async"
+          />
         ) : (
           <div className="portfolio-card-placeholder">
             <span>{project.title.charAt(0)}</span>
@@ -73,7 +78,9 @@ function ProjectCard({ project, featured = false }) {
       <div className="portfolio-card-body">
         <div className="portfolio-card-meta">
           {project.type && (
-            <span className={`portfolio-type-badge portfolio-type-badge--${project.type}`}>
+            <span
+              className={`portfolio-type-badge portfolio-type-badge--${project.type}`}
+            >
               {typeLabels[project.type] || project.type}
             </span>
           )}

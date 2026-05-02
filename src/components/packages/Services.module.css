@@ -1,7 +1,7 @@
 .services {
   background-color: var(--color-bgSurface);
   color: var(--color-textPrimary);
-  padding: 4rem 1.5rem;
+  padding: var(--section-padding, 4rem) 1.5rem;
 }
 
 .inner {
@@ -39,6 +39,18 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  transition: border-color 200ms ease;
+}
+
+.card:hover,
+.card:active {
+  border-color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
 }
 
 .cardTitle {
@@ -64,7 +76,7 @@
 /* Tablet: 768px+ — 2 columns */
 @media (min-width: 768px) {
   .services {
-    padding: 5rem 2rem;
+    padding: var(--section-padding, 5rem) 2rem;
   }
 
   .heading {
@@ -92,7 +104,7 @@
 /* Desktop: 1024px+ — 2-3 columns */
 @media (min-width: 1024px) {
   .services {
-    padding: 6rem 2rem;
+    padding: var(--section-padding, 6rem) 2rem;
   }
 
   .heading {
@@ -187,6 +199,32 @@
 }
 
 /* --- Beauty & Wellness: image-backed cards with rounded corners --- */
+.servicesBeauty {
+  background: linear-gradient(
+    180deg,
+    var(--color-bgSurface),
+    var(--color-bgMuted) 50%,
+    var(--color-bgSurface)
+  );
+}
+
+.servicesBeauty .heading {
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.servicesBeauty .heading::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: 1px;
+}
+
 .servicesBeauty .card {
   background: linear-gradient(
     135deg,
@@ -199,12 +237,27 @@
   text-align: center;
   align-items: center;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.servicesBeauty .card:hover {
+.servicesBeauty .card:hover,
+.servicesBeauty .card:active {
   transform: translateY(-8px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .servicesBeauty .card {
+    transition: none;
+  }
+
+  .servicesBeauty .card:hover,
+  .servicesBeauty .card:active {
+    transform: none;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  }
 }
 
 .servicesBeauty .cardTitle {
@@ -238,6 +291,11 @@
 }
 
 /* --- Home Services: icon-and-text horizontal rows --- */
+.servicesHomeServices .heading {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 .servicesHomeServices .grid {
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -255,7 +313,8 @@
   transition: background-color 0.2s ease;
 }
 
-.servicesHomeServices .card:hover {
+.servicesHomeServices .card:hover,
+.servicesHomeServices .card:active {
   background-color: var(--color-bgMuted);
 }
 
@@ -300,6 +359,10 @@
 }
 
 /* --- Food & Hospitality: menu-style cards (current default) --- */
+.servicesFoodHospitality .heading {
+  letter-spacing: 0.02em;
+}
+
 .servicesFoodHospitality .card {
   background-color: var(--color-bgMuted);
   border: 1px solid var(--color-border);
@@ -333,5 +396,68 @@
 
   .servicesFoodHospitality .card {
     padding: 2rem;
+  }
+}
+
+/* ===========================
+   Service Icons
+   =========================== */
+
+/* Base icon class — mobile-first: 1.25rem (≈24px) inline */
+.serviceIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Centered icon variant (Beauty & Food & Hospitality) — stacked above title */
+.serviceIconCentered {
+  display: flex;
+  align-self: center;
+}
+
+/* Title row for inline icon layouts (Professional & Home Services) */
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Tablet+ (768px): scale icon up to 1.5rem on desktop */
+@media (min-width: 768px) {
+  .serviceIcon {
+    font-size: 1.5rem;
+  }
+}
+
+/* Mobile (<768px): all variants use inline icon before title at 24px */
+@media (max-width: 767px) {
+  .inner {
+    gap: 1.5rem;
+  }
+
+  /* Override centered icons to be inline on mobile for all variants */
+  .serviceIconCentered {
+    display: inline-flex;
+    align-self: auto;
+  }
+
+  /* Professional cards: stack vertically on narrow screens */
+  .servicesProfessional .card {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cardNumber {
+    font-size: 1.25rem;
+    min-width: auto;
+  }
+
+  /* Prevent Home Services card title from causing overflow at narrow viewports */
+  .servicesHomeServices .cardTitle {
+    white-space: normal;
   }
 }

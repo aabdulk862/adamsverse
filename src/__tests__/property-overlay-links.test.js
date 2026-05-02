@@ -21,7 +21,10 @@ function extractDeclarations(cssBlock, selector) {
   if (!match) return {};
 
   const declarations = {};
-  const lines = match[1].split(";").map((l) => l.trim()).filter(Boolean);
+  const lines = match[1]
+    .split(";")
+    .map((l) => l.trim())
+    .filter(Boolean);
   for (const line of lines) {
     const colonIdx = line.indexOf(":");
     if (colonIdx === -1) continue;
@@ -34,7 +37,10 @@ function extractDeclarations(cssBlock, selector) {
 
 describe("[Exploration] Property 1: Overlay links have correct styling", () => {
   it(".site-navbar-overlay a has border-radius: 12px", () => {
-    const declarations = extractDeclarations(cssContent, ".site-navbar-overlay a");
+    const declarations = extractDeclarations(
+      cssContent,
+      ".site-navbar-overlay a",
+    );
 
     fc.assert(
       fc.property(
@@ -49,7 +55,10 @@ describe("[Exploration] Property 1: Overlay links have correct styling", () => {
   });
 
   it(".site-navbar-overlay a:hover has background: #f8f9fa", () => {
-    const declarations = extractDeclarations(cssContent, ".site-navbar-overlay a:hover");
+    const declarations = extractDeclarations(
+      cssContent,
+      ".site-navbar-overlay a:hover",
+    );
 
     fc.assert(
       fc.property(

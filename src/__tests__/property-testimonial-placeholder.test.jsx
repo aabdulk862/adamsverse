@@ -20,7 +20,12 @@ function TestimonialCard({ client }) {
     >
       <div className="home-portfolio-thumb">
         {client.image ? (
-          <img src={client.image} alt={client.title} loading="lazy" decoding="async" />
+          <img
+            src={client.image}
+            alt={client.title}
+            loading="lazy"
+            decoding="async"
+          />
         ) : (
           <div className="home-portfolio-placeholder">
             <span>{client.title.charAt(0)}</span>
@@ -56,7 +61,9 @@ describe("Property 5: Placeholder displays first letter when no image", () => {
         expect(img).toBeNull();
 
         // Should render placeholder with first letter
-        const placeholder = container.querySelector(".home-portfolio-placeholder");
+        const placeholder = container.querySelector(
+          ".home-portfolio-placeholder",
+        );
         expect(placeholder).not.toBeNull();
 
         const letterSpan = placeholder.querySelector("span");

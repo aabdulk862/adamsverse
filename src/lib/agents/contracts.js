@@ -1,29 +1,53 @@
-import Ajv from 'ajv'
-import { supabaseAdmin } from '../orchestrator/db.js'
+import Ajv from "ajv";
+import { supabaseAdmin } from "../orchestrator/db.js";
 
-const ajv = new Ajv({ allErrors: true })
+const ajv = new Ajv({ allErrors: true });
 
 // ---------------------------------------------------------------------------
 // Subjective qualifiers list
 // ---------------------------------------------------------------------------
 
 const SUBJECTIVE_QUALIFIERS = [
-  'amazing', 'terrible', 'best', 'worst', 'incredible', 'awful',
-  'fantastic', 'horrible', 'outstanding', 'dreadful', 'superb',
-  'atrocious', 'magnificent', 'disgusting', 'brilliant', 'pathetic',
-  'exceptional', 'abysmal', 'phenomenal', 'appalling', 'marvelous',
-  'horrendous', 'spectacular', 'catastrophic', 'wonderful', 'miserable',
-  'perfect', 'useless', 'excellent', 'lousy'
-]
+  "amazing",
+  "terrible",
+  "best",
+  "worst",
+  "incredible",
+  "awful",
+  "fantastic",
+  "horrible",
+  "outstanding",
+  "dreadful",
+  "superb",
+  "atrocious",
+  "magnificent",
+  "disgusting",
+  "brilliant",
+  "pathetic",
+  "exceptional",
+  "abysmal",
+  "phenomenal",
+  "appalling",
+  "marvelous",
+  "horrendous",
+  "spectacular",
+  "catastrophic",
+  "wonderful",
+  "miserable",
+  "perfect",
+  "useless",
+  "excellent",
+  "lousy",
+];
 
 /**
  * Builds a regex that matches any of the subjective qualifiers as whole words.
  * The regex is case-insensitive.
  */
 const qualifierPattern = new RegExp(
-  `\\b(${SUBJECTIVE_QUALIFIERS.join('|')})\\b`,
-  'gi'
-)
+  `\\b(${SUBJECTIVE_QUALIFIERS.join("|")})\\b`,
+  "gi",
+);
 
 // ---------------------------------------------------------------------------
 // Schema validation
@@ -36,19 +60,19 @@ const qualifierPattern = new RegExp(
  * @returns {{ valid: boolean, errors?: string[] }}
  */
 export function validateAgainstSchema(data, schema) {
-  const validate = ajv.compile(schema)
-  const valid = validate(data)
+  const validate = ajv.compile(schema);
+  const valid = validate(data);
 
   if (valid) {
-    return { valid: true }
+    return { valid: true };
   }
 
   const errors = validate.errors.map((err) => {
-    const path = err.instancePath || '/'
-    return `${path} ${err.message}`
-  })
+    const path = err.instancePath || "/";
+    return `${path} ${err.message}`;
+  });
 
-  return { valid: false, errors }
+  return { valid: false, errors };
 }
 
 // ---------------------------------------------------------------------------
@@ -65,21 +89,21 @@ export function validateAgainstSchema(data, schema) {
  * @returns {{ valid: boolean, sourceErrors?: string[], targetErrors?: string[] }}
  */
 export function validateTransfer(data, sourceRole, targetRole) {
-  const sourceResult = validateAgainstSchema(data, sourceRole.output_schema)
-  const targetResult = validateAgainstSchema(data, targetRole.input_schema)
+  const sourceResult = validateAgainstSchema(data, sourceRole.output_schema);
+  const targetResult = validateAgainstSchema(data, targetRole.input_schema);
 
   if (sourceResult.valid && targetResult.valid) {
-    return { valid: true }
+    return { valid: true };
   }
 
-  const result = { valid: false }
+  const result = { valid: false };
   if (!sourceResult.valid) {
-    result.sourceErrors = sourceResult.errors
+    result.sourceErrors = sourceResult.errors;
   }
   if (!targetResult.valid) {
-    result.targetErrors = targetResult.errors
+    result.targetErrors = targetResult.errors;
   }
-  return result
+  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -100,31 +124,31 @@ export function validateTransfer(data, sourceRole, targetRole) {
  */
 export function transformData(data, targetSchema) {
   if (!targetSchema || !targetSchema.properties) {
-    return data
+    return data;
   }
 
-  const result = {}
-  const properties = targetSchema.properties
+  const result = {};
+  const properties = targetSchema.properties;
 
   for (const [key, propSchema] of Object.entries(properties)) {
     if (key in data) {
-      result[key] = coerceValue(data[key], propSchema)
+      result[key] = coerceValue(data[key], propSchema);
     } else if (propSchema.default !== undefined) {
-      result[key] = propSchema.default
-    } else if (propSchema.type === 'string') {
-      result[key] = ''
-    } else if (propSchema.type === 'number' || propSchema.type === 'integer') {
-      result[key] = 0
-    } else if (propSchema.type === 'boolean') {
-      result[key] = false
-    } else if (propSchema.type === 'array') {
-      result[key] = []
-    } else if (propSchema.type === 'object') {
-      result[key] = {}
+      result[key] = propSchema.default;
+    } else if (propSchema.type === "string") {
+      result[key] = "";
+    } else if (propSchema.type === "number" || propSchema.type === "integer") {
+      result[key] = 0;
+    } else if (propSchema.type === "boolean") {
+      result[key] = false;
+    } else if (propSchema.type === "array") {
+      result[key] = [];
+    } else if (propSchema.type === "object") {
+      result[key] = {};
     }
   }
 
-  return result
+  return result;
 }
 
 /**
@@ -135,34 +159,34 @@ export function transformData(data, targetSchema) {
  */
 function coerceValue(value, propSchema) {
   if (!propSchema || !propSchema.type) {
-    return value
+    return value;
   }
 
-  const targetType = propSchema.type
+  const targetType = propSchema.type;
 
-  if (targetType === 'string') {
-    return typeof value === 'string' ? value : String(value)
+  if (targetType === "string") {
+    return typeof value === "string" ? value : String(value);
   }
-  if (targetType === 'number' || targetType === 'integer') {
-    if (typeof value === 'number') return value
-    const parsed = Number(value)
-    return Number.isNaN(parsed) ? 0 : parsed
+  if (targetType === "number" || targetType === "integer") {
+    if (typeof value === "number") return value;
+    const parsed = Number(value);
+    return Number.isNaN(parsed) ? 0 : parsed;
   }
-  if (targetType === 'boolean') {
-    if (typeof value === 'boolean') return value
-    return Boolean(value)
+  if (targetType === "boolean") {
+    if (typeof value === "boolean") return value;
+    return Boolean(value);
   }
-  if (targetType === 'array') {
-    return Array.isArray(value) ? value : [value]
+  if (targetType === "array") {
+    return Array.isArray(value) ? value : [value];
   }
-  if (targetType === 'object') {
-    if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
-      return value
+  if (targetType === "object") {
+    if (value !== null && typeof value === "object" && !Array.isArray(value)) {
+      return value;
     }
-    return {}
+    return {};
   }
 
-  return value
+  return value;
 }
 
 // ---------------------------------------------------------------------------
@@ -178,30 +202,30 @@ function coerceValue(value, propSchema) {
  */
 export function stripSubjectiveQualifiers(data) {
   if (data === null || data === undefined) {
-    return data
+    return data;
   }
 
-  if (typeof data === 'string') {
+  if (typeof data === "string") {
     return data
-      .replace(qualifierPattern, '')
-      .replace(/\s{2,}/g, ' ')
-      .trim()
+      .replace(qualifierPattern, "")
+      .replace(/\s{2,}/g, " ")
+      .trim();
   }
 
   if (Array.isArray(data)) {
-    return data.map((item) => stripSubjectiveQualifiers(item))
+    return data.map((item) => stripSubjectiveQualifiers(item));
   }
 
-  if (typeof data === 'object') {
-    const result = {}
+  if (typeof data === "object") {
+    const result = {};
     for (const [key, value] of Object.entries(data)) {
-      result[key] = stripSubjectiveQualifiers(value)
+      result[key] = stripSubjectiveQualifiers(value);
     }
-    return result
+    return result;
   }
 
   // Primitives (number, boolean) pass through unchanged
-  return data
+  return data;
 }
 
 // ---------------------------------------------------------------------------
@@ -214,11 +238,11 @@ export function stripSubjectiveQualifiers(data) {
  * @returns {string} Hex hash string
  */
 function simpleHash(str) {
-  let hash = 5381
+  let hash = 5381;
   for (let i = 0; i < str.length; i++) {
-    hash = ((hash << 5) + hash + str.charCodeAt(i)) & 0xffffffff
+    hash = ((hash << 5) + hash + str.charCodeAt(i)) & 0xffffffff;
   }
-  return (hash >>> 0).toString(16)
+  return (hash >>> 0).toString(16);
 }
 
 /**
@@ -230,30 +254,43 @@ function simpleHash(str) {
  * @returns {Promise<{ data: object|null, error: object|null }>}
  */
 export async function logTransfer(sourceRole, targetRole, data) {
-  const dataHash = simpleHash(JSON.stringify(data))
+  const dataHash = simpleHash(JSON.stringify(data));
 
   try {
-    const client = supabaseAdmin()
+    const client = supabaseAdmin();
     if (!client) {
       // Supabase not configured — skip logging
-      return { data: { source_role_id: sourceRole, target_role_id: targetRole, data_hash: dataHash }, error: null }
+      return {
+        data: {
+          source_role_id: sourceRole,
+          target_role_id: targetRole,
+          data_hash: dataHash,
+        },
+        error: null,
+      };
     }
 
     const { data: logEntry, error } = await client
-      .from('transfer_logs')
+      .from("transfer_logs")
       .insert({
         source_role_id: sourceRole,
         target_role_id: targetRole,
-        data_hash: dataHash
+        data_hash: dataHash,
       })
       .select()
-      .single()
+      .single();
 
     if (error) {
-      return { data: null, error: { message: error.message, code: error.code } }
+      return {
+        data: null,
+        error: { message: error.message, code: error.code },
+      };
     }
-    return { data: logEntry, error: null }
+    return { data: logEntry, error: null };
   } catch (err) {
-    return { data: null, error: { message: err.message, code: 'UNEXPECTED_ERROR' } }
+    return {
+      data: null,
+      error: { message: err.message, code: "UNEXPECTED_ERROR" },
+    };
   }
 }

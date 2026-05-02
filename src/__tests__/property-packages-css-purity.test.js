@@ -217,9 +217,7 @@ describe("Property 10: CSS module purity — no hardcoded colors", () => {
 
         // Check for hex colors
         const hexMatches = stripped.match(hexColorRegex) || [];
-        expect(hexMatches).toEqual(
-          expect.objectContaining([]),
-        );
+        expect(hexMatches).toEqual(expect.objectContaining([]));
         if (hexMatches.length > 0) {
           throw new Error(
             `${file.name} contains hardcoded hex color(s): ${hexMatches.join(", ")}`,

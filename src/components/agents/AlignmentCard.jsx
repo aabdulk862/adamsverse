@@ -1,30 +1,34 @@
-import { useState } from 'react'
-import styles from './AlignmentCard.module.css'
+import { useState } from "react";
+import styles from "./AlignmentCard.module.css";
 
-export default function AlignmentCard({ alignmentText = '', onApprove, onRevise }) {
-  const [showFeedback, setShowFeedback] = useState(false)
-  const [feedback, setFeedback] = useState('')
+export default function AlignmentCard({
+  alignmentText = "",
+  onApprove,
+  onRevise,
+}) {
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedback, setFeedback] = useState("");
 
   const handleApprove = () => {
-    if (typeof onApprove === 'function') {
-      onApprove()
+    if (typeof onApprove === "function") {
+      onApprove();
     }
-  }
+  };
 
   const handleReviseToggle = () => {
-    setShowFeedback((prev) => !prev)
-  }
+    setShowFeedback((prev) => !prev);
+  };
 
   const handleFeedbackSubmit = (e) => {
-    e.preventDefault()
-    const text = feedback.trim()
-    if (!text) return
-    if (typeof onRevise === 'function') {
-      onRevise(text)
+    e.preventDefault();
+    const text = feedback.trim();
+    if (!text) return;
+    if (typeof onRevise === "function") {
+      onRevise(text);
     }
-    setFeedback('')
-    setShowFeedback(false)
-  }
+    setFeedback("");
+    setShowFeedback(false);
+  };
 
   return (
     <div className={styles.card} role="region" aria-label="Alignment check">
@@ -82,5 +86,5 @@ export default function AlignmentCard({ alignmentText = '', onApprove, onRevise 
         </form>
       )}
     </div>
-  )
+  );
 }

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import styles from "./Gallery.module.css";
+import Lightbox from "./Lightbox";
 
 const LAYOUT_CLASS_MAP = {
   professional: "galleryProfessional",
@@ -11,6 +12,8 @@ const LAYOUT_CLASS_MAP = {
 export default function Gallery({ content, theme, layout }) {
   const { heading, images } = content || {};
   const [erroredImages, setErroredImages] = useState(new Set());
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const variantClass = LAYOUT_CLASS_MAP[layout];
   const sectionClassName = [
@@ -23,6 +26,29 @@ export default function Gallery({ content, theme, layout }) {
   const handleImageError = (index) => {
     setErroredImages((prev) => new Set(prev).add(index));
   };
+
+  const openLightbox = (index) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  const goToPrev = useCallback(() => {
+    if (!images || images.length === 0) return;
+    setLightboxIndex((prev) =>
+      prev === 0 ? images.length - 1 : prev - 1
+    );
+  }, [images]);
+
+  const goToNext = useCallback(() => {
+    if (!images || images.length === 0) return;
+    setLightboxIndex((prev) =>
+      prev === images.length - 1 ? 0 : prev + 1
+    );
+  }, [images]);
 
   return (
     <section className={sectionClassName}>
@@ -50,6 +76,8 @@ export default function Gallery({ content, theme, layout }) {
                     loading="lazy"
                     width="800"
                     height="600"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => openLightbox(index)}
                     onError={() => handleImageError(index)}
                   />
                 )}
@@ -61,6 +89,16 @@ export default function Gallery({ content, theme, layout }) {
           </div>
         )}
       </div>
+
+      {lightboxOpen && images && images.length > 0 && (
+        <Lightbox
+          images={images}
+          activeIndex={lightboxIndex}
+          onClose={closeLightbox}
+          onPrev={goToPrev}
+          onNext={goToNext}
+        />
+      )}
     </section>
   );
 }

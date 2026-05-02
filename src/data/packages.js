@@ -11,6 +11,8 @@ const packages = [
         subheadline:
           "Savor handcrafted dishes made from locally sourced ingredients in an atmosphere designed for unforgettable evenings.",
         ctaText: "Reserve a Table",
+        heroImage:
+          "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&fm=webp",
       },
       services: {
         heading: "What We Offer",
@@ -19,21 +21,25 @@ const packages = [
             title: "Private Dining",
             description:
               "Host intimate gatherings in our beautifully appointed private dining room, complete with a dedicated chef and personalized menu.",
+            icon: "🍽️",
           },
           {
             title: "Seasonal Menu",
             description:
               "Our menu evolves with the seasons, showcasing the freshest produce and ingredients from local farms and purveyors.",
+            icon: "🌿",
           },
           {
             title: "Wine Pairing",
             description:
               "Let our sommelier guide you through curated wine pairings that elevate every course into a memorable tasting experience.",
+            icon: "🍷",
           },
           {
             title: "Catering & Events",
             description:
               "Bring our kitchen to your celebration. From corporate luncheons to wedding receptions, we craft menus tailored to your occasion.",
+            icon: "🎉",
           },
         ],
       },
@@ -74,6 +80,8 @@ const packages = [
               "Every visit feels like a special occasion. The seasonal menu never disappoints, and the staff makes you feel like family.",
             author: "Maria Gonzalez",
             role: "Regular Guest",
+            avatar:
+              "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -86,6 +94,8 @@ const packages = [
               "The best farm-to-table experience in the city. You can taste the quality in every bite.",
             author: "David Chen",
             role: "Food Critic",
+            avatar:
+              "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80&fm=webp",
           },
         ],
       },
@@ -108,6 +118,8 @@ const packages = [
         subheadline:
           "Expert lash extensions, brow sculpting, and beauty treatments tailored to bring out your most confident self.",
         ctaText: "Book Your Appointment",
+        heroImage:
+          "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=80&fm=webp",
       },
       services: {
         heading: "Our Beauty Services",
@@ -116,21 +128,25 @@ const packages = [
             title: "Classic Lash Extensions",
             description:
               "Achieve a naturally fuller look with our hand-applied classic lash extensions, customized to your eye shape and desired volume.",
+            icon: "✨",
           },
           {
             title: "Volume & Mega Volume Lashes",
             description:
               "For a dramatic, glamorous finish, our volume techniques layer lightweight fans for maximum fullness without weighing down your natural lashes.",
+            icon: "💫",
           },
           {
             title: "Brow Sculpting & Tinting",
             description:
               "Define and shape your brows with precision waxing, threading, and custom tinting to frame your face beautifully.",
+            icon: "✏️",
           },
           {
             title: "Lash Lift & Tint",
             description:
               "A low-maintenance alternative to extensions, our lash lift curls and tints your natural lashes for weeks of effortless beauty.",
+            icon: "🌙",
           },
         ],
       },
@@ -167,6 +183,8 @@ const packages = [
               "I have never felt more confident. My lashes look incredible and so natural that everyone thinks they are real.",
             author: "Priya Sharma",
             role: "Classic Lash Client",
+            avatar:
+              "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -201,6 +219,8 @@ const packages = [
         subheadline:
           "From routine maintenance to complex diagnostics, our certified technicians keep your vehicle running safely and smoothly.",
         ctaText: "Schedule a Service",
+        heroImage:
+          "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=800&q=80&fm=webp",
       },
       services: {
         heading: "Our Services",
@@ -209,21 +229,25 @@ const packages = [
             title: "Brake Repair & Replacement",
             description:
               "Complete brake system inspections, pad and rotor replacements, and fluid flushes to keep you stopping safely in every condition.",
+            icon: "🛑",
           },
           {
             title: "Engine Diagnostics",
             description:
               "Advanced computer diagnostics to pinpoint check-engine lights, misfires, and performance issues so repairs are accurate the first time.",
+            icon: "🔍",
           },
           {
             title: "Oil Changes & Tune-Ups",
             description:
               "Routine oil changes, filter replacements, and multi-point inspections that extend the life of your engine and prevent costly breakdowns.",
+            icon: "🛢️",
           },
           {
             title: "Tire Sales & Alignment",
             description:
               "New tire installation, balancing, rotation, and precision alignment services to maximize tire life and improve handling.",
+            icon: "🔧",
           },
         ],
       },
@@ -260,6 +284,8 @@ const packages = [
               "They diagnosed a problem two other shops missed and fixed it at a fair price. I will not take my car anywhere else.",
             author: "Kevin Marshall",
             role: "Loyal Customer",
+            avatar:
+              "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -272,6 +298,8 @@ const packages = [
               "I brought in my truck for a brake job and they had it done the same day. Great communication the whole time.",
             author: "Tony Ramirez",
             role: "Fleet Manager",
+            avatar:
+              "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800&q=80&fm=webp",
           },
         ],
       },
@@ -294,6 +322,8 @@ const packages = [
         subheadline:
           "From precision cuts to bold color transformations, our stylists bring your vision to life in a welcoming, creative space.",
         ctaText: "Book a Stylist",
+        heroImage:
+          "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800&q=80&fm=webp",
       },
       services: {
         heading: "What We Do Best",
@@ -302,21 +332,25 @@ const packages = [
             title: "Haircuts & Styling",
             description:
               "Precision cuts for all hair types, from classic fades and tapers to modern textured styles and blowouts tailored to your look.",
+            icon: "✂️",
           },
           {
             title: "Color & Highlights",
             description:
               "Full color, balayage, ombre, and highlights using premium products that protect your hair while delivering vibrant, lasting results.",
+            icon: "🎨",
           },
           {
             title: "Treatments & Conditioning",
             description:
               "Deep conditioning, keratin smoothing, and scalp treatments that restore health, shine, and manageability to damaged or dry hair.",
+            icon: "💆",
           },
           {
             title: "Beard Grooming & Hot Shaves",
             description:
               "Classic straight-razor shaves, beard shaping, and grooming services for a polished, refined finish.",
+            icon: "🪒",
           },
         ],
       },
@@ -353,12 +387,16 @@ const packages = [
               "Best haircut I have ever had. My stylist actually listened to what I wanted and nailed it on the first visit.",
             author: "Marcus Johnson",
             role: "Haircut Client",
+            avatar:
+              "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&q=80&fm=webp",
           },
           {
             quote:
               "The balayage turned out even better than the reference photo I brought in. I get compliments everywhere I go.",
             author: "Sofia Reyes",
             role: "Color Client",
+            avatar:
+              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -387,6 +425,8 @@ const packages = [
         subheadline:
           "Personalized training programs, group fitness classes, and a supportive community to help you crush your goals.",
         ctaText: "Start Your Free Trial",
+        heroImage:
+          "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80&fm=webp",
       },
       services: {
         heading: "Programs & Services",
@@ -395,21 +435,25 @@ const packages = [
             title: "One-on-One Personal Training",
             description:
               "Work directly with a certified trainer who builds a custom program around your goals, fitness level, and schedule.",
+            icon: "💪",
           },
           {
             title: "Group Fitness Classes",
             description:
               "High-energy HIIT, yoga, spin, and strength classes led by experienced instructors in a motivating group setting.",
+            icon: "🏋️",
           },
           {
             title: "Nutrition Coaching",
             description:
               "Fuel your progress with personalized meal plans and ongoing nutrition guidance designed to complement your training.",
+            icon: "🥗",
           },
           {
             title: "Body Composition Analysis",
             description:
               "Track your progress with detailed body composition scans that measure muscle mass, body fat, and metabolic rate.",
+            icon: "📊",
           },
         ],
       },
@@ -446,6 +490,8 @@ const packages = [
               "I lost 30 pounds in four months with my trainer's guidance. The personalized approach made all the difference.",
             author: "Chris Morales",
             role: "Personal Training Member",
+            avatar:
+              "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -458,6 +504,8 @@ const packages = [
               "The nutrition coaching was a game-changer. I finally understand how to eat for my goals instead of guessing.",
             author: "Ryan O'Brien",
             role: "Nutrition Coaching Client",
+            avatar:
+              "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=800&q=80&fm=webp",
           },
         ],
       },
@@ -480,6 +528,8 @@ const packages = [
         subheadline:
           "Reliable residential and commercial cleaning services that leave your home or office fresh, sanitized, and perfectly maintained.",
         ctaText: "Get a Free Quote",
+        heroImage:
+          "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80&fm=webp",
       },
       services: {
         heading: "Cleaning Solutions",
@@ -488,21 +538,25 @@ const packages = [
             title: "Residential Deep Cleaning",
             description:
               "Thorough top-to-bottom cleaning of your home including kitchens, bathrooms, floors, and hard-to-reach areas for a truly fresh start.",
+            icon: "🏠",
           },
           {
             title: "Recurring Housekeeping",
             description:
               "Weekly, bi-weekly, or monthly cleaning plans customized to your schedule so your home stays consistently clean without the hassle.",
+            icon: "🔄",
           },
           {
             title: "Commercial & Office Cleaning",
             description:
               "Professional cleaning for offices, retail spaces, and common areas that keeps your workplace healthy, presentable, and productive.",
+            icon: "🏢",
           },
           {
             title: "Move-In & Move-Out Cleaning",
             description:
               "Comprehensive cleaning for tenants and homeowners transitioning between spaces, ensuring every surface is spotless for the next chapter.",
+            icon: "📦",
           },
         ],
       },
@@ -545,6 +599,8 @@ const packages = [
               "Our office has never looked better. The team is punctual, thorough, and always professional. Highly recommend for any business.",
             author: "Mark Sullivan",
             role: "Office Manager",
+            avatar:
+              "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -573,6 +629,8 @@ const packages = [
         subheadline:
           "Professional landscaping, lawn maintenance, and outdoor design services that turn your property into the best-looking lot on the block.",
         ctaText: "Get a Free Estimate",
+        heroImage:
+          "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=80&fm=webp",
       },
       services: {
         heading: "What We Do",
@@ -581,21 +639,25 @@ const packages = [
             title: "Lawn Mowing & Maintenance",
             description:
               "Scheduled mowing, edging, and trimming services that keep your lawn healthy, even, and looking its best throughout the growing season.",
+            icon: "🌱",
           },
           {
             title: "Landscape Design & Installation",
             description:
               "Custom garden beds, walkways, retaining walls, and plantings designed to enhance your property's curb appeal and outdoor living space.",
+            icon: "🏡",
           },
           {
             title: "Tree & Shrub Care",
             description:
               "Pruning, shaping, fertilization, and disease treatment for trees and shrubs to promote healthy growth and a polished appearance.",
+            icon: "🌳",
           },
           {
             title: "Seasonal Cleanup & Mulching",
             description:
               "Spring and fall cleanups, leaf removal, and fresh mulch application to protect your beds and keep your landscape looking sharp year-round.",
+            icon: "🍂",
           },
         ],
       },
@@ -632,6 +694,8 @@ const packages = [
               "Our yard went from embarrassing to the envy of the neighborhood. The design team listened to exactly what we wanted and delivered beyond expectations.",
             author: "Laura Bennett",
             role: "Landscape Design Client",
+            avatar:
+              "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -666,6 +730,8 @@ const packages = [
         subheadline:
           "Whether you are buying your first home or selling a cherished property, get expert guidance and local market knowledge every step of the way.",
         ctaText: "Schedule a Consultation",
+        heroImage:
+          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80&fm=webp",
       },
       services: {
         heading: "How I Help",
@@ -674,21 +740,25 @@ const packages = [
             title: "Buyer Representation",
             description:
               "From neighborhood research to closing day, I guide buyers through every step, negotiating the best price and terms on your behalf.",
+            icon: "🏠",
           },
           {
             title: "Home Selling Strategy",
             description:
               "Professional staging advice, strategic pricing, and targeted marketing to sell your property quickly and for top dollar.",
+            icon: "📈",
           },
           {
             title: "Market Analysis & Pricing",
             description:
               "Detailed comparative market analyses that give you a clear picture of your home's value and the current competitive landscape.",
+            icon: "📊",
           },
           {
             title: "Relocation Assistance",
             description:
               "Moving to a new city? I coordinate everything from neighborhood tours to school district research so your transition is seamless.",
+            icon: "🚚",
           },
         ],
       },
@@ -731,6 +801,8 @@ const packages = [
               "Our house sold in five days above asking price. The marketing strategy and staging advice made all the difference.",
             author: "Robert Langston",
             role: "Home Seller",
+            avatar:
+              "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -759,6 +831,8 @@ const packages = [
         subheadline:
           "Authentic, timeless photography for weddings, portraits, and brands. Every session is crafted to tell your unique story.",
         ctaText: "View Portfolio",
+        heroImage:
+          "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&q=80&fm=webp",
       },
       services: {
         heading: "What I Offer",
@@ -767,21 +841,25 @@ const packages = [
             title: "Wedding & Elopement Photography",
             description:
               "Full-day and half-day coverage capturing every meaningful moment, from getting ready to the last dance, with a cinematic editorial style.",
+            icon: "💒",
           },
           {
             title: "Portrait Sessions",
             description:
               "Individual, couple, and family portraits in studio or on location, with professional retouching and a curated online gallery.",
+            icon: "📸",
           },
           {
             title: "Brand & Commercial Photography",
             description:
               "Product shots, headshots, and lifestyle imagery tailored to elevate your brand's visual identity across web and print.",
+            icon: "🖼️",
           },
           {
             title: "Event Coverage",
             description:
               "Corporate events, galas, and milestone celebrations documented with a photojournalistic approach that captures the energy of the day.",
+            icon: "🎪",
           },
         ],
       },
@@ -818,6 +896,8 @@ const packages = [
               "The photos from our wedding still take my breath away. She captured moments we did not even know were happening and every image tells a story.",
             author: "Emily & Jason Carter",
             role: "Wedding Clients",
+            avatar:
+              "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -852,6 +932,8 @@ const packages = [
         subheadline:
           "Dedicated legal representation for individuals and businesses. We fight for your rights with integrity, precision, and a proven track record.",
         ctaText: "Request a Consultation",
+        heroImage:
+          "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80&fm=webp",
       },
       services: {
         heading: "Practice Areas",
@@ -860,21 +942,25 @@ const packages = [
             title: "Personal Injury",
             description:
               "Aggressive representation for accident victims, from car collisions to workplace injuries, ensuring you receive the compensation you deserve.",
+            icon: "⚖️",
           },
           {
             title: "Family Law",
             description:
               "Compassionate guidance through divorce, custody disputes, and adoption proceedings, always prioritizing the well-being of your family.",
+            icon: "👨‍👩‍👧",
           },
           {
             title: "Business & Corporate Law",
             description:
               "Contract drafting, entity formation, mergers, and compliance counsel that protect your business interests and support growth.",
+            icon: "📋",
           },
           {
             title: "Estate Planning",
             description:
               "Wills, trusts, and probate administration crafted to preserve your legacy and provide peace of mind for you and your loved ones.",
+            icon: "🏛️",
           },
         ],
       },
@@ -911,6 +997,8 @@ const packages = [
               "After my accident, they handled everything so I could focus on recovery. The settlement exceeded what I thought was possible.",
             author: "Marcus Rivera",
             role: "Personal Injury Client",
+            avatar:
+              "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -923,6 +1011,8 @@ const packages = [
               "They structured our business partnership agreement and saved us from a potential dispute down the road. Worth every penny.",
             author: "Thomas & Karen Liu",
             role: "Business Law Clients",
+            avatar:
+              "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80&fm=webp",
           },
         ],
       },
@@ -945,6 +1035,8 @@ const packages = [
         subheadline:
           "Specialty coffee, fresh pastries, and a cozy atmosphere where every cup is crafted to brighten your day.",
         ctaText: "View Our Menu",
+        heroImage:
+          "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80&fm=webp",
       },
       services: {
         heading: "What We Serve",
@@ -953,21 +1045,25 @@ const packages = [
             title: "Specialty Espresso Drinks",
             description:
               "Hand-pulled espresso, silky lattes, and creative seasonal drinks made with single-origin beans roasted in small batches for peak flavor.",
+            icon: "☕",
           },
           {
             title: "Pour-Over & Cold Brew",
             description:
               "Slow-brewed pour-overs highlighting unique tasting notes and smooth, refreshing cold brew steeped for 18 hours and served on tap.",
+            icon: "🫗",
           },
           {
             title: "Fresh Pastries & Light Bites",
             description:
               "House-baked croissants, muffins, and savory breakfast sandwiches prepared daily using locally sourced, seasonal ingredients.",
+            icon: "🥐",
           },
           {
             title: "Catering & Coffee Bar Service",
             description:
               "Bring the café experience to your event with our mobile coffee bar, complete with a barista, custom drink menu, and fresh pastry spread.",
+            icon: "🎉",
           },
         ],
       },
@@ -1004,6 +1100,8 @@ const packages = [
               "This is my morning ritual. The espresso is consistently perfect and the staff remembers my order before I even reach the counter.",
             author: "Nina Alvarez",
             role: "Daily Regular",
+            avatar:
+              "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -1038,6 +1136,8 @@ const packages = [
         subheadline:
           "Thoughtfully appointed rooms, warm hospitality, and a location that puts you at the heart of it all. Your perfect stay starts here.",
         ctaText: "Check Availability",
+        heroImage:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80&fm=webp",
       },
       services: {
         heading: "Guest Amenities & Services",
@@ -1046,21 +1146,25 @@ const packages = [
             title: "Boutique Rooms & Suites",
             description:
               "Individually designed rooms featuring premium linens, curated decor, and modern comforts that blend character with relaxation.",
+            icon: "🛏️",
           },
           {
             title: "Farm-to-Table Breakfast",
             description:
               "Wake up to a complimentary gourmet breakfast prepared with locally sourced ingredients, served in our sunlit dining room each morning.",
+            icon: "🍳",
           },
           {
             title: "Concierge & Local Experiences",
             description:
               "Our concierge team arranges restaurant reservations, guided tours, and curated local experiences so you get the most out of your visit.",
+            icon: "🗺️",
           },
           {
             title: "Event & Meeting Spaces",
             description:
               "Elegant private rooms for intimate weddings, corporate retreats, and special gatherings, with full catering and AV support available.",
+            icon: "🏛️",
           },
         ],
       },
@@ -1097,6 +1201,8 @@ const packages = [
               "From the moment we checked in, we felt at home. The room was beautiful, the breakfast was incredible, and the staff went above and beyond.",
             author: "Claire & Thomas Whitfield",
             role: "Anniversary Guests",
+            avatar:
+              "https://images.unsplash.com/photo-1546961342-ea5f71b193f3?w=800&q=80&fm=webp",
           },
           {
             quote:
@@ -1109,6 +1215,8 @@ const packages = [
               "We hosted a small corporate retreat here and the event space was perfect. Excellent catering, seamless AV setup, and a team that anticipated every need.",
             author: "Monica Reeves",
             role: "Corporate Event Planner",
+            avatar:
+              "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&q=80&fm=webp",
           },
         ],
       },

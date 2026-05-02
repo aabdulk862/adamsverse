@@ -19,7 +19,7 @@ function updateNav() {
   navLinks.forEach(function (link) {
     link.classList.toggle(
       "active",
-      link.getAttribute("href") === "#" + currentId
+      link.getAttribute("href") === "#" + currentId,
     );
   });
 

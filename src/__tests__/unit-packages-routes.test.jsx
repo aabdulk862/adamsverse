@@ -27,10 +27,19 @@ vi.mock("framer-motion", () => {
       {
         get: (_target, prop) =>
           React.forwardRef((props, ref) => {
-            const { initial, animate, exit, variants, transition, whileHover, whileTap, ...rest } = props;
+            const {
+              initial,
+              animate,
+              exit,
+              variants,
+              transition,
+              whileHover,
+              whileTap,
+              ...rest
+            } = props;
             return React.createElement(prop, { ...rest, ref });
           }),
-      }
+      },
     ),
     AnimatePresence: ({ children }) => children,
   };
@@ -50,14 +59,16 @@ describe("Route and Navigation Updates", () => {
           <ThemeProvider>
             <Navbar />
           </ThemeProvider>
-        </MemoryRouter>
+        </MemoryRouter>,
       );
 
-      const packagesLinks = screen.getAllByRole("link", { name: /^Packages$/i });
+      const packagesLinks = screen.getAllByRole("link", {
+        name: /^Packages$/i,
+      });
       expect(packagesLinks.length).toBeGreaterThanOrEqual(1);
 
       const desktopLink = packagesLinks.find(
-        (link) => link.getAttribute("href") === "/packages"
+        (link) => link.getAttribute("href") === "/packages",
       );
       expect(desktopLink).toBeTruthy();
     });
@@ -68,11 +79,13 @@ describe("Route and Navigation Updates", () => {
           <ThemeProvider>
             <Navbar />
           </ThemeProvider>
-        </MemoryRouter>
+        </MemoryRouter>,
       );
 
       const projectsLink = screen.queryByRole("link", { name: /^Projects$/i });
-      const portfolioLink = screen.queryByRole("link", { name: /^Portfolio$/i });
+      const portfolioLink = screen.queryByRole("link", {
+        name: /^Portfolio$/i,
+      });
       expect(projectsLink).toBeNull();
       expect(portfolioLink).toBeNull();
     });
@@ -84,7 +97,7 @@ describe("Route and Navigation Updates", () => {
       render(
         <MemoryRouter>
           <Footer />
-        </MemoryRouter>
+        </MemoryRouter>,
       );
 
       const packagesLink = screen.getByRole("link", { name: /^Packages$/i });
@@ -96,10 +109,12 @@ describe("Route and Navigation Updates", () => {
       render(
         <MemoryRouter>
           <Footer />
-        </MemoryRouter>
+        </MemoryRouter>,
       );
 
-      const portfolioLink = screen.queryByRole("link", { name: /^Portfolio$/i });
+      const portfolioLink = screen.queryByRole("link", {
+        name: /^Portfolio$/i,
+      });
       expect(portfolioLink).toBeNull();
     });
   });
@@ -112,11 +127,13 @@ describe("Route and Navigation Updates", () => {
           <Routes>
             <Route path="/packages" element={<PackagesPage />} />
           </Routes>
-        </MemoryRouter>
+        </MemoryRouter>,
       );
 
       // PackagesPage renders a heading "Packages"
-      expect(screen.getByRole("heading", { name: /Packages/i })).toBeInTheDocument();
+      expect(
+        screen.getByRole("heading", { name: /Packages/i }),
+      ).toBeInTheDocument();
       // Should render package cards (data has 12 packages)
       const cards = screen.getAllByTestId("package-card");
       expect(cards.length).toBe(12);
@@ -131,7 +148,7 @@ describe("Route and Navigation Updates", () => {
           <Routes>
             <Route path="/packages/:slug" element={<PackageDetailPage />} />
           </Routes>
-        </MemoryRouter>
+        </MemoryRouter>,
       );
 
       // Restaurant slug renders the full preview with preview-wrapper
@@ -149,7 +166,7 @@ describe("Route and Navigation Updates", () => {
           <Routes>
             <Route path="/packages/:slug" element={<PackageDetailPage />} />
           </Routes>
-        </MemoryRouter>
+        </MemoryRouter>,
       );
 
       expect(screen.getByTestId("not-found")).toBeInTheDocument();

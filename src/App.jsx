@@ -67,22 +67,28 @@ export default function App() {
     validateEnv();
   }, []);
 
-  // Group dashboard and packages routes under one key so layout doesn't remount on sub-navigation
-  const animationKey = location.pathname.startsWith('/dashboard')
-    ? '/dashboard'
-    : location.pathname.startsWith('/admin')
-      ? '/admin'
-      : location.pathname.startsWith('/packages')
-        ? '/packages'
-        : location.pathname.startsWith('/agents')
-          ? '/agents'
-          : location.pathname
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
-  const isAgentRoute = location.pathname.startsWith('/agents')
+  // Group dashboard and packages routes under one key so layout doesn't remount on sub-navigation
+  const animationKey = location.pathname.startsWith("/dashboard")
+    ? "/dashboard"
+    : location.pathname.startsWith("/admin")
+      ? "/admin"
+      : location.pathname.startsWith("/packages")
+        ? "/packages"
+        : location.pathname.startsWith("/agents")
+          ? "/agents"
+          : location.pathname;
+
+  const isAgentRoute = location.pathname.startsWith("/agents");
 
   return (
     <ThemeProvider>
-      <a href="#main-content" className="skip-to-content">Skip to content</a>
+      <a href="#main-content" className="skip-to-content">
+        Skip to content
+      </a>
       {!isAgentRoute && <Navbar />}
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>

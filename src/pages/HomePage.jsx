@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProfileHeader from "../components/ProfileHeader";
 import Section from "../components/Section";
@@ -44,6 +45,10 @@ export default function HomePage() {
 
   const topServices = services.slice(0, 3);
 
+  useEffect(() => {
+    document.title = "Adverse Solutions — Full-Stack Web Development & Consulting | Charlotte, NC";
+  }, []);
+
   return (
     <div className="container">
       <div className="hero-viewport">
@@ -53,7 +58,11 @@ export default function HomePage() {
       {/* Social Proof Metrics Bar */}
       <div className="social-proof-bar">
         {metrics.map((metric, index) => (
-          <AnimatedSection key={metric.label} delay={index * 0.1} className="social-proof-metric">
+          <AnimatedSection
+            key={metric.label}
+            delay={index * 0.1}
+            className="social-proof-metric"
+          >
             <span className="social-proof-value">{metric.value}</span>
             <span className="social-proof-label">{metric.label}</span>
           </AnimatedSection>
@@ -92,7 +101,8 @@ export default function HomePage() {
         <div className="ai-cta-text">
           <p className="ai-cta-headline">AI won't replace good taste.</p>
           <p className="ai-cta-sub">
-            We keep up with the tools so you don't have to — and we know when to use them.
+            Adverse keeps up with the tools so you don't have to — and we know
+            when to use them.
           </p>
         </div>
         <Link to="/services" className="ai-cta-link">
@@ -119,7 +129,12 @@ export default function HomePage() {
               >
                 <div className="home-portfolio-thumb">
                   {client.image ? (
-                    <img src={client.image} alt={client.title} loading="lazy" decoding="async" />
+                    <img
+                      src={client.image}
+                      alt={client.title}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   ) : (
                     <div className="home-portfolio-placeholder">
                       <span>{client.title.charAt(0)}</span>
@@ -133,15 +148,15 @@ export default function HomePage() {
       </AnimatedSection>
 
       {/* Why Adverse */}
-      <Section title="Why Adverse" id="why-adverse" className="home-section">
+      <Section title="Why Adverse Solutions" id="why-adverse" className="home-section">
         <div className="values-banner">
           <div className="values-banner-text">
             <h2 className="values-banner-headline">
-              Software that works — built by people who care.
+              Adverse builds software that works — by people who care.
             </h2>
             <p className="values-banner-sub">
-              We keep communication clear and code clean. No handoff gaps, no
-              disappearing acts.
+              At Adverse Solutions, we keep communication clear and code clean.
+              No handoff gaps, no disappearing acts.
             </p>
             <Link to="/contact" className="hero-btn hero-btn--ghost">
               Work with us <i className="fas fa-arrow-right"></i>

@@ -1,78 +1,95 @@
-import { useState, useRef, useEffect } from 'react'
-import styles from './ChatInterface.module.css'
+import { useState, useRef, useEffect } from "react";
+import styles from "./ChatInterface.module.css";
 
 function formatTimestamp(timestamp) {
-  if (!timestamp) return ''
-  const date = new Date(timestamp)
-  const now = new Date()
-  const diffMs = now - date
-  const diffMins = Math.floor(diffMs / 60000)
+  if (!timestamp) return "";
+  const date = new Date(timestamp);
+  const now = new Date();
+  const diffMs = now - date;
+  const diffMins = Math.floor(diffMs / 60000);
 
-  if (diffMins < 1) return 'Just now'
-  if (diffMins < 60) return `${diffMins}m ago`
+  if (diffMins < 1) return "Just now";
+  if (diffMins < 60) return `${diffMins}m ago`;
 
-  const time = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
-  if (date.toDateString() === now.toDateString()) return time
+  const time = date.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+  if (date.toDateString() === now.toDateString()) return time;
 
-  const yesterday = new Date(now)
-  yesterday.setDate(yesterday.getDate() - 1)
-  if (date.toDateString() === yesterday.toDateString()) return `Yesterday ${time}`
+  const yesterday = new Date(now);
+  yesterday.setDate(yesterday.getDate() - 1);
+  if (date.toDateString() === yesterday.toDateString())
+    return `Yesterday ${time}`;
 
-  return `${date.toLocaleDateString([], { month: 'short', day: 'numeric' })} ${time}`
+  return `${date.toLocaleDateString([], { month: "short", day: "numeric" })} ${time}`;
 }
 
-export default function ChatInterface({ messages = [], onSendMessage, isLoading = false }) {
-  const [input, setInput] = useState('')
-  const messagesEndRef = useRef(null)
-  const inputRef = useRef(null)
+export default function ChatInterface({
+  messages = [],
+  onSendMessage,
+  isLoading = false,
+}) {
+  const [input, setInput] = useState("");
+  const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    if (typeof messagesEndRef.current?.scrollIntoView === 'function') {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    if (typeof messagesEndRef.current?.scrollIntoView === "function") {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages, isLoading])
+  }, [messages, isLoading]);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const text = input.trim()
-    if (!text || isLoading) return
-    onSendMessage(text)
-    setInput('')
-  }
+    e.preventDefault();
+    const text = input.trim();
+    if (!text || isLoading) return;
+    onSendMessage(text);
+    setInput("");
+  };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSubmit(e)
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
     }
-  }
+  };
 
   return (
     <div className={styles.container} role="region" aria-label="Chat interface">
-      <div className={styles.messageList} role="log" aria-live="polite" aria-label="Messages">
+      <div
+        className={styles.messageList}
+        role="log"
+        aria-live="polite"
+        aria-label="Messages"
+      >
         {messages.length === 0 && !isLoading && (
           <div className={styles.empty}>
             <i className="fa-solid fa-robot" />
-            <p>Send a message to start a conversation with the AI orchestrator.</p>
+            <p>
+              Send a message to start a conversation with the AI orchestrator.
+            </p>
           </div>
         )}
 
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className={`${styles.messageRow} ${msg.role === 'user' ? styles.messageRowUser : styles.messageRowAssistant}`}
+            className={`${styles.messageRow} ${msg.role === "user" ? styles.messageRowUser : styles.messageRowAssistant}`}
           >
-            {msg.role === 'assistant' && (
+            {msg.role === "assistant" && (
               <div className={styles.avatar} aria-hidden="true">
                 <i className="fa-solid fa-robot" />
               </div>
             )}
             <div
-              className={`${styles.bubble} ${msg.role === 'user' ? styles.bubbleUser : styles.bubbleAssistant}`}
+              className={`${styles.bubble} ${msg.role === "user" ? styles.bubbleUser : styles.bubbleAssistant}`}
             >
               <p className={styles.bubbleContent}>{msg.content}</p>
               {msg.timestamp && (
-                <span className={styles.timestamp}>{formatTimestamp(msg.timestamp)}</span>
+                <span className={styles.timestamp}>
+                  {formatTimestamp(msg.timestamp)}
+                </span>
               )}
             </div>
           </div>
@@ -84,7 +101,11 @@ export default function ChatInterface({ messages = [], onSendMessage, isLoading 
               <i className="fa-solid fa-robot" />
             </div>
             <div className={`${styles.bubble} ${styles.bubbleAssistant}`}>
-              <div className={styles.typing} role="status" aria-label="Assistant is typing">
+              <div
+                className={styles.typing}
+                role="status"
+                aria-label="Assistant is typing"
+              >
                 <span className={styles.typingDot} />
                 <span className={styles.typingDot} />
                 <span className={styles.typingDot} />
@@ -122,5 +143,5 @@ export default function ChatInterface({ messages = [], onSendMessage, isLoading 
         </button>
       </form>
     </div>
-  )
+  );
 }

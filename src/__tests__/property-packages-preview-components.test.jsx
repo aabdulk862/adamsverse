@@ -16,8 +16,7 @@ import CTA from "../components/packages/CTA";
  * Non-empty alphanumeric string that is safe for DOM text matching.
  * Starts with a letter, followed by up to 30 alphanumeric/space chars.
  */
-const safeString = () =>
-  fc.stringMatching(/^[A-Za-z][A-Za-z0-9 ]{0,30}$/);
+const safeString = () => fc.stringMatching(/^[A-Za-z][A-Za-z0-9 ]{0,30}$/);
 
 /**
  * Hero content: { headline, subheadline, ctaText }

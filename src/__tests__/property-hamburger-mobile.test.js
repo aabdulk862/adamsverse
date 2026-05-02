@@ -43,7 +43,10 @@ function extractDeclarations(cssBlock, selector) {
   if (!match) return {};
 
   const declarations = {};
-  const lines = match[1].split(";").map((l) => l.trim()).filter(Boolean);
+  const lines = match[1]
+    .split(";")
+    .map((l) => l.trim())
+    .filter(Boolean);
   for (const line of lines) {
     const colonIdx = line.indexOf(":");
     if (colonIdx === -1) continue;
@@ -70,7 +73,10 @@ describe("[Exploration] Property 1: Hamburger button has correct mobile styling"
   });
 
   it(".site-navbar-hamburger in mobile media query has display:flex, centering, and 44x44 touch target", () => {
-    const declarations = extractDeclarations(mobileBlock, ".site-navbar-hamburger");
+    const declarations = extractDeclarations(
+      mobileBlock,
+      ".site-navbar-hamburger",
+    );
 
     fc.assert(
       fc.property(

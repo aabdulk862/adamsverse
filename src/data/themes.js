@@ -13,7 +13,7 @@ const themes = {
   // FOOD & HOSPITALITY
   // ─────────────────────────────────────────────
 
-  "restaurant": [
+  restaurant: [
     {
       name: "restaurant-candlelit",
       label: "Candlelit",
@@ -22,7 +22,7 @@ const themes = {
         bgSurface: "#2a1f1a",
         bgMuted: "#3a2f28",
         textPrimary: "#f5ede4",
-        textSecondary: "#c9a96e",
+        textSecondary: "#d4b87d",
         textMuted: "#8a7560",
         accent: "#c9a96e",
         accentHover: "#d4b87d",
@@ -124,7 +124,7 @@ const themes = {
         bgSurface: "#2e2420",
         bgMuted: "#3e342e",
         textPrimary: "#f2ebe4",
-        textSecondary: "#c4a882",
+        textSecondary: "#d0b898",
         textMuted: "#8a7a6a",
         accent: "#a0714a",
         accentHover: "#b8845a",
@@ -226,7 +226,7 @@ const themes = {
         bgSurface: "#2c2220",
         bgMuted: "#3e3230",
         textPrimary: "#f5ece0",
-        textSecondary: "#d4a070",
+        textSecondary: "#deb088",
         textMuted: "#8a7060",
         accent: "#d4804a",
         accentHover: "#e0925a",
@@ -425,7 +425,7 @@ const themes = {
     },
   ],
 
-  "photographer": [
+  photographer: [
     {
       name: "photographer-darkroom",
       label: "Darkroom",
@@ -527,7 +527,7 @@ const themes = {
     },
   ],
 
-  "attorney": [
+  attorney: [
     {
       name: "attorney-chambers",
       label: "Chambers",
@@ -536,7 +536,7 @@ const themes = {
         bgSurface: "#1a2028",
         bgMuted: "#2a3038",
         textPrimary: "#e8e4df",
-        textSecondary: "#a09888",
+        textSecondary: "#b8b0a0",
         textMuted: "#706860",
         accent: "#8b7355",
         accentHover: "#a08565",
@@ -602,7 +602,7 @@ const themes = {
         bgSurface: "#1c2228",
         bgMuted: "#2c3238",
         textPrimary: "#e0dcd5",
-        textSecondary: "#a0988a",
+        textSecondary: "#b8b0a0",
         textMuted: "#706860",
         accent: "#b8860b",
         accentHover: "#d4a017",
@@ -708,7 +708,7 @@ const themes = {
         bgSurface: "#2a2622",
         bgMuted: "#3a3632",
         textPrimary: "#f0e8dc",
-        textSecondary: "#c8b8a0",
+        textSecondary: "#d4c8b4",
         textMuted: "#8a7e6e",
         accent: "#c4a870",
         accentHover: "#d4b880",
@@ -1147,7 +1147,7 @@ const themes = {
     },
   ],
 
-  "landscaping": [
+  landscaping: [
     {
       name: "landscaping-forest",
       label: "Forest",

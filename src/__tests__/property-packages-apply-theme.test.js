@@ -11,9 +11,7 @@ import applyTheme from "../utils/applyTheme";
 
 /** Generate a random hex color string like "#a1b2c3" */
 const hexColor = () =>
-  fc
-    .stringMatching(/^[0-9a-f]{6}$/)
-    .map((hex) => `#${hex}`);
+  fc.stringMatching(/^[0-9a-f]{6}$/).map((hex) => `#${hex}`);
 
 /**
  * Generate a non-empty alphanumeric string for font names / values.

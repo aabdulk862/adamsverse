@@ -1,0 +1,64 @@
+/* ═══════════════════════════════════════════════
+   SectionDivider — Layout-specific decorative dividers
+   All variants use CSS custom properties from applyTheme()
+   so they adapt on theme switch.
+   ═══════════════════════════════════════════════ */
+
+/* ── Professional: thin 1px horizontal rule ── */
+.professional {
+  border: none;
+  height: 1px;
+  background-color: var(--color-border);
+  width: 60%;
+  margin: 0 auto;
+  display: block;
+}
+
+/* ── Beauty: decorative SVG wave/arc ── */
+.beauty {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave {
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+
+/* ── Home Services: bold 4px accent bar ── */
+.homeServices {
+  height: 4px;
+  width: 100%;
+  background-color: var(--color-accent);
+}
+
+/* ── Food & Hospitality: gradient fade ── */
+.foodHospitality {
+  height: 48px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-bgMuted) 30%,
+    var(--color-bgMuted) 70%,
+    transparent
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   Mobile Responsive (<768px)
+   - SVG waves reduce height
+   - Rules maintain width %
+   - Bars maintain full width
+   ═══════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .wave {
+    height: 36px;
+  }
+
+  .foodHospitality {
+    height: 32px;
+  }
+}

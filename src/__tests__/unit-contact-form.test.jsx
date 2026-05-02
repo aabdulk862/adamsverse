@@ -31,7 +31,10 @@ function filterDomProps(props) {
 
 describe("15.6 Contact Form", () => {
   const renderContact = () => {
-    vi.stubEnv("VITE_GOOGLE_SHEET_URL", "https://script.google.com/macros/s/test/exec");
+    vi.stubEnv(
+      "VITE_GOOGLE_SHEET_URL",
+      "https://script.google.com/macros/s/test/exec",
+    );
     return render(
       <MemoryRouter>
         <ContactPage />

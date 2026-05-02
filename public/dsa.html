@@ -35,7 +35,11 @@
     <nav class="site-navbar">
       <div class="site-navbar-inner">
         <a href="/" class="site-navbar-brand">
-          <img src="/logo.png" alt="Adverse LLC logo" class="site-navbar-logo" />
+          <img
+            src="/logo.png"
+            alt="Adverse LLC logo"
+            class="site-navbar-logo"
+          />
           <span class="site-navbar-brand-name">Adverse</span>
         </a>
         <ul class="site-navbar-links">
@@ -45,7 +49,13 @@
           <li><a href="/learn">Learn</a></li>
           <li><a href="/contact" class="site-navbar-cta">Get in Touch</a></li>
         </ul>
-        <button class="site-navbar-hamburger" type="button" aria-label="Toggle menu">☰</button>
+        <button
+          class="site-navbar-hamburger"
+          type="button"
+          aria-label="Toggle menu"
+        >
+          ☰
+        </button>
       </div>
       <div class="site-navbar-overlay">
         <a href="/about">About</a>
@@ -629,15 +639,9 @@
               autocomplete, word dictionaries.
             </p>
             <div class="code-block" data-lang="javascript">
-// Trie Node
-class TrieNode {
-  constructor() {
-    this.children = {};
-    this.isEnd = false;
-  }
-}
-const root = new TrieNode();
-console.log("TrieNode created:", Object.keys(root));
+              // Trie Node class TrieNode { constructor() { this.children = {};
+              this.isEnd = false; } } const root = new TrieNode();
+              console.log("TrieNode created:", Object.keys(root));
             </div>
             <div class="use-cases">
               <span class="tag">Autocomplete</span
@@ -658,20 +662,14 @@ console.log("TrieNode created:", Object.keys(root));
               O(1) amortized.
             </p>
             <div class="code-block" data-lang="javascript">
-// Union-Find (DSU)
-const parent = [0,1,2,3,4], rank = [0,0,0,0,0];
-function find(parent, x) {
-  if (parent[x] !== x) parent[x] = find(parent, parent[x]);
-  return parent[x];
-}
-function union(parent, rank, x, y) {
-  let px = find(parent, x), py = find(parent, y);
-  if (rank[px] < rank[py]) [px, py] = [py, px];
-  parent[py] = px;
-}
-union(parent, rank, 0, 1);
-union(parent, rank, 1, 2);
-console.log("0 and 2 connected:", find(parent, 0) === find(parent, 2));
+              // Union-Find (DSU) const parent = [0,1,2,3,4], rank =
+              [0,0,0,0,0]; function find(parent, x) { if (parent[x] !== x)
+              parent[x] = find(parent, parent[x]); return parent[x]; } function
+              union(parent, rank, x, y) { let px = find(parent, x), py =
+              find(parent, y); if (rank[px] < rank[py]) [px, py] = [py, px];
+              parent[py] = px; } union(parent, rank, 0, 1); union(parent, rank,
+              1, 2); console.log("0 and 2 connected:", find(parent, 0) ===
+              find(parent, 2));
             </div>
             <div class="use-cases">
               <span class="tag">Number of Islands</span
@@ -854,17 +852,11 @@ console.log("0 and 2 connected:", find(parent, 0) === find(parent, 2));
                 pairs, palindrome check, removing duplicates in-place.
               </div>
               <div class="code-block" data-lang="javascript">
-// Two Pointers — find pair that sums to target
-const arr = [1, 2, 4, 6, 8, 10], target = 10;
-let l = 0, r = arr.length - 1;
-while (l < r) {
-  const sum = arr[l] + arr[r];
-  if (sum === target) {
-    console.log("Found:", [l, r], "→", arr[l], "+", arr[r]);
-    break;
-  } else if (sum < target) l++;
-  else r--;
-}
+                // Two Pointers — find pair that sums to target const arr = [1,
+                2, 4, 6, 8, 10], target = 10; let l = 0, r = arr.length - 1;
+                while (l < r) { const sum = arr[l] + arr[r]; if (sum === target)
+                { console.log("Found:", [l, r], "→", arr[l], "+", arr[r]);
+                break; } else if (sum < target) l++; else r--; }
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -895,19 +887,11 @@ while (l < r) {
                 max/min/longest/shortest window satisfying a condition.
               </div>
               <div class="code-block" data-lang="javascript">
-// Sliding Window — longest substring without repeating chars
-const s = "abcabcbb";
-const seen = new Set();
-let l = 0, res = 0;
-for (let r = 0; r < s.length; r++) {
-  while (seen.has(s[r])) {
-    seen.delete(s[l]);
-    l++;
-  }
-  seen.add(s[r]);
-  res = Math.max(res, r - l + 1);
-}
-console.log("Longest:", res);
+                // Sliding Window — longest substring without repeating chars
+                const s = "abcabcbb"; const seen = new Set(); let l = 0, res =
+                0; for (let r = 0; r < s.length; r++) { while (seen.has(s[r])) {
+                seen.delete(s[l]); l++; } seen.add(s[r]); res = Math.max(res, r
+                - l + 1); } console.log("Longest:", res);
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -940,15 +924,11 @@ console.log("Longest:", res);
                 answer space.
               </div>
               <div class="code-block" data-lang="javascript">
-// Binary Search
-const arr = [1, 3, 5, 7, 9, 11, 13], target = 7;
-let lo = 0, hi = arr.length - 1;
-while (lo <= hi) {
-  const mid = Math.floor((lo + hi) / 2);
-  if (arr[mid] === target) { console.log("Found at index", mid); break; }
-  else if (arr[mid] < target) lo = mid + 1;
-  else hi = mid - 1;
-}
+                // Binary Search const arr = [1, 3, 5, 7, 9, 11, 13], target =
+                7; let lo = 0, hi = arr.length - 1; while (lo <= hi) { const mid
+                = Math.floor((lo + hi) / 2); if (arr[mid] === target) {
+                console.log("Found at index", mid); break; } else if (arr[mid] <
+                target) lo = mid + 1; else hi = mid - 1; }
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -980,17 +960,13 @@ while (lo <= hi) {
                 middle, linked list problems, "happy number"-style problems.
               </div>
               <div class="code-block" data-lang="javascript">
-// Fast &amp; Slow Pointers — cycle detection
-function ListNode(val, next) { this.val = val; this.next = next || null; }
-const n3 = new ListNode(3), n2 = new ListNode(2, n3), n1 = new ListNode(1, n2);
-n3.next = n1; // create cycle
-let slow = n1, fast = n1, hasCycle = false;
-while (fast && fast.next) {
-  slow = slow.next;
-  fast = fast.next.next;
-  if (slow === fast) { hasCycle = true; break; }
-}
-console.log("Has cycle:", hasCycle);
+                // Fast &amp; Slow Pointers — cycle detection function
+                ListNode(val, next) { this.val = val; this.next = next || null;
+                } const n3 = new ListNode(3), n2 = new ListNode(2, n3), n1 = new
+                ListNode(1, n2); n3.next = n1; // create cycle let slow = n1,
+                fast = n1, hasCycle = false; while (fast && fast.next) { slow =
+                slow.next; fast = fast.next.next; if (slow === fast) { hasCycle
+                = true; break; } } console.log("Has cycle:", hasCycle);
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1021,14 +997,11 @@ console.log("Has cycle:", hasCycle);
                 equals K, 2D matrix queries, "how many subarrays sum to target?"
               </div>
               <div class="code-block" data-lang="javascript">
-// Prefix Sum — range sum queries in O(1)
-const nums = [2, 4, 1, 3, 5];
-const prefix = new Array(nums.length + 1).fill(0);
-for (let i = 0; i < nums.length; i++) {
-  prefix[i + 1] = prefix[i] + nums[i];
-}
-// range sum [1, 3] → 4 + 1 + 3 = 8
-console.log("Sum [1,3]:", prefix[4] - prefix[1]);
+                // Prefix Sum — range sum queries in O(1) const nums = [2, 4, 1,
+                3, 5]; const prefix = new Array(nums.length + 1).fill(0); for
+                (let i = 0; i < nums.length; i++) { prefix[i + 1] = prefix[i] +
+                nums[i]; } // range sum [1, 3] → 4 + 1 + 3 = 8 console.log("Sum
+                [1,3]:", prefix[4] - prefix[1]);
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1060,17 +1033,12 @@ console.log("Sum [1,3]:", prefix[4] - prefix[1]);
                 pathfinding, generate all combinations/subsets, detect cycles.
               </div>
               <div class="code-block" data-lang="javascript">
-// DFS — graph traversal
-const graph = { A: ["B", "C"], B: ["D"], C: ["D"], D: [] };
-function dfs(node, visited) {
-  if (!node || visited.has(node)) return;
-  visited.add(node);
-  console.log("Visited:", node);
-  for (const neighbor of (graph[node] || [])) {
-    dfs(neighbor, visited);
-  }
-}
-dfs("A", new Set());
+                // DFS — graph traversal const graph = { A: ["B", "C"], B:
+                ["D"], C: ["D"], D: [] }; function dfs(node, visited) { if
+                (!node || visited.has(node)) return; visited.add(node);
+                console.log("Visited:", node); for (const neighbor of
+                (graph[node] || [])) { dfs(neighbor, visited); } } dfs("A", new
+                Set());
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1103,21 +1071,13 @@ dfs("A", new Set());
                 spreading processes.
               </div>
               <div class="code-block" data-lang="javascript">
-// BFS — shortest path in unweighted graph
-const graph = { A: ["B", "C"], B: ["D"], C: ["D"], D: ["E"], E: [] };
-const start = "A";
-const queue = [start];
-const visited = new Set([start]);
-while (queue.length) {
-  const node = queue.shift();
-  console.log("Visited:", node);
-  for (const nei of (graph[node] || [])) {
-    if (!visited.has(nei)) {
-      visited.add(nei);
-      queue.push(nei);
-    }
-  }
-}
+                // BFS — shortest path in unweighted graph const graph = { A:
+                ["B", "C"], B: ["D"], C: ["D"], D: ["E"], E: [] }; const start =
+                "A"; const queue = [start]; const visited = new Set([start]);
+                while (queue.length) { const node = queue.shift();
+                console.log("Visited:", node); for (const nei of (graph[node] ||
+                [])) { if (!visited.has(nei)) { visited.add(nei);
+                queue.push(nei); } } }
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1150,18 +1110,12 @@ while (queue.length) {
                 N-Queens).
               </div>
               <div class="code-block" data-lang="javascript">
-// Backtracking — generate all subsets
-const results = [];
-function backtrack(path, start, nums) {
-  results.push([...path]);
-  for (let i = start; i < nums.length; i++) {
-    path.push(nums[i]);
-    backtrack(path, i + 1, nums);
-    path.pop(); // undo choice
-  }
-}
-backtrack([], 0, [1, 2, 3]);
-console.log("Subsets:", JSON.stringify(results));
+                // Backtracking — generate all subsets const results = [];
+                function backtrack(path, start, nums) { results.push([...path]);
+                for (let i = start; i < nums.length; i++) { path.push(nums[i]);
+                backtrack(path, i + 1, nums); path.pop(); // undo choice } }
+                backtrack([], 0, [1, 2, 3]); console.log("Subsets:",
+                JSON.stringify(results));
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1195,14 +1149,9 @@ console.log("Subsets:", JSON.stringify(results));
                 strings/sequences, knapsack variants.
               </div>
               <div class="code-block" data-lang="javascript">
-// 1D DP: Fibonacci
-const n = 10;
-const dp = new Array(n + 1).fill(0);
-dp[1] = 1;
-for (let i = 2; i <= n; i++) {
-  dp[i] = dp[i - 1] + dp[i - 2];
-}
-console.log("Fib(" + n + "):", dp[n]);
+                // 1D DP: Fibonacci const n = 10; const dp = new Array(n +
+                1).fill(0); dp[1] = 1; for (let i = 2; i <= n; i++) { dp[i] =
+                dp[i - 1] + dp[i - 2]; } console.log("Fib(" + n + "):", dp[n]);
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1236,16 +1185,12 @@ console.log("Fib(" + n + "):", dp[n]);
                 span, largest rectangle in histogram, trapping rain water.
               </div>
               <div class="code-block" data-lang="javascript">
-// Monotonic Stack — next greater element
-const nums = [2, 1, 2, 4, 3];
-const stack = [], result = new Array(nums.length).fill(-1);
-for (let i = 0; i < nums.length; i++) {
-  while (stack.length && nums[stack[stack.length - 1]] < nums[i]) {
-    result[stack.pop()] = nums[i];
-  }
-  stack.push(i);
-}
-console.log("Next greater:", result);
+                // Monotonic Stack — next greater element const nums = [2, 1, 2,
+                4, 3]; const stack = [], result = new
+                Array(nums.length).fill(-1); for (let i = 0; i < nums.length;
+                i++) { while (stack.length && nums[stack[stack.length - 1]] <
+                nums[i]) { result[stack.pop()] = nums[i]; } stack.push(i); }
+                console.log("Next greater:", result);
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1277,15 +1222,11 @@ console.log("Next greater:", result);
                 sorted lists, K closest points, median of data stream.
               </div>
               <div class="code-block" data-lang="javascript">
-// K largest elements (min-heap via sorted insert)
-const nums = [3, 1, 5, 12, 2, 11], k = 3;
-const heap = [];
-for (const n of nums) {
-  heap.push(n);
-  heap.sort((a, b) => a - b);
-  if (heap.length > k) heap.shift();
-}
-console.log("Top", k, ":", heap);
+                // K largest elements (min-heap via sorted insert) const nums =
+                [3, 1, 5, 12, 2, 11], k = 3; const heap = []; for (const n of
+                nums) { heap.push(n); heap.sort((a, b) => a - b); if
+                (heap.length > k) heap.shift(); } console.log("Top", k, ":",
+                heap);
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1317,17 +1258,14 @@ console.log("Top", k, ":", heap);
                 meetings, insert interval, minimum number of meeting rooms.
               </div>
               <div class="code-block" data-lang="javascript">
-// Merge Intervals
-const intervals = [[1,3],[2,6],[8,10],[15,18]];
-intervals.sort((a, b) => a[0] - b[0]);
-const merged = [intervals[0]];
-for (let i = 1; i < intervals.length; i++) {
-  const [s, e] = intervals[i];
-  if (s <= merged[merged.length - 1][1]) {
-    merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], e);
-  } else merged.push([s, e]);
-}
-console.log("Merged:", JSON.stringify(merged));
+                // Merge Intervals const intervals =
+                [[1,3],[2,6],[8,10],[15,18]]; intervals.sort((a, b) => a[0] -
+                b[0]); const merged = [intervals[0]]; for (let i = 1; i <
+                intervals.length; i++) { const [s, e] = intervals[i]; if (s <=
+                merged[merged.length - 1][1]) { merged[merged.length - 1][1] =
+                Math.max(merged[merged.length - 1][1], e); } else
+                merged.push([s, e]); } console.log("Merged:",
+                JSON.stringify(merged));
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1359,20 +1297,13 @@ console.log("Merged:", JSON.stringify(merged));
                 dependency resolution, detect cycle in directed graph.
               </div>
               <div class="code-block" data-lang="javascript">
-// Kahn’s (BFS) — Topological Sort
-const graph = { A: ["C"], B: ["C","D"], C: ["E"], D: ["E"], E: [] };
-const indegree = { A:0, B:0, C:2, D:1, E:2 };
-const queue = Object.keys(graph).filter(v => indegree[v] === 0);
-const order = [];
-while (queue.length) {
-  const v = queue.shift();
-  order.push(v);
-  for (const u of graph[v]) {
-    indegree[u]--;
-    if (indegree[u] === 0) queue.push(u);
-  }
-}
-console.log("Topo order:", order);
+                // Kahn’s (BFS) — Topological Sort const graph = { A: ["C"], B:
+                ["C","D"], C: ["E"], D: ["E"], E: [] }; const indegree = { A:0,
+                B:0, C:2, D:1, E:2 }; const queue = Object.keys(graph).filter(v
+                => indegree[v] === 0); const order = []; while (queue.length) {
+                const v = queue.shift(); order.push(v); for (const u of
+                graph[v]) { indegree[u]--; if (indegree[u] === 0) queue.push(u);
+                } } console.log("Topo order:", order);
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1404,23 +1335,14 @@ console.log("Topo order:", order);
                 preorder.
               </div>
               <div class="code-block" data-lang="javascript">
-// Inorder: left → root → right
-function TreeNode(val, left, right) {
-  this.val = val; this.left = left || null; this.right = right || null;
-}
-const tree = new TreeNode(4,
-  new TreeNode(2, new TreeNode(1), new TreeNode(3)),
-  new TreeNode(6, new TreeNode(5), new TreeNode(7))
-);
-const result = [];
-function inorder(node) {
-  if (!node) return;
-  inorder(node.left);
-  result.push(node.val);
-  inorder(node.right);
-}
-inorder(tree);
-console.log("Inorder:", result);
+                // Inorder: left → root → right function TreeNode(val, left,
+                right) { this.val = val; this.left = left || null; this.right =
+                right || null; } const tree = new TreeNode(4, new TreeNode(2,
+                new TreeNode(1), new TreeNode(3)), new TreeNode(6, new
+                TreeNode(5), new TreeNode(7)) ); const result = []; function
+                inorder(node) { if (!node) return; inorder(node.left);
+                result.push(node.val); inorder(node.right); } inorder(tree);
+                console.log("Inorder:", result);
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1453,14 +1375,11 @@ console.log("Inorder:", result);
                 selection.
               </div>
               <div class="code-block" data-lang="javascript">
-// Jump Game II: min jumps to reach end
-const nums = [2, 3, 1, 1, 4];
-let jumps = 0, curEnd = 0, farthest = 0;
-for (let i = 0; i < nums.length - 1; i++) {
-  farthest = Math.max(farthest, i + nums[i]);
-  if (i === curEnd) { jumps++; curEnd = farthest; }
-}
-console.log("Min jumps:", jumps);
+                // Jump Game II: min jumps to reach end const nums = [2, 3, 1,
+                1, 4]; let jumps = 0, curEnd = 0, farthest = 0; for (let i = 0;
+                i < nums.length - 1; i++) { farthest = Math.max(farthest, i +
+                nums[i]); if (i === curEnd) { jumps++; curEnd = farthest; } }
+                console.log("Min jumps:", jumps);
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1492,17 +1411,13 @@ console.log("Min jumps:", jumps);
                 in undirected graph, minimum spanning tree, grouping problems.
               </div>
               <div class="code-block" data-lang="javascript">
-// Union-Find with path compression
-const n = 5;
-const parent = Array.from({ length: n }, (_, i) => i);
-function find(x) {
-  if (parent[x] !== x) parent[x] = find(parent[x]);
-  return parent[x];
-}
-function union(x, y) { parent[find(x)] = find(y); }
-union(0, 1); union(1, 2); union(3, 4);
-console.log("0 and 2 connected:", find(0) === find(2));
-console.log("0 and 4 connected:", find(0) === find(4));
+                // Union-Find with path compression const n = 5; const parent =
+                Array.from({ length: n }, (_, i) => i); function find(x) { if
+                (parent[x] !== x) parent[x] = find(parent[x]); return parent[x];
+                } function union(x, y) { parent[find(x)] = find(y); } union(0,
+                1); union(1, 2); union(3, 4); console.log("0 and 2 connected:",
+                find(0) === find(2)); console.log("0 and 4 connected:", find(0)
+                === find(4));
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1535,30 +1450,17 @@ console.log("0 and 4 connected:", find(0) === find(4));
                 dictionary-based DFS.
               </div>
               <div class="code-block" data-lang="javascript">
-// Trie — prefix search
-class TrieNode {
-  constructor() { this.children = {}; this.isEnd = false; }
-}
-const root = new TrieNode();
-function insert(word) {
-  let node = root;
-  for (const ch of word) {
-    if (!node.children[ch]) node.children[ch] = new TrieNode();
-    node = node.children[ch];
-  }
-  node.isEnd = true;
-}
-function searchPrefix(prefix) {
-  let node = root;
-  for (const ch of prefix) {
-    if (!node.children[ch]) return null;
-    node = node.children[ch];
-  }
-  return node;
-}
-insert("apple"); insert("app");
-console.log("'app' prefix exists:", searchPrefix("app") !== null);
-console.log("'apx' prefix exists:", searchPrefix("apx") !== null);
+                // Trie — prefix search class TrieNode { constructor() {
+                this.children = {}; this.isEnd = false; } } const root = new
+                TrieNode(); function insert(word) { let node = root; for (const
+                ch of word) { if (!node.children[ch]) node.children[ch] = new
+                TrieNode(); node = node.children[ch]; } node.isEnd = true; }
+                function searchPrefix(prefix) { let node = root; for (const ch
+                of prefix) { if (!node.children[ch]) return null; node =
+                node.children[ch]; } return node; } insert("apple");
+                insert("app"); console.log("'app' prefix exists:",
+                searchPrefix("app") !== null); console.log("'apx' prefix
+                exists:", searchPrefix("apx") !== null);
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>
@@ -1590,14 +1492,13 @@ console.log("'apx' prefix exists:", searchPrefix("apx") !== null);
                 variable.
               </div>
               <div class="code-block" data-lang="javascript">
-// Bit Manipulation — key operations
-const x = 12; // binary: 1100
-console.log("x & (x-1):", x & (x-1));   // clear lowest set bit → 8
-console.log("x & 1:", x & 1);           // check if odd → 0
-console.log("x ^ x:", x ^ x);           // XOR with self → 0
-console.log("x ^ 0:", x ^ 0);           // XOR with 0 → 12
-console.log("x & -x:", x & -x);         // lowest set bit → 4
-console.log("1 << 3:", 1 << 3);         // 2^3 → 8
+                // Bit Manipulation — key operations const x = 12; // binary:
+                1100 console.log("x & (x-1):", x & (x-1)); // clear lowest set
+                bit → 8 console.log("x & 1:", x & 1); // check if odd → 0
+                console.log("x ^ x:", x ^ x); // XOR with self → 0
+                console.log("x ^ 0:", x ^ 0); // XOR with 0 → 12 console.log("x
+                & -x:", x & -x); // lowest set bit → 4 console.log("1 << 3:", 1
+                << 3); // 2^3 → 8
               </div>
               <div class="example-problems">
                 <strong>Examples</strong>

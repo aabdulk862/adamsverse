@@ -59,7 +59,9 @@
   justify-content: center;
   gap: 8px;
   padding: 12px 16px;
-  background: var(--bg-primary);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
 }
@@ -78,6 +80,27 @@
   background: transparent;
 }
 
+.packageInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-right: auto;
+}
+
+.packageInfoName {
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.packageInfoCategory {
+  font-size: var(--font-size-xs, 0.75rem);
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
 .themeHint {
   font-size: var(--font-size-xs, 0.75rem);
   color: var(--text-muted);
@@ -85,7 +108,17 @@
   margin-left: 4px;
 }
 
+.themeButtonsRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 .themeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 6px 16px;
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
@@ -102,20 +135,29 @@
   background: var(--bg-tertiary);
 }
 
+.themeSwatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 .themeButtonActive {
-  background: var(--accent-primary);
-  color: #fff;
-  border-color: var(--accent-primary);
+  background: transparent;
+  border: 2px solid var(--theme-accent, var(--accent-primary));
+  color: var(--theme-accent, var(--accent-primary));
 }
 
 .themeButtonActive:hover {
-  background: var(--accent-primary-dark);
-  border-color: var(--accent-primary-dark);
+  background: transparent;
+  border-color: var(--theme-accent, var(--accent-primary));
 }
 
 /* --- Preview Wrapper --- */
 .previewWrapper {
   min-height: 100vh;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.04), inset 0 -2px 8px rgba(0,0,0,0.04);
 }
 
 /* --- Persistent CTA --- */
@@ -128,7 +170,9 @@
   justify-content: center;
   gap: 12px;
   padding: 14px 16px;
-  background: var(--bg-primary);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid var(--border-light);
   box-shadow: 0 -2px 8px rgba(15, 23, 42, 0.06);
 }
@@ -147,14 +191,15 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: #fff;
-  background: var(--accent-primary);
+  background: var(--theme-accent, var(--accent-primary));
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .persistentCtaButton:hover {
-  background: var(--accent-primary-dark);
+  background: var(--theme-accent, var(--accent-primary));
+  filter: brightness(0.9);
   transform: translateY(-1px);
 }
 
@@ -172,13 +217,94 @@
     justify-content: center;
   }
 
+  .packageInfo {
+    width: 100%;
+    margin-right: 0;
+  }
+
   .themeLabel {
     margin-right: 0;
+  }
+
+  /* Theme buttons: horizontally scrollable row instead of wrapping */
+  .themeButtonsRow {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    width: 100%;
+    padding-bottom: 4px;
+  }
+
+  .themeButton {
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .persistentCta {
     flex-direction: column;
     gap: 8px;
     padding: 12px;
+  }
+}
+
+/* --- Group-Specific Section Spacing --- */
+.spacingProfessional {
+  --section-padding: 7rem;
+}
+
+.spacingBeauty {
+  --section-padding: 6rem;
+}
+
+.spacingHomeServices {
+  --section-padding: 4rem;
+}
+
+.spacingFoodHospitality {
+  --section-padding: 5rem;
+}
+
+.spacingFoodHospitality > *:nth-child(even) {
+  --section-padding: 7rem;
+}
+
+/* --- Mobile Section Spacing Overrides --- */
+@media (max-width: 767px) {
+  .spacingProfessional {
+    --section-padding: 2.5rem;
+  }
+  .spacingBeauty {
+    --section-padding: 3rem;
+  }
+  .spacingHomeServices {
+    --section-padding: 2.5rem;
+  }
+  .spacingFoodHospitality {
+    --section-padding: 2.5rem;
+  }
+  .spacingFoodHospitality > *:nth-child(even) {
+    --section-padding: 3.5rem;
+  }
+}
+
+/* --- Scroll Entrance Animations --- */
+.sectionAnimated {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.sectionVisible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease-out, transform 600ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sectionAnimated {
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
   }
 }

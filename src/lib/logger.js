@@ -8,19 +8,19 @@
  * Requirements: 13.1, 13.2, 13.3
  */
 
-const isDev = import.meta.env.MODE === 'development'
+const isDev = import.meta.env.MODE === "development";
 
-let transport = null
+let transport = null;
 
 /**
  * Register a custom transport for production error reporting.
  * @param {(level: string, message: string, context?: object) => void} fn
  */
 export function setTransport(fn) {
-  if (typeof fn !== 'function') {
-    throw new TypeError('Transport must be a function')
+  if (typeof fn !== "function") {
+    throw new TypeError("Transport must be a function");
   }
-  transport = fn
+  transport = fn;
 }
 
 /**
@@ -29,15 +29,15 @@ export function setTransport(fn) {
  * @param {object} [context]
  */
 export function logError(error, context) {
-  const message = error instanceof Error ? error.message : String(error)
+  const message = error instanceof Error ? error.message : String(error);
 
   if (transport) {
-    transport('error', message, context)
-    return
+    transport("error", message, context);
+    return;
   }
 
   if (isDev) {
-    console.error('[Logger]', message, context ?? '')
+    console.error("[Logger]", message, context ?? "");
   }
 }
 
@@ -48,11 +48,11 @@ export function logError(error, context) {
  */
 export function logWarn(message, context) {
   if (transport) {
-    transport('warn', message, context)
-    return
+    transport("warn", message, context);
+    return;
   }
 
   if (isDev) {
-    console.warn('[Logger]', message, context ?? '')
+    console.warn("[Logger]", message, context ?? "");
   }
 }

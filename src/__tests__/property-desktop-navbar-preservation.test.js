@@ -22,7 +22,10 @@ function extractDeclarations(cssBlock, selector) {
   if (!match) return {};
 
   const declarations = {};
-  const lines = match[1].split(";").map((l) => l.trim()).filter(Boolean);
+  const lines = match[1]
+    .split(";")
+    .map((l) => l.trim())
+    .filter(Boolean);
   for (const line of lines) {
     const colonIdx = line.indexOf(":");
     if (colonIdx === -1) continue;
@@ -130,7 +133,10 @@ describe("[Preservation] Property 2: Desktop navbar rules are unchanged", () => 
   });
 
   it(".site-navbar-overlay.open still has display: flex", () => {
-    const declarations = extractDeclarations(cssContent, ".site-navbar-overlay.open");
+    const declarations = extractDeclarations(
+      cssContent,
+      ".site-navbar-overlay.open",
+    );
 
     fc.assert(
       fc.property(

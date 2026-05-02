@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 const resources = [
   {
     category: "For Developers",
@@ -47,13 +49,17 @@ const resources = [
 ];
 
 export default function LearnPage() {
+  useEffect(() => {
+    document.title = "Learn — Adverse Solutions | Developer Guides & Resources";
+  }, []);
+
   return (
     <div className="container">
       <div className="page-header">
-        <h1 className="page-title">Learn</h1>
+        <h1 className="page-title">Learn with Adverse</h1>
         <p className="page-subtitle">
-          Guides and resources from Adverse — for developers learning the stack
-          and clients understanding the process.
+          Guides and resources from Adverse Solutions — for developers learning
+          the stack and clients understanding the process.
         </p>
       </div>
 

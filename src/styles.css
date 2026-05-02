@@ -2059,145 +2059,189 @@ h4 {
   letter-spacing: var(--letter-spacing-wide);
 }
 
-/* Skills */
-.skills-grid {
+/* How We Work — Numbered Principles */
+.about-principles {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--border-light);
+}
+
+.about-principle {
+  display: flex;
+  gap: var(--space-6);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--border-light);
+  align-items: baseline;
+}
+
+.about-principle-number {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--accent-primary);
+  opacity: 0.3;
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 52px;
+  font-variant-numeric: tabular-nums;
+}
+
+.about-principle-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.about-principle-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-color);
+}
+
+.about-principle-desc {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--letter-spacing-wide);
+  max-width: 600px;
+}
+
+/* About CTA — minimal, text-driven */
+.about-cta {
+  text-align: center;
+  padding: var(--space-16) var(--space-4);
+  margin: var(--space-8) 0 var(--space-16);
+}
+
+.about-cta-label {
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-primary);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-3);
+}
+
+.about-cta-headline {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color);
+  margin-bottom: var(--space-8);
+  line-height: var(--line-height-tight);
+}
+
+.about-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--accent-primary);
+  border-bottom: 2px solid var(--accent-primary);
+  padding-bottom: var(--space-1);
+  transition: gap var(--transition-fast), color var(--transition-fast);
+  text-decoration: none;
+}
+
+.about-cta-btn:hover {
   gap: var(--space-3);
 }
 
-.skill-pill {
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-full);
+.about-cta-btn i {
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  background: var(--accent-bg-subtle);
-  border: 1px solid var(--accent-border);
-  color: var(--text-color);
-  transition: all var(--transition-fast);
+  transition: transform var(--transition-fast);
 }
 
-.skill-pill:hover {
-  background: var(--accent-primary-light);
-  transform: translateY(-1px);
-}
-
-.skill-group {
-  margin-bottom: var(--space-4);
-}
-
-.skill-group-label {
-  font-size: var(--font-size-xs, 0.75rem);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.5;
-  margin: 0 0 var(--space-2) 0;
-}
-
-/* Timeline */
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-  padding-left: var(--space-6);
-  border-left: 2px solid var(--accent-border);
-}
-
-.timeline-entry {
-  position: relative;
-  display: flex;
-  gap: var(--space-4);
-  align-items: flex-start;
-}
-
-.timeline-entry::before {
-  content: "";
-  position: absolute;
-  left: calc(-1 * var(--space-6) - 5px);
-  top: 6px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent-primary);
-  border: 2px solid var(--bg-primary);
-}
-
-.timeline-year {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  color: var(--accent-primary);
-  min-width: 48px;
-  flex-shrink: 0;
-}
-
-.timeline-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.timeline-title {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
-}
-
-.timeline-desc {
-  font-size: var(--font-size-sm);
-  color: var(--text-muted);
-  line-height: var(--line-height-relaxed);
+.about-cta-btn:hover i {
+  transform: translateX(2px);
 }
 
 @media (max-width: 600px) {
   .about-bio {
-    padding: var(--space-6) var(--space-4);
-    border-radius: var(--radius-lg);
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: var(--space-6);
   }
   .about-bio-header {
-    flex-direction: column;
-    text-align: center;
+    flex-direction: row;
+    text-align: left;
     gap: var(--space-4);
-  }
-  .about-bio-info {
     align-items: center;
   }
+  .about-bio-info {
+    align-items: flex-start;
+  }
   .about-name {
-    justify-content: center;
+    justify-content: flex-start;
     font-size: var(--font-size-lg);
   }
   .about-avatar {
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
+    border-width: 2px;
+    box-shadow: 0 0 0 3px var(--accent-bg-medium);
   }
   .about-bio-text {
     font-size: var(--font-size-sm);
-    gap: var(--space-3);
+    gap: var(--space-4);
+    line-height: 1.7;
+  }
+  .about-section {
+    margin-bottom: var(--space-6);
   }
   .about-section-title {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: none;
+    margin-bottom: var(--space-4);
+    color: var(--text-muted);
+    padding-bottom: 0;
   }
   .about-section-intro {
     font-size: var(--font-size-sm);
   }
-  .timeline {
-    padding-left: var(--space-4);
-    gap: var(--space-4);
+  .about-principles {
+    border-top: none;
+    gap: var(--space-5);
   }
-  .timeline-entry {
-    flex-direction: column;
-    gap: var(--space-1);
+  .about-principle {
+    border-bottom: none;
+    padding: 0;
+    gap: var(--space-3);
+    align-items: flex-start;
   }
-  .timeline-entry::before {
-    left: calc(-1 * var(--space-4) - 5px);
+  .about-principle-number {
+    font-size: var(--font-size-xl);
+    min-width: 32px;
+    opacity: 0.2;
   }
-  .timeline-title {
+  .about-principle-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+  }
+  .about-principle-desc {
     font-size: var(--font-size-sm);
   }
-  .timeline-desc {
-    font-size: var(--font-size-xs);
+  .about-cta {
+    padding: var(--space-10) 0;
+    margin: var(--space-4) 0 var(--space-6);
+    text-align: left;
   }
-  .skill-pill {
-    padding: var(--space-1) var(--space-3);
-    font-size: var(--font-size-xs);
+  .about-cta-label {
+    font-size: var(--font-size-xs, 0.75rem);
+  }
+  .about-cta-headline {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-6);
+  }
+  .about-cta-btn {
+    font-size: var(--font-size-sm);
+  }
+  .flag {
+    width: 22px;
   }
 }
 

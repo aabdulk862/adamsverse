@@ -68,7 +68,9 @@ describe("15.1 Hero Section (ProfileHeader)", () => {
   it("renders trust tagline instead of capability pills", () => {
     renderHero();
     expect(
-      screen.getByText(/Transparent pricing · Full-stack ownership · No agency overhead/i),
+      screen.getByText(
+        /Transparent pricing · Full-stack ownership · No agency overhead/i,
+      ),
     ).toBeInTheDocument();
   });
 

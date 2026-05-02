@@ -10,15 +10,15 @@
 // ---------------------------------------------------------------------------
 
 const APPROVAL_KEYWORDS = [
-  'approve',
-  'yes',
-  'ok',
-  'looks good',
-  'proceed',
-  'go ahead',
-  'confirmed',
-  'lgtm'
-]
+  "approve",
+  "yes",
+  "ok",
+  "looks good",
+  "proceed",
+  "go ahead",
+  "confirmed",
+  "lgtm",
+];
 
 // ---------------------------------------------------------------------------
 // formatAlignmentCheck
@@ -34,60 +34,62 @@ const APPROVAL_KEYWORDS = [
  */
 export function formatAlignmentCheck(tasks, agentRoles) {
   if (!Array.isArray(tasks) || tasks.length === 0) {
-    return '⚠️ No tasks to display in the alignment check.'
+    return "⚠️ No tasks to display in the alignment check.";
   }
 
   if (!Array.isArray(agentRoles) || agentRoles.length === 0) {
-    return '⚠️ No agent roles available for the alignment check.'
+    return "⚠️ No agent roles available for the alignment check.";
   }
 
   // Build a lookup map from role id to role object
-  const roleMap = new Map()
+  const roleMap = new Map();
   for (const role of agentRoles) {
-    roleMap.set(role.id, role)
+    roleMap.set(role.id, role);
   }
 
-  const lines = []
+  const lines = [];
 
-  lines.push('═══════════════════════════════════════════════════')
-  lines.push('  📋 Proposed Execution Plan — Alignment Check')
-  lines.push('═══════════════════════════════════════════════════')
-  lines.push('')
+  lines.push("═══════════════════════════════════════════════════");
+  lines.push("  📋 Proposed Execution Plan — Alignment Check");
+  lines.push("═══════════════════════════════════════════════════");
+  lines.push("");
 
   for (let i = 0; i < tasks.length; i++) {
-    const task = tasks[i]
-    const role = roleMap.get(task.agent_role_id)
-    const roleName = role ? role.name : 'Unknown Role'
-    const order = i + 1
+    const task = tasks[i];
+    const role = roleMap.get(task.agent_role_id);
+    const roleName = role ? role.name : "Unknown Role";
+    const order = i + 1;
 
-    lines.push(`Step ${order}: ${task.name}`)
-    lines.push(`  Agent Role: ${roleName}`)
-    lines.push(`  Execution Order: ${order} of ${tasks.length}`)
+    lines.push(`Step ${order}: ${task.name}`);
+    lines.push(`  Agent Role: ${roleName}`);
+    lines.push(`  Execution Order: ${order} of ${tasks.length}`);
 
     // Expected outputs derived from the role's output_schema
-    const expectedOutputs = describeExpectedOutputs(role)
-    lines.push(`  Expected Outputs: ${expectedOutputs}`)
+    const expectedOutputs = describeExpectedOutputs(role);
+    lines.push(`  Expected Outputs: ${expectedOutputs}`);
 
     // Show dependencies if any
     if (task.depends_on && task.depends_on.length > 0) {
       const depNames = task.depends_on
         .map((depId) => {
-          const depTask = tasks.find((t) => t.id === depId || t._temp_id === depId)
-          return depTask ? depTask.name : depId
+          const depTask = tasks.find(
+            (t) => t.id === depId || t._temp_id === depId,
+          );
+          return depTask ? depTask.name : depId;
         })
-        .join(', ')
-      lines.push(`  Depends On: ${depNames}`)
+        .join(", ");
+      lines.push(`  Depends On: ${depNames}`);
     }
 
-    lines.push('')
+    lines.push("");
   }
 
-  lines.push('───────────────────────────────────────────────────')
-  lines.push(`Total Tasks: ${tasks.length}`)
-  lines.push('')
-  lines.push('Reply "approve" to proceed or provide feedback to revise.')
+  lines.push("───────────────────────────────────────────────────");
+  lines.push(`Total Tasks: ${tasks.length}`);
+  lines.push("");
+  lines.push('Reply "approve" to proceed or provide feedback to revise.');
 
-  return lines.join('\n')
+  return lines.join("\n");
 }
 
 // ---------------------------------------------------------------------------
@@ -106,20 +108,20 @@ export function formatAlignmentCheck(tasks, agentRoles) {
  * @returns {{ approved: boolean, feedback?: string }}
  */
 export function parseAlignmentResponse(response) {
-  if (!response || typeof response !== 'string' || response.trim() === '') {
-    return { approved: false, feedback: '' }
+  if (!response || typeof response !== "string" || response.trim() === "") {
+    return { approved: false, feedback: "" };
   }
 
-  const normalised = response.trim().toLowerCase()
+  const normalised = response.trim().toLowerCase();
 
   for (const keyword of APPROVAL_KEYWORDS) {
     if (normalised === keyword || normalised.includes(keyword)) {
-      return { approved: true }
+      return { approved: true };
     }
   }
 
   // Not an approval — return the original response as feedback
-  return { approved: false, feedback: response.trim() }
+  return { approved: false, feedback: response.trim() };
 }
 
 // ---------------------------------------------------------------------------
@@ -136,29 +138,29 @@ export function parseAlignmentResponse(response) {
  */
 function describeExpectedOutputs(role) {
   if (!role || !role.output_schema) {
-    return 'Structured output (schema not specified)'
+    return "Structured output (schema not specified)";
   }
 
-  const schema = role.output_schema
+  const schema = role.output_schema;
 
   // If the schema has top-level properties, list them
-  if (schema.properties && typeof schema.properties === 'object') {
-    const keys = Object.keys(schema.properties)
+  if (schema.properties && typeof schema.properties === "object") {
+    const keys = Object.keys(schema.properties);
     if (keys.length > 0) {
-      return keys.join(', ')
+      return keys.join(", ");
     }
   }
 
   // If the schema has a type, mention it
   if (schema.type) {
-    return `${schema.type} output`
+    return `${schema.type} output`;
   }
 
-  return 'Structured output'
+  return "Structured output";
 }
 
 // ---------------------------------------------------------------------------
 // Exports for testing
 // ---------------------------------------------------------------------------
 
-export { APPROVAL_KEYWORDS }
+export { APPROVAL_KEYWORDS };

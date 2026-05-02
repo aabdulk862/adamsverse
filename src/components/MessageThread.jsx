@@ -1,84 +1,93 @@
-import { useState, useEffect, useRef } from 'react'
-import { useMessages } from '../hooks/useMessages'
-import { useAuth } from '../hooks/useAuth'
+import { useState, useEffect, useRef } from "react";
+import { useMessages } from "../hooks/useMessages";
+import { useAuth } from "../hooks/useAuth";
 
-const MAX_FILE_SIZE = 25 * 1024 * 1024 // 25 MB
+const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25 MB
 
 function formatTimestamp(dateStr) {
-  const date = new Date(dateStr)
-  const now = new Date()
-  const diffMs = now - date
-  const diffMins = Math.floor(diffMs / 60000)
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now - date;
+  const diffMins = Math.floor(diffMs / 60000);
 
-  if (diffMins < 1) return 'Just now'
-  if (diffMins < 60) return `${diffMins}m ago`
+  if (diffMins < 1) return "Just now";
+  if (diffMins < 60) return `${diffMins}m ago`;
 
-  const isToday = date.toDateString() === now.toDateString()
-  const time = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+  const isToday = date.toDateString() === now.toDateString();
+  const time = date.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+  });
 
-  if (isToday) return time
+  if (isToday) return time;
 
-  const yesterday = new Date(now)
-  yesterday.setDate(yesterday.getDate() - 1)
-  if (date.toDateString() === yesterday.toDateString()) return `Yesterday ${time}`
+  const yesterday = new Date(now);
+  yesterday.setDate(yesterday.getDate() - 1);
+  if (date.toDateString() === yesterday.toDateString())
+    return `Yesterday ${time}`;
 
-  return `${date.toLocaleDateString([], { month: 'short', day: 'numeric' })} ${time}`
+  return `${date.toLocaleDateString([], { month: "short", day: "numeric" })} ${time}`;
 }
 
 export default function MessageThread({ projectId }) {
-  const { messages, loading, error, fetchMessages, sendMessage } = useMessages(projectId)
-  const { user, profile } = useAuth()
-  const [content, setContent] = useState('')
-  const [file, setFile] = useState(null)
-  const [sending, setSending] = useState(false)
-  const [fileError, setFileError] = useState(null)
-  const messagesEndRef = useRef(null)
-  const fileInputRef = useRef(null)
+  const { messages, loading, error, fetchMessages, sendMessage } =
+    useMessages(projectId);
+  const { user, profile } = useAuth();
+  const [content, setContent] = useState("");
+  const [file, setFile] = useState(null);
+  const [sending, setSending] = useState(false);
+  const [fileError, setFileError] = useState(null);
+  const messagesEndRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
-    if (projectId) fetchMessages()
-  }, [projectId, fetchMessages])
+    if (projectId) fetchMessages();
+  }, [projectId, fetchMessages]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleFileChange = (e) => {
-    const selected = e.target.files?.[0]
-    setFileError(null)
+    const selected = e.target.files?.[0];
+    setFileError(null);
     if (!selected) {
-      setFile(null)
-      return
+      setFile(null);
+      return;
     }
     if (selected.size > MAX_FILE_SIZE) {
-      setFileError('File size exceeds the 25 MB limit')
-      setFile(null)
-      if (fileInputRef.current) fileInputRef.current.value = ''
-      return
+      setFileError("File size exceeds the 25 MB limit");
+      setFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
     }
-    setFile(selected)
-  }
+    setFile(selected);
+  };
 
   const handleSend = async (e) => {
-    e.preventDefault()
-    if (!content.trim() && !file) return
+    e.preventDefault();
+    if (!content.trim() && !file) return;
 
-    setSending(true)
-    const result = await sendMessage(projectId, content.trim(), file || undefined)
-    setSending(false)
+    setSending(true);
+    const result = await sendMessage(
+      projectId,
+      content.trim(),
+      file || undefined,
+    );
+    setSending(false);
 
     if (result) {
       // Success — clear inputs
-      setContent('')
-      setFile(null)
-      setFileError(null)
-      if (fileInputRef.current) fileInputRef.current.value = ''
+      setContent("");
+      setFile(null);
+      setFileError(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
     // On failure, content is retained (not cleared)
-  }
+  };
 
-  const currentUserId = user?.id
+  const currentUserId = user?.id;
 
   return (
     <div className="msg-thread">
@@ -99,27 +108,33 @@ export default function MessageThread({ projectId }) {
         )}
 
         {messages.map((msg) => {
-          const isOwn = msg.sender_id === currentUserId
+          const isOwn = msg.sender_id === currentUserId;
           return (
             <div
               key={msg.id}
-              className={`msg-bubble-wrap ${isOwn ? 'msg-bubble-wrap--own' : ''}`}
+              className={`msg-bubble-wrap ${isOwn ? "msg-bubble-wrap--own" : ""}`}
             >
               {!isOwn && (
                 <div className="msg-avatar">
                   {msg.sender_avatar_url ? (
-                    <img src={msg.sender_avatar_url} alt="" className="msg-avatar-img" />
+                    <img
+                      src={msg.sender_avatar_url}
+                      alt=""
+                      className="msg-avatar-img"
+                    />
                   ) : (
                     <div className="msg-avatar-fallback">
-                      {(msg.sender_name || msg.sender_id || '?').charAt(0).toUpperCase()}
+                      {(msg.sender_name || msg.sender_id || "?")
+                        .charAt(0)
+                        .toUpperCase()}
                     </div>
                   )}
                 </div>
               )}
-              <div className={`msg-bubble ${isOwn ? 'msg-bubble--own' : ''}`}>
+              <div className={`msg-bubble ${isOwn ? "msg-bubble--own" : ""}`}>
                 {!isOwn && (
                   <span className="msg-sender-name">
-                    {msg.sender_name || 'Unknown'}
+                    {msg.sender_name || "Unknown"}
                   </span>
                 )}
                 {msg.content && <p className="msg-content">{msg.content}</p>}
@@ -131,14 +146,16 @@ export default function MessageThread({ projectId }) {
                     className="msg-attachment"
                   >
                     <i className="fa-solid fa-paperclip" />
-                    <span>{msg.file_name || 'Attachment'}</span>
+                    <span>{msg.file_name || "Attachment"}</span>
                     <i className="fa-solid fa-arrow-up-right-from-square msg-attachment-icon" />
                   </a>
                 )}
-                <span className="msg-timestamp">{formatTimestamp(msg.created_at)}</span>
+                <span className="msg-timestamp">
+                  {formatTimestamp(msg.created_at)}
+                </span>
               </div>
             </div>
-          )
+          );
         })}
         <div ref={messagesEndRef} />
       </div>
@@ -169,8 +186,8 @@ export default function MessageThread({ projectId }) {
               type="button"
               className="msg-file-preview-remove"
               onClick={() => {
-                setFile(null)
-                if (fileInputRef.current) fileInputRef.current.value = ''
+                setFile(null);
+                if (fileInputRef.current) fileInputRef.current.value = "";
               }}
               aria-label="Remove file"
             >
@@ -217,5 +234,5 @@ export default function MessageThread({ projectId }) {
         </div>
       </form>
     </div>
-  )
+  );
 }

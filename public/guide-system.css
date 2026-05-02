@@ -1984,7 +1984,9 @@ footer span {
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, opacity 0.2s;
+  transition:
+    background 0.2s,
+    opacity 0.2s;
 }
 .playground-run-btn:hover {
   background: #0052cc;
@@ -2010,7 +2012,9 @@ footer span {
   display: none;
 }
 @keyframes playground-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Reset button */
@@ -2027,7 +2031,10 @@ footer span {
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
 }
 .playground-reset-btn:hover {
   background: var(--surface2);
