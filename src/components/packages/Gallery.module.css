@@ -297,6 +297,22 @@
   .heading {
     font-size: 1.5rem;
   }
+
+  .galleryBeauty .imageWrapper {
+    border-radius: 16px;
+  }
+
+  .galleryBeauty .grid {
+    gap: 1rem;
+  }
+
+  .galleryProfessional .grid {
+    gap: 1rem;
+  }
+
+  .galleryHomeServices .grid {
+    gap: 0.75rem;
+  }
 }
 
 .galleryFoodHospitality .imageWrapper {

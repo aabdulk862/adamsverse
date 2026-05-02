@@ -109,7 +109,8 @@ export default function PackagesPage() {
   }));
 
   useEffect(() => {
-    document.title = "Website Packages — Adverse Solutions | AI-Powered Web Design";
+    document.title =
+      "Website Packages — Adverse Solutions | AI-Powered Web Design";
   }, []);
 
   return (
@@ -117,24 +118,40 @@ export default function PackagesPage() {
       <div className="page-header">
         <h1 className="page-title">Website Packages</h1>
         <p className="page-subtitle">
-          Browse Adverse Solutions' AI-powered website packages. Preview any
-          design and make it yours.
+          Fully designed websites for your industry. Preview live, pick a theme,
+          and launch.
         </p>
       </div>
 
-      <div className={styles.pricingNote}>
-        <p>
-          <strong>Base fee</strong> per package · determined by project scope
-        </p>
-        <span className={styles.pricingDivider}></span>
-        <p>
-          <strong>Maintenance</strong> available · billed monthly
-        </p>
-        <span className={styles.pricingDivider}></span>
-        <p>
-          <strong>Custom requests</strong> welcome ·{" "}
-          <Link to="/contact">let's talk</Link>
-        </p>
+      <div className={styles.introCard}>
+        <div className={styles.howItWorks}>
+          <div className={styles.step}>
+            <span className={styles.stepIcon}>1</span>
+            <span className={styles.stepLabel}>Browse by industry</span>
+          </div>
+          <div className={styles.step}>
+            <span className={styles.stepIcon}>2</span>
+            <span className={styles.stepLabel}>Preview with themes</span>
+          </div>
+          <div className={styles.step}>
+            <span className={styles.stepIcon}>3</span>
+            <span className={styles.stepLabel}>Get in touch to launch</span>
+          </div>
+        </div>
+        <div className={styles.pricingNote}>
+          <p>
+            <strong>Base fee</strong> per package · determined by scope
+          </p>
+          <span className={styles.pricingDivider}></span>
+          <p>
+            <strong>Maintenance</strong> available · billed monthly
+          </p>
+          <span className={styles.pricingDivider}></span>
+          <p>
+            <strong>Custom requests</strong> welcome ·{" "}
+            <Link to="/contact">let's talk</Link>
+          </p>
+        </div>
       </div>
 
       {grouped.map((group) => {
