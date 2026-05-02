@@ -461,7 +461,7 @@ const themes = {
     },
     {
       name: "photographer-gallery",
-      label: "Gallery White",
+      label: "Gallery",
       colors: {
         bgBase: "#ffffff",
         bgSurface: "#f5f5f5",

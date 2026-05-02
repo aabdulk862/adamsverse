@@ -141,16 +141,20 @@
   height: 12px;
   border-radius: 50%;
   flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
 }
 
 .themeButtonActive {
-  background: transparent;
+  background: rgba(0, 0, 0, 0.05);
   border: 2px solid var(--theme-accent, var(--accent-primary));
-  color: var(--theme-accent, var(--accent-primary));
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold, 600);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
 .themeButtonActive:hover {
-  background: transparent;
+  background: rgba(0, 0, 0, 0.08);
   border-color: var(--theme-accent, var(--accent-primary));
 }
 
@@ -206,46 +210,60 @@
 /* --- Responsive --- */
 @media (max-width: 767px) {
   .themeToggle {
-    flex-wrap: wrap;
     gap: 6px;
-    padding: 10px 12px;
+    padding: 8px 10px;
   }
 
   .themeToggle .backLink {
-    width: 100%;
-    margin-right: 0;
-    justify-content: center;
+    padding: 4px 8px;
+    font-size: var(--font-size-xs, 0.75rem);
+    margin-right: auto;
   }
 
+  /* Hide package info on mobile — content is visible below */
   .packageInfo {
-    width: 100%;
-    margin-right: 0;
+    display: none;
   }
 
   .themeLabel {
-    margin-right: 0;
+    display: none;
   }
 
-  /* Theme buttons: horizontally scrollable row instead of wrapping */
   .themeButtonsRow {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    gap: 6px;
-    width: 100%;
-    padding-bottom: 4px;
+    gap: 4px;
+    padding-bottom: 2px;
   }
 
   .themeButton {
     flex-shrink: 0;
     white-space: nowrap;
+    padding: 4px 10px;
+    font-size: var(--font-size-xs, 0.75rem);
+    gap: 4px;
+  }
+
+  .themeSwatch {
+    width: 10px;
+    height: 10px;
   }
 
   .persistentCta {
     flex-direction: column;
     gap: 8px;
-    padding: 12px;
+    padding: 10px 12px;
+  }
+
+  .persistentCta span {
+    font-size: var(--font-size-xs, 0.75rem);
+  }
+
+  .persistentCtaButton {
+    padding: 8px 20px;
+    font-size: var(--font-size-xs, 0.75rem);
   }
 }
 

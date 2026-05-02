@@ -19,10 +19,39 @@ export default function Hero({ content, theme, layout, packageName }) {
 
   const hasImage = heroImage && !imageError;
 
-  // Professional layout uses a split design: text left, image right
+  // Professional layout: split on desktop, full-bleed on mobile
   if (layout === "professional") {
+    const bgStyle = hasImage
+      ? { backgroundImage: `url(${heroImage})`, backgroundSize: "cover", backgroundPosition: "center" }
+      : undefined;
+
     return (
-      <section className={heroClassName} data-testid="hero">
+      <section className={heroClassName} data-testid="hero" style={bgStyle}>
+        {/* Mobile: overlay for text legibility over background image */}
+        <div className={styles.mobileOverlay} />
+        {/* Hidden img to detect load failure */}
+        {heroImage && !imageError && (
+          <img
+            src={heroImage}
+            alt=""
+            onError={() => setImageError(true)}
+            style={{ display: "none" }}
+          />
+        )}
+        {/* Mobile: centered text overlay (visible < 768px) */}
+        <div className={styles.mobileContent}>
+          {packageName && (
+            <span className={styles.brandingLabel}>{packageName}</span>
+          )}
+          {headline && <h1 className={styles.headline}>{headline}</h1>}
+          {subheadline && <p className={styles.subheadline}>{subheadline}</p>}
+          {ctaText && (
+            <button type="button" className={styles.cta}>
+              {ctaText}
+            </button>
+          )}
+        </div>
+        {/* Desktop: split layout (visible >= 768px) */}
         <div className={styles.splitInner}>
           <div className={styles.splitText}>
             {packageName && (
@@ -62,12 +91,10 @@ export default function Hero({ content, theme, layout, packageName }) {
   }
 
   // Beauty, Home Services, Food & Hospitality — centered overlay text
-  // When heroImage is present, use it as background-image via inline style
   const bgStyle = hasImage
     ? { backgroundImage: `url(${heroImage})`, backgroundSize: "cover", backgroundPosition: "center" }
     : undefined;
 
-  // Show placeholder text only when there is no heroImage
   const showBgPhotoHint =
     !hasImage && (layout === "homeServices" || layout === "foodHospitality");
 
@@ -77,7 +104,6 @@ export default function Hero({ content, theme, layout, packageName }) {
       {showBgPhotoHint && (
         <span className={styles.bgPhotoPlaceholder}>Add your photo here</span>
       )}
-      {/* Hidden img to detect load failure for background-image */}
       {heroImage && !imageError && (
         <img
           src={heroImage}
