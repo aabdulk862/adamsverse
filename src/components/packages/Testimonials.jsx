@@ -10,11 +10,15 @@ const LAYOUT_CLASS_MAP = {
 
 const AVATAR_LEFT_LAYOUTS = new Set(["professional", "homeServices"]);
 
+const DEFAULT_LAYOUT = "professional";
+
 export default function Testimonials({ content, theme, layout }) {
   const { heading, items } = content || {};
   const [erroredAvatars, setErroredAvatars] = useState(new Set());
 
-  const variantClass = LAYOUT_CLASS_MAP[layout];
+  // Fall back to default layout when unknown variant is passed
+  const resolvedLayout = LAYOUT_CLASS_MAP[layout] ? layout : DEFAULT_LAYOUT;
+  const variantClass = LAYOUT_CLASS_MAP[resolvedLayout];
   const sectionClassName = [
     styles.testimonials,
     variantClass ? styles[variantClass] : "",
@@ -55,7 +59,7 @@ export default function Testimonials({ content, theme, layout }) {
     );
   };
 
-  const avatarLeftOfAttribution = AVATAR_LEFT_LAYOUTS.has(layout);
+  const avatarLeftOfAttribution = AVATAR_LEFT_LAYOUTS.has(resolvedLayout);
 
   return (
     <section className={sectionClassName}>
@@ -65,7 +69,7 @@ export default function Testimonials({ content, theme, layout }) {
           <div className={styles.grid}>
             {items.map((item, index) => (
               <blockquote key={index} className={styles.card}>
-                {layout === "homeServices" && (
+                {resolvedLayout === "homeServices" && (
                   <div className={styles.stars} aria-label="5 out of 5 stars">
                     ★★★★★
                   </div>

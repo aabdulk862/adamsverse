@@ -312,12 +312,12 @@
   font-weight: var(--font-weightBold, 800);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #ffffff;
+  color: var(--color-overlay-text, #fff);
   font-size: 1.75rem;
 }
 
 .ctaHomeServices .body {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-overlay-text-secondary);
 }
 
 .ctaHomeServices .button {

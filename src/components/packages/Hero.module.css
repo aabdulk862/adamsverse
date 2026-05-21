@@ -112,15 +112,15 @@
 }
 
 .heroProfessional .headline {
-  color: #ffffff;
+  color: var(--color-overlay-text, #fff);
 }
 
 .heroProfessional .subheadline {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--color-overlay-text-secondary);
 }
 
 .heroProfessional .brandingLabel {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-overlay-text-muted);
 }
 
 /* Split layout — hidden on mobile, visible on tablet+ */
@@ -339,19 +339,19 @@
 .heroFoodHospitality .headline,
 .heroFoodHospitality .subheadline,
 .heroFoodHospitality .brandingLabel {
-  color: #ffffff;
+  color: var(--color-overlay-text, #fff);
 }
 
 .heroBeauty .subheadline,
 .heroHomeServices .subheadline,
 .heroFoodHospitality .subheadline {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--color-overlay-text-secondary);
 }
 
 .heroBeauty .brandingLabel,
 .heroHomeServices .brandingLabel,
 .heroFoodHospitality .brandingLabel {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-overlay-text-muted);
 }
 
 /* ===== Responsive — Tablet: 768px+ ===== */

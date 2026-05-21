@@ -4,13 +4,7 @@ import packages from "../data/packages";
 import themes from "../data/themes";
 import applyTheme from "../utils/applyTheme";
 import loadFonts from "../utils/fontLoader";
-import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import Hero from "../components/packages/Hero";
-import Services from "../components/packages/Services";
-import Gallery from "../components/packages/Gallery";
-import Testimonials from "../components/packages/Testimonials";
-import CTA from "../components/packages/CTA";
-import SectionDivider from "../components/packages/SectionDivider";
+import SectionRenderer from "../components/packages/SectionRenderer";
 import styles from "./PackageDetailPage.module.css";
 
 const CATEGORY_LAYOUT_MAP = {
@@ -34,13 +28,6 @@ export default function PackageDetailPage() {
   const [activeTheme, setActiveTheme] = useState(0);
 
   const packageThemes = themes[slug] || [];
-
-  // Scroll animation hooks — one per animated section (Hero is exempt)
-  // Hooks must be called unconditionally (before any early returns)
-  const servicesAnim = useScrollAnimation();
-  const galleryAnim = useScrollAnimation();
-  const testimonialsAnim = useScrollAnimation();
-  const ctaAnim = useScrollAnimation();
 
   useEffect(() => {
     if (wrapperRef.current && packageThemes[activeTheme]) {
@@ -82,6 +69,22 @@ export default function PackageDetailPage() {
     if (theme?.label) params.set("theme", theme.label);
     return `/contact?${params.toString()}`;
   }, [pkg, packageThemes, activeTheme]);
+
+  // Construct Package_Config from existing package data for SectionRenderer
+  const config = useMemo(() => {
+    if (!pkg) return null;
+    const firstThemeName = packageThemes[0]?.name || "";
+    return {
+      slug: pkg.slug,
+      name: pkg.name,
+      category: pkg.category,
+      description: pkg.description || "",
+      packageType: pkg.packageType || "static",
+      themeRef: pkg.themeRef || firstThemeName,
+      sections: pkg.sections,
+      ...(pkg.metadata ? { metadata: pkg.metadata } : {}),
+    };
+  }, [pkg, packageThemes]);
 
   // Package not found
   if (!pkg) {
@@ -165,60 +168,12 @@ export default function PackageDetailPage() {
         className={`${styles.previewWrapper}${LAYOUT_SPACING_MAP[layout] ? ` ${LAYOUT_SPACING_MAP[layout]}` : ""}`}
         data-testid="preview-wrapper"
       >
-        <Hero
-          content={pkg.sections.hero}
+        <SectionRenderer
+          config={config}
           theme={theme}
           layout={layout}
           packageName={pkg.name}
         />
-
-        <SectionDivider layout={layout} />
-
-        <div
-          ref={servicesAnim.ref}
-          className={`${styles.sectionAnimated} ${servicesAnim.isVisible ? styles.sectionVisible : ""}`}
-        >
-          <Services
-            content={pkg.sections.services}
-            theme={theme}
-            layout={layout}
-          />
-        </div>
-
-        <SectionDivider layout={layout} />
-
-        <div
-          ref={galleryAnim.ref}
-          className={`${styles.sectionAnimated} ${galleryAnim.isVisible ? styles.sectionVisible : ""}`}
-        >
-          <Gallery
-            content={pkg.sections.gallery}
-            theme={theme}
-            layout={layout}
-          />
-        </div>
-
-        <SectionDivider layout={layout} />
-
-        <div
-          ref={testimonialsAnim.ref}
-          className={`${styles.sectionAnimated} ${testimonialsAnim.isVisible ? styles.sectionVisible : ""}`}
-        >
-          <Testimonials
-            content={pkg.sections.testimonials}
-            theme={theme}
-            layout={layout}
-          />
-        </div>
-
-        <SectionDivider layout={layout} />
-
-        <div
-          ref={ctaAnim.ref}
-          className={`${styles.sectionAnimated} ${ctaAnim.isVisible ? styles.sectionVisible : ""}`}
-        >
-          <CTA content={pkg.sections.cta} theme={theme} layout={layout} />
-        </div>
       </div>
 
       {/* Persistent "Get Started" CTA */}

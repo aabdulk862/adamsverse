@@ -8,11 +8,15 @@ const LAYOUT_CLASS_MAP = {
   foodHospitality: "heroFoodHospitality",
 };
 
+const DEFAULT_LAYOUT = "professional";
+
 export default function Hero({ content, theme, layout, packageName }) {
   const { headline, subheadline, ctaText, heroImage } = content || {};
   const [imageError, setImageError] = useState(false);
 
-  const variantClass = LAYOUT_CLASS_MAP[layout];
+  // Fall back to default layout when unknown variant is passed
+  const resolvedLayout = LAYOUT_CLASS_MAP[layout] ? layout : DEFAULT_LAYOUT;
+  const variantClass = LAYOUT_CLASS_MAP[resolvedLayout];
   const heroClassName = [styles.hero, variantClass ? styles[variantClass] : ""]
     .filter(Boolean)
     .join(" ");
@@ -20,7 +24,7 @@ export default function Hero({ content, theme, layout, packageName }) {
   const hasImage = heroImage && !imageError;
 
   // Professional layout: split on desktop, full-bleed on mobile
-  if (layout === "professional") {
+  if (resolvedLayout === "professional") {
     const bgStyle = hasImage
       ? { backgroundImage: `url(${heroImage})`, backgroundSize: "cover", backgroundPosition: "center" }
       : undefined;
@@ -96,7 +100,7 @@ export default function Hero({ content, theme, layout, packageName }) {
     : undefined;
 
   const showBgPhotoHint =
-    !hasImage && (layout === "homeServices" || layout === "foodHospitality");
+    !hasImage && (resolvedLayout === "homeServices" || resolvedLayout === "foodHospitality");
 
   return (
     <section className={heroClassName} data-testid="hero" style={bgStyle}>

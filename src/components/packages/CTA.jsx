@@ -7,9 +7,14 @@ const LAYOUT_CLASS_MAP = {
   foodHospitality: "ctaFoodHospitality",
 };
 
+const DEFAULT_LAYOUT = "professional";
+
 export default function CTA({ content, theme, layout }) {
   const { heading, body, buttonText } = content || {};
-  const variantClass = LAYOUT_CLASS_MAP[layout];
+
+  // Fall back to default layout when unknown variant is passed
+  const resolvedLayout = LAYOUT_CLASS_MAP[layout] ? layout : DEFAULT_LAYOUT;
+  const variantClass = LAYOUT_CLASS_MAP[resolvedLayout];
   const sectionClassName = [
     styles.cta,
     variantClass ? styles[variantClass] : "",

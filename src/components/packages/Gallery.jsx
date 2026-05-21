@@ -9,13 +9,17 @@ const LAYOUT_CLASS_MAP = {
   foodHospitality: "galleryFoodHospitality",
 };
 
+const DEFAULT_LAYOUT = "professional";
+
 export default function Gallery({ content, theme, layout }) {
   const { heading, images } = content || {};
   const [erroredImages, setErroredImages] = useState(new Set());
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const variantClass = LAYOUT_CLASS_MAP[layout];
+  // Fall back to default layout when unknown variant is passed
+  const resolvedLayout = LAYOUT_CLASS_MAP[layout] ? layout : DEFAULT_LAYOUT;
+  const variantClass = LAYOUT_CLASS_MAP[resolvedLayout];
   const sectionClassName = [
     styles.gallery,
     variantClass ? styles[variantClass] : "",
@@ -81,7 +85,7 @@ export default function Gallery({ content, theme, layout }) {
                     onError={() => handleImageError(index)}
                   />
                 )}
-                {layout === "professional" && image.alt && (
+                {resolvedLayout === "professional" && image.alt && (
                   <div className={styles.caption}>{image.alt}</div>
                 )}
               </div>

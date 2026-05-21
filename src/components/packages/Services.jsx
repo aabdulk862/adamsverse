@@ -10,9 +10,14 @@ const LAYOUT_CLASS_MAP = {
 // Layouts where the icon renders inline before the title in a flex row
 const INLINE_ICON_LAYOUTS = new Set(["professional", "homeServices"]);
 
+const DEFAULT_LAYOUT = "professional";
+
 export default function Services({ content, theme, layout }) {
   const { heading, items } = content || {};
-  const variantClass = LAYOUT_CLASS_MAP[layout];
+
+  // Fall back to default layout when unknown variant is passed
+  const resolvedLayout = LAYOUT_CLASS_MAP[layout] ? layout : DEFAULT_LAYOUT;
+  const variantClass = LAYOUT_CLASS_MAP[resolvedLayout];
   const sectionClassName = [
     styles.services,
     variantClass ? styles[variantClass] : "",
@@ -20,7 +25,7 @@ export default function Services({ content, theme, layout }) {
     .filter(Boolean)
     .join(" ");
 
-  const isInlineIcon = INLINE_ICON_LAYOUTS.has(layout);
+  const isInlineIcon = INLINE_ICON_LAYOUTS.has(resolvedLayout);
 
   return (
     <section className={sectionClassName}>
@@ -30,7 +35,7 @@ export default function Services({ content, theme, layout }) {
           <div className={styles.grid}>
             {items.map((item, index) => (
               <div key={index} className={styles.card}>
-                {layout === "professional" && (
+                {resolvedLayout === "professional" && (
                   <span className={styles.cardNumber}>
                     {String(index + 1).padStart(2, "0")}
                   </span>
