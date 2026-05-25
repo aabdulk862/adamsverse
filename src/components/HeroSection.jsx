@@ -34,9 +34,9 @@ export default function HeroSection() {
           <Link to="/packages" className={styles.btnPrimary}>
             Browse Website Packages
           </Link>
-          <a href="#tools" className={styles.btnSecondary}>
+          <Link to="/tools" className={styles.btnSecondary}>
             Explore Tools
-          </a>
+          </Link>
         </div>
 
         <p className={styles.credibility}>
