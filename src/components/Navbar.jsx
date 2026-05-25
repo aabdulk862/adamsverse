@@ -129,7 +129,7 @@ export default function Navbar() {
               }
               type="button"
             >
-              <i className={theme === "dark" ? "fas fa-sun" : "fas fa-moon"} />
+              <i className={theme === "dark" ? "fas fa-sun" : "fas fa-moon"} aria-hidden="true" />
             </button>
           </li>
           <li>
@@ -257,7 +257,7 @@ export default function Navbar() {
                 type="button"
                 aria-label="Close menu"
               >
-                <i className="fas fa-times"></i>
+                <i className="fas fa-times" aria-hidden="true"></i>
               </button>
 
               {PAGE_LINKS.map((page) => (

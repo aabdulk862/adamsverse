@@ -63,7 +63,7 @@ export default function PackagesShowcase() {
 
           <div className={styles.cta}>
             <Link to="/packages" className={styles.browseLink}>
-              Browse all packages <i className="fas fa-arrow-right" aria-hidden="true"></i>
+              Browse all packages <span className="fas fa-arrow-right" aria-hidden="true"></span>
             </Link>
           </div>
         </div>

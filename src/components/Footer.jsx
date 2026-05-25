@@ -28,6 +28,7 @@ export default function Footer() {
             href="https://github.com/aabdulk862"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="GitHub (opens in new tab)"
           >
             GitHub
           </a>
@@ -35,6 +36,7 @@ export default function Footer() {
             href="https://linkedin.com/in/adam-abdulkadir"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="LinkedIn (opens in new tab)"
           >
             LinkedIn
           </a>

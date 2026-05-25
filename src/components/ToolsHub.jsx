@@ -54,7 +54,7 @@ export default function ToolsHub() {
             {tools.map((tool) => {
               const CardTag = tool.external ? "a" : Link;
               const linkProps = tool.external
-                ? { href: tool.url, target: "_blank", rel: "noopener noreferrer" }
+                ? { href: tool.url, target: "_blank", rel: "noopener noreferrer", "aria-label": `Open ${tool.name} (opens in new tab)` }
                 : { to: tool.url };
 
               return (
@@ -62,7 +62,6 @@ export default function ToolsHub() {
                   key={tool.id}
                   {...linkProps}
                   className={styles.card}
-                  aria-label={`Open ${tool.name}`}
                 >
                   <div className={styles.cardTop}>
                     <div className={styles.cardIcon}>

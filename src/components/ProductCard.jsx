@@ -18,7 +18,7 @@ export default function ProductCard({ product, isAuthenticated = true }) {
   const isBeta = status === "beta";
   const showLock = requiresSubscription && !isAuthenticated;
 
-  const ariaLabel = `${name} – ${status === "coming-soon" ? "Coming Soon" : status === "beta" ? "Beta" : "Live"}`;
+  const ariaLabel = `${name} – ${status === "coming-soon" ? "Coming Soon" : status === "beta" ? "Beta" : "Live"}${isExternal ? " (opens in new tab)" : ""}`;
 
   const handleTouchStart = useCallback(() => {
     setIsTouched(true);
