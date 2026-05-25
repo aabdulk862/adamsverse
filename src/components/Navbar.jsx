@@ -27,6 +27,7 @@ const linkVariants = {
 const PAGE_LINKS = [
   { label: "About", to: "/about" },
   { label: "Packages", to: "/packages" },
+  { label: "Tools", to: "/tools" },
   { label: "Services", to: "/services" },
 ];
 

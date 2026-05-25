@@ -1,63 +1,51 @@
-/* ProductGrid styles — responsive grid using design tokens
-   Featured product spans full width, secondary products in a row below. */
+/* ProductGrid — Featured product + tools ecosystem */
 
-.grid {
-  display: flex;
-  flex-direction: column;
-  gap: var(--grid-gap);
+.wrapper {
   width: 100%;
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 64px var(--grid-gap);
+  padding: var(--space-20) var(--container-padding);
 }
 
-/* Featured product — full width, elevated presence */
-.featured :global(.product-card) {
-  border: 1.5px solid var(--color-accent);
-  box-shadow: var(--shadow-md);
-  padding: 32px;
+/* Featured product — full width */
+.featured {
+  margin-bottom: var(--space-12);
 }
 
-.featured :global(.product-card__icon) {
-  font-size: 1.75rem;
+/* Tools section header */
+.toolsHeader {
+  margin-bottom: var(--space-6);
 }
 
-.featured :global(.product-card__name) {
-  font-size: 1.25rem;
+.toolsHeading {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-1);
 }
 
-.featured :global(.product-card__description) {
-  font-size: 1rem;
-  max-width: 480px;
+.toolsSubtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin: 0;
 }
 
 /* Secondary products grid */
 .secondary {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--grid-gap);
+  gap: var(--space-4);
 }
 
 @media (min-width: 769px) {
-  .grid {
-    padding: 80px var(--grid-gap);
-  }
-
-  .featured :global(.product-card) {
-    padding: 36px 40px;
-  }
-
   .secondary {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .grid {
-    padding: 48px 20px;
-  }
-
-  .featured :global(.product-card) {
-    padding: 24px;
+  .wrapper {
+    padding: var(--space-12) var(--container-padding);
   }
 }

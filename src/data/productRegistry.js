@@ -26,17 +26,6 @@ export const products = [
     isExternal: false,
   },
   {
-    id: "cs-reference-guide",
-    name: "CS Reference Guide",
-    description: "Interactive computer science reference with algorithms, data structures, and system design patterns.",
-    category: "tools",
-    url: "/tools/cs-reference",
-    icon: "fas fa-book-open",
-    status: "live",
-    requiresSubscription: false,
-    isExternal: false,
-  },
-  {
     id: "pdf-editor",
     name: "PDF Editor",
     description: "Browser-based PDF editing — merge, split, annotate, and convert documents without leaving your browser.",

@@ -1,17 +1,8 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import styles from "./HeroSection.module.css";
 
-/**
- * HeroSection — Product Hub hero displaying the Adverse brand logo,
- * a tagline (max 80 chars), and a value proposition (max 200 chars).
- * Uses design tokens from tokens.css for consistent styling.
- */
 export default function HeroSection() {
-  const tagline = "Digital systems that grow your business.";
-  const valueProp =
-    "We build the websites, automations, and platforms that local businesses need to get found, convert customers, and scale — engineered with the same standards used at Fortune 500 companies.";
-  const credibility = "Built by a software engineer with enterprise experience at Charter Communications.";
-
   return (
     <section className={styles.heroSection} aria-labelledby="hero-heading">
       <motion.div
@@ -26,17 +17,31 @@ export default function HeroSection() {
           className={styles.logo}
           width="72"
           height="72"
-          fetchpriority="high"
+          fetchPriority="high"
           decoding="async"
         />
 
         <h1 id="hero-heading" className={styles.tagline}>
-          {tagline}
+          Modern systems for businesses that move fast.
         </h1>
 
-        <p className={styles.valueProp}>{valueProp}</p>
+        <p className={styles.valueProp}>
+          From production-ready websites to custom platforms and operational
+          tools — we help businesses launch, automate, and scale.
+        </p>
 
-        <p className={styles.credibility}>{credibility}</p>
+        <div className={styles.actions}>
+          <Link to="/packages" className={styles.btnPrimary}>
+            Browse Website Packages
+          </Link>
+          <a href="#tools" className={styles.btnSecondary}>
+            Explore Tools
+          </a>
+        </div>
+
+        <p className={styles.credibility}>
+          Enterprise engineering experience at Charter Communications
+        </p>
       </motion.div>
     </section>
   );

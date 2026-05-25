@@ -2,8 +2,8 @@
 
 .page {
   max-width: var(--container-max-width);
-  margin: 0 auto;
-  padding: var(--space-20) var(--container-padding) var(--space-24);
+  margin: var(--space-12) auto 0;
+  padding: 0 var(--container-padding) var(--space-24);
 }
 
 /* ===== Bio Zone ===== */
@@ -332,7 +332,8 @@
 /* ===== Mobile ===== */
 @media (max-width: 768px) {
   .page {
-    padding: var(--space-10) var(--container-padding) var(--space-16);
+    margin-top: var(--space-8);
+    padding: 0 var(--container-padding) var(--space-16);
   }
 
   .bioZone {

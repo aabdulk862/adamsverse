@@ -1,7 +1,6 @@
 import SEOHead from "../components/SEOHead";
 import HeroSection from "../components/HeroSection";
-import SocialProofBar from "../components/SocialProofBar";
-import ProductGrid from "../components/ProductGrid";
+import ToolsHub from "../components/ToolsHub";
 import PackagesShowcase from "../components/PackagesShowcase";
 import ServicesSection from "../components/ServicesSection";
 import CTASection from "../components/CTASection";
@@ -15,8 +14,7 @@ export default function HomePage() {
     <main className={styles.productHub}>
       <SEOHead products={liveProducts} />
       <HeroSection />
-      <SocialProofBar />
-      <ProductGrid />
+      <ToolsHub />
       <PackagesShowcase />
       <ServicesSection />
       <CTASection />

@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import PackagesPage from "./pages/PackagesPage";
 import AboutPage from "./pages/AboutPage";
 import ServicesPage from "./pages/ServicesPage";
+import ToolsPage from "./pages/ToolsPage";
 import LearnPage from "./pages/LearnPage";
 import ContactPage from "./pages/ContactPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -108,6 +109,7 @@ export default function App() {
                 <Route path="/packages/:slug" element={<PackageDetailPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/services" element={<ServicesPage />} />
+                <Route path="/tools" element={<ToolsPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/learn" element={<LearnPage />} />
                 <Route path="/login" element={<LoginPage />} />

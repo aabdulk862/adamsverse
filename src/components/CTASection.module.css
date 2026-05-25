@@ -1,7 +1,8 @@
 /* CTASection.module.css — Final CTA with gradient accent */
 
 .ctaSection {
-  padding: var(--space-20) var(--container-padding);
+  padding: var(--space-24) var(--container-padding);
+  background: var(--color-bg-base);
 }
 
 .inner {

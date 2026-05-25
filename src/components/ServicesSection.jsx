@@ -5,18 +5,18 @@ import styles from "./ServicesSection.module.css";
 const highlights = [
   {
     icon: "fas fa-code",
-    title: "Custom Platforms",
-    desc: "Full-stack applications with APIs, databases, and cloud deployment.",
+    title: "Custom Software",
+    desc: "Full-stack applications built to your exact requirements — APIs, databases, cloud deployment.",
   },
   {
-    icon: "fas fa-plug",
-    title: "Integrations",
-    desc: "Connect your tools — payment processing, CRMs, booking systems.",
+    icon: "fas fa-robot",
+    title: "AI & Automation",
+    desc: "Workflows that eliminate manual work — content generation, data processing, smart integrations.",
   },
   {
     icon: "fas fa-chart-line",
-    title: "Growth Systems",
-    desc: "SEO, analytics, and automation that drive measurable results.",
+    title: "Growth Infrastructure",
+    desc: "SEO, analytics, and systems that compound — so your business grows while you sleep.",
   },
 ];
 
@@ -27,11 +27,11 @@ export default function ServicesSection() {
         <div className={styles.container}>
           <div className={styles.header}>
             <h2 id="services-heading" className={styles.heading}>
-              Beyond the Website
+              Custom Solutions
             </h2>
             <p className={styles.description}>
-              Custom platforms, API integrations, and full-stack applications —
-              for businesses that have outgrown templates and need real engineering.
+              For businesses that have outgrown templates and need software
+              engineered specifically for how they operate.
             </p>
           </div>
 

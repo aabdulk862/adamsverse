@@ -138,14 +138,18 @@
   --tracking-wider: 0.05em;
   --tracking-caps: 0.08em;
 
+  /* Legacy aliases */
+  --letter-spacing-body: var(--tracking-body);
+  --letter-spacing-wide: var(--tracking-wide);
+
   /* =============================================
      RADII
      ============================================= */
   --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 24px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
   --radius-full: 999px;
 
   /* =============================================
@@ -198,11 +202,11 @@
   /* =============================================
      TRANSITIONS (shorthand)
      ============================================= */
-  --transition-fast: 150ms var(--ease-default);
-  --transition-normal: 250ms var(--ease-default);
-  --transition-slow: 350ms var(--ease-default);
-  --transition-bounce: 400ms var(--ease-bounce);
-  --transition-spring: 500ms var(--ease-spring);
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-spring: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   /* =============================================
      LAYOUT
@@ -250,7 +254,7 @@
   /* =============================================
      COMPONENT TOKENS — NAVBAR
      ============================================= */
-  --navbar-bg: rgba(255, 255, 255, 0.85);
+  --navbar-bg: #ffffff;
   --navbar-border: var(--color-border);
   --navbar-backdrop: saturate(180%) blur(12px);
 
