@@ -8,7 +8,7 @@ const tools = [
     name: "PDF Editor",
     desc: "Merge, split, annotate — no signup required.",
     icon: "fas fa-file-pdf",
-    url: "/tools/pdf-editor",
+    url: "https://pdf-local.netlify.app",
     badge: "Beta",
     external: true,
   },
@@ -17,7 +17,7 @@ const tools = [
     name: "Basecamp Atlas",
     desc: "Apartment discovery with maps, filters, and insights.",
     icon: "fas fa-map-marked-alt",
-    url: "/tools/basecamp",
+    url: "https://basecamp-atlas.netlify.app",
     badge: null,
     external: true,
   },
@@ -51,7 +51,7 @@ export default function ToolsHub() {
             {tools.map((tool) => {
               const CardTag = tool.external ? "a" : Link;
               const linkProps = tool.external
-                ? { href: tool.url }
+                ? { href: tool.url, target: "_blank", rel: "noopener noreferrer" }
                 : { to: tool.url };
 
               return (
