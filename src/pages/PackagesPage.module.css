@@ -54,7 +54,7 @@
   border-color: var(--category-border, var(--border-hover));
   transform: translateY(-2px);
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.08),
+    var(--shadow-medium, 0 4px 16px rgba(0, 0, 0, 0.08)),
     0 0 0 2px var(--category-accent-light, transparent);
 }
 
@@ -143,19 +143,19 @@
   align-items: center;
   gap: 6px;
   padding: 10px 20px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-medium, var(--radius-md));
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   text-decoration: none;
-  color: #fff;
-  background: var(--accent-primary);
+  color: var(--color-accent-text, #fff);
+  background: var(--color-accent, var(--accent-primary));
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .ctaButton:hover {
-  background: var(--accent-primary-dark);
+  background: var(--color-accent-hover, var(--accent-primary-dark));
   transform: translateY(-1px);
 }
 
@@ -191,8 +191,8 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--accent-primary);
-  color: #fff;
+  background: var(--color-accent, var(--accent-primary));
+  color: var(--color-accent-text, #fff);
   font-size: 0.8125rem;
   font-weight: var(--font-weight-bold, 700);
   line-height: 1;
@@ -336,9 +336,9 @@
   border-radius: var(--radius-full, 9999px);
   font-size: var(--font-size-xs, 0.75rem);
   font-weight: var(--font-weight-semibold);
-  color: #fff;
-  background: var(--accent-primary);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  color: var(--color-accent-text, #fff);
+  background: var(--color-accent, var(--accent-primary));
+  box-shadow: var(--shadow-small, 0 1px 4px rgba(0, 0, 0, 0.15));
   z-index: 2;
   line-height: 1.4;
 }

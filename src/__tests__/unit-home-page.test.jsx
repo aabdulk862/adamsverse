@@ -58,25 +58,19 @@ describe("15.2 Home Page Structure", () => {
     expect(screen.queryByText(/Venmo/i)).toBeNull();
   });
 
-  it("has ProfileHeader (hero section)", () => {
+  it("has HeroSection (hero section)", () => {
     const { container } = renderHome();
-    expect(container.querySelector(".hero")).toBeInTheDocument();
+    expect(container.querySelector(".hero-section")).toBeInTheDocument();
   });
 
-  it("has Services Overview section with service cards", () => {
+  it("has Services section", () => {
     const { container } = renderHome();
-    expect(screen.getByText("Services")).toBeInTheDocument();
-    expect(container.querySelector(".home-services-grid")).toBeInTheDocument();
-    const serviceCards = container.querySelectorAll(".home-service-card");
-    expect(serviceCards.length).toBeGreaterThan(0);
+    expect(container.querySelector(".services-section")).toBeInTheDocument();
   });
 
-  it("has Clients section with client cards", () => {
-    const { container } = renderHome();
-    expect(screen.getByText("Clients")).toBeInTheDocument();
-    expect(container.querySelector(".home-portfolio-grid")).toBeInTheDocument();
-    const portfolioCards = container.querySelectorAll(".home-portfolio-card");
-    expect(portfolioCards.length).toBeGreaterThan(0);
+  it("does not render legacy Clients section (removed in multi-product redesign)", () => {
+    renderHome();
+    expect(screen.queryByText("Clients")).toBeNull();
   });
 
   it("does not have a contact form on the home page", () => {
@@ -85,45 +79,46 @@ describe("15.2 Home Page Structure", () => {
     expect(screen.queryByText(/Send Message/i)).toBeNull();
   });
 
-  // --- New tests for SaaS homepage redesign (Requirements 8.1, 2.2, 3.2, 7.1, 1.7, 10.3, 10.4) ---
+  // --- New tests for component-based homepage (Requirements 1.1, 1.2, 1.6, 4.8) ---
 
-  it("renders sections in correct order: Hero → Social Proof → Services → AI Banner → Testimonials → Why Adverse → Final CTA", () => {
+  it("wraps content in a <main> element with product-hub class", () => {
+    const { container } = renderHome();
+    const main = container.querySelector("main.product-hub");
+    expect(main).toBeInTheDocument();
+  });
+
+  it("renders sections in correct order: Hero → SocialProof → ProductGrid → Packages → Services → CTA", () => {
     const { container } = renderHome();
 
-    const hero = container.querySelector(".hero");
+    const hero = container.querySelector(".hero-section");
     const socialProof = container.querySelector(".social-proof-bar");
-    const servicesSection = container.querySelector("#services-overview");
-    const aiBanner = container.querySelector(".ai-cta-banner");
-    const clientsSection = container.querySelector("#clients");
-    const whyAdverse = container.querySelector("#why-adverse");
-    const finalCta = container.querySelector(".final-cta");
+    const productGrid = container.querySelector(".product-grid");
+    const packagesSection = container.querySelector(".packages-showcase");
+    const servicesSection = container.querySelector(".services-section");
+    const ctaSection = container.querySelector(".cta-section");
 
     // All sections must exist
     expect(hero).toBeInTheDocument();
     expect(socialProof).toBeInTheDocument();
+    expect(productGrid).toBeInTheDocument();
+    expect(packagesSection).toBeInTheDocument();
     expect(servicesSection).toBeInTheDocument();
-    expect(aiBanner).toBeInTheDocument();
-    expect(clientsSection).toBeInTheDocument();
-    expect(whyAdverse).toBeInTheDocument();
-    expect(finalCta).toBeInTheDocument();
+    expect(ctaSection).toBeInTheDocument();
 
     // Verify DOM order using compareDocumentPosition
     const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING;
     expect(hero.compareDocumentPosition(socialProof) & FOLLOWING).toBeTruthy();
     expect(
-      socialProof.compareDocumentPosition(servicesSection) & FOLLOWING,
+      socialProof.compareDocumentPosition(productGrid) & FOLLOWING,
     ).toBeTruthy();
     expect(
-      servicesSection.compareDocumentPosition(aiBanner) & FOLLOWING,
+      productGrid.compareDocumentPosition(packagesSection) & FOLLOWING,
     ).toBeTruthy();
     expect(
-      aiBanner.compareDocumentPosition(clientsSection) & FOLLOWING,
+      packagesSection.compareDocumentPosition(servicesSection) & FOLLOWING,
     ).toBeTruthy();
     expect(
-      clientsSection.compareDocumentPosition(whyAdverse) & FOLLOWING,
-    ).toBeTruthy();
-    expect(
-      whyAdverse.compareDocumentPosition(finalCta) & FOLLOWING,
+      servicesSection.compareDocumentPosition(ctaSection) & FOLLOWING,
     ).toBeTruthy();
   });
 
@@ -142,29 +137,30 @@ describe("15.2 Home Page Structure", () => {
     });
   });
 
-  it("renders Final CTA section with link to /contact", () => {
+  it("renders CTA section with link to /contact", () => {
     const { container } = renderHome();
-    const finalCta = container.querySelector(".final-cta");
-    expect(finalCta).toBeInTheDocument();
-
-    // Has a headline
-    const headline = finalCta.querySelector(".final-cta-headline");
-    expect(headline).toBeInTheDocument();
+    const ctaSection = container.querySelector(".cta-section");
+    expect(ctaSection).toBeInTheDocument();
 
     // Has a CTA link to /contact
-    const ctaLink = finalCta.querySelector("a");
+    const ctaLink = ctaSection.querySelector("a");
     expect(ctaLink).toHaveAttribute("href", "/contact");
   });
 
-  it("displays price ranges on service cards", () => {
+  it("does not render legacy AI Banner section (removed in multi-product redesign)", () => {
     const { container } = renderHome();
-    const priceElements = container.querySelectorAll(".home-service-price");
-    expect(priceElements.length).toBeGreaterThan(0);
+    expect(container.querySelector(".ai-cta-banner")).toBeNull();
+  });
 
-    // Each price element should have non-empty text
-    priceElements.forEach((el) => {
-      expect(el.textContent.trim().length).toBeGreaterThan(0);
-    });
+  it("does not render legacy Why Adverse section (removed in multi-product redesign)", () => {
+    const { container } = renderHome();
+    expect(container.querySelector("#why-adverse")).toBeNull();
+  });
+
+  it("renders ProductGrid with product cards", () => {
+    const { container } = renderHome();
+    const grid = container.querySelector(".product-grid");
+    expect(grid).toBeInTheDocument();
   });
 
   it("does not render capability pills", () => {

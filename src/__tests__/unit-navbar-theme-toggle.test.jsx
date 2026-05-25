@@ -36,20 +36,20 @@ describe("4.4 Navbar theme toggle", () => {
     const items = Array.from(navbarLinks.querySelectorAll(":scope > li"));
 
     // Find indices by content
-    const learnIndex = items.findIndex((li) =>
-      li.textContent.includes("Learn"),
+    const servicesIndex = items.findIndex((li) =>
+      li.textContent.includes("Services"),
     );
     const toggleIndex = items.findIndex((li) =>
       li.querySelector(".theme-toggle"),
     );
     const ctaIndex = items.findIndex((li) => li.querySelector(".navbar-cta"));
 
-    expect(learnIndex).toBeGreaterThanOrEqual(0);
+    expect(servicesIndex).toBeGreaterThanOrEqual(0);
     expect(toggleIndex).toBeGreaterThanOrEqual(0);
     expect(ctaIndex).toBeGreaterThanOrEqual(0);
 
-    // Toggle should come after Learn and before CTA
-    expect(toggleIndex).toBe(learnIndex + 1);
+    // Toggle should come after Services and before CTA
+    expect(toggleIndex).toBe(servicesIndex + 1);
     expect(toggleIndex).toBe(ctaIndex - 1);
 
     // Desktop toggle should have "theme-toggle" but NOT "theme-toggle--mobile"

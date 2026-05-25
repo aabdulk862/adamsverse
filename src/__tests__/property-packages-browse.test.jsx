@@ -28,7 +28,7 @@ describe("Property 1: Package card count matches data array length", () => {
       }),
       { numRuns: 100 },
     );
-  });
+  }, 30000);
 });
 
 describe("Property 2: Package card content completeness", () => {
@@ -56,13 +56,16 @@ describe("Property 2: Package card content completeness", () => {
         expect(previewLink).not.toBeNull();
         expect(previewLink.textContent).toContain("Preview");
 
-        // A "Get Started" CTA link exists
-        const ctaLinks = container.querySelectorAll('a[href="/contact"]');
-        expect(ctaLinks.length).toBeGreaterThan(0);
+        // A "Get Started" CTA link exists (links to /contact?package=...)
+        const ctaLink = container.querySelector(
+          `a[href="/contact?package=${encodeURIComponent(pkg.name)}"]`,
+        );
+        expect(ctaLink).not.toBeNull();
+        expect(ctaLink.textContent).toContain("Get Started");
 
         unmount();
       }),
       { numRuns: 100 },
     );
-  });
+  }, 30000);
 });

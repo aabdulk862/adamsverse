@@ -180,7 +180,7 @@ export default function ContactPage() {
 
           <label htmlFor="contact-phone">
             Phone{" "}
-            <span style={{ fontWeight: 400, opacity: 0.6 }}>(optional)</span>
+            <span className="form-label-hint">(optional)</span>
             <input
               id="contact-phone"
               type="tel"

@@ -285,12 +285,12 @@ describe("Property 6: Invalid localStorage values produce valid fallback", () =>
 
           // ThemeProvider should discard the invalid value and fall back.
           // test-setup.js polyfills matchMedia with matches: false,
-          // so prefers-color-scheme: light is false → system preference is 'dark'.
+          // so prefers-color-scheme: dark is false → system preference is 'light'.
           const theme = screen.getByTestId("theme-value").textContent;
-          expect(theme).toBe("dark");
+          expect(theme).toBe("light");
 
           // data-theme attribute should also reflect the fallback
-          expect(document.documentElement.dataset.theme).toBe("dark");
+          expect(document.documentElement.dataset.theme).toBe("light");
 
           // Clean up before next iteration
           unmount();

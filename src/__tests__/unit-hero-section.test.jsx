@@ -51,10 +51,10 @@ describe("15.1 Hero Section (ProfileHeader)", () => {
     expect(screen.getByText(/You run the/i)).toBeInTheDocument();
   });
 
-  it('has "Start a project" and "See our work" CTA buttons', () => {
+  it('has "Start a project" and "View packages" CTA buttons', () => {
     renderHero();
     expect(screen.getByText(/Start a project/i)).toBeInTheDocument();
-    expect(screen.getByText(/See our work/i)).toBeInTheDocument();
+    expect(screen.getByText(/View packages/i)).toBeInTheDocument();
   });
 
   it("does not render capability pills", () => {
@@ -77,9 +77,9 @@ describe("15.1 Hero Section (ProfileHeader)", () => {
   it("uses React Router Link components for CTAs", () => {
     const { container } = renderHero();
     const primaryCta = screen.getByText(/Start a project/i).closest("a");
-    const ghostCta = screen.getByText(/See our work/i).closest("a");
+    const ghostCta = screen.getByText(/View packages/i).closest("a");
     expect(primaryCta).toHaveAttribute("href", "/contact");
-    expect(ghostCta).toHaveAttribute("href", "/portfolio");
+    expect(ghostCta).toHaveAttribute("href", "/packages");
   });
 
   it("does not render old trust indicators", () => {

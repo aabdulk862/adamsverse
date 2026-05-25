@@ -36,12 +36,11 @@ describe("15.3 Navbar", () => {
     expect(hasCta).toBe(true);
   });
 
-  it("has navigation links: About, Projects, Services, Learn", () => {
+  it("has navigation links: About, Packages, Services", () => {
     renderNavbar();
     expect(screen.getByText("About")).toBeInTheDocument();
-    expect(screen.getByText("Projects")).toBeInTheDocument();
+    expect(screen.getByText("Packages")).toBeInTheDocument();
     expect(screen.getByText("Services")).toBeInTheDocument();
-    expect(screen.getByText("Learn")).toBeInTheDocument();
   });
 
   it('hides "Sign In" link when auth is disabled', () => {

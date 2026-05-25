@@ -125,8 +125,8 @@ describe("4.5 ThemeProvider unit tests", () => {
     unmount();
   });
 
-  // Requirement 1.7: falls back to dark when no stored value and no system preference
-  it("falls back to dark when no stored value and no system preference", () => {
+  // Requirement 1.7: falls back to light when no stored value and system preference is light
+  it("falls back to light when no stored value and no system preference for dark", () => {
     window.localStorage.clear();
 
     // Default matchMedia from test-setup.js returns matches: false
@@ -152,7 +152,7 @@ describe("4.5 ThemeProvider unit tests", () => {
       </ThemeProvider>,
     );
 
-    expect(screen.getByTestId("theme-value").textContent).toBe("dark");
+    expect(screen.getByTestId("theme-value").textContent).toBe("light");
 
     unmount();
   });

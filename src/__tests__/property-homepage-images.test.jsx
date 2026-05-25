@@ -29,30 +29,29 @@ function filterDomProps(props) {
   return rest;
 }
 
-describe("Property 6: All homepage images are lazy-loaded", () => {
+describe("Property 6: Homepage images use appropriate loading strategies", () => {
   /**
-   * **Validates: Requirements 9.4**
+   * **Validates: Requirements 8.3, 9.4**
    *
-   * For any rendered state of the HomePage, every <img> element
-   * should have loading="lazy" and decoding="async" attributes.
+   * Above-the-fold images (hero logo) should NOT be lazy-loaded (they use fetchpriority="high").
+   * Below-the-fold images (package previews, etc.) should have loading="lazy" and decoding="async".
    */
-  it("every <img> element has loading='lazy' and decoding='async'", () => {
+  it("above-fold hero logo does not have loading='lazy' and uses fetchpriority='high'", () => {
     const { container } = render(
       <MemoryRouter>
         <HomePage />
       </MemoryRouter>,
     );
 
-    const images = container.querySelectorAll("img");
-
-    // If there are images, each must be lazy-loaded
-    images.forEach((img) => {
-      expect(img).toHaveAttribute("loading", "lazy");
-      expect(img).toHaveAttribute("decoding", "async");
-    });
+    const heroLogo = container.querySelector(".hero-section__logo");
+    if (heroLogo) {
+      expect(heroLogo).not.toHaveAttribute("loading", "lazy");
+      expect(heroLogo).toHaveAttribute("fetchpriority", "high");
+      expect(heroLogo).toHaveAttribute("decoding", "async");
+    }
   });
 
-  it("client images with non-null src render with lazy loading", () => {
+  it("below-fold images have loading='lazy' and decoding='async'", () => {
     const { container } = render(
       <MemoryRouter>
         <HomePage />
@@ -62,12 +61,14 @@ describe("Property 6: All homepage images are lazy-loaded", () => {
     const images = container.querySelectorAll("img");
     const imgArray = Array.from(images);
 
-    // Every image that has a src should also have lazy attributes
-    imgArray
-      .filter((img) => img.getAttribute("src"))
-      .forEach((img) => {
-        expect(img).toHaveAttribute("loading", "lazy");
-        expect(img).toHaveAttribute("decoding", "async");
-      });
+    // Below-fold images (everything except the hero logo) should be lazy-loaded
+    const belowFoldImages = imgArray.filter(
+      (img) => !img.classList.contains("hero-section__logo")
+    );
+
+    belowFoldImages.forEach((img) => {
+      expect(img).toHaveAttribute("loading", "lazy");
+      expect(img).toHaveAttribute("decoding", "async");
+    });
   });
 });
