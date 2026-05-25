@@ -74,18 +74,24 @@
 ================================= */
 .page-header {
   text-align: center;
-  margin-bottom: var(--space-8);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+  max-width: 680px;
+  margin: 0 auto;
 }
 
 .page-title {
-  font-size: 40px;
-  font-weight: var(--weight-semibold);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.025em;
   margin-bottom: var(--space-3);
 }
 
 .page-subtitle {
   font-size: var(--text-base);
-  color: var(--color-text-muted);
-  line-height: var(--leading-normal);
-  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 520px;
+  margin: 0 auto;
 }

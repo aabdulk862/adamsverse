@@ -6,7 +6,7 @@
 
 /* ===== Hero ===== */
 .hero {
-  padding: var(--space-20) var(--container-padding) var(--space-16);
+  padding: var(--space-12) var(--container-padding) var(--space-10);
   text-align: center;
   background: var(--color-bg-base);
 }
