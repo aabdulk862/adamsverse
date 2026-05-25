@@ -22,12 +22,13 @@ export default function HeroSection() {
         />
 
         <h1 id="hero-heading" className={styles.tagline}>
-          Modern systems for businesses that move fast.
+          Digital systems that grow your business.
         </h1>
 
         <p className={styles.valueProp}>
-          From production-ready websites to custom platforms and operational
-          tools — we help businesses launch, automate, and scale.
+          Adverse is a software studio that ships modern systems for businesses
+          and founders — websites, operational platforms, AI-enhanced workflows,
+          and internal tools.
         </p>
 
         <div className={styles.actions}>
@@ -40,7 +41,7 @@ export default function HeroSection() {
         </div>
 
         <p className={styles.credibility}>
-          Enterprise engineering experience at Charter Communications
+          Software studio · Charlotte, NC
         </p>
       </motion.div>
     </section>

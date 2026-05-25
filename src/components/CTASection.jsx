@@ -7,14 +7,14 @@ export default function CTASection() {
     <section className={styles.ctaSection} aria-labelledby="cta-heading">
       <AnimatedSection>
         <div className={styles.inner}>
-          <span className={styles.badge}>Let's Talk</span>
+          <span className={styles.badge}>Work With Us</span>
           <h2 id="cta-heading" className={styles.heading}>
-            Have something specific in mind?
+            Have a product idea or a system to build?
           </h2>
           <p className={styles.description}>
-            Whether it's a website that needs to launch next month or a platform
-            that needs to be rebuilt properly — let's figure out the right
-            approach together.
+            Whether you need a website that launches next week, a platform
+            built from scratch, or a technical partner for something bigger —
+            let's talk.
           </p>
           <div className={styles.actions}>
             <Link to="/contact" className={styles.linkPrimary}>

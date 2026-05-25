@@ -13,11 +13,11 @@ export default function SEOHead({ products = [] }) {
   const ogImageUrl = `${siteUrl}/banner.png`;
 
   // Title: 30-60 chars, contains "Adverse Solutions"
-  const title = "Adverse Solutions — Digital Systems for Local Businesses";
+  const title = "Adverse Solutions — Software Studio";
 
   // Meta description: 120-160 chars, references ≥2 products
   const description =
-    "Adverse Solutions builds Website Packages, CS Reference Guide, and digital systems for local businesses. Get found, convert customers, scale.";
+    "Adverse Solutions builds Website Packages, custom platforms, and operational tools for businesses and founders. Software studio in Charlotte, NC.";
 
   useEffect(() => {
     // --- Page Title ---

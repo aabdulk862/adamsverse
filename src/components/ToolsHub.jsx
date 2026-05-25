@@ -10,6 +10,7 @@ const tools = [
     icon: "fas fa-file-pdf",
     url: "https://pdf-local.netlify.app",
     badge: "Beta",
+    category: "Utility",
     external: true,
   },
   {
@@ -19,6 +20,7 @@ const tools = [
     icon: "fas fa-map-marked-alt",
     url: "https://basecamp-atlas.netlify.app",
     badge: null,
+    category: "Platform",
     external: true,
   },
   {
@@ -28,6 +30,7 @@ const tools = [
     icon: "fas fa-graduation-cap",
     url: "/learn",
     badge: null,
+    category: "Learning",
     external: false,
   },
 ];
@@ -70,6 +73,7 @@ export default function ToolsHub() {
                     )}
                   </div>
                   <h3 className={styles.cardName}>{tool.name}</h3>
+                  <span className={styles.cardCategory}>{tool.category}</span>
                   <p className={styles.cardDesc}>{tool.desc}</p>
                   <span className={styles.cardAction}>
                     Open <i className="fas fa-arrow-right" aria-hidden="true"></i>

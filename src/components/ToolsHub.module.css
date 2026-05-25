@@ -104,7 +104,17 @@
   font-size: var(--text-base);
   font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
-  margin: 0 0 var(--space-1);
+  margin: 0 0 2px;
+}
+
+.cardCategory {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-2);
 }
 
 .cardDesc {
