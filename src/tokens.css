@@ -1,44 +1,81 @@
 /* src/tokens.css — Design System Tokens
  * Single source-of-truth for all design tokens.
  * Imported before styles.css so all components can reference these variables.
+ *
+ * Architecture:
+ *   - 5 background levels for visual depth
+ *   - Distinctive display font (Instrument Serif) + body (Inter) + mono (JetBrains Mono)
+ *   - Semantic colors beyond success/error
+ *   - Component-level tokens for buttons, inputs, cards
+ *   - Z-index scale for layering
+ *   - Motion tokens (easing curves + durations)
+ *   - Full dark mode with surface depth
  */
 
 :root {
   /* =============================================
-     COLORS
+     COLORS — BACKGROUNDS (5 levels of depth)
      ============================================= */
+  --color-bg-base: #ffffff;           /* Page background */
+  --color-bg-subtle: #fafafa;         /* Slightly recessed areas */
+  --color-bg-surface: #f8fafc;        /* Cards, panels */
+  --color-bg-muted: #f1f5f9;         /* Input fills, disabled states */
+  --color-bg-raised: #ffffff;         /* Elevated cards, popovers */
+  --color-bg-overlay: rgba(15, 23, 42, 0.6); /* Modal/drawer backdrops */
 
-  /* --- Backgrounds --- */
-  --color-bg-base: #ffffff;
-  --color-bg-surface: #f8fafc;
-  --color-bg-muted: #f1f5f9;
-
-  /* --- Text --- */
+  /* =============================================
+     COLORS — TEXT
+     ============================================= */
   --color-text-primary: #0f172a;
   --color-text-secondary: rgba(15, 23, 42, 0.68);
   --color-text-muted: rgba(15, 23, 42, 0.44);
-
-  /* --- Accent --- */
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
-  --color-accent-light: #eff6ff;
-  --color-accent-text: #ffffff;
-
-  /* --- Borders --- */
-  --color-border: #e2e8f0;
-  --color-border-hover: #cbd5e1;
-
-  /* --- Semantic --- */
-  --color-success: #16a34a;
-  --color-error: #dc2626;
+  --color-text-inverse: #ffffff;
 
   /* =============================================
-     SPACING
+     COLORS — ACCENT (Primary brand blue)
      ============================================= */
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-accent-active: #1e40af;
+  --color-accent-light: #eff6ff;
+  --color-accent-text: #ffffff;
+  --color-accent-subtle: rgba(37, 99, 235, 0.06);
+
+  /* =============================================
+     COLORS — SEMANTIC
+     ============================================= */
+  --color-success: #16a34a;
+  --color-success-light: #f0fdf4;
+  --color-error: #dc2626;
+  --color-error-light: #fef2f2;
+  --color-warning: #d97706;
+  --color-warning-light: #fffbeb;
+  --color-info: #0891b2;
+  --color-info-light: #ecfeff;
+
+  /* --- Brand semantic --- */
+  --color-premium: #d97706;
+  --color-premium-light: rgba(217, 119, 6, 0.08);
+  --color-ai-accent: #7c3aed;
+  --color-ai-accent-light: rgba(124, 58, 237, 0.08);
+
+  /* =============================================
+     COLORS — BORDERS
+     ============================================= */
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --color-border-strong: #94a3b8;
+  --color-border-accent: rgba(37, 99, 235, 0.3);
+
+  /* =============================================
+     SPACING (4px base)
+     ============================================= */
+  --space-0: 0px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
+  --space-5: 20px;
   --space-6: 24px;
   --space-8: 32px;
   --space-10: 40px;
@@ -46,71 +83,133 @@
   --space-16: 64px;
   --space-20: 80px;
   --space-24: 96px;
+  --space-32: 128px;
 
   /* =============================================
-     TYPOGRAPHY
+     TYPOGRAPHY — FONT FAMILIES
      ============================================= */
+  --font-display: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
 
-  /* --- Font Families --- */
-  --font-display: "Inter", sans-serif;
-  --font-body: "Inter", sans-serif;
+  /* =============================================
+     TYPOGRAPHY — FONT SIZES
+     ============================================= */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 2rem;        /* 32px */
+  --text-4xl: 2.5rem;      /* 40px */
+  --text-display: 3.5rem;  /* 56px */
 
-  /* --- Font Sizes --- */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.1rem;
-  --text-xl: 1.4rem;
-  --text-2xl: 1.9rem;
-  --text-3xl: 2.2rem;
-  --text-display: 3rem;
-
-  /* --- Font Weights --- */
+  /* =============================================
+     TYPOGRAPHY — FONT WEIGHTS
+     ============================================= */
   --weight-light: 300;
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-bold: 700;
 
-  /* --- Line Heights --- */
-  --leading-tight: 1.2;
+  /* =============================================
+     TYPOGRAPHY — LINE HEIGHTS
+     ============================================= */
+  --leading-none: 1;
+  --leading-tight: 1.1;
+  --leading-snug: 1.2;
+  --leading-heading: 1.25;
   --leading-normal: 1.5;
   --leading-relaxed: 1.6;
-  --leading-display: 1.15;
-  --leading-heading: 1.25;
+  --leading-loose: 1.75;
+  --leading-display: 1.05;
 
-  /* --- Letter Spacing --- */
-  --tracking-display: -0.02em;
-  --tracking-body: 0.02em;
-  --tracking-wide: 0.28px;
+  /* =============================================
+     TYPOGRAPHY — LETTER SPACING
+     ============================================= */
+  --tracking-tighter: -0.04em;
+  --tracking-tight: -0.025em;
+  --tracking-display: -0.03em;
+  --tracking-normal: 0em;
+  --tracking-body: 0.01em;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-caps: 0.08em;
 
   /* =============================================
      RADII
      ============================================= */
   --radius-sm: 4px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 22px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
   --radius-full: 999px;
 
   /* =============================================
-     SHADOWS
+     SHADOWS (5 levels of elevation)
      ============================================= */
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.12);
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(15, 23, 42, 0.2);
+  --shadow-inner: inset 0 2px 4px rgba(15, 23, 42, 0.05);
 
   /* =============================================
-     TRANSITIONS
+     Z-INDEX SCALE
      ============================================= */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.25s ease;
-  --transition-slow: 0.3s ease;
+  --z-base: 0;
+  --z-raised: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-navbar: 300;
+  --z-overlay: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-toast: 700;
+  --z-tooltip: 800;
+  --z-max: 9999;
+
+  /* =============================================
+     MOTION — DURATIONS
+     ============================================= */
+  --duration-instant: 50ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  --duration-slower: 500ms;
+  --duration-entrance: 300ms;
+  --duration-exit: 200ms;
+
+  /* =============================================
+     MOTION — EASING CURVES
+     ============================================= */
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* =============================================
+     TRANSITIONS (shorthand)
+     ============================================= */
+  --transition-fast: 150ms var(--ease-default);
+  --transition-normal: 250ms var(--ease-default);
+  --transition-slow: 350ms var(--ease-default);
+  --transition-bounce: 400ms var(--ease-bounce);
+  --transition-spring: 500ms var(--ease-spring);
 
   /* =============================================
      LAYOUT
      ============================================= */
   --container-max-width: 1140px;
+  --container-narrow: 720px;
+  --container-wide: 1320px;
   --container-padding: 24px;
   --section-padding: 80px;
   --grid-gap: 24px;
@@ -118,81 +217,128 @@
   --navbar-height: 56px;
 
   /* =============================================
-     CARDS
+     COMPONENT TOKENS — CARDS
      ============================================= */
-  --card-bg: #ffffff;
-  --card-border: #e2e8f0;
-  --card-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
-  --card-shadow-hover: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --card-bg: var(--color-bg-raised);
+  --card-border: var(--color-border);
+  --card-radius: var(--radius-lg);
+  --card-padding: var(--space-6);
+  --card-shadow: var(--shadow-sm);
+  --card-shadow-hover: var(--shadow-lg);
 
   /* =============================================
-     NAVBAR
+     COMPONENT TOKENS — BUTTONS
      ============================================= */
-  --navbar-bg: #ffffff;
-  --navbar-border: #e2e8f0;
+  --btn-height-sm: 32px;
+  --btn-height-md: 40px;
+  --btn-height-lg: 48px;
+  --btn-radius: var(--radius-md);
+  --btn-font-size: var(--text-sm);
+  --btn-font-weight: var(--weight-medium);
+  --btn-padding-x: var(--space-4);
 
   /* =============================================
-     ACCENT UI
+     COMPONENT TOKENS — INPUTS
      ============================================= */
+  --input-height: 40px;
+  --input-radius: var(--radius-md);
+  --input-border: var(--color-border);
+  --input-bg: var(--color-bg-base);
+  --input-focus-ring: rgba(37, 99, 235, 0.2);
+  --input-focus-border: var(--color-accent);
 
-  /* --- Accent Backgrounds --- */
+  /* =============================================
+     COMPONENT TOKENS — NAVBAR
+     ============================================= */
+  --navbar-bg: rgba(255, 255, 255, 0.85);
+  --navbar-border: var(--color-border);
+  --navbar-backdrop: saturate(180%) blur(12px);
+
+  /* =============================================
+     ACCENT UI (tints for backgrounds/borders)
+     ============================================= */
   --accent-bg-subtle: rgba(37, 99, 235, 0.06);
   --accent-bg-medium: rgba(37, 99, 235, 0.1);
   --accent-bg-strong: rgba(37, 99, 235, 0.16);
-
-  /* --- Accent Borders --- */
   --accent-border: rgba(37, 99, 235, 0.15);
   --accent-border-strong: rgba(37, 99, 235, 0.3);
   --accent-border-heavy: rgba(37, 99, 235, 0.45);
-
-  /* --- Accent Focus --- */
   --accent-focus-ring: rgba(37, 99, 235, 0.2);
-
-  /* --- Accent Dark --- */
   --accent-dark-bg: rgba(29, 78, 216, 0.1);
   --accent-dark-bg-strong: rgba(29, 78, 216, 0.2);
 
+  /* =============================================
+     FOCUS
+     ============================================= */
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--accent-focus-ring);
 }
 
+/* =============================================
+   DARK THEME
+   ============================================= */
 [data-theme="dark"] {
-  /* --- Backgrounds --- */
-  --color-bg-base: #0b0f19;
-  --color-bg-surface: #111827;
-  --color-bg-muted: #1e293b;
+  /* --- Backgrounds (5 levels) --- */
+  --color-bg-base: #0c0e14;
+  --color-bg-subtle: #10131c;
+  --color-bg-surface: #151923;
+  --color-bg-muted: #1c2333;
+  --color-bg-raised: #1e2536;
+  --color-bg-overlay: rgba(0, 0, 0, 0.7);
 
   /* --- Text --- */
   --color-text-primary: #f1f5f9;
   --color-text-secondary: rgba(241, 245, 249, 0.7);
   --color-text-muted: rgba(241, 245, 249, 0.42);
+  --color-text-inverse: #0f172a;
 
   /* --- Accent --- */
   --color-accent: #3b82f6;
-  --color-accent-hover: #2563eb;
+  --color-accent-hover: #60a5fa;
+  --color-accent-active: #2563eb;
   --color-accent-light: rgba(59, 130, 246, 0.1);
   --color-accent-text: #ffffff;
-
-  /* --- Borders --- */
-  --color-border: #5a6a80;
-  --color-border-hover: #7088a4;
+  --color-accent-subtle: rgba(59, 130, 246, 0.08);
 
   /* --- Semantic --- */
   --color-success: #22c55e;
+  --color-success-light: rgba(34, 197, 94, 0.1);
   --color-error: #f87171;
+  --color-error-light: rgba(248, 113, 113, 0.1);
+  --color-warning: #fbbf24;
+  --color-warning-light: rgba(251, 191, 36, 0.1);
+  --color-info: #22d3ee;
+  --color-info-light: rgba(34, 211, 238, 0.1);
+  --color-premium: #fbbf24;
+  --color-premium-light: rgba(251, 191, 36, 0.08);
+  --color-ai-accent: #a78bfa;
+  --color-ai-accent-light: rgba(167, 139, 250, 0.1);
 
-  /* --- Shadows --- */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+  /* --- Borders --- */
+  --color-border: rgba(148, 163, 184, 0.15);
+  --color-border-hover: rgba(148, 163, 184, 0.25);
+  --color-border-strong: rgba(148, 163, 184, 0.35);
+  --color-border-accent: rgba(59, 130, 246, 0.3);
+
+  /* --- Shadows (stronger for dark surfaces) --- */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 
   /* --- Cards --- */
-  --card-bg: #111827;
-  --card-border: #1e293b;
-  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(30, 41, 59, 0.5);
-  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.12);
+  --card-bg: var(--color-bg-raised);
+  --card-border: var(--color-border);
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(148, 163, 184, 0.08);
+  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.15);
 
   /* --- Navbar --- */
-  --navbar-bg: rgba(11, 15, 25, 0.8);
-  --navbar-border: #1e293b;
+  --navbar-bg: rgba(12, 14, 20, 0.85);
+  --navbar-border: var(--color-border);
 
   /* --- Accent UI --- */
   --accent-bg-subtle: rgba(59, 130, 246, 0.08);
@@ -200,5 +346,17 @@
   --accent-bg-strong: rgba(59, 130, 246, 0.22);
   --accent-border: rgba(59, 130, 246, 0.18);
   --accent-border-strong: rgba(59, 130, 246, 0.32);
-  --accent-focus-ring: rgba(59, 130, 246, 0.25);
+  --accent-border-heavy: rgba(59, 130, 246, 0.45);
+  --accent-focus-ring: rgba(59, 130, 246, 0.3);
+  --accent-dark-bg: rgba(59, 130, 246, 0.1);
+  --accent-dark-bg-strong: rgba(59, 130, 246, 0.2);
+
+  /* --- Focus --- */
+  --focus-ring-color: var(--accent-focus-ring);
+
+  /* --- Inputs --- */
+  --input-bg: var(--color-bg-muted);
+  --input-border: var(--color-border);
+  --input-focus-ring: rgba(59, 130, 246, 0.3);
+  --input-focus-border: var(--color-accent);
 }

@@ -17,7 +17,7 @@ export const products = [
   {
     id: "website-packages",
     name: "Website Packages",
-    description: "Production-ready websites for your industry. Preview live, pick a theme, launch in days — not months.",
+    description: "Industry-specific systems that get you found on Google, convert visitors to customers, and launch in days — not months.",
     category: "services",
     url: "/packages",
     icon: "fas fa-layer-group",

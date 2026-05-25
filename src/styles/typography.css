@@ -1,26 +1,39 @@
 /* =================================
    HEADINGS
+   DM Sans for everything — differentiation via
+   weight contrast and tracking.
+   Display: 700, tight tracking
+   Headings: 600, normal tracking
+   Body: 400/500
 ================================= */
 h1 {
-  font-size: var(--text-3xl);
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
   font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
 }
 
 h2 {
-  font-size: var(--text-2xl);
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
   font-weight: var(--weight-bold);
-  line-height: var(--leading-tight);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
 }
 
 h3 {
+  font-family: var(--font-body);
   font-size: var(--text-xl);
   font-weight: var(--weight-semibold);
-  line-height: var(--leading-normal);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-normal);
 }
 
 h4 {
+  font-family: var(--font-body);
   font-size: var(--text-lg);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
   line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
 }

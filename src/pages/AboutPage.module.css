@@ -1,269 +1,398 @@
-/* AboutPage.module.css — About page scoped styles */
+/* AboutPage.module.css — Polished two-zone layout */
 
-.bio {
-  background: var(--card-bg);
+.page {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--space-20) var(--container-padding) var(--space-24);
+}
+
+/* ===== Bio Zone ===== */
+.bioZone {
+  background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  padding: var(--space-8) var(--space-6);
-  margin-bottom: var(--space-8);
+  padding: var(--space-10) var(--space-8);
+  margin-bottom: var(--space-16);
+  position: relative;
+  overflow: hidden;
+}
+
+.bioZone::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-ai-accent));
 }
 
 .bioHeader {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-6);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-8);
 }
 
 .avatar {
-  width: 110px;
-  height: 110px;
+  width: 88px;
+  height: 88px;
   border-radius: var(--radius-full);
   object-fit: cover;
   object-position: center top;
-  border: 3px solid var(--color-accent);
-  box-shadow: 0 0 0 4px var(--accent-bg-medium);
+  border: 3px solid var(--color-bg-base);
+  box-shadow: var(--shadow-md), 0 0 0 2px var(--color-accent);
   flex-shrink: 0;
 }
 
 .bioInfo {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: 4px;
+  padding-top: var(--space-1);
 }
 
 .name {
-  font-size: var(--text-xl);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
   font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  flex-wrap: wrap;
+  margin: 0;
+  line-height: var(--leading-snug);
+}
+
+.flag {
+  width: 20px;
+  height: 14px;
+  object-fit: cover;
+  border-radius: 2px;
+  opacity: 0.85;
 }
 
 .role {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
+  margin: 0;
+}
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  color: var(--color-success);
+  font-weight: var(--weight-medium);
+  margin-top: var(--space-2);
+  background: var(--color-success-light);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
 }
 
 .bioText {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-  color: var(--color-text-secondary);
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-.section {
-  margin-bottom: var(--space-8);
-}
-
-.sectionTitle {
-  font-size: var(--text-xl);
-  font-weight: var(--weight-semibold);
-  margin-bottom: var(--space-6);
-  padding-bottom: var(--space-2);
-  border-bottom: 2px solid var(--color-accent);
-  display: inline-block;
-}
-
-.sectionIntro {
-  color: var(--color-text-secondary);
+  gap: var(--space-5);
   font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--color-border);
   margin-bottom: var(--space-6);
-  letter-spacing: var(--letter-spacing-wide);
 }
 
-/* How We Work — Numbered Principles */
-.principles {
+.bioText p {
+  margin: 0;
+}
+
+/* Credential strip */
+.credentials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.credItem {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  border-top: 1px solid var(--color-border);
+  gap: 4px;
 }
 
-.principle {
+.credLabel {
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+}
+
+.credValue {
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-normal);
+}
+
+/* ===== Labeled Divider ===== */
+.divider {
   display: flex;
-  gap: var(--space-6);
-  padding: var(--space-6) 0;
-  border-bottom: 1px solid var(--color-border);
-  align-items: baseline;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
 }
 
-.principleNumber {
-  font-size: var(--text-3xl);
+.dividerLabel {
+  font-size: 11px;
   font-weight: var(--weight-bold);
   color: var(--color-accent);
-  opacity: 0.3;
-  line-height: 1;
-  flex-shrink: 0;
-  min-width: 52px;
-  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  white-space: nowrap;
+  background: var(--accent-bg-subtle);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
 }
 
-.principleBody {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
 }
 
-.principleTitle {
-  font-size: var(--text-lg);
+/* ===== Work Cards (2×2 grid) ===== */
+.workGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+  margin-bottom: var(--space-16);
+}
+
+.workCard {
+  padding: var(--space-6) var(--space-6) var(--space-8);
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.workCard:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md), 0 0 0 1px var(--accent-bg-subtle);
+  transform: translateY(-2px);
+}
+
+.workCardTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
   font-weight: var(--weight-semibold);
   color: var(--color-text-primary);
+  margin: 0 0 var(--space-2);
+  letter-spacing: var(--tracking-normal);
 }
 
-.principleDesc {
+.workCardDesc {
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
-  letter-spacing: var(--letter-spacing-wide);
-  max-width: 600px;
+  margin: 0;
 }
 
-/* About CTA — minimal, text-driven */
-.cta {
-  text-align: center;
-  padding: var(--space-16) var(--space-4);
-  margin: var(--space-8) 0 var(--space-16);
+/* ===== CTA Block ===== */
+.ctaBlock {
+  padding: var(--space-10) var(--space-8);
+  background: linear-gradient(135deg, var(--accent-bg-subtle) 0%, transparent 60%), var(--color-bg-surface);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  position: relative;
+  overflow: hidden;
 }
 
-.ctaLabel {
-  font-size: var(--text-sm);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--color-accent);
-  font-weight: var(--weight-medium);
-  margin-bottom: var(--space-3);
+.ctaBlock::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--accent-bg-subtle) 0%, transparent 70%);
+  pointer-events: none;
 }
 
-.ctaHeadline {
-  font-size: var(--text-3xl);
-  font-weight: var(--weight-bold);
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-8);
-  line-height: var(--leading-tight);
+.ctaText {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+  max-width: 460px;
+  position: relative;
 }
 
 .ctaBtn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: var(--text-base);
+  padding: 14px 28px;
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
   font-weight: var(--weight-medium);
-  color: var(--color-accent);
-  border-bottom: 2px solid var(--color-accent);
-  padding-bottom: var(--space-1);
-  transition:
-    gap var(--transition-fast),
-    color var(--transition-fast);
   text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .ctaBtn:hover {
-  gap: var(--space-3);
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.ctaBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+.ctaBtn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .ctaBtn i {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   transition: transform var(--transition-fast);
 }
 
 .ctaBtn:hover i {
-  transform: translateX(2px);
+  transform: translateX(3px);
 }
 
-/* Dark theme override */
-:global([data-theme="dark"]) .bio {
-  background: var(--color-bg-surface);
-  border-color: rgba(148, 163, 184, 0.08);
+/* ===== Dark theme ===== */
+:global([data-theme="dark"]) .bioZone {
+  background: var(--color-bg-raised);
+  border-color: var(--color-border);
 }
 
-/* Responsive overrides */
-@media (max-width: 600px) {
-  .bio {
-    background: none;
-    border: none;
-    border-radius: 0;
-    padding: 0;
+:global([data-theme="dark"]) .avatar {
+  border-color: var(--color-bg-raised);
+  box-shadow: var(--shadow-md), 0 0 0 2px var(--color-accent);
+}
+
+:global([data-theme="dark"]) .availability {
+  background: rgba(34, 197, 94, 0.1);
+}
+
+:global([data-theme="dark"]) .workCard {
+  background: var(--color-bg-raised);
+  border-color: var(--color-border);
+}
+
+:global([data-theme="dark"]) .workCard:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(59, 130, 246, 0.1);
+}
+
+:global([data-theme="dark"]) .ctaBlock {
+  background: linear-gradient(135deg, var(--accent-bg-subtle) 0%, transparent 60%), var(--color-bg-raised);
+  border-color: var(--accent-border);
+}
+
+:global([data-theme="dark"]) .ctaBtn {
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+:global([data-theme="dark"]) .ctaBtn:hover {
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  .page {
+    padding: var(--space-10) var(--container-padding) var(--space-16);
+  }
+
+  .bioZone {
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-10);
+  }
+
+  .bioHeader {
+    gap: var(--space-4);
     margin-bottom: var(--space-6);
   }
-  .bioHeader {
-    flex-direction: row;
-    text-align: left;
-    gap: var(--space-4);
-    align-items: center;
-  }
-  .bioInfo {
-    align-items: flex-start;
-  }
-  .name {
-    justify-content: flex-start;
-    font-size: var(--text-lg);
-  }
+
   .avatar {
     width: 64px;
     height: 64px;
     border-width: 2px;
-    box-shadow: 0 0 0 3px var(--accent-bg-medium);
   }
+
+  .name {
+    font-size: var(--text-xl);
+  }
+
   .bioText {
     font-size: var(--text-sm);
     gap: var(--space-4);
-    line-height: 1.7;
+    padding-bottom: var(--space-6);
+    margin-bottom: var(--space-5);
   }
-  .section {
-    margin-bottom: var(--space-6);
+
+  .credentials {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
   }
-  .sectionTitle {
-    font-size: var(--text-base);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border-bottom: none;
-    margin-bottom: var(--space-4);
-    color: var(--color-text-muted);
-    padding-bottom: 0;
-  }
-  .sectionIntro {
-    font-size: var(--text-sm);
-  }
-  .principles {
-    border-top: none;
-    gap: var(--space-5);
-  }
-  .principle {
-    border-bottom: none;
-    padding: 0;
+
+  .workGrid {
+    grid-template-columns: 1fr;
     gap: var(--space-3);
+    margin-bottom: var(--space-10);
+  }
+
+  .workCard {
+    padding: var(--space-5);
+  }
+
+  .ctaBlock {
+    flex-direction: column;
     align-items: flex-start;
+    padding: var(--space-6);
+    gap: var(--space-5);
+    border-radius: var(--radius-lg);
   }
-  .principleNumber {
-    font-size: var(--text-xl);
-    min-width: 32px;
-    opacity: 0.2;
-  }
-  .principleTitle {
-    font-size: var(--text-base);
-    font-weight: var(--weight-semibold);
-  }
-  .principleDesc {
+
+  .ctaText {
     font-size: var(--text-sm);
   }
-  .cta {
-    padding: var(--space-10) 0;
-    margin: var(--space-4) 0 var(--space-6);
-    text-align: left;
-  }
-  .ctaLabel {
-    font-size: var(--text-xs, 0.75rem);
-  }
-  .ctaHeadline {
-    font-size: var(--text-2xl);
-    margin-bottom: var(--space-6);
-  }
+
   .ctaBtn {
-    font-size: var(--text-sm);
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
   }
 }

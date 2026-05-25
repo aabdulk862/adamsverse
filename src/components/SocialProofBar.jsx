@@ -2,10 +2,10 @@ import AnimatedSection from "./AnimatedSection";
 import styles from "./SocialProofBar.module.css";
 
 const capabilities = [
-  { icon: "fas fa-layer-group", label: "Website Packages" },
-  { icon: "fas fa-robot", label: "AI Systems" },
-  { icon: "fas fa-tools", label: "Developer Tools" },
-  { icon: "fas fa-code", label: "Custom Platforms" },
+  { icon: "fas fa-bolt", label: "Launch in Days" },
+  { icon: "fas fa-search", label: "Built for Google" },
+  { icon: "fas fa-shield-alt", label: "Enterprise-Grade" },
+  { icon: "fas fa-headset", label: "Direct Access" },
 ];
 
 export default function SocialProofBar() {

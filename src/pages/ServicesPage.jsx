@@ -5,7 +5,7 @@ import styles from "./ServicesPage.module.css";
 
 export default function ServicesPage() {
   useEffect(() => {
-    document.title = "Services — Adverse Solutions | Web Development, Cloud & Consulting";
+    document.title = "Services — Adverse Solutions | Digital Systems, Custom Platforms & Consulting";
   }, []);
 
   return (
@@ -13,8 +13,8 @@ export default function ServicesPage() {
       <div className="page-header">
         <h1 className="page-title">Services</h1>
         <p className="page-subtitle">
-          Adverse builds web applications and consults on technical decisions.
-          Here's what that looks like and what it costs.
+          Enterprise-grade engineering for businesses that need more than a template.
+          From industry-specific website systems to custom platforms — here's what we build and what it costs.
         </p>
       </div>
 

@@ -7,17 +7,24 @@ export default function CTASection() {
     <section className={styles.ctaSection} aria-labelledby="cta-heading">
       <AnimatedSection>
         <div className={styles.inner}>
+          <span className={styles.badge}>Custom Development</span>
           <h2 id="cta-heading" className={styles.heading}>
-            Need something custom built?
+            Let's build your next system.
           </h2>
           <p className={styles.description}>
-            From full-stack applications to tailored integrations, we build
-            software that fits your business exactly.
+            Full-stack platforms, API integrations, and infrastructure that
+            scales — built by an engineer who's shipped production systems at
+            enterprise scale.
           </p>
-          <Link to="/contact" className={styles.link}>
-            Inquire about custom development{" "}
-            <i className="fas fa-arrow-right" aria-hidden="true"></i>
-          </Link>
+          <div className={styles.actions}>
+            <Link to="/contact" className={styles.linkPrimary}>
+              Start a conversation{" "}
+              <i className="fas fa-arrow-right" aria-hidden="true"></i>
+            </Link>
+            <Link to="/services" className={styles.linkGhost}>
+              See pricing
+            </Link>
+          </div>
         </div>
       </AnimatedSection>
     </section>

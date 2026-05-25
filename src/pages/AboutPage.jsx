@@ -5,124 +5,116 @@ import usa from "../assets/images/usa.png";
 import eritrea from "../assets/images/eritrea.png";
 import styles from "./AboutPage.module.css";
 
-const principles = [
+const credentials = [
+  { label: "Current", value: "Software Engineer — Charter Communications" },
+  { label: "Education", value: "B.S. Computer Science" },
+  { label: "Stack", value: "React, Spring Boot, AWS, PostgreSQL" },
+];
+
+const workCards = [
   {
-    number: "01",
-    title: "Design & Engineering, Together",
-    desc: "Most shops split creative and engineering into separate teams. We treat them as one discipline — every project gets the same person thinking about how it looks and how it works under the hood.",
+    title: "Direct communication",
+    desc: "You talk to the person building it. No layers, no waiting on someone to get back to you.",
   },
   {
-    number: "02",
-    title: "Direct Access",
-    desc: "No account managers, no layers. You talk directly to the person writing the code and making the design decisions. Questions get answered fast, feedback gets applied immediately.",
+    title: "Built to last",
+    desc: "Same engineering standards I use at my day job. Things work properly the first time.",
   },
   {
-    number: "03",
-    title: "Ship & Support",
-    desc: "We don't disappear after launch. Every project includes a support window, and we build things so they're easy to maintain long after we hand them off.",
+    title: "One point of contact",
+    desc: "Design, development, deployment — all one person. Nothing gets lost in translation.",
   },
   {
-    number: "04",
-    title: "AI-Augmented, Human-Led",
-    desc: "We use AI tools to move faster — code generation, research, automation — but every decision and every line of production code is reviewed and owned by a human.",
+    title: "Ships complete",
+    desc: "Analytics, SEO, and at least one real integration. Every project launches ready to work.",
   },
 ];
 
 export default function AboutPage() {
   useEffect(() => {
-    document.title = "About Adverse Solutions — Our Story | Charlotte, NC";
+    document.title = "About — Adverse Solutions | Charlotte, NC";
   }, []);
 
   return (
-    <div className="container">
-      <div className="page-header">
-        <h1 className="page-title">About Us</h1>
-      </div>
-
-      {/* Bio Section */}
-      <div className={styles.bio}>
+    <div className={styles.page}>
+      {/* Bio zone */}
+      <section className={styles.bioZone}>
         <div className={styles.bioHeader}>
           <img
             src={logo}
-            alt="Adam Abdulkadir, founder of Adverse LLC"
+            alt="Adam Abdulkadir"
             className={styles.avatar}
             loading="lazy"
             decoding="async"
           />
           <div className={styles.bioInfo}>
-            <h2 className={styles.name}>
+            <h1 className={styles.name}>
               Adam Abdulkadir
-              <img
-                src={usa}
-                alt="United States flag"
-                className="flag"
-                loading="lazy"
-                decoding="async"
-              />
-              <img
-                src={eritrea}
-                alt="Eritrean flag"
-                className="flag"
-                loading="lazy"
-                decoding="async"
-              />
-            </h2>
-            <p className={styles.role}>Founder, Adverse LLC</p>
+              <img src={usa} alt="US" className={styles.flag} loading="lazy" decoding="async" />
+              <img src={eritrea} alt="Eritrea" className={styles.flag} loading="lazy" decoding="async" />
+            </h1>
+            <p className={styles.role}>Software engineer · Charlotte, NC</p>
+            <span className={styles.availability}>
+              <span className={styles.dot}></span> Available for projects
+            </span>
           </div>
         </div>
+
         <div className={styles.bioText}>
           <p>
-            I grew up in Northern Virginia's tech corridor and started writing
-            code in high school. By the time I finished college I was already
-            shipping real projects on the side while working every job I could
-            find. That hustle never really turned off.
+            I build systems for a living — the last few years at Charter
+            Communications, working on infrastructure that processes millions of
+            messages daily. It's taught me how to build things that hold up under
+            real pressure.
           </p>
           <p>
-            After graduating I went straight into enterprise engineering:
-            microservices, full-stack platforms, production systems at scale. I
-            got comfortable operating across the entire stack, but I always
-            paid just as much attention to the design side — how things looked
-            and how they felt to use.
+            Adverse is the work I do for smaller clients. Websites, platforms,
+            technical systems — for businesses that want something built well
+            without the overhead of a big agency. I genuinely enjoy this work.
           </p>
           <p>
-            That's why I started Adverse. The name means going against the
-            current. Most agencies split engineering and creative into separate
-            teams and outsource whatever they don't do in-house. I treat both
-            as one discipline, because good software isn't just code that
-            works — it's something people actually want to use.
-          </p>
-          <p>
-            Based in Charlotte, NC. If you need a full-stack application built
-            from scratch, a legacy system modernized, or a technical partner
-            who actually picks up the phone — that's what Adverse is for.
+            It's just me, which means you're never waiting on someone else to
+            relay a message or approve a decision. We talk directly, things move
+            fast, and I'm personally invested in the outcome.
           </p>
         </div>
-      </div>
 
-      {/* How We Work */}
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>How We Work</h2>
-        <div className={styles.principles}>
-          {principles.map((item) => (
-            <div key={item.number} className={styles.principle}>
-              <span className={styles.principleNumber}>{item.number}</span>
-              <div className={styles.principleBody}>
-                <h3 className={styles.principleTitle}>{item.title}</h3>
-                <p className={styles.principleDesc}>{item.desc}</p>
-              </div>
+        {/* Credential strip */}
+        <div className={styles.credentials}>
+          {credentials.map((cred) => (
+            <div key={cred.label} className={styles.credItem}>
+              <span className={styles.credLabel}>{cred.label}</span>
+              <span className={styles.credValue}>{cred.value}</span>
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Divider */}
+      <div className={styles.divider}>
+        <span className={styles.dividerLabel}>How I work</span>
       </div>
 
-      {/* CTA */}
-      <div className={styles.cta}>
-        <p className={styles.ctaLabel}>Ready?</p>
-        <h2 className={styles.ctaHeadline}>Let's build something together.</h2>
+      {/* Work cards */}
+      <section className={styles.workGrid}>
+        {workCards.map((card) => (
+          <div key={card.title} className={styles.workCard}>
+            <h3 className={styles.workCardTitle}>{card.title}</h3>
+            <p className={styles.workCardDesc}>{card.desc}</p>
+          </div>
+        ))}
+      </section>
+
+      {/* CTA block */}
+      <section className={styles.ctaBlock}>
+        <p className={styles.ctaText}>
+          Have something in mind? I'm happy to talk through it — even if you're
+          not sure exactly what you need yet.
+        </p>
         <Link to="/contact" className={styles.ctaBtn}>
-          Start a conversation <i className="fas fa-arrow-right"></i>
+          Get in touch <i className="fas fa-arrow-right" aria-hidden="true"></i>
         </Link>
-      </div>
+      </section>
     </div>
   );
 }

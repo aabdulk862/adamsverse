@@ -13,11 +13,11 @@ export default function SEOHead({ products = [] }) {
   const ogImageUrl = `${siteUrl}/banner.png`;
 
   // Title: 30-60 chars, contains "Adverse Solutions"
-  const title = "Adverse Solutions — AI-Powered Business Systems";
+  const title = "Adverse Solutions — Digital Systems for Local Businesses";
 
   // Meta description: 120-160 chars, references ≥2 products
   const description =
-    "Adverse Solutions builds Website Packages, CS Reference Guide, and intelligent platforms for modern businesses. Ship faster, scale smarter.";
+    "Adverse Solutions builds Website Packages, CS Reference Guide, and digital systems for local businesses. Get found, convert customers, scale.";
 
   useEffect(() => {
     // --- Page Title ---

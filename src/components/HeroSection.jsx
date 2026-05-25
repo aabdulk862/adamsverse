@@ -7,9 +7,10 @@ import styles from "./HeroSection.module.css";
  * Uses design tokens from tokens.css for consistent styling.
  */
 export default function HeroSection() {
-  const tagline = "AI-powered systems for modern businesses.";
+  const tagline = "Digital systems that grow your business.";
   const valueProp =
-    "We design, build, and deploy intelligent platforms, websites, and tools — so you can launch faster and scale with confidence.";
+    "We build the websites, automations, and platforms that local businesses need to get found, convert customers, and scale — engineered with the same standards used at Fortune 500 companies.";
+  const credibility = "Built by a software engineer with enterprise experience at Charter Communications.";
 
   return (
     <section className={styles.heroSection} aria-labelledby="hero-heading">
@@ -34,6 +35,8 @@ export default function HeroSection() {
         </h1>
 
         <p className={styles.valueProp}>{valueProp}</p>
+
+        <p className={styles.credibility}>{credibility}</p>
       </motion.div>
     </section>
   );

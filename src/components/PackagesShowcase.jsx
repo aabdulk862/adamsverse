@@ -25,10 +25,10 @@ export default function PackagesShowcase() {
       <AnimatedSection>
         <div className={styles.container}>
           <h2 id="packages-showcase-heading" className={styles.heading}>
-            Website Packages
+            Industry Systems
           </h2>
           <p className={styles.subtitle}>
-            Ready-to-launch designs for your industry. Preview live, pick a theme, launch.
+            Not just websites — lead generation, booking, and reputation systems built for your industry. Preview live, pick a theme, launch.
           </p>
 
           <div className={styles.grid}>
