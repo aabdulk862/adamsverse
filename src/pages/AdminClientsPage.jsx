@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { supabase } from "../lib/supabase";
+import styles from "./Admin.module.css";
 
 export default function AdminClientsPage() {
   const { loading: authLoading } = useAuth();
@@ -167,8 +168,8 @@ export default function AdminClientsPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="admin-page">
-        <div className="admin-loading">
+      <div className={styles.page}>
+        <div className={styles.loading}>
           <div className="auth-guard-spinner" />
           <span>Loading clients…</span>
         </div>
@@ -178,12 +179,12 @@ export default function AdminClientsPage() {
 
   if (error) {
     return (
-      <div className="admin-page">
-        <h1 className="admin-page-title">Clients</h1>
-        <div className="admin-error">
+      <div className={styles.page}>
+        <h1 className={styles.pageTitle}>Clients</h1>
+        <div className={styles.error}>
           <i className="fa-solid fa-circle-exclamation" />
           <span>{error}</span>
-          <button onClick={fetchClients} className="admin-retry-btn">
+          <button onClick={fetchClients} className={styles.retryBtn}>
             Retry
           </button>
         </div>
@@ -192,63 +193,63 @@ export default function AdminClientsPage() {
   }
 
   return (
-    <div className="admin-page">
-      <div className="admin-header">
-        <h1 className="admin-page-title">Clients</h1>
-        <Link to="/admin" className="admin-back-link">
+    <div className={styles.page}>
+      <div className={styles.header}>
+        <h1 className={styles.pageTitle}>Clients</h1>
+        <Link to="/admin" className={styles.backLink}>
           <i className="fa-solid fa-arrow-left" /> Dashboard
         </Link>
       </div>
 
-      <div className="admin-toolbar">
-        <div className="admin-search-wrap">
+      <div className={styles.toolbar}>
+        <div className={styles.searchWrap}>
           <i className="fa-solid fa-magnifying-glass" />
           <input
             type="text"
-            className="admin-search-input"
+            className={styles.searchInput}
             placeholder="Search clients…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             aria-label="Search clients"
           />
         </div>
-        <span className="admin-result-count">
+        <span className={styles.resultCount}>
           {sorted.length} client{sorted.length !== 1 ? "s" : ""}
         </span>
       </div>
 
       {sorted.length === 0 ? (
-        <div className="admin-empty">
+        <div className={styles.empty}>
           {search
             ? "No clients match your search"
             : "No clients registered yet"}
         </div>
       ) : (
-        <div className="admin-table-wrap">
-          <table className="admin-table admin-table--clickable">
+        <div className={styles.tableWrap}>
+          <table className={`${styles.table} ${styles.tableClickable}`}>
             <thead>
               <tr>
                 <th
                   onClick={() => handleSort("display_name")}
-                  className="admin-th-sortable"
+                  className={styles.thSortable}
                 >
                   Client <SortIcon field="display_name" />
                 </th>
                 <th
                   onClick={() => handleSort("created_at")}
-                  className="admin-th-sortable"
+                  className={styles.thSortable}
                 >
                   Registered <SortIcon field="created_at" />
                 </th>
                 <th
                   onClick={() => handleSort("activeProjectCount")}
-                  className="admin-th-sortable"
+                  className={styles.thSortable}
                 >
                   Active Projects <SortIcon field="activeProjectCount" />
                 </th>
                 <th
                   onClick={() => handleSort("totalRevenue")}
-                  className="admin-th-sortable"
+                  className={styles.thSortable}
                 >
                   Revenue <SortIcon field="totalRevenue" />
                 </th>
@@ -259,33 +260,33 @@ export default function AdminClientsPage() {
                 <>
                   <tr
                     key={client.id}
-                    className={`admin-client-row${expandedClient === client.id ? " admin-client-row--expanded" : ""}`}
+                    className={`${styles.clientRow}${expandedClient === client.id ? ` ${styles.clientRowExpanded}` : ""}`}
                     onClick={() => handleExpand(client.id)}
                   >
                     <td>
-                      <div className="admin-client-cell">
+                      <div className={styles.clientCell}>
                         {client.avatar_url ? (
                           <img
                             src={client.avatar_url}
                             alt=""
-                            className="admin-client-avatar"
+                            className={styles.clientAvatar}
                           />
                         ) : (
-                          <div className="admin-client-avatar-fallback">
+                          <div className={styles.clientAvatarFallback}>
                             {(client.display_name || "?")[0].toUpperCase()}
                           </div>
                         )}
                         <div>
-                          <div className="admin-client-name">
+                          <div className={styles.clientName}>
                             {client.display_name || "Unnamed"}
                           </div>
-                          <div className="admin-client-email">
+                          <div className={styles.clientEmail}>
                             {client.email}
                           </div>
                         </div>
                       </div>
                     </td>
-                    <td className="admin-table-date">
+                    <td className={styles.tableDate}>
                       {new Date(client.created_at).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -293,7 +294,7 @@ export default function AdminClientsPage() {
                       })}
                     </td>
                     <td>{client.activeProjectCount}</td>
-                    <td className="admin-table-amount">
+                    <td className={styles.tableAmount}>
                       $
                       {client.totalRevenue.toLocaleString("en-US", {
                         minimumFractionDigits: 2,
@@ -304,7 +305,7 @@ export default function AdminClientsPage() {
                   {expandedClient === client.id && (
                     <tr
                       key={`${client.id}-detail`}
-                      className="admin-client-detail-row"
+                      className={styles.clientDetailRow}
                     >
                       <td colSpan={4}>
                         <ClientDetailPanel
@@ -327,8 +328,8 @@ export default function AdminClientsPage() {
 function ClientDetailPanel({ detail, loading }) {
   if (loading) {
     return (
-      <div className="admin-detail-panel">
-        <div className="admin-loading admin-loading--inline">
+      <div className={styles.detailPanel}>
+        <div className={`${styles.loading} ${styles.loadingInline}`}>
           <div className="auth-guard-spinner" />
           <span>Loading details…</span>
         </div>
@@ -339,26 +340,26 @@ function ClientDetailPanel({ detail, loading }) {
   if (!detail) return null;
 
   return (
-    <div className="admin-detail-panel">
+    <div className={styles.detailPanel}>
       {/* Project history */}
-      <div className="admin-detail-section">
-        <h4 className="admin-detail-title">
+      <div className={styles.detailSection}>
+        <h4 className={styles.detailTitle}>
           <i className="fa-solid fa-folder-open" /> Projects (
           {detail.projects.length})
         </h4>
         {detail.projects.length === 0 ? (
-          <p className="admin-detail-empty">No projects</p>
+          <p className={styles.detailEmpty}>No projects</p>
         ) : (
-          <div className="admin-detail-list">
+          <div className={styles.detailList}>
             {detail.projects.map((p) => (
-              <div key={p.id} className="admin-detail-item">
-                <span className="admin-detail-item-name">{p.name}</span>
+              <div key={p.id} className={styles.detailItem}>
+                <span className={styles.detailItemName}>{p.name}</span>
                 <span
-                  className={`admin-status-badge admin-status--${p.status?.toLowerCase().replace(/\s+/g, "-")}`}
+                  className={`${styles.statusBadge} ${styles[`status${p.status?.replace(/\s+/g, "")}`] || ""}`}
                 >
                   {p.status}
                 </span>
-                <span className="admin-detail-item-meta">
+                <span className={styles.detailItemMeta}>
                   {formatTier(p.service_tier)}
                 </span>
               </div>
@@ -368,18 +369,18 @@ function ClientDetailPanel({ detail, loading }) {
       </div>
 
       {/* Invoice history */}
-      <div className="admin-detail-section">
-        <h4 className="admin-detail-title">
+      <div className={styles.detailSection}>
+        <h4 className={styles.detailTitle}>
           <i className="fa-solid fa-file-invoice-dollar" /> Invoices (
           {detail.invoices.length})
         </h4>
         {detail.invoices.length === 0 ? (
-          <p className="admin-detail-empty">No invoices</p>
+          <p className={styles.detailEmpty}>No invoices</p>
         ) : (
-          <div className="admin-detail-list">
+          <div className={styles.detailList}>
             {detail.invoices.map((inv) => (
-              <div key={inv.id} className="admin-detail-item">
-                <span className="admin-detail-item-name">
+              <div key={inv.id} className={styles.detailItem}>
+                <span className={styles.detailItemName}>
                   $
                   {Number(inv.total_amount || 0).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
@@ -387,11 +388,11 @@ function ClientDetailPanel({ detail, loading }) {
                   })}
                 </span>
                 <span
-                  className={`admin-status-badge admin-status--${inv.status?.toLowerCase()}`}
+                  className={`${styles.statusBadge} ${styles[`status${inv.status?.replace(/\s+/g, "")}`] || ""}`}
                 >
                   {inv.status}
                 </span>
-                <span className="admin-detail-item-meta">
+                <span className={styles.detailItemMeta}>
                   {inv.due_date
                     ? `Due ${new Date(inv.due_date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}`
                     : "—"}
@@ -403,26 +404,26 @@ function ClientDetailPanel({ detail, loading }) {
       </div>
 
       {/* Message history */}
-      <div className="admin-detail-section">
-        <h4 className="admin-detail-title">
+      <div className={styles.detailSection}>
+        <h4 className={styles.detailTitle}>
           <i className="fa-solid fa-comments" /> Recent Messages (
           {detail.messages.length})
         </h4>
         {detail.messages.length === 0 ? (
-          <p className="admin-detail-empty">No messages</p>
+          <p className={styles.detailEmpty}>No messages</p>
         ) : (
-          <div className="admin-detail-list">
+          <div className={styles.detailList}>
             {detail.messages.slice(0, 5).map((msg) => (
               <div
                 key={msg.id}
-                className="admin-detail-item admin-detail-item--message"
+                className={`${styles.detailItem} ${styles.detailItemMessage}`}
               >
-                <p className="admin-detail-message-text">
+                <p className={styles.detailMessageText}>
                   {msg.content?.length > 100
                     ? msg.content.slice(0, 100) + "…"
                     : msg.content}
                 </p>
-                <span className="admin-detail-item-meta">
+                <span className={styles.detailItemMeta}>
                   {new Date(msg.created_at).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",

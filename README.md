@@ -1,64 +1,129 @@
-# README
+# Adverse Solutions
 
-# Adams Verse
+A multi-product platform combining a personal portfolio/creator hub with a config-driven SMB website builder (WeBuilder). Built with React 19 + Vite 7, deployed on Netlify.
 
-A personal portfolio and branding platform demonstrating React frontend, interactive UI, and email contact functionality. Includes sections for work, pricing, contact, social links, and support.
-
----
-
-## 🚀 Demo
-
-> Check out the site deployed here: [https://adamsverse.com/](https://adamsverse.com/)
+**Live:** [https://adamsverse.com](https://adamsverse.com)
 
 ---
 
-## ✨ Features
+## What This Is
 
-- Fully responsive **banner** and **profile header**
-- **Development section** with project portfolio links
-- **Pricing section** with detailed rates and toggles
-- **Contact section** with a form integrated with EmailJS
-- Social and payment links section
-- Smooth **hover effects** and **dark gradient UI**
-- Mobile-first design with adaptive layouts
+Adverse Solutions is a web development agency platform with two faces:
+
+1. **Public Portfolio** — Showcases services, pricing, projects, and learning resources
+2. **WeBuilder Platform** — A config-driven website builder that renders SMB sites from JSON (Package_Config + Theme), not custom code
 
 ---
 
-## 🛠 Tech Stack
+## Platform Architecture
 
-- **Frontend:** React, JSX, CSS variables, FontAwesome icons
-- **Email Integration:** EmailJS (client-side email form)
-- **Hosting:** Netlify
-- **Design:** Mobile-responsive, gradient backgrounds, glassmorphism cards
+```
+React 19 + Vite 7 SPA
+├── Public Pages (/, /about, /services, /packages, /contact, /learn)
+├── Package Showcase (/packages, /packages/:slug)
+├── WeBuilder Preview (/builder) — Free lead-gen tool (planned)
+├── Client Portal (/dashboard/*) — Auth-gated via Supabase
+├── Admin Panel (/admin/*) — Role-gated
+├── Agent Console (/agents/*) — BasicAuth-gated, own layout
+└── Static Guides (/dsa, /leetcode, /github, /ai-website)
+```
 
 ---
 
-## ⚡ Setup & Installation
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | React 19, Vite 7 |
+| Routing | React Router DOM 7 |
+| Styling | Tailwind CSS 4 + CSS Modules + Design Tokens |
+| Animation | Framer Motion 12 |
+| UI Components | MUI Material 7, FontAwesome 7 |
+| Backend | Supabase (auth, storage, edge functions) |
+| Payments | Stripe |
+| Email | EmailJS (contact form), Resend (transactional) |
+| Validation | ajv (JSON Schema draft 2020-12) |
+| Testing | Vitest 4 + fast-check + Testing Library |
+| Deployment | Netlify (CDN, security headers, SPA redirects) |
+
+---
+
+## CSS Architecture
+
+The project uses a three-layer modular CSS system:
+
+```
+Layer 1: src/tokens.css          → Single source of truth for all design tokens
+Layer 2: src/styles.css          → Import-only manifest (@imports from src/styles/*.css)
+Layer 3: *.module.css            → Co-located CSS Modules for components/pages
+```
+
+Global style partials in `src/styles/`:
+- `reset.css` — Box-sizing, body defaults, skip-to-content
+- `typography.css` — Heading scales, body text
+- `cards.css` — Shared card base styles
+- `forms.css` — Form elements, inputs, buttons
+- `layout.css` — Sections, page headers, containers
+- `navbar.css` — Navbar (fixed, overlay, mobile)
+- `dark-theme.css` — Dark theme global overrides
+- `responsive.css` — Responsive overrides, touch targets
+
+---
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── packages/        # WeBuilder section components
+│   └── agents/          # Agent console components
+├── pages/               # Route-level page components
+├── data/                # Static data (packages, themes, services, projects)
+├── schemas/             # JSON Schema definitions + ajv validators
+├── registry/            # Section type registry
+├── lib/                 # Core services (contentLayer, uploadService, supabase)
+├── hooks/               # Custom React hooks
+├── context/             # React context providers (ThemeContext)
+├── utils/               # Pure utility functions
+├── styles/              # Global style partials
+├── tokens.css           # Design token definitions
+├── styles.css           # Import-only manifest
+├── assets/images/       # Static image assets
+└── __tests__/           # All test files (61 files)
+```
+
+---
+
+## Quick Start
 
 1. Clone the repo:
 
 ```bash
-git clone https://github.com/yourusername/adams-verse.git
-cd adams-verse
+git clone https://github.com/yourusername/adamsverse.git
+cd adamsverse
 ```
 
-1. Install dependencies:
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-1. Create a `.env` file at the project root for EmailJS keys:
+3. Create `.env.local` from the example:
 
-```
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
+```bash
+cp .env.example .env.local
 ```
 
-> Make sure to prefix with `VITE_` if using Vite.
+Required environment variables:
+- `VITE_SUPABASE_URL` — Supabase project URL
+- `VITE_SUPABASE_ANON_KEY` — Supabase anonymous key
+- `VITE_STRIPE_PUBLISHABLE_KEY` — Stripe publishable key
+- `VITE_EMAILJS_SERVICE_ID` — EmailJS service ID
+- `VITE_EMAILJS_TEMPLATE_ID` — EmailJS template ID
+- `VITE_EMAILJS_PUBLIC_KEY` — EmailJS public key
 
-1. Start the development server:
+4. Start the dev server:
 
 ```bash
 npm run dev
@@ -66,62 +131,62 @@ npm run dev
 
 ---
 
-## 💡 Usage
-
-- Navigate to the `Development` section to see project links.
-- `Pricing` section shows your rates and optional add-ons.
-- `Contact Me` section uses EmailJS to send messages directly to your email.
-- Social links are clickable cards for YouTube, Twitch, TikTok, X (Twitter), Instagram.
-- Support section links to CashApp and Venmo.
-
----
-
-## 📧 Email Contact Integration
-
-This project uses [EmailJS](https://www.emailjs.com/) for handling form submissions without a backend.
-
-1. Configure your EmailJS **service**, **template**, and **public key** in `.env`.
-2. Update your form fields to match the template variables (`name`, `email`, `message`, `reason`).
-3. Example code snippet in `App.jsx`:
-
-```jsx
-emailjs.sendForm(
-  import.meta.env.VITE_EMAILJS_SERVICE_ID,
-  import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-  e.target,
-  import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-);
-```
-
-1. Optional: include an auto-reply template for users.
-
-**Note:** Make sure your sending email (Outlook/Gmail) is active and verified.
-
----
-
-## 🚀 Deployment
-
-- Deployed on **Netlify**:
-  1. Connect GitHub repo to Netlify.
-  2. Set the build command:
+## Commands
 
 ```bash
-npm run build
+npm run dev      # Vite dev server (localhost:5173)
+npm run build    # Production build → dist/
+npm run lint     # ESLint
+npm run preview  # Preview production build locally
+npm run test     # Vitest (all tests, single run)
 ```
-
-1. Set the publish directory:
-
-```
-dist/
-```
-
-1. Add environment variables (`VITE_EMAILJS_*`) in Netlify dashboard.
-2. Deploy and verify EmailJS form works.
 
 ---
 
-## 📜 License
+## WeBuilder System
 
-This project is **MIT licensed** — see the `LICENSE` file for details.
+The WeBuilder renders websites from JSON configuration — no custom component code per package.
+
+**Adding a new package (zero custom code):**
+1. Add package object to `src/data/packages.js`
+2. Add 3 themes to `src/data/themes.js` under the package slug
+3. Run `npm run build && npm run test` — done
+
+**Available section types:** hero, services, gallery, testimonials, cta, contact
+
+**Layout variants:** professional, beauty, homeServices, foodHospitality
 
 ---
+
+## Deployment
+
+- **Host:** Netlify (auto-deploys on push to `main`)
+- **Build command:** `npm run build`
+- **Publish directory:** `dist/`
+- **Node version:** 20
+
+Pre-deploy checklist:
+```bash
+npm run lint    # Zero errors
+npm run test    # All tests pass
+npm run build   # Clean build
+```
+
+---
+
+## Static Learning Guides
+
+Plain HTML pages served directly by Netlify (not React):
+
+| Route | Purpose |
+|-------|---------|
+| /dsa | Big O, data structures, LeetCode patterns |
+| /leetcode | Coding interview questions (Java) |
+| /github | GitHub workflow guide |
+| /ai-website | AI website building guide |
+
+---
+
+## License
+
+MIT

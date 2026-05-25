@@ -4,7 +4,6 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import "./tokens.css";
 import "./styles.css";
-import "./styles/product-hub.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

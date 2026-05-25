@@ -1,0 +1,179 @@
+/* =================================
+   DARK THEME – Global Style Overrides
+   All [data-theme="dark"] rules for global elements
+================================= */
+
+[data-theme="dark"] body {
+  background: var(--color-bg-base);
+}
+
+[data-theme="dark"] .navbar {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+[data-theme="dark"] .navbar.navbar--scrolled {
+  background: rgba(11, 15, 25, 0.85);
+  border-bottom-color: var(--color-border, #3d4d63);
+  box-shadow: var(--shadow-sm, 0 1px 12px rgba(0, 0, 0, 0.3));
+}
+
+/* On mobile, force solid dark navbar — no blur/transparency */
+@media (max-width: 600px) {
+  [data-theme="dark"] .navbar,
+  [data-theme="dark"] .navbar.navbar--scrolled {
+    background: var(--navbar-bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom-color: var(--navbar-border);
+    box-shadow: none;
+  }
+}
+
+/* Dark mode card glow on hover */
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .portfolio-card:hover {
+  border-color: rgba(59, 130, 246, 0.2);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(59, 130, 246, 0.12),
+    0 0 40px rgba(59, 130, 246, 0.04);
+}
+
+/* Dark mode form inputs */
+[data-theme="dark"] .email-form input,
+[data-theme="dark"] .email-form select,
+[data-theme="dark"] .email-form textarea {
+  border-color: rgba(148, 163, 184, 0.12);
+  background: var(--color-bg-base);
+}
+
+[data-theme="dark"] .email-form input:focus,
+[data-theme="dark"] .email-form select:focus,
+[data-theme="dark"] .email-form textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow:
+    0 0 0 1px var(--color-accent),
+    0 0 12px rgba(59, 130, 246, 0.1);
+}
+
+/* Dark mode primary buttons glow */
+[data-theme="dark"] .navbar-links .navbar-cta {
+  box-shadow:
+    0 1px 4px rgba(59, 130, 246, 0.25),
+    0 0 20px rgba(59, 130, 246, 0.08);
+}
+
+[data-theme="dark"] .navbar-links .navbar-cta:hover {
+  box-shadow:
+    0 2px 8px rgba(59, 130, 246, 0.35),
+    0 0 30px rgba(59, 130, 246, 0.12);
+}
+
+/* Dark mode mobile overlay */
+[data-theme="dark"] .navbar-overlay {
+  background: var(--color-bg-base, #0f172a);
+  box-shadow: var(--shadow-lg, -8px 0 40px rgba(0, 0, 0, 0.5));
+}
+
+/* Dark mode portfolio placeholder gradient */
+[data-theme="dark"] .portfolio-card-placeholder {
+  background: linear-gradient(135deg, var(--color-bg-muted), #1a2744);
+}
+
+
+
+/* Dark mode section divider */
+[data-theme="dark"] .section-divider {
+  border-top-color: rgba(148, 163, 184, 0.08);
+}
+
+/* === Theme Transition === */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    fill 0.3s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning,
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition: none !important;
+  }
+}
+
+/* === Theme Toggle Button === */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 6px 10px;
+  min-width: 36px;
+  min-height: 36px;
+  font-size: var(--text-sm);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: var(--accent-bg-subtle);
+  box-shadow: 0 0 0 3px var(--accent-focus-ring);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle i {
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover i {
+  transform: rotate(15deg);
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.15);
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  background: rgba(59, 130, 246, 0.14);
+  border-color: rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+  box-shadow:
+    0 0 0 3px rgba(251, 191, 36, 0.1),
+    0 0 16px rgba(251, 191, 36, 0.06);
+}
+
+@media (max-width: 600px) {
+  .theme-toggle--mobile {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: var(--text-base);
+    gap: var(--space-3);
+  }
+}

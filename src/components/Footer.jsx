@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
-    <footer className="footer">
-      <nav className="footer-nav">
+    <footer className={styles.footer}>
+      <nav className={styles.nav}>
         <Link to="/">Home</Link>
         <Link to="/packages">Packages</Link>
         <Link to="/about">About</Link>
@@ -11,7 +12,7 @@ export default function Footer() {
         <Link to="/contact">Contact</Link>
       </nav>
 
-      <div className="footer-socials">
+      <div className={styles.socials}>
         <a
           href="https://github.com/aabdulk862"
           target="_blank"
@@ -33,7 +34,7 @@ export default function Footer() {
         </a>
       </div>
 
-      <p className="footer-copyright">
+      <p className={styles.copyright}>
         &copy; {new Date().getFullYear()} Adverse Solutions LLC
       </p>
     </footer>

@@ -1,0 +1,45 @@
+/* ErrorBoundary.module.css — Error fallback UI styles */
+
+.fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+}
+
+.fallback h1 {
+  font-size: var(--text-xl, 1.5rem);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.fallback p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+  max-width: 420px;
+}
+
+.reloadButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-6);
+  font-size: var(--text-base, 1rem);
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-accent);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.reloadButton:hover {
+  background: var(--color-accent-hover, var(--color-accent));
+  transform: scale(1.02);
+}

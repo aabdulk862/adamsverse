@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { supabase } from "../lib/supabase";
+import styles from "./Admin.module.css";
 
 export default function AdminDashboardPage() {
   const { profile, loading: authLoading } = useAuth();
@@ -71,8 +72,8 @@ export default function AdminDashboardPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="admin-page">
-        <div className="admin-loading">
+      <div className={styles.page}>
+        <div className={styles.loading}>
           <div className="auth-guard-spinner" />
           <span>Loading admin dashboard…</span>
         </div>
@@ -82,12 +83,12 @@ export default function AdminDashboardPage() {
 
   if (error) {
     return (
-      <div className="admin-page">
-        <h1 className="admin-page-title">Admin Dashboard</h1>
-        <div className="admin-error">
+      <div className={styles.page}>
+        <h1 className={styles.pageTitle}>Admin Dashboard</h1>
+        <div className={styles.error}>
           <i className="fa-solid fa-circle-exclamation" />
           <span>{error}</span>
-          <button onClick={fetchAdminData} className="admin-retry-btn">
+          <button onClick={fetchAdminData} className={styles.retryBtn}>
             Retry
           </button>
         </div>
@@ -96,86 +97,86 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="admin-page">
-      <div className="admin-header">
-        <h1 className="admin-page-title">Admin Dashboard</h1>
-        <span className="admin-welcome">
+    <div className={styles.page}>
+      <div className={styles.header}>
+        <h1 className={styles.pageTitle}>Admin Dashboard</h1>
+        <span className={styles.welcome}>
           Welcome, {profile?.display_name?.split(" ")[0] || "Admin"}
         </span>
       </div>
 
       {/* Quick action links */}
-      <div className="admin-quick-actions">
-        <Link to="/admin/projects" className="admin-quick-action">
+      <div className={styles.quickActions}>
+        <Link to="/admin/projects" className={styles.quickAction}>
           <i className="fa-solid fa-folder-open" />
           <span>Manage Projects</span>
         </Link>
-        <Link to="/admin/invoices" className="admin-quick-action">
+        <Link to="/admin/invoices" className={styles.quickAction}>
           <i className="fa-solid fa-file-invoice-dollar" />
           <span>Manage Invoices</span>
         </Link>
-        <Link to="/admin/clients" className="admin-quick-action">
+        <Link to="/admin/clients" className={styles.quickAction}>
           <i className="fa-solid fa-users" />
           <span>Manage Clients</span>
         </Link>
       </div>
 
       {/* Summary cards */}
-      <div className="admin-summary-cards">
-        <div className="admin-summary-card">
-          <div className="admin-summary-icon admin-summary-icon--projects">
+      <div className={styles.summaryCards}>
+        <div className={styles.summaryCard}>
+          <div className={`${styles.summaryIcon} ${styles.summaryIconProjects}`}>
             <i className="fa-solid fa-folder-open" />
           </div>
-          <div className="admin-summary-info">
-            <span className="admin-summary-value">
+          <div className={styles.summaryInfo}>
+            <span className={styles.summaryValue}>
               {stats.activeProjects.length}
             </span>
-            <span className="admin-summary-label">Active Projects</span>
+            <span className={styles.summaryLabel}>Active Projects</span>
           </div>
         </div>
-        <div className="admin-summary-card">
-          <div className="admin-summary-icon admin-summary-icon--invoices">
+        <div className={styles.summaryCard}>
+          <div className={`${styles.summaryIcon} ${styles.summaryIconInvoices}`}>
             <i className="fa-solid fa-file-invoice-dollar" />
           </div>
-          <div className="admin-summary-info">
-            <span className="admin-summary-value">
+          <div className={styles.summaryInfo}>
+            <span className={styles.summaryValue}>
               $
               {pendingTotal.toLocaleString("en-US", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
             </span>
-            <span className="admin-summary-label">
+            <span className={styles.summaryLabel}>
               Pending Invoices ({stats.pendingInvoices.length})
             </span>
           </div>
         </div>
-        <div className="admin-summary-card">
-          <div className="admin-summary-icon admin-summary-icon--messages">
+        <div className={styles.summaryCard}>
+          <div className={`${styles.summaryIcon} ${styles.summaryIconMessages}`}>
             <i className="fa-solid fa-comments" />
           </div>
-          <div className="admin-summary-info">
-            <span className="admin-summary-value">
+          <div className={styles.summaryInfo}>
+            <span className={styles.summaryValue}>
               {stats.recentMessages.length}
             </span>
-            <span className="admin-summary-label">Recent Messages</span>
+            <span className={styles.summaryLabel}>Recent Messages</span>
           </div>
         </div>
       </div>
 
       {/* Active projects */}
-      <div className="admin-section">
-        <div className="admin-section-header">
-          <h2 className="admin-section-title">Active Projects</h2>
-          <Link to="/admin/projects" className="admin-section-link">
+      <div className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Active Projects</h2>
+          <Link to="/admin/projects" className={styles.sectionLink}>
             View all <i className="fa-solid fa-arrow-right" />
           </Link>
         </div>
         {stats.activeProjects.length === 0 ? (
-          <div className="admin-empty">No active projects</div>
+          <div className={styles.empty}>No active projects</div>
         ) : (
-          <div className="admin-table-wrap">
-            <table className="admin-table">
+          <div className={styles.tableWrap}>
+            <table className={styles.table}>
               <thead>
                 <tr>
                   <th>Project</th>
@@ -188,19 +189,19 @@ export default function AdminDashboardPage() {
               <tbody>
                 {stats.activeProjects.map((p) => (
                   <tr key={p.id}>
-                    <td className="admin-table-name">{p.name}</td>
+                    <td className={styles.tableName}>{p.name}</td>
                     <td>{p.profiles?.display_name || "—"}</td>
                     <td>
                       <span
-                        className={`admin-status-badge admin-status--${p.status?.toLowerCase().replace(/\s+/g, "-")}`}
+                        className={`${styles.statusBadge} ${styles[`status${p.status?.replace(/\s+/g, "")}`] || ""}`}
                       >
                         {p.status}
                       </span>
                     </td>
-                    <td className="admin-table-tier">
+                    <td className={styles.tableTier}>
                       {formatTier(p.service_tier)}
                     </td>
-                    <td className="admin-table-date">
+                    <td className={styles.tableDate}>
                       {p.updated_at
                         ? new Date(p.updated_at).toLocaleDateString("en-US", {
                             month: "short",
@@ -217,18 +218,18 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Pending invoices */}
-      <div className="admin-section">
-        <div className="admin-section-header">
-          <h2 className="admin-section-title">Pending Invoices</h2>
-          <Link to="/admin/invoices" className="admin-section-link">
+      <div className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Pending Invoices</h2>
+          <Link to="/admin/invoices" className={styles.sectionLink}>
             View all <i className="fa-solid fa-arrow-right" />
           </Link>
         </div>
         {stats.pendingInvoices.length === 0 ? (
-          <div className="admin-empty">No pending invoices</div>
+          <div className={styles.empty}>No pending invoices</div>
         ) : (
-          <div className="admin-table-wrap">
-            <table className="admin-table">
+          <div className={styles.tableWrap}>
+            <table className={styles.table}>
               <thead>
                 <tr>
                   <th>Client</th>
@@ -241,7 +242,7 @@ export default function AdminDashboardPage() {
                 {stats.pendingInvoices.map((inv) => (
                   <tr key={inv.id}>
                     <td>{inv.profiles?.display_name || "—"}</td>
-                    <td className="admin-table-amount">
+                    <td className={styles.tableAmount}>
                       $
                       {Number(inv.total_amount || 0).toLocaleString("en-US", {
                         minimumFractionDigits: 2,
@@ -250,12 +251,12 @@ export default function AdminDashboardPage() {
                     </td>
                     <td>
                       <span
-                        className={`admin-status-badge admin-status--${inv.status?.toLowerCase()}`}
+                        className={`${styles.statusBadge} ${styles[`status${inv.status?.replace(/\s+/g, "")}`] || ""}`}
                       >
                         {inv.status}
                       </span>
                     </td>
-                    <td className="admin-table-date">
+                    <td className={styles.tableDate}>
                       {inv.due_date
                         ? new Date(inv.due_date).toLocaleDateString("en-US", {
                             month: "short",
@@ -273,35 +274,35 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Recent messages */}
-      <div className="admin-section">
-        <div className="admin-section-header">
-          <h2 className="admin-section-title">Recent Messages</h2>
+      <div className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Recent Messages</h2>
         </div>
         {stats.recentMessages.length === 0 ? (
-          <div className="admin-empty">No recent messages</div>
+          <div className={styles.empty}>No recent messages</div>
         ) : (
-          <div className="admin-messages-list">
+          <div className={styles.messagesList}>
             {stats.recentMessages.map((msg) => (
-              <div key={msg.id} className="admin-message-row">
-                <div className="admin-message-avatar">
+              <div key={msg.id} className={styles.messageRow}>
+                <div className={styles.messageAvatar}>
                   {msg.profiles?.avatar_url ? (
                     <img
                       src={msg.profiles.avatar_url}
                       alt=""
-                      className="admin-message-avatar-img"
+                      className={styles.messageAvatarImg}
                     />
                   ) : (
-                    <div className="admin-message-avatar-fallback">
+                    <div className={styles.messageAvatarFallback}>
                       {(msg.profiles?.display_name || "?")[0].toUpperCase()}
                     </div>
                   )}
                 </div>
-                <div className="admin-message-body">
-                  <div className="admin-message-meta">
-                    <span className="admin-message-sender">
+                <div className={styles.messageBody}>
+                  <div className={styles.messageMeta}>
+                    <span className={styles.messageSender}>
                       {msg.profiles?.display_name || "Unknown"}
                     </span>
-                    <span className="admin-message-time">
+                    <span className={styles.messageTime}>
                       {new Date(msg.created_at).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -310,7 +311,7 @@ export default function AdminDashboardPage() {
                       })}
                     </span>
                   </div>
-                  <p className="admin-message-content">
+                  <p className={styles.messageContent}>
                     {msg.content?.length > 120
                       ? msg.content.slice(0, 120) + "…"
                       : msg.content}

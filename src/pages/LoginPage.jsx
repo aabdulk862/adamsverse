@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import styles from "./LoginPage.module.css";
 
 export default function LoginPage() {
   const {
@@ -25,9 +26,9 @@ export default function LoginPage() {
   if (loading) {
     return (
       <div className="container">
-        <div className="login-page">
-          <div className="auth-guard-loading">
-            <div className="auth-guard-spinner" />
+        <div className={styles.page}>
+          <div className={styles.authGuardLoading}>
+            <div className={styles.authGuardSpinner} />
             <span>Loading…</span>
           </div>
         </div>
@@ -72,18 +73,18 @@ export default function LoginPage() {
   if (confirmationSent) {
     return (
       <div className="container">
-        <div className="login-page">
-          <div className="login-card">
-            <div className="login-header">
-              <h1 className="login-title">Check your email</h1>
-              <p className="login-subtitle">
+        <div className={styles.page}>
+          <div className={styles.card}>
+            <div className={styles.header}>
+              <h1 className={styles.title}>Check your email</h1>
+              <p className={styles.subtitle}>
                 We sent a confirmation link to{" "}
                 <span style={{ fontWeight: 600 }}>{email}</span>. Click the link
                 to activate your account, then come back and sign in.
               </p>
             </div>
             <button
-              className="login-google-btn"
+              className={styles.googleBtn}
               onClick={() => {
                 setConfirmationSent(false);
                 setMode("signin");
@@ -100,27 +101,27 @@ export default function LoginPage() {
 
   return (
     <div className="container">
-      <div className="login-page">
-        <div className="login-card">
-          <div className="login-header">
-            <h1 className="login-title">
+      <div className={styles.page}>
+        <div className={styles.card}>
+          <div className={styles.header}>
+            <h1 className={styles.title}>
               {mode === "signin"
                 ? "Sign in to your account"
                 : "Create an account"}
             </h1>
-            <p className="login-subtitle">
+            <p className={styles.subtitle}>
               Manage your projects, view invoices, and message us directly.
             </p>
           </div>
 
           {/* Google OAuth */}
           <button
-            className="login-google-btn"
+            className={styles.googleBtn}
             onClick={signInWithGoogle}
             type="button"
           >
             <svg
-              className="login-google-icon"
+              className={styles.googleIcon}
               viewBox="0 0 24 24"
               width="20"
               height="20"
@@ -147,12 +148,12 @@ export default function LoginPage() {
           </button>
 
           {/* Divider */}
-          <div className="login-divider">
+          <div className={styles.divider}>
             <span>or</span>
           </div>
 
           {/* Email form */}
-          <form className="login-email-form" onSubmit={handleEmailSubmit}>
+          <form className={styles.emailForm} onSubmit={handleEmailSubmit}>
             {mode === "signup" && (
               <label htmlFor="login-name">
                 Name
@@ -207,7 +208,7 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="login-email-btn"
+              className={styles.emailBtn}
               disabled={submitting}
             >
               {submitting ? (
@@ -224,13 +225,13 @@ export default function LoginPage() {
           </form>
 
           {/* Toggle mode */}
-          <p className="login-toggle">
+          <p className={styles.toggle}>
             {mode === "signin" ? (
               <>
                 Don't have an account?{" "}
                 <button
                   type="button"
-                  className="login-toggle-btn"
+                  className={styles.toggleBtn}
                   onClick={toggleMode}
                 >
                   Sign up
@@ -241,7 +242,7 @@ export default function LoginPage() {
                 Already have an account?{" "}
                 <button
                   type="button"
-                  className="login-toggle-btn"
+                  className={styles.toggleBtn}
                   onClick={toggleMode}
                 >
                   Sign in
@@ -250,7 +251,7 @@ export default function LoginPage() {
             )}
           </p>
 
-          <p className="login-note">
+          <p className={styles.note}>
             We only use your email to verify your identity. We never share it
             with third parties.
           </p>

@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 100%;
   min-height: 400px;
-  background: var(--bg-primary);
+  background: var(--color-bg-base);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -27,7 +27,7 @@
   justify-content: center;
   gap: var(--space-3);
   padding: var(--space-16) var(--space-6);
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   text-align: center;
 }
 
@@ -37,8 +37,8 @@
 }
 
 .empty p {
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-relaxed);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
   max-width: 320px;
   margin: 0;
 }
@@ -65,11 +65,11 @@
   height: 32px;
   border-radius: var(--radius-full);
   background: var(--accent-bg-subtle);
-  color: var(--accent-primary);
+  color: var(--color-accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-size-sm);
+  font-size: var(--text-sm);
   flex-shrink: 0;
 }
 
@@ -83,28 +83,28 @@
 }
 
 .bubbleUser {
-  background: var(--accent-primary);
+  background: var(--color-accent);
   color: #fff;
   border-bottom-right-radius: var(--radius-sm);
 }
 
 .bubbleAssistant {
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
   border: 1px solid var(--card-border);
   border-bottom-left-radius: var(--radius-sm);
 }
 
 .bubbleContent {
   margin: 0;
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
   white-space: pre-wrap;
 }
 
 .timestamp {
   display: block;
-  font-size: var(--font-size-xs);
+  font-size: var(--text-xs);
   margin-top: var(--space-1);
   opacity: 0.6;
 }
@@ -114,7 +114,7 @@
 }
 
 .bubbleAssistant .timestamp {
-  color: var(--text-muted);
+  color: var(--color-text-muted);
 }
 
 /* ── Typing indicator ── */
@@ -129,7 +129,7 @@
   width: 6px;
   height: 6px;
   border-radius: var(--radius-full);
-  background: var(--text-muted);
+  background: var(--color-text-muted);
   animation: typingBounce 1.4s infinite ease-in-out both;
 }
 
@@ -165,18 +165,18 @@
   gap: var(--space-2);
   padding: var(--space-4);
   border-top: 1px solid var(--card-border);
-  background: var(--bg-secondary);
+  background: var(--color-bg-surface);
 }
 
 .textInput {
   flex: 1;
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
-  border: 1px solid var(--border-light);
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-size: var(--font-size-sm);
-  font-family: var(--font-family);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
   outline: none;
   transition:
     border-color var(--transition-fast),
@@ -184,12 +184,12 @@
 }
 
 .textInput::placeholder {
-  color: var(--text-muted);
+  color: var(--color-text-muted);
 }
 
 .textInput:focus {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 1px var(--accent-primary);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
 }
 
 .textInput:disabled {
@@ -205,9 +205,9 @@
   height: 40px;
   border-radius: var(--radius-md);
   border: none;
-  background: var(--accent-primary);
+  background: var(--color-accent);
   color: #fff;
-  font-size: var(--font-size-sm);
+  font-size: var(--text-sm);
   cursor: pointer;
   transition:
     background var(--transition-fast),
@@ -216,7 +216,7 @@
 }
 
 .sendBtn:hover:not(:disabled) {
-  background: var(--accent-primary-dark);
+  background: var(--color-accent-hover);
   transform: translateY(-1px);
 }
 

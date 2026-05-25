@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useProjects } from "../hooks/useProjects";
+import styles from "./ProjectListPage.module.css";
 
 const TIER_LABELS = {
   "landing-page": "Landing Page",
@@ -16,24 +17,24 @@ export default function ProjectListPage() {
   }, [fetchProjects]);
 
   return (
-    <div className="project-list-page">
-      <div className="project-list-header">
-        <h1 className="project-list-title">Projects</h1>
+    <div className={styles.page}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Projects</h1>
       </div>
 
       {loading ? (
-        <div className="project-list-loading">
+        <div className={styles.loading}>
           <div className="auth-guard-spinner" />
           <span>Loading projects…</span>
         </div>
       ) : error ? (
-        <div className="project-list-error">
+        <div className={styles.error}>
           <i className="fa-solid fa-circle-exclamation" />
           <span>Failed to load projects. Please try again.</span>
         </div>
       ) : projects.length === 0 ? (
-        <div className="project-list-empty">
-          <div className="project-list-empty-icon">
+        <div className={styles.empty}>
+          <div className={styles.emptyIcon}>
             <i className="fa-solid fa-folder-open" />
           </div>
           <h3>No projects yet</h3>
@@ -41,23 +42,23 @@ export default function ProjectListPage() {
             Ready to get started? Pick a service tier and we'll take it from
             there.
           </p>
-          <Link to="/services" className="project-list-empty-cta">
+          <Link to="/services" className={styles.emptyCta}>
             Browse services <i className="fa-solid fa-arrow-right" />
           </Link>
         </div>
       ) : (
-        <div className="project-list-table">
-          <div className="project-list-table-header">
-            <span className="project-list-col project-list-col--name">
+        <div className={styles.table}>
+          <div className={styles.tableHeader}>
+            <span className={styles.colName}>
               Name
             </span>
-            <span className="project-list-col project-list-col--status">
+            <span>
               Status
             </span>
-            <span className="project-list-col project-list-col--tier">
+            <span className={styles.colTier}>
               Service Tier
             </span>
-            <span className="project-list-col project-list-col--date">
+            <span className={styles.colDate}>
               Last Updated
             </span>
           </div>
@@ -65,22 +66,22 @@ export default function ProjectListPage() {
             <Link
               key={project.id}
               to={`/dashboard/projects/${project.id}`}
-              className="project-list-row"
+              className={styles.row}
             >
-              <span className="project-list-col project-list-col--name">
+              <span className={styles.colName}>
                 {project.name}
               </span>
-              <span className="project-list-col project-list-col--status">
+              <span>
                 <span
                   className={`dashboard-project-status dashboard-project-status--${project.status?.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   {project.status}
                 </span>
               </span>
-              <span className="project-list-col project-list-col--tier">
+              <span className={styles.colTier}>
                 {TIER_LABELS[project.service_tier] || project.service_tier}
               </span>
-              <span className="project-list-col project-list-col--date">
+              <span className={styles.colDate}>
                 {project.updated_at
                   ? new Date(project.updated_at).toLocaleDateString("en-US", {
                       month: "short",

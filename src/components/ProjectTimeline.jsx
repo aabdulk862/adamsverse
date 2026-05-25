@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./ProjectTimeline.module.css";
 
 const STATUS_COLORS = {
   Discovery: "#8b5cf6",
@@ -27,7 +28,7 @@ function statusToClass(status) {
 export default function ProjectTimeline({ history = [] }) {
   if (!history || history.length === 0) {
     return (
-      <div className="project-timeline-empty">
+      <div className={styles.empty}>
         <p>No status history yet</p>
       </div>
     );
@@ -35,7 +36,7 @@ export default function ProjectTimeline({ history = [] }) {
 
   return (
     <div
-      className="project-timeline"
+      className={styles.timeline}
       role="list"
       aria-label="Project status history"
     >
@@ -45,31 +46,31 @@ export default function ProjectTimeline({ history = [] }) {
 
         return (
           <div
-            className="project-timeline-entry"
+            className={styles.entry}
             key={entry.id}
             role="listitem"
           >
-            <div className="project-timeline-rail">
+            <div className={styles.rail}>
               <span
-                className={`project-timeline-dot project-timeline-dot--${statusClass}`}
+                className={styles.dot}
                 style={{ backgroundColor: dotColor }}
                 aria-hidden="true"
               />
-              <span className="project-timeline-line" aria-hidden="true" />
+              <span className={styles.line} aria-hidden="true" />
             </div>
-            <div className="project-timeline-content">
+            <div className={styles.content}>
               <span
-                className={`project-timeline-status dashboard-project-status dashboard-project-status--${statusClass}`}
+                className={`dashboard-project-status dashboard-project-status--${statusClass}`}
               >
                 {entry.status}
               </span>
               {entry.description && (
-                <p className="project-timeline-description">
+                <p className={styles.description}>
                   {entry.description}
                 </p>
               )}
               <time
-                className="project-timeline-date"
+                className={styles.date}
                 dateTime={entry.created_at}
               >
                 {formatDate(entry.created_at)}

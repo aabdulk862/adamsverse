@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import services from "../data/services";
+import styles from "./ServicesPage.module.css";
 
 export default function ServicesPage() {
   useEffect(() => {
@@ -17,20 +18,20 @@ export default function ServicesPage() {
         </p>
       </div>
 
-      <div className="services-grid">
+      <div className={styles.servicesGrid}>
         {services.map((service) => (
-          <div key={service.id} className="service-card">
+          <div key={service.id} className={styles.serviceCard}>
             {service.icon && (
-              <i className={`${service.icon} service-card-icon`}></i>
+              <i className={`${service.icon} ${styles.serviceCardIcon}`}></i>
             )}
-            <h3 className="service-card-title">{service.title}</h3>
-            <p className="service-card-desc">{service.description}</p>
-            <ul className="service-card-deliverables">
+            <h3 className={styles.serviceCardTitle}>{service.title}</h3>
+            <p className={styles.serviceCardDesc}>{service.description}</p>
+            <ul className={styles.serviceCardDeliverables}>
               {service.deliverables.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <Link to="/contact" className="service-cta">
+            <Link to="/contact" className={styles.serviceCta}>
               Get in Touch <i className="fas fa-arrow-right"></i>
             </Link>
           </div>

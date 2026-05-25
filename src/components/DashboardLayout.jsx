@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import { useNotifications } from "../hooks/useNotifications";
 import NotificationBadge from "./NotificationBadge";
+import styles from "./DashboardLayout.module.css";
 
 const navItems = [
   {
@@ -45,10 +46,10 @@ export default function DashboardLayout() {
   };
 
   return (
-    <div className="dashboard-layout">
+    <div className={styles.layout}>
       {/* Mobile sidebar toggle */}
       <button
-        className="dashboard-sidebar-toggle"
+        className={styles.sidebarToggle}
         onClick={() => setSidebarOpen((prev) => !prev)}
         aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
         aria-expanded={sidebarOpen}
@@ -59,7 +60,7 @@ export default function DashboardLayout() {
       {/* Sidebar overlay for mobile */}
       {sidebarOpen && (
         <div
-          className="dashboard-sidebar-overlay"
+          className={styles.sidebarOverlay}
           onClick={() => setSidebarOpen(false)}
           aria-hidden="true"
         />
@@ -67,17 +68,17 @@ export default function DashboardLayout() {
 
       {/* Sidebar navigation */}
       <nav
-        className={`dashboard-sidebar${sidebarOpen ? " dashboard-sidebar--open" : ""}`}
+        className={`${styles.sidebar}${sidebarOpen ? ` ${styles.sidebarOpen}` : ""}`}
         aria-label="Dashboard navigation"
       >
-        <ul className="dashboard-sidebar-nav">
+        <ul className={styles.sidebarNav}>
           {navItems.map((item) => (
             <li key={item.to}>
               <NavLink
                 to={item.to}
                 end={item.end || false}
                 className={({ isActive }) =>
-                  `dashboard-sidebar-link${isActive ? " dashboard-sidebar-link--active" : ""}`
+                  `${styles.sidebarLink}${isActive ? ` ${styles.sidebarLinkActive}` : ""}`
                 }
                 onClick={() => setSidebarOpen(false)}
               >
@@ -93,26 +94,26 @@ export default function DashboardLayout() {
       </nav>
 
       {/* Main content area */}
-      <main className="dashboard-content">
+      <main className={styles.content}>
         <Outlet />
       </main>
 
       {/* Mobile bottom navigation bar */}
-      <nav className="dashboard-bottom-nav" aria-label="Dashboard navigation">
+      <nav className={styles.bottomNav} aria-label="Dashboard navigation">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             end={item.end || false}
             className={({ isActive }) =>
-              `dashboard-bottom-nav-item${isActive ? " dashboard-bottom-nav-item--active" : ""}`
+              `${styles.bottomNavItem}${isActive ? ` ${styles.bottomNavItemActive}` : ""}`
             }
           >
-            <span className="dashboard-bottom-nav-icon-wrap">
+            <span className={styles.bottomNavIconWrap}>
               <i className={item.icon} />
               {item.badgeKey && badgeCounts[item.badgeKey] > 0 && (
                 <span
-                  className="dashboard-badge dashboard-badge--bottom"
+                  className={`${styles.badge} ${styles.badgeBottom}`}
                   aria-label={`${badgeCounts[item.badgeKey]} unread`}
                 >
                   {badgeCounts[item.badgeKey] > 99
@@ -121,7 +122,7 @@ export default function DashboardLayout() {
                 </span>
               )}
             </span>
-            <span className="dashboard-bottom-nav-label">{item.label}</span>
+            <span className={styles.bottomNavLabel}>{item.label}</span>
           </NavLink>
         ))}
       </nav>

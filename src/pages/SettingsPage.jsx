@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { supabase } from "../lib/supabase";
+import styles from "./SettingsPage.module.css";
 
 export default function SettingsPage() {
   const { user, profile } = useAuth();
@@ -114,30 +115,30 @@ export default function SettingsPage() {
   ];
 
   return (
-    <div className="settings-page">
-      <h1 className="settings-title">Settings</h1>
+    <div className={styles.page}>
+      <h1 className={styles.title}>Settings</h1>
 
       {/* Profile section */}
-      <section className="settings-section">
-        <h2 className="settings-section-title">Profile</h2>
-        <div className="settings-profile-card">
-          <div className="settings-avatar-wrap">
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Profile</h2>
+        <div className={styles.profileCard}>
+          <div className={styles.avatarWrap}>
             {avatarUrl ? (
               <img
                 src={avatarUrl}
                 alt={displayName}
-                className="settings-avatar"
+                className={styles.avatar}
               />
             ) : (
-              <div className="settings-avatar-fallback">{initials}</div>
+              <div className={styles.avatarFallback}>{initials}</div>
             )}
           </div>
-          <div className="settings-profile-info">
-            <span className="settings-profile-name">
+          <div className={styles.profileInfo}>
+            <span className={styles.profileName}>
               {displayName || "No name set"}
             </span>
-            <span className="settings-profile-email">{email}</span>
-            <span className="settings-profile-source">
+            <span className={styles.profileEmail}>{email}</span>
+            <span className={styles.profileSource}>
               <i className="fa-brands fa-google" /> Signed in with Google
             </span>
           </div>
@@ -145,34 +146,34 @@ export default function SettingsPage() {
       </section>
 
       {/* Notification preferences */}
-      <section className="settings-section">
-        <h2 className="settings-section-title">Email Notifications</h2>
-        <p className="settings-section-desc">
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Email Notifications</h2>
+        <p className={styles.sectionDesc}>
           Choose which email notifications you'd like to receive.
         </p>
 
         {loading ? (
-          <div className="settings-loading">
+          <div className={styles.loading}>
             <div className="auth-guard-spinner" />
             <span>Loading preferences…</span>
           </div>
         ) : (
-          <div className="settings-toggles">
+          <div className={styles.toggles}>
             {toggles.map((t) => (
-              <label key={t.key} className="settings-toggle-row">
-                <div className="settings-toggle-text">
-                  <span className="settings-toggle-label">{t.label}</span>
-                  <span className="settings-toggle-desc">{t.desc}</span>
+              <label key={t.key} className={styles.toggleRow}>
+                <div className={styles.toggleText}>
+                  <span className={styles.toggleLabel}>{t.label}</span>
+                  <span className={styles.toggleDesc}>{t.desc}</span>
                 </div>
                 <button
                   type="button"
                   role="switch"
                   aria-checked={preferences[t.key]}
-                  className={`settings-toggle-switch${preferences[t.key] ? " settings-toggle-switch--on" : ""}`}
+                  className={`${styles.toggleSwitch}${preferences[t.key] ? ` ${styles.toggleSwitchOn}` : ""}`}
                   onClick={() => handleToggle(t.key)}
                   disabled={saving}
                 >
-                  <span className="settings-toggle-knob" />
+                  <span className={styles.toggleKnob} />
                 </button>
               </label>
             ))}
@@ -180,12 +181,12 @@ export default function SettingsPage() {
         )}
 
         {saveStatus === "success" && (
-          <div className="settings-save-status settings-save-status--success">
+          <div className={`${styles.saveStatus} ${styles.saveStatusSuccess}`}>
             <i className="fa-solid fa-check" /> Preferences saved
           </div>
         )}
         {saveStatus === "error" && (
-          <div className="settings-save-status settings-save-status--error">
+          <div className={`${styles.saveStatus} ${styles.saveStatusError}`}>
             <i className="fa-solid fa-exclamation-triangle" /> Failed to save.
             Please try again.
           </div>

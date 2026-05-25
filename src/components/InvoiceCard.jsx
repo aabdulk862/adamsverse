@@ -1,10 +1,11 @@
 import React from "react";
+import styles from "./InvoiceCard.module.css";
 
 const STATUS_CONFIG = {
-  Draft: { className: "invoice-status--draft", label: "Draft" },
-  Sent: { className: "invoice-status--sent", label: "Sent" },
-  Paid: { className: "invoice-status--paid", label: "Paid" },
-  Overdue: { className: "invoice-status--overdue", label: "Overdue" },
+  Draft: { className: styles.statusDraft, label: "Draft" },
+  Sent: { className: styles.statusSent, label: "Sent" },
+  Paid: { className: styles.statusPaid, label: "Paid" },
+  Overdue: { className: styles.statusOverdue, label: "Overdue" },
 };
 
 function formatCurrency(amount) {
@@ -43,27 +44,27 @@ export default function InvoiceCard({ invoice, onPayClick }) {
 
   return (
     <div
-      className="invoice-card"
+      className={styles.card}
       role="article"
       aria-label={`Invoice ${id ? id.slice(0, 8) : ""}`}
     >
-      <div className="invoice-card-header">
-        <div className="invoice-card-title-row">
-          <span className="invoice-card-id">
+      <div className={styles.header}>
+        <div className={styles.titleRow}>
+          <span className={styles.id}>
             Invoice #{id ? id.slice(0, 8) : "—"}
           </span>
-          <span className={`invoice-status ${statusConfig.className}`}>
+          <span className={`${styles.status} ${statusConfig.className}`}>
             {statusConfig.label}
           </span>
         </div>
-        <div className="invoice-card-dates">
+        <div className={styles.dates}>
           {due_date && (
-            <span className="invoice-card-date">
+            <span className={styles.date}>
               Due: {formatDate(due_date)}
             </span>
           )}
           {paid_at && (
-            <span className="invoice-card-date invoice-card-date--paid">
+            <span className={`${styles.date} ${styles.datePaid}`}>
               Paid: {formatDate(paid_at)}
             </span>
           )}
@@ -71,8 +72,8 @@ export default function InvoiceCard({ invoice, onPayClick }) {
       </div>
 
       {line_items.length > 0 && (
-        <div className="invoice-card-items">
-          <table className="invoice-card-table" aria-label="Line items">
+        <div className={styles.items}>
+          <table className={styles.table} aria-label="Line items">
             <thead>
               <tr>
                 <th>Description</th>
@@ -83,7 +84,7 @@ export default function InvoiceCard({ invoice, onPayClick }) {
               {line_items.map((item, index) => (
                 <tr key={index}>
                   <td>{item.description || "—"}</td>
-                  <td className="invoice-card-amount">
+                  <td className={styles.amount}>
                     {formatCurrency(item.amount)}
                   </td>
                 </tr>
@@ -93,29 +94,29 @@ export default function InvoiceCard({ invoice, onPayClick }) {
         </div>
       )}
 
-      <div className="invoice-card-summary">
+      <div className={styles.summary}>
         {tax_amount > 0 && (
           <>
-            <div className="invoice-card-summary-row">
+            <div className={styles.summaryRow}>
               <span>Subtotal</span>
               <span>{formatCurrency(subtotal)}</span>
             </div>
-            <div className="invoice-card-summary-row">
+            <div className={styles.summaryRow}>
               <span>Tax</span>
               <span>{formatCurrency(tax_amount)}</span>
             </div>
           </>
         )}
-        <div className="invoice-card-summary-row invoice-card-total">
+        <div className={`${styles.summaryRow} ${styles.total}`}>
           <span>Total</span>
           <span>{formatCurrency(total_amount)}</span>
         </div>
       </div>
 
       {showPayButton && (
-        <div className="invoice-card-actions">
+        <div className={styles.actions}>
           <button
-            className="invoice-card-pay-btn"
+            className={styles.payBtn}
             onClick={() => onPayClick?.(invoice)}
             type="button"
           >

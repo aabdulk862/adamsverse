@@ -1,0 +1,269 @@
+/* AboutPage.module.css — About page scoped styles */
+
+.bio {
+  background: var(--card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8) var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.bioHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid var(--color-accent);
+  box-shadow: 0 0 0 4px var(--accent-bg-medium);
+  flex-shrink: 0;
+}
+
+.bioInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.name {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.role {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.bioText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.section {
+  margin-bottom: var(--space-8);
+}
+
+.sectionTitle {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--color-accent);
+  display: inline-block;
+}
+
+.sectionIntro {
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+  margin-bottom: var(--space-6);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* How We Work — Numbered Principles */
+.principles {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.principle {
+  display: flex;
+  gap: var(--space-6);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: baseline;
+}
+
+.principleNumber {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-accent);
+  opacity: 0.3;
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 52px;
+  font-variant-numeric: tabular-nums;
+}
+
+.principleBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.principleTitle {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.principleDesc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--letter-spacing-wide);
+  max-width: 600px;
+}
+
+/* About CTA — minimal, text-driven */
+.cta {
+  text-align: center;
+  padding: var(--space-16) var(--space-4);
+  margin: var(--space-8) 0 var(--space-16);
+}
+
+.ctaLabel {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  font-weight: var(--weight-medium);
+  margin-bottom: var(--space-3);
+}
+
+.ctaHeadline {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-8);
+  line-height: var(--leading-tight);
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: var(--space-1);
+  transition:
+    gap var(--transition-fast),
+    color var(--transition-fast);
+  text-decoration: none;
+}
+
+.ctaBtn:hover {
+  gap: var(--space-3);
+}
+
+.ctaBtn i {
+  font-size: var(--text-sm);
+  transition: transform var(--transition-fast);
+}
+
+.ctaBtn:hover i {
+  transform: translateX(2px);
+}
+
+/* Dark theme override */
+:global([data-theme="dark"]) .bio {
+  background: var(--color-bg-surface);
+  border-color: rgba(148, 163, 184, 0.08);
+}
+
+/* Responsive overrides */
+@media (max-width: 600px) {
+  .bio {
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: var(--space-6);
+  }
+  .bioHeader {
+    flex-direction: row;
+    text-align: left;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  .bioInfo {
+    align-items: flex-start;
+  }
+  .name {
+    justify-content: flex-start;
+    font-size: var(--text-lg);
+  }
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-width: 2px;
+    box-shadow: 0 0 0 3px var(--accent-bg-medium);
+  }
+  .bioText {
+    font-size: var(--text-sm);
+    gap: var(--space-4);
+    line-height: 1.7;
+  }
+  .section {
+    margin-bottom: var(--space-6);
+  }
+  .sectionTitle {
+    font-size: var(--text-base);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: none;
+    margin-bottom: var(--space-4);
+    color: var(--color-text-muted);
+    padding-bottom: 0;
+  }
+  .sectionIntro {
+    font-size: var(--text-sm);
+  }
+  .principles {
+    border-top: none;
+    gap: var(--space-5);
+  }
+  .principle {
+    border-bottom: none;
+    padding: 0;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+  .principleNumber {
+    font-size: var(--text-xl);
+    min-width: 32px;
+    opacity: 0.2;
+  }
+  .principleTitle {
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+  }
+  .principleDesc {
+    font-size: var(--text-sm);
+  }
+  .cta {
+    padding: var(--space-10) 0;
+    margin: var(--space-4) 0 var(--space-6);
+    text-align: left;
+  }
+  .ctaLabel {
+    font-size: var(--text-xs, 0.75rem);
+  }
+  .ctaHeadline {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-6);
+  }
+  .ctaBtn {
+    font-size: var(--text-sm);
+  }
+}

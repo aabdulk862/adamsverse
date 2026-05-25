@@ -5,6 +5,7 @@ import {
   recordSubmission,
   getTimeUntilReset,
 } from "../lib/rateLimiter";
+import styles from "./ContactPage.module.css";
 
 const RATE_LIMIT_KEY = "contact-form";
 const SHEET_URL = import.meta.env.VITE_GOOGLE_SHEET_URL;
@@ -98,24 +99,24 @@ export default function ContactPage() {
       </div>
 
       {/* Contact Info Cards */}
-      <div className="contact-info-grid">
-        <a href="tel:+17033648616" className="contact-info-card">
-          <div className="contact-info-icon">
+      <div className={styles.infoGrid}>
+        <a href="tel:+17033648616" className={styles.infoCard}>
+          <div className={styles.infoIcon}>
             <i className="fas fa-phone"></i>
           </div>
-          <div className="contact-info-details">
-            <span className="contact-info-label">Phone</span>
-            <span className="contact-info-value">(703) 364-8616</span>
+          <div className={styles.infoDetails}>
+            <span className={styles.infoLabel}>Phone</span>
+            <span className={styles.infoValue}>(703) 364-8616</span>
           </div>
         </a>
 
-        <a href="mailto:adamvmedia@outlook.com" className="contact-info-card">
-          <div className="contact-info-icon">
+        <a href="mailto:adamvmedia@outlook.com" className={styles.infoCard}>
+          <div className={styles.infoIcon}>
             <i className="fas fa-envelope"></i>
           </div>
-          <div className="contact-info-details">
-            <span className="contact-info-label">Email</span>
-            <span className="contact-info-value">adamvmedia@outlook.com</span>
+          <div className={styles.infoDetails}>
+            <span className={styles.infoLabel}>Email</span>
+            <span className={styles.infoValue}>adamvmedia@outlook.com</span>
           </div>
         </a>
 
@@ -123,14 +124,14 @@ export default function ContactPage() {
           href="https://linkedin.com/in/adam-abdulkadir"
           target="_blank"
           rel="noopener noreferrer"
-          className="contact-info-card"
+          className={styles.infoCard}
         >
-          <div className="contact-info-icon">
+          <div className={styles.infoIcon}>
             <i className="fab fa-linkedin"></i>
           </div>
-          <div className="contact-info-details">
-            <span className="contact-info-label">LinkedIn</span>
-            <span className="contact-info-value">adam-abdulkadir</span>
+          <div className={styles.infoDetails}>
+            <span className={styles.infoLabel}>LinkedIn</span>
+            <span className={styles.infoValue}>adam-abdulkadir</span>
           </div>
         </a>
       </div>

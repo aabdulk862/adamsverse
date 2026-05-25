@@ -1,7 +1,7 @@
 /* ProductGrid styles — responsive grid using design tokens
    Featured product spans full width, secondary products in a row below. */
 
-.product-grid {
+.grid {
   display: flex;
   flex-direction: column;
   gap: var(--grid-gap);
@@ -12,52 +12,52 @@
 }
 
 /* Featured product — full width, elevated presence */
-.product-grid__featured .product-card {
+.featured :global(.product-card) {
   border: 1.5px solid var(--color-accent);
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-md);
   padding: 32px;
 }
 
-.product-grid__featured .product-card__icon {
+.featured :global(.product-card__icon) {
   font-size: 1.75rem;
 }
 
-.product-grid__featured .product-card__name {
+.featured :global(.product-card__name) {
   font-size: 1.25rem;
 }
 
-.product-grid__featured .product-card__description {
+.featured :global(.product-card__description) {
   font-size: 1rem;
   max-width: 480px;
 }
 
 /* Secondary products grid */
-.product-grid__secondary {
+.secondary {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--grid-gap);
 }
 
 @media (min-width: 769px) {
-  .product-grid {
+  .grid {
     padding: 80px var(--grid-gap);
   }
 
-  .product-grid__featured .product-card {
+  .featured :global(.product-card) {
     padding: 36px 40px;
   }
 
-  .product-grid__secondary {
+  .secondary {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .product-grid {
+  .grid {
     padding: 48px 20px;
   }
 
-  .product-grid__featured .product-card {
+  .featured :global(.product-card) {
     padding: 24px;
   }
 }

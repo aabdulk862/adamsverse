@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import "./ProductCard.css";
+import styles from "./ProductCard.module.css";
 
 /**
  * ProductCard — Renders a single product from the product registry.
@@ -61,28 +61,28 @@ export default function ProductCard({ product, isAuthenticated = true }) {
 
   const cardContent = (
     <>
-      <div className="product-card__header">
-        <i className={`product-card__icon ${icon}`} aria-hidden="true"></i>
-        <div className="product-card__title-row">
-          <h3 className="product-card__name">{name}</h3>
-          {isBeta && <span className="product-card__badge product-card__badge--beta">Beta</span>}
-          {isComingSoon && <span className="product-card__badge product-card__badge--coming-soon">Coming Soon</span>}
-          {showLock && <i className="fas fa-lock product-card__lock" aria-hidden="true"></i>}
+      <div className={styles.header}>
+        <i className={`${styles.icon} ${icon}`} aria-hidden="true"></i>
+        <div className={styles.titleRow}>
+          <h3 className={styles.name}>{name}</h3>
+          {isBeta && <span className={`${styles.badge} ${styles.badgeBeta}`}>Beta</span>}
+          {isComingSoon && <span className={`${styles.badge} ${styles.badgeComingSoon}`}>Coming Soon</span>}
+          {showLock && <i className={`fas fa-lock ${styles.lock}`} aria-hidden="true"></i>}
         </div>
       </div>
-      <p className="product-card__description">{description}</p>
-      <div className="product-card__footer">
+      <p className={styles.description}>{description}</p>
+      <div className={styles.footer}>
         {isExternal && !isComingSoon && (
-          <i className="fas fa-external-link-alt product-card__external-icon" aria-hidden="true"></i>
+          <i className={`fas fa-external-link-alt ${styles.externalIcon}`} aria-hidden="true"></i>
         )}
       </div>
     </>
   );
 
   const className = [
-    "product-card",
-    isComingSoon && "product-card--muted",
-    isTouched && "product-card--touched",
+    styles.card,
+    isComingSoon && styles.muted,
+    isTouched && styles.touched,
   ]
     .filter(Boolean)
     .join(" ");

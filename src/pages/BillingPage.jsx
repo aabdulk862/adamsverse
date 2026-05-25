@@ -9,6 +9,7 @@ import {
 import { supabase } from "../lib/supabase";
 import { useInvoices } from "../hooks/useInvoices";
 import InvoiceCard from "../components/InvoiceCard";
+import styles from "./BillingPage.module.css";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -82,15 +83,15 @@ function PaymentForm({ invoice, onSuccess, onCancel }) {
 
   return (
     <div
-      className="billing-payment-modal"
+      className={styles.paymentModal}
       role="dialog"
       aria-label="Payment form"
     >
-      <div className="billing-payment-modal-content">
-        <div className="billing-payment-header">
+      <div className={styles.paymentModalContent}>
+        <div className={styles.paymentHeader}>
           <h3>Pay Invoice #{invoice.id?.slice(0, 8)}</h3>
           <button
-            className="billing-payment-close"
+            className={styles.paymentClose}
             onClick={onCancel}
             type="button"
             aria-label="Close payment form"
@@ -99,31 +100,31 @@ function PaymentForm({ invoice, onSuccess, onCancel }) {
           </button>
         </div>
 
-        <div className="billing-payment-amount">
+        <div className={styles.paymentAmount}>
           {formatCurrency(invoice.total_amount)}
         </div>
 
-        <form onSubmit={handleSubmit} className="billing-payment-form">
+        <form onSubmit={handleSubmit} className={styles.paymentForm}>
           <div className="billing-card-element-wrapper">
-            <label htmlFor="card-element" className="billing-card-label">
+            <label htmlFor="card-element" className={styles.cardLabel}>
               Card details
             </label>
-            <div className="billing-card-element">
+            <div className={styles.cardElement}>
               <CardElement id="card-element" options={CARD_ELEMENT_OPTIONS} />
             </div>
           </div>
 
           {error && (
-            <div className="billing-payment-error" role="alert">
+            <div className={styles.paymentError} role="alert">
               <i className="fa-solid fa-circle-exclamation" />
               <span>{error}</span>
             </div>
           )}
 
-          <div className="billing-payment-actions">
+          <div className={styles.paymentActions}>
             <button
               type="button"
-              className="billing-payment-cancel-btn"
+              className={styles.paymentCancelBtn}
               onClick={onCancel}
               disabled={processing}
             >
@@ -131,12 +132,12 @@ function PaymentForm({ invoice, onSuccess, onCancel }) {
             </button>
             <button
               type="submit"
-              className="billing-payment-submit-btn"
+              className={styles.paymentSubmitBtn}
               disabled={!stripe || processing}
             >
               {processing ? (
                 <>
-                  <span className="billing-spinner" aria-hidden="true" />
+                  <span className={styles.spinner} aria-hidden="true" />
                   Processing…
                 </>
               ) : (
@@ -177,30 +178,30 @@ export default function BillingPage() {
   }, []);
 
   return (
-    <div className="billing-page">
-      <h1 className="billing-page-title">Billing</h1>
-      <p className="billing-page-subtitle">View and pay your invoices.</p>
+    <div className={styles.page}>
+      <h1 className={styles.title}>Billing</h1>
+      <p className={styles.subtitle}>View and pay your invoices.</p>
 
       {successMessage && (
-        <div className="billing-success-message" role="status">
+        <div className={styles.successMessage} role="status">
           <i className="fa-solid fa-circle-check" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {loading ? (
-        <div className="billing-loading">
+        <div className={styles.loading}>
           <div className="auth-guard-spinner" />
           <span>Loading invoices…</span>
         </div>
       ) : error ? (
-        <div className="billing-error" role="alert">
+        <div className={styles.error} role="alert">
           <i className="fa-solid fa-circle-exclamation" />
           <span>Failed to load invoices: {error}</span>
         </div>
       ) : invoices.length === 0 ? (
-        <div className="billing-empty">
-          <div className="billing-empty-icon">
+        <div className={styles.empty}>
+          <div className={styles.emptyIcon}>
             <i className="fa-solid fa-file-invoice-dollar" />
           </div>
           <h3>No invoices yet</h3>
@@ -209,7 +210,7 @@ export default function BillingPage() {
           </p>
         </div>
       ) : (
-        <div className="billing-invoices-list">
+        <div className={styles.invoicesList}>
           {invoices.map((invoice) => (
             <InvoiceCard
               key={invoice.id}

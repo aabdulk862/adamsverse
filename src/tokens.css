@@ -4,55 +4,201 @@
  */
 
 :root {
-  /* === Colors === */
+  /* =============================================
+     COLORS
+     ============================================= */
+
+  /* --- Backgrounds --- */
   --color-bg-base: #ffffff;
   --color-bg-surface: #f8fafc;
   --color-bg-muted: #f1f5f9;
+
+  /* --- Text --- */
   --color-text-primary: #0f172a;
   --color-text-secondary: rgba(15, 23, 42, 0.68);
   --color-text-muted: rgba(15, 23, 42, 0.44);
+
+  /* --- Accent --- */
   --color-accent: #2563eb;
   --color-accent-hover: #1d4ed8;
+  --color-accent-light: #eff6ff;
   --color-accent-text: #ffffff;
-  --color-border: #e2e8f0;
 
-  /* === Typography === */
+  /* --- Borders --- */
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+
+  /* --- Semantic --- */
+  --color-success: #16a34a;
+  --color-error: #dc2626;
+
+  /* =============================================
+     SPACING
+     ============================================= */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* =============================================
+     TYPOGRAPHY
+     ============================================= */
+
+  /* --- Font Families --- */
   --font-display: "Inter", sans-serif;
   --font-body: "Inter", sans-serif;
+
+  /* --- Font Sizes --- */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.1rem;
+  --text-xl: 1.4rem;
+  --text-2xl: 1.9rem;
+  --text-3xl: 2.2rem;
+  --text-display: 3rem;
+
+  /* --- Font Weights --- */
   --weight-light: 300;
   --weight-regular: 400;
   --weight-medium: 500;
+  --weight-semibold: 600;
   --weight-bold: 700;
-  --tracking-display: -0.02em;
-  --tracking-body: 0.01em;
 
-  /* === Spacing === */
-  --section-padding: 80px;
+  /* --- Line Heights --- */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+  --leading-display: 1.15;
+  --leading-heading: 1.25;
+
+  /* --- Letter Spacing --- */
+  --tracking-display: -0.02em;
+  --tracking-body: 0.02em;
+  --tracking-wide: 0.28px;
+
+  /* =============================================
+     RADII
+     ============================================= */
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 999px;
+
+  /* =============================================
+     SHADOWS
+     ============================================= */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.12);
+
+  /* =============================================
+     TRANSITIONS
+     ============================================= */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.3s ease;
+
+  /* =============================================
+     LAYOUT
+     ============================================= */
   --container-max-width: 1140px;
+  --container-padding: 24px;
+  --section-padding: 80px;
   --grid-gap: 24px;
   --stack-gap: 16px;
+  --navbar-height: 56px;
 
-  /* === Shape === */
-  --radius-small: 4px;
-  --radius-medium: 12px;
-  --radius-large: 16px;
-  --shadow-small: 0 1px 2px rgba(15, 23, 42, 0.05);
-  --shadow-medium: 0 4px 16px rgba(15, 23, 42, 0.08);
-  --shadow-large: 0 8px 24px rgba(15, 23, 42, 0.12);
+  /* =============================================
+     CARDS
+     ============================================= */
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --card-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --card-shadow-hover: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.06);
+
+  /* =============================================
+     NAVBAR
+     ============================================= */
+  --navbar-bg: #ffffff;
+  --navbar-border: #e2e8f0;
+
+  /* =============================================
+     ACCENT UI
+     ============================================= */
+
+  /* --- Accent Backgrounds --- */
+  --accent-bg-subtle: rgba(37, 99, 235, 0.06);
+  --accent-bg-medium: rgba(37, 99, 235, 0.1);
+  --accent-bg-strong: rgba(37, 99, 235, 0.16);
+
+  /* --- Accent Borders --- */
+  --accent-border: rgba(37, 99, 235, 0.15);
+  --accent-border-strong: rgba(37, 99, 235, 0.3);
+  --accent-border-heavy: rgba(37, 99, 235, 0.45);
+
+  /* --- Accent Focus --- */
+  --accent-focus-ring: rgba(37, 99, 235, 0.2);
+
+  /* --- Accent Dark --- */
+  --accent-dark-bg: rgba(29, 78, 216, 0.1);
+  --accent-dark-bg-strong: rgba(29, 78, 216, 0.2);
+
 }
 
 [data-theme="dark"] {
+  /* --- Backgrounds --- */
   --color-bg-base: #0b0f19;
   --color-bg-surface: #111827;
   --color-bg-muted: #1e293b;
+
+  /* --- Text --- */
   --color-text-primary: #f1f5f9;
   --color-text-secondary: rgba(241, 245, 249, 0.7);
   --color-text-muted: rgba(241, 245, 249, 0.42);
+
+  /* --- Accent --- */
   --color-accent: #3b82f6;
   --color-accent-hover: #2563eb;
+  --color-accent-light: rgba(59, 130, 246, 0.1);
   --color-accent-text: #ffffff;
-  --color-border: #1e293b;
-  --shadow-small: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --shadow-large: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  /* --- Borders --- */
+  --color-border: #5a6a80;
+  --color-border-hover: #7088a4;
+
+  /* --- Semantic --- */
+  --color-success: #22c55e;
+  --color-error: #f87171;
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  /* --- Cards --- */
+  --card-bg: #111827;
+  --card-border: #1e293b;
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(30, 41, 59, 0.5);
+  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.12);
+
+  /* --- Navbar --- */
+  --navbar-bg: rgba(11, 15, 25, 0.8);
+  --navbar-border: #1e293b;
+
+  /* --- Accent UI --- */
+  --accent-bg-subtle: rgba(59, 130, 246, 0.08);
+  --accent-bg-medium: rgba(59, 130, 246, 0.14);
+  --accent-bg-strong: rgba(59, 130, 246, 0.22);
+  --accent-border: rgba(59, 130, 246, 0.18);
+  --accent-border-strong: rgba(59, 130, 246, 0.32);
+  --accent-focus-ring: rgba(59, 130, 246, 0.25);
 }

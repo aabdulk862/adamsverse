@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useMessages } from "../hooks/useMessages";
 import { useAuth } from "../hooks/useAuth";
+import styles from "./MessageThread.module.css";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25 MB
 
@@ -90,19 +91,19 @@ export default function MessageThread({ projectId }) {
   const currentUserId = user?.id;
 
   return (
-    <div className="msg-thread">
+    <div className={styles.thread}>
       {/* Messages area */}
-      <div className="msg-thread-messages">
+      <div className={styles.messages}>
         {loading && messages.length === 0 && (
-          <div className="msg-thread-loading">
+          <div className={styles.loading}>
             <i className="fa-solid fa-spinner fa-spin" />
             <span>Loading messages…</span>
           </div>
         )}
 
         {!loading && messages.length === 0 && (
-          <div className="msg-thread-empty">
-            <i className="fa-regular fa-comments" />
+          <div className={styles.empty}>
+            <i className={`fa-regular fa-comments ${styles.emptyIcon}`} />
             <p>No messages yet. Start the conversation.</p>
           </div>
         )}
@@ -112,18 +113,18 @@ export default function MessageThread({ projectId }) {
           return (
             <div
               key={msg.id}
-              className={`msg-bubble-wrap ${isOwn ? "msg-bubble-wrap--own" : ""}`}
+              className={`${styles.bubbleWrap} ${isOwn ? styles.bubbleWrapOwn : ""}`}
             >
               {!isOwn && (
-                <div className="msg-avatar">
+                <div className={styles.avatar}>
                   {msg.sender_avatar_url ? (
                     <img
                       src={msg.sender_avatar_url}
                       alt=""
-                      className="msg-avatar-img"
+                      className={styles.avatarImg}
                     />
                   ) : (
-                    <div className="msg-avatar-fallback">
+                    <div className={styles.avatarFallback}>
                       {(msg.sender_name || msg.sender_id || "?")
                         .charAt(0)
                         .toUpperCase()}
@@ -131,26 +132,26 @@ export default function MessageThread({ projectId }) {
                   )}
                 </div>
               )}
-              <div className={`msg-bubble ${isOwn ? "msg-bubble--own" : ""}`}>
+              <div className={`${styles.bubble} ${isOwn ? styles.bubbleOwn : ""}`}>
                 {!isOwn && (
-                  <span className="msg-sender-name">
+                  <span className={styles.senderName}>
                     {msg.sender_name || "Unknown"}
                   </span>
                 )}
-                {msg.content && <p className="msg-content">{msg.content}</p>}
+                {msg.content && <p className={styles.msgContent}>{msg.content}</p>}
                 {msg.file_url && (
                   <a
                     href={msg.file_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="msg-attachment"
+                    className={styles.attachment}
                   >
                     <i className="fa-solid fa-paperclip" />
-                    <span>{msg.file_name || "Attachment"}</span>
-                    <i className="fa-solid fa-arrow-up-right-from-square msg-attachment-icon" />
+                    <span className={styles.attachmentText}>{msg.file_name || "Attachment"}</span>
+                    <i className={`fa-solid fa-arrow-up-right-from-square ${styles.attachmentIcon}`} />
                   </a>
                 )}
-                <span className="msg-timestamp">
+                <span className={styles.timestamp}>
                   {formatTimestamp(msg.created_at)}
                 </span>
               </div>
@@ -162,7 +163,7 @@ export default function MessageThread({ projectId }) {
 
       {/* Error display */}
       {error && (
-        <div className="msg-thread-error">
+        <div className={styles.error}>
           <i className="fa-solid fa-circle-exclamation" />
           <span>{error}</span>
         </div>
@@ -170,21 +171,21 @@ export default function MessageThread({ projectId }) {
 
       {/* File error */}
       {fileError && (
-        <div className="msg-thread-error">
+        <div className={styles.error}>
           <i className="fa-solid fa-circle-exclamation" />
           <span>{fileError}</span>
         </div>
       )}
 
       {/* Input area */}
-      <form className="msg-input-bar" onSubmit={handleSend}>
+      <form className={styles.inputBar} onSubmit={handleSend}>
         {file && (
-          <div className="msg-file-preview">
-            <i className="fa-solid fa-file" />
-            <span className="msg-file-preview-name">{file.name}</span>
+          <div className={styles.filePreview}>
+            <i className={`fa-solid fa-file ${styles.filePreviewIcon}`} />
+            <span className={styles.filePreviewName}>{file.name}</span>
             <button
               type="button"
-              className="msg-file-preview-remove"
+              className={styles.filePreviewRemove}
               onClick={() => {
                 setFile(null);
                 if (fileInputRef.current) fileInputRef.current.value = "";
@@ -195,10 +196,10 @@ export default function MessageThread({ projectId }) {
             </button>
           </div>
         )}
-        <div className="msg-input-row">
+        <div className={styles.inputRow}>
           <button
             type="button"
-            className="msg-attach-btn"
+            className={styles.attachBtn}
             onClick={() => fileInputRef.current?.click()}
             aria-label="Attach file"
           >
@@ -207,13 +208,13 @@ export default function MessageThread({ projectId }) {
           <input
             ref={fileInputRef}
             type="file"
-            className="msg-file-input"
+            className={styles.fileInput}
             onChange={handleFileChange}
             tabIndex={-1}
           />
           <input
             type="text"
-            className="msg-text-input"
+            className={styles.textInput}
             placeholder="Type a message…"
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -221,7 +222,7 @@ export default function MessageThread({ projectId }) {
           />
           <button
             type="submit"
-            className="msg-send-btn"
+            className={styles.sendBtn}
             disabled={sending || (!content.trim() && !file)}
             aria-label="Send message"
           >

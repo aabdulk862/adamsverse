@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { supabase } from "../lib/supabase";
+import styles from "./Admin.module.css";
 
 const PROJECT_STATUSES = [
   "Discovery",
@@ -90,8 +91,8 @@ export default function AdminProjectsPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="admin-page">
-        <div className="admin-loading">
+      <div className={styles.page}>
+        <div className={styles.loading}>
           <div className="auth-guard-spinner" />
           <span>Loading projects…</span>
         </div>
@@ -101,12 +102,12 @@ export default function AdminProjectsPage() {
 
   if (error) {
     return (
-      <div className="admin-page">
-        <h1 className="admin-page-title">Projects</h1>
-        <div className="admin-error">
+      <div className={styles.page}>
+        <h1 className={styles.pageTitle}>Projects</h1>
+        <div className={styles.error}>
           <i className="fa-solid fa-circle-exclamation" />
           <span>{error}</span>
-          <button onClick={fetchProjects} className="admin-retry-btn">
+          <button onClick={fetchProjects} className={styles.retryBtn}>
             Retry
           </button>
         </div>
@@ -115,21 +116,21 @@ export default function AdminProjectsPage() {
   }
 
   return (
-    <div className="admin-page">
-      <div className="admin-header">
-        <h1 className="admin-page-title">Projects</h1>
-        <Link to="/admin" className="admin-back-link">
+    <div className={styles.page}>
+      <div className={styles.header}>
+        <h1 className={styles.pageTitle}>Projects</h1>
+        <Link to="/admin" className={styles.backLink}>
           <i className="fa-solid fa-arrow-left" /> Dashboard
         </Link>
       </div>
 
       {updateError && (
-        <div className="admin-error admin-error--inline">
+        <div className={`${styles.error} ${styles.errorInline}`}>
           <i className="fa-solid fa-circle-exclamation" />
           <span>{updateError}</span>
           <button
             onClick={() => setUpdateError(null)}
-            className="admin-dismiss-btn"
+            className={styles.dismissBtn}
             aria-label="Dismiss"
           >
             <i className="fa-solid fa-xmark" />
@@ -137,14 +138,14 @@ export default function AdminProjectsPage() {
         </div>
       )}
 
-      <div className="admin-toolbar">
-        <div className="admin-filter-wrap">
-          <label htmlFor="status-filter" className="admin-filter-label">
+      <div className={styles.toolbar}>
+        <div className={styles.filterWrap}>
+          <label htmlFor="status-filter" className={styles.filterLabel}>
             Status:
           </label>
           <select
             id="status-filter"
-            className="admin-filter-select"
+            className={styles.filterSelect}
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -159,16 +160,16 @@ export default function AdminProjectsPage() {
             })}
           </select>
         </div>
-        <span className="admin-result-count">
+        <span className={styles.resultCount}>
           {filtered.length} project{filtered.length !== 1 ? "s" : ""}
         </span>
       </div>
 
       {filtered.length === 0 ? (
-        <div className="admin-empty">No projects found</div>
+        <div className={styles.empty}>No projects found</div>
       ) : (
-        <div className="admin-table-wrap">
-          <table className="admin-table">
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
             <thead>
               <tr>
                 <th>Project</th>
@@ -182,21 +183,21 @@ export default function AdminProjectsPage() {
             <tbody>
               {filtered.map((p) => (
                 <tr key={p.id}>
-                  <td className="admin-table-name">{p.name}</td>
+                  <td className={styles.tableName}>{p.name}</td>
                   <td>{p.profiles?.display_name || "—"}</td>
-                  <td className="admin-table-tier">
+                  <td className={styles.tableTier}>
                     {formatTier(p.service_tier)}
                   </td>
                   <td>
                     <span
-                      className={`admin-status-badge admin-status--${p.status?.toLowerCase().replace(/\s+/g, "-")}`}
+                      className={`${styles.statusBadge} ${styles[`status${p.status?.replace(/\s+/g, "")}`] || ""}`}
                     >
                       {p.status}
                     </span>
                   </td>
                   <td>
                     <select
-                      className="admin-status-select"
+                      className={styles.statusSelect}
                       value={p.status}
                       onChange={(e) => handleStatusUpdate(p.id, e.target.value)}
                       disabled={updating === p.id}
@@ -209,10 +210,10 @@ export default function AdminProjectsPage() {
                       ))}
                     </select>
                     {updating === p.id && (
-                      <span className="admin-updating-indicator" />
+                      <span className={styles.updatingIndicator} />
                     )}
                   </td>
-                  <td className="admin-table-date">
+                  <td className={styles.tableDate}>
                     {p.updated_at
                       ? new Date(p.updated_at).toLocaleDateString("en-US", {
                           month: "short",

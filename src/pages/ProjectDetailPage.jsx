@@ -5,6 +5,7 @@ import { supabase } from "../lib/supabase";
 import ProjectTimeline from "../components/ProjectTimeline";
 import MessageThread from "../components/MessageThread";
 import FileUpload from "../components/FileUpload";
+import styles from "./ProjectDetailPage.module.css";
 
 const TIER_LABELS = {
   "landing-page": "Landing Page",
@@ -116,8 +117,8 @@ export default function ProjectDetailPage() {
 
   if (loading) {
     return (
-      <div className="project-detail-page">
-        <div className="project-detail-loading">
+      <div className={styles.page}>
+        <div className={styles.loading}>
           <div className="auth-guard-spinner" />
           <span>Loading project…</span>
         </div>
@@ -127,12 +128,12 @@ export default function ProjectDetailPage() {
 
   if (error) {
     return (
-      <div className="project-detail-page">
-        <div className="project-detail-error">
+      <div className={styles.page}>
+        <div className={styles.error}>
           <i className="fa-solid fa-circle-exclamation" />
           <span>Failed to load project. Please try again.</span>
         </div>
-        <Link to="/dashboard/projects" className="project-detail-back">
+        <Link to="/dashboard/projects" className={styles.back}>
           <i className="fa-solid fa-arrow-left" /> Back to projects
         </Link>
       </div>
@@ -141,12 +142,12 @@ export default function ProjectDetailPage() {
 
   if (!project) {
     return (
-      <div className="project-detail-page">
-        <div className="project-detail-error">
+      <div className={styles.page}>
+        <div className={styles.error}>
           <i className="fa-solid fa-circle-exclamation" />
           <span>Project not found.</span>
         </div>
-        <Link to="/dashboard/projects" className="project-detail-back">
+        <Link to="/dashboard/projects" className={styles.back}>
           <i className="fa-solid fa-arrow-left" /> Back to projects
         </Link>
       </div>
@@ -160,44 +161,44 @@ export default function ProjectDetailPage() {
   const intakeData = project.intake_data || {};
 
   return (
-    <div className="project-detail-page">
-      <Link to="/dashboard/projects" className="project-detail-back">
+    <div className={styles.page}>
+      <Link to="/dashboard/projects" className={styles.back}>
         <i className="fa-solid fa-arrow-left" /> Back to projects
       </Link>
 
       {/* Header */}
-      <div className="project-detail-header">
+      <div className={styles.header}>
         <div className="project-detail-header-info">
-          <h1 className="project-detail-name">{project.name}</h1>
-          <div className="project-detail-meta">
+          <h1 className={styles.name}>{project.name}</h1>
+          <div className={styles.meta}>
             <span
               className={`dashboard-project-status dashboard-project-status--${statusClass}`}
             >
               {project.status}
             </span>
-            <span className="project-detail-tier">
+            <span className={styles.tier}>
               {TIER_LABELS[project.service_tier] || project.service_tier}
             </span>
           </div>
         </div>
-        <div className="project-detail-dates">
-          <span className="project-detail-date-item">
+        <div className={styles.dates}>
+          <span className={styles.dateItem}>
             Created {formatDate(project.created_at)}
           </span>
-          <span className="project-detail-date-item">
+          <span className={styles.dateItem}>
             Updated {formatDate(project.updated_at)}
           </span>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="project-detail-tabs" role="tablist">
+      <div className={styles.tabs} role="tablist">
         {TABS.map((tab) => (
           <button
             key={tab.key}
             role="tab"
             aria-selected={activeTab === tab.key}
-            className={`project-detail-tab${activeTab === tab.key ? " project-detail-tab--active" : ""}`}
+            className={`${styles.tab}${activeTab === tab.key ? ` ${styles.tabActive}` : ""}`}
             onClick={() => setActiveTab(tab.key)}
           >
             <i className={tab.icon} />
@@ -207,24 +208,24 @@ export default function ProjectDetailPage() {
       </div>
 
       {/* Tab content */}
-      <div className="project-detail-content" role="tabpanel">
+      <div className={styles.content} role="tabpanel">
         {activeTab === "overview" && (
           <div className="project-detail-overview">
             {/* Intake data */}
             {Object.keys(intakeData).length > 0 && (
-              <div className="project-detail-section">
-                <h3 className="project-detail-section-title">
+              <div className={styles.section}>
+                <h3 className={styles.sectionTitle}>
                   Project Details
                 </h3>
-                <div className="project-detail-intake">
+                <div className={styles.intake}>
                   {Object.entries(intakeData).map(([key, value]) => (
-                    <div className="project-detail-intake-row" key={key}>
-                      <span className="project-detail-intake-label">
+                    <div className={styles.intakeRow} key={key}>
+                      <span className={styles.intakeLabel}>
                         {key
                           .replace(/_/g, " ")
                           .replace(/\b\w/g, (c) => c.toUpperCase())}
                       </span>
-                      <span className="project-detail-intake-value">
+                      <span className={styles.intakeValue}>
                         {Array.isArray(value)
                           ? value.join(", ")
                           : String(value)}
@@ -236,8 +237,8 @@ export default function ProjectDetailPage() {
             )}
 
             {/* Timeline */}
-            <div className="project-detail-section">
-              <h3 className="project-detail-section-title">Status History</h3>
+            <div className={styles.section}>
+              <h3 className={styles.sectionTitle}>Status History</h3>
               <ProjectTimeline history={history} />
             </div>
           </div>
@@ -251,63 +252,63 @@ export default function ProjectDetailPage() {
 
         {activeTab === "files" && (
           <div className="project-detail-files">
-            <div className="project-detail-section">
-              <h3 className="project-detail-section-title">Upload Files</h3>
+            <div className={styles.section}>
+              <h3 className={styles.sectionTitle}>Upload Files</h3>
               <FileUpload
                 projectId={id}
                 onUploadComplete={handleUploadComplete}
               />
             </div>
 
-            <div className="project-detail-section">
-              <h3 className="project-detail-section-title">Project Files</h3>
+            <div className={styles.section}>
+              <h3 className={styles.sectionTitle}>Project Files</h3>
               {filesLoading ? (
-                <div className="project-detail-loading">
+                <div className={styles.loading}>
                   <div className="auth-guard-spinner" />
                   <span>Loading files…</span>
                 </div>
               ) : filesError ? (
-                <div className="project-detail-error">
+                <div className={styles.error}>
                   <i className="fa-solid fa-circle-exclamation" />
                   <span>{filesError}</span>
                 </div>
               ) : files.length === 0 ? (
-                <div className="project-detail-files-empty">
+                <div className={styles.filesEmpty}>
                   <i className="fa-regular fa-folder-open" />
                   <p>No files uploaded yet</p>
                 </div>
               ) : (
-                <div className="project-detail-file-list">
-                  <div className="project-detail-file-header">
-                    <span className="project-detail-file-col project-detail-file-col--name">
+                <div className={styles.fileList}>
+                  <div className={styles.fileHeader}>
+                    <span className={styles.fileColName}>
                       Name
                     </span>
-                    <span className="project-detail-file-col project-detail-file-col--size">
+                    <span className={styles.fileColSize}>
                       Size
                     </span>
-                    <span className="project-detail-file-col project-detail-file-col--date">
+                    <span className={styles.fileColDate}>
                       Uploaded
                     </span>
-                    <span className="project-detail-file-col project-detail-file-col--action" />
+                    <span />
                   </div>
                   {files.map((file) => (
                     <div
-                      className="project-detail-file-row"
+                      className={styles.fileRow}
                       key={file.id || file.name}
                     >
-                      <span className="project-detail-file-col project-detail-file-col--name">
+                      <span className={styles.fileColName}>
                         <i className="fa-solid fa-file" />
                         {file.name?.replace(/^\d+-/, "")}
                       </span>
-                      <span className="project-detail-file-col project-detail-file-col--size">
+                      <span className={styles.fileColSize}>
                         {formatFileSize(file.metadata?.size)}
                       </span>
-                      <span className="project-detail-file-col project-detail-file-col--date">
+                      <span className={styles.fileColDate}>
                         {formatDate(file.created_at)}
                       </span>
-                      <span className="project-detail-file-col project-detail-file-col--action">
+                      <span>
                         <button
-                          className="project-detail-file-download"
+                          className={styles.fileDownload}
                           onClick={() => handleDownload(file.name)}
                           aria-label={`Download ${file.name}`}
                         >
@@ -325,20 +326,20 @@ export default function ProjectDetailPage() {
         {activeTab === "feedback" && (
           <div className="project-detail-feedback">
             {isReview && (
-              <div className="project-detail-section">
-                <h3 className="project-detail-section-title">
+              <div className={styles.section}>
+                <h3 className={styles.sectionTitle}>
                   Submit Feedback
                 </h3>
-                <p className="project-detail-feedback-hint">
+                <p className={styles.feedbackHint}>
                   Your project is in review. Share your feedback or request
                   revisions below.
                 </p>
                 <form
-                  className="project-detail-feedback-form"
+                  className={styles.feedbackForm}
                   onSubmit={handleFeedbackSubmit}
                 >
                   <textarea
-                    className="project-detail-feedback-input"
+                    className={styles.feedbackInput}
                     placeholder="Describe your feedback or revision requests…"
                     value={feedbackContent}
                     onChange={(e) => setFeedbackContent(e.target.value)}
@@ -347,7 +348,7 @@ export default function ProjectDetailPage() {
                   />
                   <button
                     type="submit"
-                    className="project-detail-feedback-submit"
+                    className={styles.feedbackSubmit}
                     disabled={feedbackSubmitting || !feedbackContent.trim()}
                   >
                     {feedbackSubmitting ? (
@@ -363,13 +364,13 @@ export default function ProjectDetailPage() {
                     )}
                   </button>
                   {feedbackSuccess && (
-                    <div className="project-detail-feedback-success">
+                    <div className={styles.feedbackSuccess}>
                       <i className="fa-solid fa-check-circle" /> Feedback
                       submitted successfully
                     </div>
                   )}
                   {feedbackError && (
-                    <div className="project-detail-feedback-error">
+                    <div className={styles.feedbackError}>
                       <i className="fa-solid fa-circle-exclamation" />{" "}
                       {feedbackError}
                     </div>
@@ -379,7 +380,7 @@ export default function ProjectDetailPage() {
             )}
 
             {!isReview && (
-              <div className="project-detail-feedback-disabled">
+              <div className={styles.feedbackDisabled}>
                 <i className="fa-solid fa-info-circle" />
                 <p>
                   Feedback can only be submitted when the project is in Review
@@ -389,17 +390,17 @@ export default function ProjectDetailPage() {
             )}
 
             {feedbackList.length > 0 && (
-              <div className="project-detail-section">
-                <h3 className="project-detail-section-title">
+              <div className={styles.section}>
+                <h3 className={styles.sectionTitle}>
                   Previous Feedback
                 </h3>
-                <div className="project-detail-feedback-list">
+                <div className={styles.feedbackList}>
                   {feedbackList.map((fb) => (
-                    <div className="project-detail-feedback-item" key={fb.id}>
-                      <p className="project-detail-feedback-content">
+                    <div className={styles.feedbackItem} key={fb.id}>
+                      <p className={styles.feedbackContent}>
                         {fb.content}
                       </p>
-                      <span className="project-detail-feedback-date">
+                      <span className={styles.feedbackDate}>
                         {formatDate(fb.created_at)}
                       </span>
                     </div>

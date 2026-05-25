@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: var(--bg-primary, #0f0f0f);
-  color: var(--text-primary, #e5e5e5);
+  background: var(--color-bg-base, #0f0f0f);
+  color: var(--color-text-primary, #e5e5e5);
 }
 
 /* ── Top bar ── */
@@ -12,7 +12,7 @@
   align-items: center;
   gap: 1.5rem;
   padding: 0.75rem 1.5rem;
-  background: var(--bg-secondary, #1a1a1a);
+  background: var(--color-bg-surface, #1a1a1a);
   border-bottom: 1px solid var(--card-border, #2a2a2a);
   flex-shrink: 0;
 }
@@ -23,7 +23,7 @@
   gap: 0.5rem;
   font-weight: 700;
   font-size: 0.9375rem;
-  color: var(--accent-primary, #3b82f6);
+  color: var(--color-accent, #3b82f6);
   white-space: nowrap;
 }
 
@@ -47,7 +47,7 @@
   border-radius: 6px;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--text-muted, #888);
+  color: var(--color-text-muted, #888);
   text-decoration: none;
   transition:
     background 0.15s,
@@ -55,13 +55,13 @@
 }
 
 .navLink:hover {
-  background: var(--bg-tertiary, #252525);
-  color: var(--text-primary, #e5e5e5);
+  background: var(--color-bg-muted, #252525);
+  color: var(--color-text-primary, #e5e5e5);
 }
 
 .navLinkActive {
   background: var(--accent-bg-subtle, rgba(59, 130, 246, 0.12));
-  color: var(--accent-primary, #3b82f6);
+  color: var(--color-accent, #3b82f6);
 }
 
 /* ── Back link ── */
@@ -70,7 +70,7 @@
   align-items: center;
   gap: 0.375rem;
   font-size: 0.75rem;
-  color: var(--text-muted, #888);
+  color: var(--color-text-muted, #888);
   text-decoration: none;
   white-space: nowrap;
   margin-left: auto;
@@ -78,7 +78,7 @@
 }
 
 .backLink:hover {
-  color: var(--text-primary, #e5e5e5);
+  color: var(--color-text-primary, #e5e5e5);
 }
 
 /* ── Content ── */

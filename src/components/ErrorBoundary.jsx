@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { logError } from "../lib/logger";
 import Navbar from "./Navbar";
+import styles from "./ErrorBoundary.module.css";
 
 /**
  * React Error Boundary — catches unhandled rendering errors,
@@ -32,12 +33,12 @@ export default class ErrorBoundary extends Component {
       return (
         <>
           <Navbar />
-          <main className="error-fallback">
+          <main className={styles.fallback}>
             <h1>Something went wrong</h1>
             <p>An unexpected error occurred. You can try reloading the page.</p>
             <button
               type="button"
-              className="error-fallback-reload"
+              className={styles.reloadButton}
               onClick={this.handleReload}
             >
               Reload

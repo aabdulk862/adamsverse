@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import AnimatedSection from "./AnimatedSection";
 import packages from "../data/packages";
+import styles from "./PackagesShowcase.module.css";
 
 /**
  * PackagesShowcase — Displays at least 3 package cards from existing
@@ -20,25 +21,25 @@ export default function PackagesShowcase() {
   );
 
   return (
-    <section className="packages-showcase" aria-labelledby="packages-showcase-heading">
+    <section className={styles.showcase} aria-labelledby="packages-showcase-heading">
       <AnimatedSection>
-        <div className="packages-showcase__container">
-          <h2 id="packages-showcase-heading" className="packages-showcase__heading">
+        <div className={styles.container}>
+          <h2 id="packages-showcase-heading" className={styles.heading}>
             Website Packages
           </h2>
-          <p className="packages-showcase__subtitle">
+          <p className={styles.subtitle}>
             Ready-to-launch designs for your industry. Preview live, pick a theme, launch.
           </p>
 
-          <div className="packages-showcase__grid">
+          <div className={styles.grid}>
             {featuredPackages.map((pkg) => (
               <Link
                 key={pkg.slug}
                 to={`/packages/${pkg.slug}`}
-                className="packages-showcase__card"
+                className={styles.card}
                 aria-label={`View ${pkg.name} package`}
               >
-                <div className="packages-showcase__thumb">
+                <div className={styles.thumb}>
                   {pkg.sections?.hero?.heroImage ? (
                     <img
                       src={pkg.sections.hero.heroImage.replace("w=800", "w=400")}
@@ -47,21 +48,21 @@ export default function PackagesShowcase() {
                       decoding="async"
                     />
                   ) : (
-                    <div className="packages-showcase__placeholder">
+                    <div className={styles.placeholder}>
                       <span>{pkg.name.charAt(0)}</span>
                     </div>
                   )}
-                  <div className="packages-showcase__overlay">
-                    <span className="packages-showcase__name">{pkg.name}</span>
-                    <span className="packages-showcase__category">{pkg.category}</span>
+                  <div className={styles.overlay}>
+                    <span className={styles.name}>{pkg.name}</span>
+                    <span className={styles.category}>{pkg.category}</span>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
 
-          <div className="packages-showcase__cta">
-            <Link to="/packages" className="packages-showcase__browse-link">
+          <div className={styles.cta}>
+            <Link to="/packages" className={styles.browseLink}>
               Browse all packages <i className="fas fa-arrow-right" aria-hidden="true"></i>
             </Link>
           </div>

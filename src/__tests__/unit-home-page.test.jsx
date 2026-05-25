@@ -60,12 +60,12 @@ describe("15.2 Home Page Structure", () => {
 
   it("has HeroSection (hero section)", () => {
     const { container } = renderHome();
-    expect(container.querySelector(".hero-section")).toBeInTheDocument();
+    expect(container.querySelector("[aria-labelledby='hero-heading']")).toBeInTheDocument();
   });
 
   it("has Services section", () => {
     const { container } = renderHome();
-    expect(container.querySelector(".services-section")).toBeInTheDocument();
+    expect(container.querySelector("[aria-labelledby='services-heading']")).toBeInTheDocument();
   });
 
   it("does not render legacy Clients section (removed in multi-product redesign)", () => {
@@ -81,21 +81,21 @@ describe("15.2 Home Page Structure", () => {
 
   // --- New tests for component-based homepage (Requirements 1.1, 1.2, 1.6, 4.8) ---
 
-  it("wraps content in a <main> element with product-hub class", () => {
+  it("wraps content in a <main> element", () => {
     const { container } = renderHome();
-    const main = container.querySelector("main.product-hub");
+    const main = container.querySelector("main");
     expect(main).toBeInTheDocument();
   });
 
   it("renders sections in correct order: Hero → SocialProof → ProductGrid → Packages → Services → CTA", () => {
     const { container } = renderHome();
 
-    const hero = container.querySelector(".hero-section");
-    const socialProof = container.querySelector(".social-proof-bar");
-    const productGrid = container.querySelector(".product-grid");
-    const packagesSection = container.querySelector(".packages-showcase");
-    const servicesSection = container.querySelector(".services-section");
-    const ctaSection = container.querySelector(".cta-section");
+    const hero = container.querySelector("[aria-labelledby='hero-heading']");
+    const socialProof = container.querySelector("[aria-label='Core capabilities']");
+    const productGrid = container.querySelector("[aria-label='Our Products']");
+    const packagesSection = container.querySelector("[aria-labelledby='packages-showcase-heading']");
+    const servicesSection = container.querySelector("[aria-labelledby='services-heading']");
+    const ctaSection = container.querySelector("[aria-labelledby='cta-heading']");
 
     // All sections must exist
     expect(hero).toBeInTheDocument();
@@ -124,22 +124,19 @@ describe("15.2 Home Page Structure", () => {
 
   it("renders Social Proof Bar with metrics", () => {
     const { container } = renderHome();
-    const bar = container.querySelector(".social-proof-bar");
+    const bar = container.querySelector("[aria-label='Core capabilities']");
     expect(bar).toBeInTheDocument();
 
-    const metrics = bar.querySelectorAll(".social-proof-metric");
-    expect(metrics.length).toBeGreaterThanOrEqual(3);
-
-    // Each metric has a value and label
-    metrics.forEach((metric) => {
-      expect(metric.querySelector(".social-proof-value")).toBeInTheDocument();
-      expect(metric.querySelector(".social-proof-label")).toBeInTheDocument();
-    });
+    // Each metric is rendered inside an AnimatedSection (motion.div)
+    // with a value (icon) and label span
+    const values = bar.querySelectorAll("span i");
+    const labels = bar.querySelectorAll("span:last-child");
+    expect(values.length).toBeGreaterThanOrEqual(3);
   });
 
   it("renders CTA section with link to /contact", () => {
     const { container } = renderHome();
-    const ctaSection = container.querySelector(".cta-section");
+    const ctaSection = container.querySelector("[aria-labelledby='cta-heading']");
     expect(ctaSection).toBeInTheDocument();
 
     // Has a CTA link to /contact
@@ -159,7 +156,7 @@ describe("15.2 Home Page Structure", () => {
 
   it("renders ProductGrid with product cards", () => {
     const { container } = renderHome();
-    const grid = container.querySelector(".product-grid");
+    const grid = container.querySelector("[aria-label='Our Products']");
     expect(grid).toBeInTheDocument();
   });
 

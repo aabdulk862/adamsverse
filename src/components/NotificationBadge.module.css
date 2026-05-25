@@ -1,0 +1,17 @@
+/* NotificationBadge — locally-scoped styles */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--radius-full);
+  background: var(--color-error);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  margin-left: auto;
+}

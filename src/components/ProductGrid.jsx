@@ -1,6 +1,6 @@
 import { products } from "../data/productRegistry";
 import ProductCard from "./ProductCard";
-import "./ProductGrid.css";
+import styles from "./ProductGrid.module.css";
 
 /**
  * ProductGrid — Renders all products from the registry in a responsive grid.
@@ -11,11 +11,11 @@ export default function ProductGrid() {
   const [featured, ...rest] = products;
 
   return (
-    <section className="product-grid" aria-label="Our Products">
-      <div className="product-grid__featured">
+    <section className={styles.grid} aria-label="Our Products">
+      <div className={styles.featured}>
         <ProductCard product={featured} />
       </div>
-      <div className="product-grid__secondary">
+      <div className={styles.secondary}>
         {rest.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

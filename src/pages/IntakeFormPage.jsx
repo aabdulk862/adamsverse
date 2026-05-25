@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useProjects } from "../hooks/useProjects";
 import services from "../data/services";
+import styles from "./IntakeFormPage.module.css";
 
 const TIER_CONFIG = {
   "landing-page": {
@@ -133,14 +134,14 @@ export default function IntakeFormPage() {
 
   if (!service || !tierConfig) {
     return (
-      <div className="intake-page">
-        <div className="intake-not-found">
+      <div className={styles.page}>
+        <div className={styles.notFound}>
           <i className="fa-solid fa-circle-exclamation" />
           <h2>Service tier not found</h2>
           <p>
             The selected service doesn't exist. Choose a service to get started.
           </p>
-          <Link to="/services" className="intake-back-link">
+          <Link to="/services" className={styles.backLink}>
             <i className="fa-solid fa-arrow-left" /> Back to Services
           </Link>
         </div>
@@ -193,11 +194,11 @@ export default function IntakeFormPage() {
 
     if (field.type === "select") {
       return (
-        <label key={field.name} htmlFor={fieldId} className="intake-field">
-          <span className="intake-label">
+        <label key={field.name} htmlFor={fieldId} className={styles.field}>
+          <span className={styles.label}>
             {field.label}
             {field.required && (
-              <span className="intake-required" aria-hidden="true">
+              <span className={styles.required} aria-hidden="true">
                 {" "}
                 *
               </span>
@@ -207,7 +208,7 @@ export default function IntakeFormPage() {
             id={fieldId}
             value={value}
             onChange={(e) => handleChange(field.name, e.target.value)}
-            className={hasError ? "intake-input--error" : ""}
+            className={hasError ? styles.inputError : ""}
             aria-required={field.required}
             aria-invalid={hasError}
           >
@@ -221,7 +222,7 @@ export default function IntakeFormPage() {
             ))}
           </select>
           {hasError && (
-            <span className="intake-error" role="alert">
+            <span className={styles.errorText} role="alert">
               {validationErrors[field.name]}
             </span>
           )}
@@ -231,11 +232,11 @@ export default function IntakeFormPage() {
 
     if (field.type === "textarea") {
       return (
-        <label key={field.name} htmlFor={fieldId} className="intake-field">
-          <span className="intake-label">
+        <label key={field.name} htmlFor={fieldId} className={styles.field}>
+          <span className={styles.label}>
             {field.label}
             {field.required && (
-              <span className="intake-required" aria-hidden="true">
+              <span className={styles.required} aria-hidden="true">
                 {" "}
                 *
               </span>
@@ -246,13 +247,13 @@ export default function IntakeFormPage() {
             value={value}
             onChange={(e) => handleChange(field.name, e.target.value)}
             placeholder={field.placeholder}
-            className={hasError ? "intake-input--error" : ""}
+            className={hasError ? styles.inputError : ""}
             aria-required={field.required}
             aria-invalid={hasError}
             rows={4}
           />
           {hasError && (
-            <span className="intake-error" role="alert">
+            <span className={styles.errorText} role="alert">
               {validationErrors[field.name]}
             </span>
           )}
@@ -261,11 +262,11 @@ export default function IntakeFormPage() {
     }
 
     return (
-      <label key={field.name} htmlFor={fieldId} className="intake-field">
-        <span className="intake-label">
+      <label key={field.name} htmlFor={fieldId} className={styles.field}>
+        <span className={styles.label}>
           {field.label}
           {field.required && (
-            <span className="intake-required" aria-hidden="true">
+            <span className={styles.required} aria-hidden="true">
               {" "}
               *
             </span>
@@ -277,12 +278,12 @@ export default function IntakeFormPage() {
           value={value}
           onChange={(e) => handleChange(field.name, e.target.value)}
           placeholder={field.placeholder}
-          className={hasError ? "intake-input--error" : ""}
+          className={hasError ? styles.inputError : ""}
           aria-required={field.required}
           aria-invalid={hasError}
         />
         {hasError && (
-          <span className="intake-error" role="alert">
+          <span className={styles.errorText} role="alert">
             {validationErrors[field.name]}
           </span>
         )}
@@ -291,39 +292,39 @@ export default function IntakeFormPage() {
   };
 
   return (
-    <div className="intake-page">
-      <div className="intake-header">
-        <Link to="/services" className="intake-back-link">
+    <div className={styles.page}>
+      <div className={styles.header}>
+        <Link to="/services" className={styles.backLink}>
           <i className="fa-solid fa-arrow-left" /> Services
         </Link>
-        <h1 className="intake-title">{service.title} Intake</h1>
-        <p className="intake-subtitle">
+        <h1 className={styles.title}>{service.title} Intake</h1>
+        <p className={styles.subtitle}>
           Tell us about your project so we can scope the work and get started.
         </p>
       </div>
 
-      <div className="intake-pricing-banner">
-        <i className={`${service.icon} intake-pricing-icon`} />
-        <div className="intake-pricing-info">
-          <span className="intake-pricing-tier">{service.title}</span>
-          <span className="intake-pricing-range">{service.priceRange}</span>
+      <div className={styles.pricingBanner}>
+        <i className={`${service.icon} ${styles.pricingIcon}`} />
+        <div className={styles.pricingInfo}>
+          <span className={styles.pricingTier}>{service.title}</span>
+          <span className={styles.pricingRange}>{service.priceRange}</span>
         </div>
       </div>
 
-      <form className="intake-form" onSubmit={handleSubmit} noValidate>
+      <form className={styles.form} onSubmit={handleSubmit} noValidate>
         {tierConfig.fields.map(renderField)}
 
         {tierId === "landing-page" && (
-          <div className="intake-field">
-            <span className="intake-label">Brand Assets</span>
-            <p className="intake-hint">
+          <div className={styles.field}>
+            <span className={styles.label}>Brand Assets</span>
+            <p className={styles.hint}>
               Upload logos, color palettes, or style guides. You can also add
               files after project creation.
             </p>
             <input
               type="file"
               multiple
-              className="intake-file-input"
+              className={styles.fileInput}
               onChange={(e) => {
                 const names = Array.from(e.target.files || []).map(
                   (f) => f.name,
@@ -336,13 +337,13 @@ export default function IntakeFormPage() {
         )}
 
         {projectError && (
-          <div className="intake-submit-error" role="alert">
+          <div className={styles.submitError} role="alert">
             <i className="fa-solid fa-circle-exclamation" />
             <span>{projectError}</span>
           </div>
         )}
 
-        <button type="submit" className="intake-submit" disabled={submitting}>
+        <button type="submit" className={styles.submit} disabled={submitting}>
           {submitting ? (
             <>
               <i className="fa-solid fa-spinner fa-spin" /> Submitting…

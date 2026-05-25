@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import styles from "./LearnPage.module.css";
 
 const resources = [
   {
@@ -64,24 +65,24 @@ export default function LearnPage() {
       </div>
 
       {resources.map((group) => (
-        <div key={group.category} className="learn-group">
-          <h2 className="learn-group-title">{group.category}</h2>
-          <div className="learn-list">
+        <div key={group.category} className={styles.group}>
+          <h2 className={styles.groupTitle}>{group.category}</h2>
+          <div className={styles.list}>
             {group.items.map((r) => (
               <a
                 key={r.label}
                 href={r.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="learn-link"
+                className={styles.link}
               >
-                <i className={r.icon}></i>
-                <div className="learn-link-text">
-                  <span className="learn-link-label">{r.label}</span>
-                  {r.desc && <span className="learn-link-desc">{r.desc}</span>}
-                  {r.meta && <span className="learn-link-meta">{r.meta}</span>}
+                <i className={`${r.icon} ${styles.linkIcon}`}></i>
+                <div className={styles.linkText}>
+                  <span className={styles.linkLabel}>{r.label}</span>
+                  {r.desc && <span className={styles.linkDesc}>{r.desc}</span>}
+                  {r.meta && <span className={styles.linkMeta}>{r.meta}</span>}
                 </div>
-                <i className="fas fa-arrow-right learn-arrow"></i>
+                <i className={`fas fa-arrow-right ${styles.arrow}`}></i>
               </a>
             ))}
           </div>

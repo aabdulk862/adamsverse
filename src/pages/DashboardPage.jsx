@@ -4,6 +4,16 @@ import { useAuth } from "../hooks/useAuth";
 import { useProjects } from "../hooks/useProjects";
 import { useInvoices } from "../hooks/useInvoices";
 import { useNotifications } from "../hooks/useNotifications";
+import styles from "./DashboardPage.module.css";
+
+const STATUS_CLASS_MAP = {
+  discovery: "projectStatusDiscovery",
+  "in-progress": "projectStatusInProgress",
+  review: "projectStatusReview",
+  revision: "projectStatusRevision",
+  delivered: "projectStatusDelivered",
+  closed: "projectStatusClosed",
+};
 
 export default function DashboardPage() {
   const { profile } = useAuth();
@@ -40,44 +50,50 @@ export default function DashboardPage() {
   const displayName = profile?.display_name || "there";
   const firstName = displayName.split(" ")[0];
 
+  const getStatusClass = (status) => {
+    const key = status?.toLowerCase().replace(/\s+/g, "-");
+    const className = STATUS_CLASS_MAP[key];
+    return className ? `${styles.projectStatus} ${styles[className]}` : styles.projectStatus;
+  };
+
   return (
-    <div className="dashboard-page">
-      <h1 className="dashboard-page-greeting">Welcome back, {firstName}</h1>
+    <div className={styles.page}>
+      <h1 className={styles.greeting}>Welcome back, {firstName}</h1>
 
       {loading ? (
-        <div className="dashboard-page-loading">
+        <div className={styles.loading}>
           <div className="auth-guard-spinner" />
           <span>Loading your dashboard…</span>
         </div>
       ) : (
         <>
           {/* Summary cards */}
-          <div className="dashboard-summary-cards">
-            <div className="dashboard-summary-card">
-              <div className="dashboard-summary-icon dashboard-summary-icon--projects">
+          <div className={styles.summaryCards}>
+            <div className={styles.summaryCard}>
+              <div className={`${styles.summaryIcon} ${styles.summaryIconProjects}`}>
                 <i className="fa-solid fa-folder-open" />
               </div>
-              <div className="dashboard-summary-info">
-                <span className="dashboard-summary-value">
+              <div className={styles.summaryInfo}>
+                <span className={styles.summaryValue}>
                   {activeProjects.length}
                 </span>
-                <span className="dashboard-summary-label">Active Projects</span>
+                <span className={styles.summaryLabel}>Active Projects</span>
               </div>
             </div>
 
-            <div className="dashboard-summary-card">
-              <div className="dashboard-summary-icon dashboard-summary-icon--billing">
+            <div className={styles.summaryCard}>
+              <div className={`${styles.summaryIcon} ${styles.summaryIconBilling}`}>
                 <i className="fa-solid fa-file-invoice-dollar" />
               </div>
-              <div className="dashboard-summary-info">
-                <span className="dashboard-summary-value">
+              <div className={styles.summaryInfo}>
+                <span className={styles.summaryValue}>
                   $
                   {outstandingTotal.toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </span>
-                <span className="dashboard-summary-label">
+                <span className={styles.summaryLabel}>
                   {nextDueInvoice
                     ? `Due ${new Date(nextDueInvoice.due_date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}`
                     : "Outstanding Balance"}
@@ -85,32 +101,32 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="dashboard-summary-card">
-              <div className="dashboard-summary-icon dashboard-summary-icon--messages">
+            <div className={styles.summaryCard}>
+              <div className={`${styles.summaryIcon} ${styles.summaryIconMessages}`}>
                 <i className="fa-solid fa-comments" />
               </div>
-              <div className="dashboard-summary-info">
-                <span className="dashboard-summary-value">
+              <div className={styles.summaryInfo}>
+                <span className={styles.summaryValue}>
                   {unreadMessages}
                   {unreadMessages > 0 && (
-                    <span className="dashboard-summary-badge">
+                    <span className={styles.summaryBadge}>
                       {unreadMessages}
                     </span>
                   )}
                 </span>
-                <span className="dashboard-summary-label">Unread Messages</span>
+                <span className={styles.summaryLabel}>Unread Messages</span>
               </div>
             </div>
           </div>
 
           {/* Recent projects or empty state */}
-          <div className="dashboard-recent-section">
-            <div className="dashboard-recent-header">
-              <h2 className="dashboard-recent-title">Recent Projects</h2>
+          <div className={styles.recentSection}>
+            <div className={styles.recentHeader}>
+              <h2 className={styles.recentTitle}>Recent Projects</h2>
               {activeProjects.length > 0 && (
                 <Link
                   to="/dashboard/projects"
-                  className="dashboard-recent-link"
+                  className={styles.recentLink}
                 >
                   View all <i className="fa-solid fa-arrow-right" />
                 </Link>
@@ -118,35 +134,33 @@ export default function DashboardPage() {
             </div>
 
             {projects.length === 0 ? (
-              <div className="dashboard-empty-state">
-                <div className="dashboard-empty-icon">
+              <div className={styles.emptyState}>
+                <div className={styles.emptyIcon}>
                   <i className="fa-solid fa-rocket" />
                 </div>
-                <h3>No projects yet</h3>
-                <p>
+                <h3 className={styles.emptyTitle}>No projects yet</h3>
+                <p className={styles.emptyText}>
                   Ready to bring your idea to life? Pick a service tier and
                   let's get started.
                 </p>
-                <Link to="/services" className="dashboard-empty-cta">
+                <Link to="/services" className={styles.emptyCta}>
                   Start a new project <i className="fa-solid fa-arrow-right" />
                 </Link>
               </div>
             ) : (
-              <div className="dashboard-projects-list">
+              <div className={styles.projectsList}>
                 {projects.slice(0, 5).map((project) => (
                   <Link
                     key={project.id}
                     to={`/dashboard/projects/${project.id}`}
-                    className="dashboard-project-row"
+                    className={styles.projectRow}
                   >
-                    <div className="dashboard-project-name">{project.name}</div>
-                    <div className="dashboard-project-meta">
-                      <span
-                        className={`dashboard-project-status dashboard-project-status--${project.status?.toLowerCase().replace(/\s+/g, "-")}`}
-                      >
+                    <div className={styles.projectName}>{project.name}</div>
+                    <div className={styles.projectMeta}>
+                      <span className={getStatusClass(project.status)}>
                         {project.status}
                       </span>
-                      <span className="dashboard-project-date">
+                      <span className={styles.projectDate}>
                         {project.updated_at
                           ? new Date(project.updated_at).toLocaleDateString(
                               "en-US",

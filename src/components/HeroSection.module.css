@@ -1,0 +1,69 @@
+/* HeroSection.module.css — Hero section styles extracted from product-hub.css */
+
+.heroSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px var(--grid-gap) 72px;
+  background: var(--color-bg-base);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: var(--container-max-width);
+  width: 100%;
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+  margin: 0;
+  max-width: 680px;
+}
+
+.valueProp {
+  font-family: var(--font-body);
+  font-weight: var(--weight-regular);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  letter-spacing: var(--tracking-body);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 520px;
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 64px 20px 48px;
+  }
+
+  .logo {
+    width: 52px;
+    height: 52px;
+  }
+
+  .tagline {
+    font-size: 1.75rem;
+    max-width: 100%;
+  }
+
+  .valueProp {
+    font-size: 0.95rem;
+  }
+}

@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { supabase } from "../lib/supabase";
+import styles from "./FileUpload.module.css";
 
 const DEFAULT_MAX_SIZE = 10 * 1024 * 1024; // 10 MB
 
@@ -172,9 +173,9 @@ export default function FileUpload({
   };
 
   return (
-    <div className="file-upload">
+    <div className={styles.wrapper}>
       <div
-        className={`file-upload-zone${dragActive ? " file-upload-zone--active" : ""}${uploading ? " file-upload-zone--uploading" : ""}`}
+        className={`${styles.zone}${dragActive ? ` ${styles.zoneActive}` : ""}${uploading ? ` ${styles.zoneUploading}` : ""}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
@@ -187,7 +188,7 @@ export default function FileUpload({
         <input
           ref={fileInputRef}
           type="file"
-          className="file-upload-input"
+          className={styles.input}
           onChange={handleFileSelect}
           accept={ALLOWED_MIME_TYPES.join(",")}
           tabIndex={-1}
@@ -195,12 +196,12 @@ export default function FileUpload({
         />
 
         {uploading && selectedFile ? (
-          <div className="file-upload-progress">
-            <i className="fa-solid fa-spinner fa-spin file-upload-icon" />
-            <span className="file-upload-filename">{selectedFile.name}</span>
-            <div className="file-upload-bar">
+          <div className={styles.progress}>
+            <i className={`fa-solid fa-spinner fa-spin ${styles.icon}`} />
+            <span className={styles.filename}>{selectedFile.name}</span>
+            <div className={styles.bar}>
               <div
-                className="file-upload-bar-fill"
+                className={styles.barFill}
                 style={{ width: `${progress}%` }}
                 role="progressbar"
                 aria-valuenow={progress}
@@ -208,15 +209,15 @@ export default function FileUpload({
                 aria-valuemax={100}
               />
             </div>
-            <span className="file-upload-percent">{progress}%</span>
+            <span className={styles.percent}>{progress}%</span>
           </div>
         ) : (
-          <div className="file-upload-prompt">
-            <i className="fa-solid fa-cloud-arrow-up file-upload-icon" />
-            <span className="file-upload-text">
+          <div className={styles.prompt}>
+            <i className={`fa-solid fa-cloud-arrow-up ${styles.icon}`} />
+            <span className={styles.text}>
               Drag &amp; drop a file here, or click to browse
             </span>
-            <span className="file-upload-hint">
+            <span className={styles.hint}>
               Accepted types: {ACCEPTED_TYPES_LABEL}. Max size:{" "}
               {formatMaxSize(maxSize)}
             </span>
@@ -225,8 +226,8 @@ export default function FileUpload({
       </div>
 
       {error && (
-        <div className="file-upload-error" role="alert">
-          <i className="fa-solid fa-circle-exclamation" />
+        <div className={styles.error} role="alert">
+          <i className={`fa-solid fa-circle-exclamation ${styles.errorIcon}`} />
           <span>{error}</span>
         </div>
       )}

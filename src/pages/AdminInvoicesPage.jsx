@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { supabase } from "../lib/supabase";
+import styles from "./Admin.module.css";
 
 const INVOICE_STATUSES = ["Draft", "Sent", "Paid", "Overdue"];
 
@@ -215,8 +216,8 @@ export default function AdminInvoicesPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="admin-page">
-        <div className="admin-loading">
+      <div className={styles.page}>
+        <div className={styles.loading}>
           <div className="auth-guard-spinner" />
           <span>Loading invoices…</span>
         </div>
@@ -226,12 +227,12 @@ export default function AdminInvoicesPage() {
 
   if (error) {
     return (
-      <div className="admin-page">
-        <h1 className="admin-page-title">Invoices</h1>
-        <div className="admin-error">
+      <div className={styles.page}>
+        <h1 className={styles.pageTitle}>Invoices</h1>
+        <div className={styles.error}>
           <i className="fa-solid fa-circle-exclamation" />
           <span>{error}</span>
-          <button onClick={fetchData} className="admin-retry-btn">
+          <button onClick={fetchData} className={styles.retryBtn}>
             Retry
           </button>
         </div>
@@ -240,14 +241,14 @@ export default function AdminInvoicesPage() {
   }
 
   return (
-    <div className="admin-page">
-      <div className="admin-header">
-        <h1 className="admin-page-title">Invoices</h1>
-        <div className="admin-header-actions">
-          <Link to="/admin" className="admin-back-link">
+    <div className={styles.page}>
+      <div className={styles.header}>
+        <h1 className={styles.pageTitle}>Invoices</h1>
+        <div className={styles.headerActions}>
+          <Link to="/admin" className={styles.backLink}>
             <i className="fa-solid fa-arrow-left" /> Dashboard
           </Link>
-          <button onClick={openCreateForm} className="admin-primary-btn">
+          <button onClick={openCreateForm} className={styles.primaryBtn}>
             <i className="fa-solid fa-plus" /> New Invoice
           </button>
         </div>
@@ -255,29 +256,29 @@ export default function AdminInvoicesPage() {
 
       {/* Invoice form modal */}
       {showForm && (
-        <div className="admin-modal-overlay" onClick={closeForm}>
-          <div className="admin-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="admin-modal-header">
+        <div className={styles.modalOverlay} onClick={closeForm}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
               <h2>{editingInvoice ? "Edit Invoice" : "Create Invoice"}</h2>
               <button
                 onClick={closeForm}
-                className="admin-modal-close"
+                className={styles.modalClose}
                 aria-label="Close"
               >
                 <i className="fa-solid fa-xmark" />
               </button>
             </div>
-            <form onSubmit={handleSubmit} className="admin-invoice-form">
+            <form onSubmit={handleSubmit} className={styles.invoiceForm}>
               {formError && (
-                <div className="admin-form-error">
+                <div className={styles.formError}>
                   <i className="fa-solid fa-circle-exclamation" /> {formError}
                 </div>
               )}
 
-              <label className="admin-form-label">
+              <label className={styles.formLabel}>
                 Project
                 <select
-                  className="admin-form-select"
+                  className={styles.formSelect}
                   value={formData.project_id}
                   onChange={(e) =>
                     setFormData((prev) => ({
@@ -295,11 +296,11 @@ export default function AdminInvoicesPage() {
                 </select>
               </label>
 
-              <div className="admin-form-row">
-                <label className="admin-form-label">
+              <div className={styles.formRow}>
+                <label className={styles.formLabel}>
                   Status
                   <select
-                    className="admin-form-select"
+                    className={styles.formSelect}
                     value={formData.status}
                     onChange={(e) =>
                       setFormData((prev) => ({
@@ -315,11 +316,11 @@ export default function AdminInvoicesPage() {
                     ))}
                   </select>
                 </label>
-                <label className="admin-form-label">
+                <label className={styles.formLabel}>
                   Due Date
                   <input
                     type="date"
-                    className="admin-form-input"
+                    className={styles.formInput}
                     value={formData.due_date}
                     onChange={(e) =>
                       setFormData((prev) => ({
@@ -332,22 +333,22 @@ export default function AdminInvoicesPage() {
               </div>
 
               {/* Line items */}
-              <div className="admin-line-items">
-                <div className="admin-line-items-header">
+              <div className={styles.lineItems}>
+                <div className={styles.lineItemsHeader}>
                   <h3>Line Items</h3>
                   <button
                     type="button"
                     onClick={addLineItem}
-                    className="admin-add-line-btn"
+                    className={styles.addLineBtn}
                   >
                     <i className="fa-solid fa-plus" /> Add Item
                   </button>
                 </div>
                 {formData.line_items.map((li, i) => (
-                  <div key={i} className="admin-line-item-row">
+                  <div key={i} className={styles.lineItemRow}>
                     <input
                       type="text"
-                      className="admin-form-input admin-line-desc"
+                      className={`${styles.formInput} ${styles.lineDesc}`}
                       placeholder="Description"
                       value={li.description}
                       onChange={(e) =>
@@ -356,7 +357,7 @@ export default function AdminInvoicesPage() {
                     />
                     <input
                       type="number"
-                      className="admin-form-input admin-line-amount"
+                      className={`${styles.formInput} ${styles.lineAmount}`}
                       placeholder="0.00"
                       step="0.01"
                       min="0"
@@ -369,7 +370,7 @@ export default function AdminInvoicesPage() {
                       <button
                         type="button"
                         onClick={() => removeLineItem(i)}
-                        className="admin-remove-line-btn"
+                        className={styles.removeLineBtn}
                         aria-label="Remove line item"
                       >
                         <i className="fa-solid fa-trash" />
@@ -379,11 +380,11 @@ export default function AdminInvoicesPage() {
                 ))}
               </div>
 
-              <label className="admin-form-label">
+              <label className={styles.formLabel}>
                 Tax Amount (USD)
                 <input
                   type="number"
-                  className="admin-form-input"
+                  className={styles.formInput}
                   step="0.01"
                   min="0"
                   value={formData.tax_amount}
@@ -396,9 +397,9 @@ export default function AdminInvoicesPage() {
                 />
               </label>
 
-              <div className="admin-invoice-total">
+              <div className={styles.invoiceTotal}>
                 <span>Total:</span>
-                <span className="admin-invoice-total-value">
+                <span className={styles.invoiceTotalValue}>
                   $
                   {calcTotal().toLocaleString("en-US", {
                     minimumFractionDigits: 2,
@@ -407,17 +408,17 @@ export default function AdminInvoicesPage() {
                 </span>
               </div>
 
-              <div className="admin-form-actions">
+              <div className={styles.formActions}>
                 <button
                   type="button"
                   onClick={closeForm}
-                  className="admin-cancel-btn"
+                  className={styles.cancelBtn}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="admin-primary-btn"
+                  className={styles.primaryBtn}
                   disabled={saving}
                 >
                   {saving
@@ -434,15 +435,15 @@ export default function AdminInvoicesPage() {
 
       {/* Invoice list */}
       {invoices.length === 0 ? (
-        <div className="admin-empty">
+        <div className={styles.empty}>
           No invoices yet.
-          <button onClick={openCreateForm} className="admin-empty-action">
+          <button onClick={openCreateForm} className={styles.emptyAction}>
             Create your first invoice
           </button>
         </div>
       ) : (
-        <div className="admin-table-wrap">
-          <table className="admin-table">
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
             <thead>
               <tr>
                 <th>Client</th>
@@ -457,10 +458,10 @@ export default function AdminInvoicesPage() {
               {invoices.map((inv) => (
                 <tr key={inv.id}>
                   <td>{inv.profiles?.display_name || "—"}</td>
-                  <td className="admin-table-name">
+                  <td className={styles.tableName}>
                     {inv.projects?.name || "—"}
                   </td>
-                  <td className="admin-table-amount">
+                  <td className={styles.tableAmount}>
                     $
                     {Number(inv.total_amount || 0).toLocaleString("en-US", {
                       minimumFractionDigits: 2,
@@ -469,12 +470,12 @@ export default function AdminInvoicesPage() {
                   </td>
                   <td>
                     <span
-                      className={`admin-status-badge admin-status--${inv.status?.toLowerCase()}`}
+                      className={`${styles.statusBadge} ${styles[`status${inv.status?.replace(/\s+/g, "")}`] || ""}`}
                     >
                       {inv.status}
                     </span>
                   </td>
-                  <td className="admin-table-date">
+                  <td className={styles.tableDate}>
                     {inv.due_date
                       ? new Date(inv.due_date).toLocaleDateString("en-US", {
                           month: "short",
@@ -483,10 +484,10 @@ export default function AdminInvoicesPage() {
                         })
                       : "—"}
                   </td>
-                  <td className="admin-table-actions">
+                  <td className={styles.tableActions}>
                     <button
                       onClick={() => openEditForm(inv)}
-                      className="admin-action-btn"
+                      className={styles.actionBtn}
                       title="Edit"
                       aria-label="Edit invoice"
                     >
@@ -495,7 +496,7 @@ export default function AdminInvoicesPage() {
                     {inv.status === "Draft" && (
                       <button
                         onClick={() => handleSendInvoice(inv.id)}
-                        className="admin-action-btn admin-action-btn--send"
+                        className={`${styles.actionBtn} ${styles.actionBtnSend}`}
                         title="Send to client"
                         aria-label="Send invoice"
                       >

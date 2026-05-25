@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import styles from "./MessagesPage.module.css";
 
 export default function MessagesPage() {
   const [threads, setThreads] = useState([]);
@@ -106,9 +107,9 @@ export default function MessagesPage() {
   }
 
   return (
-    <div className="messages-page">
-      <h1 className="messages-page-title">Messages</h1>
-      <p className="messages-page-subtitle">
+    <div className={styles.page}>
+      <h1 className={styles.title}>Messages</h1>
+      <p className={styles.subtitle}>
         All your project conversations in one place.
       </p>
 
@@ -118,7 +119,7 @@ export default function MessagesPage() {
           <span>Loading messages…</span>
         </div>
       ) : error ? (
-        <div className="messages-page-error" role="alert">
+        <div className={styles.error} role="alert">
           <i className="fa-solid fa-circle-exclamation" />
           <span>{error}</span>
         </div>
@@ -137,20 +138,20 @@ export default function MessagesPage() {
           </Link>
         </div>
       ) : (
-        <div className="messages-thread-list" role="list">
+        <div className={styles.threadList} role="list">
           {threads.map((thread) => (
             <Link
               key={thread.projectId}
               to={`/dashboard/projects/${thread.projectId}`}
-              className="messages-thread-row"
+              className={styles.threadRow}
               role="listitem"
               aria-label={`${thread.projectName} — ${thread.unreadCount > 0 ? `${thread.unreadCount} unread` : "no unread"} messages`}
             >
-              <div className="messages-thread-icon">
+              <div className={styles.threadIcon}>
                 <i className="fa-solid fa-folder-open" />
                 {thread.unreadCount > 0 && (
                   <span
-                    className="messages-thread-badge"
+                    className={styles.threadBadge}
                     aria-label={`${thread.unreadCount} unread`}
                   >
                     {thread.unreadCount > 99 ? "99+" : thread.unreadCount}
@@ -158,17 +159,17 @@ export default function MessagesPage() {
                 )}
               </div>
 
-              <div className="messages-thread-content">
-                <div className="messages-thread-header">
-                  <span className="messages-thread-name">
+              <div className={styles.threadContent}>
+                <div className={styles.threadHeader}>
+                  <span className={styles.threadName}>
                     {thread.projectName}
                   </span>
-                  <span className="messages-thread-time">
+                  <span className={styles.threadTime}>
                     {formatTime(thread.lastMessageAt)}
                   </span>
                 </div>
                 <p
-                  className={`messages-thread-preview${thread.unreadCount > 0 ? " messages-thread-preview--unread" : ""}`}
+                  className={`${styles.threadPreview}${thread.unreadCount > 0 ? ` ${styles.threadPreviewUnread}` : ""}`}
                 >
                   {truncatePreview(thread.lastMessage)}
                 </p>

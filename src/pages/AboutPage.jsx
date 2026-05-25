@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import logo from "../assets/images/profile.JPEG";
 import usa from "../assets/images/usa.png";
 import eritrea from "../assets/images/eritrea.png";
+import styles from "./AboutPage.module.css";
 
 const principles = [
   {
@@ -39,17 +40,17 @@ export default function AboutPage() {
       </div>
 
       {/* Bio Section */}
-      <div className="about-bio">
-        <div className="about-bio-header">
+      <div className={styles.bio}>
+        <div className={styles.bioHeader}>
           <img
             src={logo}
             alt="Adam Abdulkadir, founder of Adverse LLC"
-            className="about-avatar"
+            className={styles.avatar}
             loading="lazy"
             decoding="async"
           />
-          <div className="about-bio-info">
-            <h2 className="about-name">
+          <div className={styles.bioInfo}>
+            <h2 className={styles.name}>
               Adam Abdulkadir
               <img
                 src={usa}
@@ -66,10 +67,10 @@ export default function AboutPage() {
                 decoding="async"
               />
             </h2>
-            <p className="about-role">Founder, Adverse LLC</p>
+            <p className={styles.role}>Founder, Adverse LLC</p>
           </div>
         </div>
-        <div className="about-bio-text">
+        <div className={styles.bioText}>
           <p>
             I grew up in Northern Virginia's tech corridor and started writing
             code in high school. By the time I finished college I was already
@@ -99,15 +100,15 @@ export default function AboutPage() {
       </div>
 
       {/* How We Work */}
-      <div className="about-section">
-        <h2 className="about-section-title">How We Work</h2>
-        <div className="about-principles">
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>How We Work</h2>
+        <div className={styles.principles}>
           {principles.map((item) => (
-            <div key={item.number} className="about-principle">
-              <span className="about-principle-number">{item.number}</span>
-              <div className="about-principle-body">
-                <h3 className="about-principle-title">{item.title}</h3>
-                <p className="about-principle-desc">{item.desc}</p>
+            <div key={item.number} className={styles.principle}>
+              <span className={styles.principleNumber}>{item.number}</span>
+              <div className={styles.principleBody}>
+                <h3 className={styles.principleTitle}>{item.title}</h3>
+                <p className={styles.principleDesc}>{item.desc}</p>
               </div>
             </div>
           ))}
@@ -115,10 +116,10 @@ export default function AboutPage() {
       </div>
 
       {/* CTA */}
-      <div className="about-cta">
-        <p className="about-cta-label">Ready?</p>
-        <h2 className="about-cta-headline">Let's build something together.</h2>
-        <Link to="/contact" className="about-cta-btn">
+      <div className={styles.cta}>
+        <p className={styles.ctaLabel}>Ready?</p>
+        <h2 className={styles.ctaHeadline}>Let's build something together.</h2>
+        <Link to="/contact" className={styles.ctaBtn}>
           Start a conversation <i className="fas fa-arrow-right"></i>
         </Link>
       </div>

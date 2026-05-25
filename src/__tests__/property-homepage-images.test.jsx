@@ -43,7 +43,7 @@ describe("Property 6: Homepage images use appropriate loading strategies", () =>
       </MemoryRouter>,
     );
 
-    const heroLogo = container.querySelector(".hero-section__logo");
+    const heroLogo = container.querySelector("img[fetchpriority='high']");
     if (heroLogo) {
       expect(heroLogo).not.toHaveAttribute("loading", "lazy");
       expect(heroLogo).toHaveAttribute("fetchpriority", "high");
@@ -63,7 +63,7 @@ describe("Property 6: Homepage images use appropriate loading strategies", () =>
 
     // Below-fold images (everything except the hero logo) should be lazy-loaded
     const belowFoldImages = imgArray.filter(
-      (img) => !img.classList.contains("hero-section__logo")
+      (img) => img.getAttribute("fetchpriority") !== "high"
     );
 
     belowFoldImages.forEach((img) => {

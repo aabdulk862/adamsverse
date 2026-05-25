@@ -1,4 +1,5 @@
 import projects from "../data/projects";
+import styles from "./ProjectsPage.module.css";
 
 const typeLabels = {
   client: "Client Work",
@@ -28,9 +29,9 @@ export default function PortfolioPage() {
       </div>
 
       {grouped.map((group) => (
-        <div key={group.type} className="portfolio-group">
-          <h2 className="portfolio-group-title">{group.label}</h2>
-          <div className="portfolio-grid">
+        <div key={group.type} className={styles.group}>
+          <h2 className={styles.groupTitle}>{group.label}</h2>
+          <div className={styles.grid}>
             {group.projects.map((project) => (
               <ProjectCard
                 key={project.id}
@@ -57,10 +58,10 @@ function ProjectCard({ project, featured = false }) {
 
   return (
     <CardWrapper
-      className={`portfolio-card${project.link ? " portfolio-card--linked" : ""}${featured ? " portfolio-card--featured" : ""}`}
+      className={`${styles.card}${project.link ? ` ${styles.cardLinked}` : ""}${featured ? ` ${styles.cardFeatured}` : ""}`}
       {...linkProps}
     >
-      <div className="portfolio-card-thumb">
+      <div className={styles.cardThumb}>
         {project.image ? (
           <img
             src={project.image}
@@ -69,27 +70,27 @@ function ProjectCard({ project, featured = false }) {
             decoding="async"
           />
         ) : (
-          <div className="portfolio-card-placeholder">
+          <div className={styles.cardPlaceholder}>
             <span>{project.title.charAt(0)}</span>
           </div>
         )}
       </div>
 
-      <div className="portfolio-card-body">
-        <div className="portfolio-card-meta">
+      <div className={styles.cardBody}>
+        <div className={styles.cardMeta}>
           {project.type && (
             <span
-              className={`portfolio-type-badge portfolio-type-badge--${project.type}`}
+              className={`${styles.typeBadge} ${styles[`typeBadge${project.type.charAt(0).toUpperCase() + project.type.slice(1)}`] || ""}`}
             >
               {typeLabels[project.type] || project.type}
             </span>
           )}
         </div>
-        <h3 className="portfolio-card-title">{project.title}</h3>
-        <p className="portfolio-card-desc">{project.description}</p>
-        <div className="portfolio-card-tags">
+        <h3 className={styles.cardTitle}>{project.title}</h3>
+        <p className={styles.cardDesc}>{project.description}</p>
+        <div className={styles.cardTags}>
           {project.tags.map((tag) => (
-            <span key={tag} className="portfolio-tag">
+            <span key={tag} className={styles.tag}>
               {tag}
             </span>
           ))}
@@ -97,7 +98,7 @@ function ProjectCard({ project, featured = false }) {
       </div>
 
       {project.link && (
-        <span className="portfolio-card-link-icon">
+        <span className={styles.cardLinkIcon}>
           <i className="fas fa-external-link-alt"></i>
         </span>
       )}
