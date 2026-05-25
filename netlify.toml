@@ -46,6 +46,43 @@
   to = "/ai-website.html"
   status = 200
 
+# ===== Tool rewrites (reverse proxy to separate deploys) =====
+[[redirects]]
+  from = "/tools/pdf-editor/*"
+  to = "https://pdf-local.netlify.app/tools/pdf-editor/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/tools/pdf-editor"
+  to = "https://pdf-local.netlify.app/tools/pdf-editor/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/tools/basecamp/*"
+  to = "https://basecamp-atlas.netlify.app/tools/basecamp/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/tools/basecamp"
+  to = "https://basecamp-atlas.netlify.app/tools/basecamp/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/tools/cs-reference/*"
+  to = "https://ultimate-studyguide.netlify.app/tools/cs-reference/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/tools/cs-reference"
+  to = "https://ultimate-studyguide.netlify.app/tools/cs-reference/"
+  status = 200
+  force = true
+
 # ===== SPA catch-all (must be LAST) =====
 [[redirects]]
   from = "/*"

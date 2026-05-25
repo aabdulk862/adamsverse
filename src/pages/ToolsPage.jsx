@@ -21,7 +21,7 @@ const tools = [
     name: "PDF Editor",
     desc: "Merge, split, annotate, and convert documents — entirely in the browser, no signup required.",
     icon: "fas fa-file-pdf",
-    url: "https://pdf-local.netlify.app",
+    url: "/tools/pdf-editor",
     status: "Beta",
     category: "Utilities",
     featured: false,
@@ -33,7 +33,7 @@ const tools = [
     name: "Basecamp Atlas",
     desc: "Apartment and retreat discovery with interactive maps, smart filters, and neighborhood insights.",
     icon: "fas fa-map-marked-alt",
-    url: "https://basecamp-atlas.netlify.app",
+    url: "/tools/basecamp",
     status: "Live",
     category: "Business",
     featured: false,
@@ -115,7 +115,7 @@ export default function ToolsPage() {
             const isRewrite = tool.isRewrite;
             const CardTag = isRewrite ? "a" : Link;
             const linkProps = isRewrite
-              ? { href: tool.url, target: "_blank", rel: "noopener noreferrer" }
+              ? { href: tool.url }
               : { to: tool.url };
 
             return (
@@ -179,7 +179,7 @@ export default function ToolsPage() {
             </p>
           </div>
           <div className={styles.learnGrid}>
-            <a href="https://ultimate-studyguide.netlify.app" target="_blank" rel="noopener noreferrer" className={styles.learnCard}>
+            <a href="/tools/cs-reference" target="_blank" rel="noopener noreferrer" className={styles.learnCard}>
               <i className="fas fa-book-open" aria-hidden="true"></i>
               <span>CS Reference Guide</span>
             </a>
