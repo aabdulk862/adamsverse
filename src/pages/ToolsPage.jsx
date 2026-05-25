@@ -5,18 +5,6 @@ import styles from "./ToolsPage.module.css";
 
 const tools = [
   {
-    id: "website-packages",
-    name: "Website Packages",
-    desc: "Production-ready business websites tailored for your industry. Preview live, pick a theme, launch in days.",
-    icon: "fas fa-layer-group",
-    url: "/packages",
-    status: "Live",
-    category: "Business",
-    featured: true,
-    cta: "Browse Packages",
-    isRewrite: false,
-  },
-  {
     id: "pdf-editor",
     name: "PDF Editor",
     desc: "Merge, split, annotate, and convert documents — entirely in the browser, no signup required.",
@@ -35,14 +23,14 @@ const tools = [
     icon: "fas fa-map-marked-alt",
     url: "https://basecamp-atlas.netlify.app",
     status: "Live",
-    category: "Business",
+    category: "Platform",
     featured: false,
     cta: "Launch Atlas",
     isRewrite: true,
   },
 ];
 
-const categories = ["All", "Business", "Utilities"];
+const categories = ["All", "Platform", "Utilities"];
 
 const roadmap = [
   { name: "AI Workflow Tools", status: "In Development" },
@@ -127,7 +115,7 @@ export default function ToolsPage() {
               >
                 <CardTag
                   {...linkProps}
-                  className={`${styles.card} ${tool.featured ? styles.cardFeatured : ""}`}
+                  className={styles.card}
                   aria-label={`${tool.cta} — ${tool.name}`}
                 >
                   <div className={styles.cardHeader}>

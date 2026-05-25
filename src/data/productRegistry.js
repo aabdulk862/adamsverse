@@ -47,4 +47,15 @@ export const products = [
     requiresSubscription: false,
     isExternal: true,
   },
+  {
+    id: "cs-reference-guide",
+    name: "CS Reference Guide",
+    description: "Interactive computer science reference with algorithms, data structures, and system design patterns.",
+    category: "learning",
+    url: "https://ultimate-studyguide.netlify.app",
+    icon: "fas fa-book-open",
+    status: "live",
+    requiresSubscription: false,
+    isExternal: true,
+  },
 ];

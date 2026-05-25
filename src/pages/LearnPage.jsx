@@ -6,6 +6,13 @@ const resources = [
     category: "For Developers",
     items: [
       {
+        label: "CS Reference Guide",
+        href: "https://ultimate-studyguide.netlify.app",
+        icon: "fas fa-book-open",
+        desc: "Interactive computer science reference covering algorithms, data structures, Big O analysis, and system design patterns. Built as a searchable, always-available study companion.",
+        meta: "All levels · Interactive platform",
+      },
+      {
         label: "DSA Study Guide",
         href: "/dsa",
         icon: "fas fa-sitemap",
