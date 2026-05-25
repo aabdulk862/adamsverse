@@ -54,10 +54,10 @@ function getSystemPreference() {
 }
 
 /**
- * Resolve the initial theme: stored → system preference → 'light'.
+ * Resolve the initial theme: stored preference → 'light' (always default to light).
  */
 function resolveInitialTheme() {
-  return getStoredTheme() ?? getSystemPreference();
+  return getStoredTheme() ?? "light";
 }
 
 /**
