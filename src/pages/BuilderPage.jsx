@@ -1,6 +1,7 @@
 import { useState, Component } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { motion } from "framer-motion";
+import TemplateSelector from "../components/builder/TemplateSelector";
 import styles from "./BuilderPage.module.css";
 
 /**
@@ -67,7 +68,7 @@ class BuilderErrorBoundary extends Component {
  * Requirements: 1.4, 1.7, 11.6, 11.7
  */
 export default function BuilderPage() {
-  const { isSignedIn, userId } = useAuth();
+  const { isSignedIn, userId: _userId } = useAuth();
   const { user } = useUser();
 
   // Local step state placeholder — will be replaced by useBuilderState hook (task 2.1)
@@ -84,18 +85,10 @@ export default function BuilderPage() {
             transition={{ duration: 0.2 }}
             aria-label="Template selection"
           >
-            {/* TemplateSelector placeholder — replaced by task 3.1 */}
-            <div className={styles.placeholder}>
-              <h2>Choose a Template</h2>
-              <p>Select a business category and starting template to begin.</p>
-              <button
-                type="button"
-                className={styles.placeholderButton}
-                onClick={() => setStep("edit")}
-              >
-                Continue to Editor (placeholder)
-              </button>
-            </div>
+            <TemplateSelector
+              onSelectTemplate={() => setStep("edit")}
+              onSelectBlank={() => setStep("edit")}
+            />
           </motion.section>
         )}
 
@@ -120,7 +113,7 @@ export default function BuilderPage() {
               </div>
               <div
                 className={styles.previewPanel}
-                role="region"
+                role="complementary"
                 aria-label="Website preview"
               >
                 <h2>Live Preview</h2>

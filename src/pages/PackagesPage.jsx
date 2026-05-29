@@ -157,6 +157,16 @@ export default function PackagesPage() {
         </div>
       </div>
 
+      {/* Builder CTA */}
+      <div className={styles.builderCta}>
+        <p className={styles.builderCtaText}>
+          Want to customize your own? Try our free website builder — no sign-up required.
+        </p>
+        <Link to="/builder" className={styles.builderCtaLink}>
+          Open Builder <i className="fas fa-arrow-right" aria-hidden="true"></i>
+        </Link>
+      </div>
+
       {/* Category jump links */}
       <nav className={styles.categoryNav} aria-label="Package categories">
         {grouped.map((group) => (

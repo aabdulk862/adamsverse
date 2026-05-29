@@ -1,0 +1,184 @@
+/* BuilderLayout — responsive split-panel layout with draggable divider */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+}
+
+/* ===== Desktop: split-panel ===== */
+.splitContainer {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg, 12px);
+  border: 1px solid var(--color-border, #e2e8f0);
+  background: var(--color-bg-surface, #fff);
+}
+
+.splitContainer.dragging {
+  cursor: col-resize;
+  user-select: none;
+}
+
+.editorPane {
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+  padding: var(--space-4, 1rem);
+}
+
+.previewPane {
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+  border-left: 1px solid var(--color-border, #e2e8f0);
+}
+
+/* Draggable divider */
+.divider {
+  flex-shrink: 0;
+  width: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: col-resize;
+  background: var(--color-bg-muted, #f1f5f9);
+  border-left: 1px solid var(--color-border, #e2e8f0);
+  border-right: 1px solid var(--color-border, #e2e8f0);
+  transition: background-color 150ms ease;
+  /* Minimum touch target: 44px on touch devices via padding */
+  touch-action: none;
+  min-width: 44px;
+  margin-left: -18px;
+  margin-right: -18px;
+  padding: 0 18px;
+  position: relative;
+  z-index: 2;
+}
+
+.divider:hover,
+.divider:focus-visible {
+  background: color-mix(in srgb, var(--color-accent, #3b82f6) 12%, transparent);
+}
+
+.divider:focus-visible {
+  outline: 2px solid var(--color-accent, #3b82f6);
+  outline-offset: -2px;
+}
+
+.dividerHandle {
+  width: 4px;
+  height: 40px;
+  border-radius: 2px;
+  background: var(--color-text-muted, #94a3b8);
+  transition: background-color 150ms ease;
+}
+
+.divider:hover .dividerHandle,
+.divider:focus-visible .dividerHandle {
+  background: var(--color-accent, #3b82f6);
+}
+
+/* ===== Mobile: toggle view ===== */
+.mobileToggle {
+  display: flex;
+  gap: 0;
+  background: var(--color-bg-muted, #f1f5f9);
+  border-radius: var(--radius-md, 8px);
+  padding: 4px;
+  margin-bottom: var(--space-3, 0.75rem);
+}
+
+.toggleButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 16px;
+  font-family: var(--font-display, system-ui);
+  font-weight: var(--weight-semibold, 600);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #64748b);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+
+.toggleButton:hover {
+  color: var(--color-text-primary, #1a1a2e);
+}
+
+.toggleButton:focus-visible {
+  outline: 2px solid var(--color-accent, #3b82f6);
+  outline-offset: 2px;
+}
+
+.toggleActive {
+  background: var(--color-bg-surface, #fff);
+  color: var(--color-text-primary, #1a1a2e);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.mobileContent {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mobilePanel {
+  width: 100%;
+  min-height: 300px;
+  overflow-y: auto;
+}
+
+/* ===== CTA area — always visible below panels ===== */
+.ctaArea {
+  flex-shrink: 0;
+  padding-top: var(--space-4, 1rem);
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background: var(--color-bg-base, #fff);
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 767px) {
+  .layout {
+    padding: 0;
+  }
+
+  .mobileToggle {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--color-bg-muted, #f1f5f9);
+  }
+}
+
+@media (min-width: 768px) {
+  .divider {
+    /* On non-touch desktop, tighten the hit area visually */
+    min-width: 8px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+  }
+}
+
+/* Touch device enhancement — wider hit area */
+@media (pointer: coarse) {
+  .divider {
+    min-width: 44px;
+    margin-left: -18px;
+    margin-right: -18px;
+    padding: 0 18px;
+  }
+}

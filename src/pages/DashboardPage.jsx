@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { useUser } from "@clerk/clerk-react";
+import { useUser, useAuth } from "@clerk/clerk-react";
+import { useSupabaseClient } from "../hooks/useSupabaseClient";
 import { useProjects } from "../hooks/useProjects";
 import { useInvoices } from "../hooks/useInvoices";
 import { useNotifications } from "../hooks/useNotifications";
@@ -17,6 +18,8 @@ const STATUS_CLASS_MAP = {
 
 export default function DashboardPage() {
   const { user } = useUser();
+  const { userId } = useAuth();
+  const supabase = useSupabaseClient();
   const { projects, loading: projectsLoading, fetchProjects } = useProjects();
   const { invoices, loading: invoicesLoading, fetchInvoices } = useInvoices();
   const {
@@ -25,11 +28,53 @@ export default function DashboardPage() {
     fetchNotifications,
   } = useNotifications();
 
+  const [pendingConfigToast, setPendingConfigToast] = useState(null);
+  const pendingConfigChecked = useRef(false);
+
   useEffect(() => {
     fetchProjects();
     fetchInvoices();
     fetchNotifications();
   }, [fetchProjects, fetchInvoices, fetchNotifications]);
+
+  // Check for pending config from unauthenticated builder handoff
+  useEffect(() => {
+    if (pendingConfigChecked.current || !userId) return;
+    pendingConfigChecked.current = true;
+
+    const pending = localStorage.getItem("webuilder_pending_config");
+    if (!pending) return;
+
+    let config;
+    try {
+      config = JSON.parse(pending);
+    } catch {
+      // Invalid JSON — clear it silently
+      localStorage.removeItem("webuilder_pending_config");
+      return;
+    }
+
+    supabase
+      .from("projects")
+      .insert({
+        client_id: userId,
+        name: config.name || "Custom Website",
+        service_tier: config.category || "Professional",
+        intake_data: config,
+        status: "active",
+      })
+      .then(({ error }) => {
+        if (!error) {
+          localStorage.removeItem("webuilder_pending_config");
+          setPendingConfigToast("success");
+          fetchProjects();
+          setTimeout(() => setPendingConfigToast(null), 5000);
+        } else {
+          setPendingConfigToast("error");
+          setTimeout(() => setPendingConfigToast(null), 5000);
+        }
+      });
+  }, [userId, supabase, fetchProjects]);
 
   const activeProjects = projects.filter(
     (p) => p.status !== "Closed" && p.status !== "Delivered",
@@ -59,6 +104,20 @@ export default function DashboardPage() {
   return (
     <div className={styles.page}>
       <h1 className={styles.greeting}>Welcome back, {firstName}</h1>
+
+      {pendingConfigToast === "success" && (
+        <div className={styles.toastSuccess} role="status">
+          <i className="fa-solid fa-circle-check" />
+          <span>Your website project has been created from the builder!</span>
+        </div>
+      )}
+
+      {pendingConfigToast === "error" && (
+        <div className={styles.toastError} role="alert">
+          <i className="fa-solid fa-circle-exclamation" />
+          <span>Could not create project from your builder config. Please try again later.</span>
+        </div>
+      )}
 
       {loading ? (
         <div className={styles.loading}>

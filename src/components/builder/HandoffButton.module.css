@@ -1,0 +1,171 @@
+/* =================================
+   HANDOFF BUTTON — Sticky CTA Bar
+   Matches PackageDetailPage persistentCta pattern
+================================= */
+
+.handoffBar {
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.handoffContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* --- Error Message --- */
+.errorMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-md, 8px);
+  font-size: var(--text-sm, 0.875rem);
+  color: #dc2626;
+}
+
+.errorDownload {
+  padding: 4px 12px;
+  border-radius: var(--radius-sm, 4px);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--weight-medium, 500);
+  color: #dc2626;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.errorDownload:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* --- Actions Row --- */
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* --- Contact Link (Tertiary) --- */
+.contactLink {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-secondary, #64748b);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.contactLink:hover {
+  color: var(--color-text-primary, #1e293b);
+  text-decoration: underline;
+}
+
+/* --- Secondary Button (Download Config) --- */
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: var(--radius-md, 8px);
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text-primary, #1e293b);
+  background: var(--color-bg-surface, #fff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.secondaryButton:hover {
+  background: var(--color-bg-muted, #f8fafc);
+  border-color: var(--color-border-hover, #cbd5e1);
+}
+
+/* --- Primary Button (CTA) --- */
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border-radius: var(--radius-md, 8px);
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: var(--weight-semibold, 600);
+  color: #fff;
+  background: var(--color-accent, #3b82f6);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.primaryButton:hover:not(:disabled) {
+  filter: brightness(0.9);
+  transform: translateY(-1px);
+}
+
+.primaryButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* --- Responsive --- */
+@media (max-width: 767px) {
+  .handoffContent {
+    padding: 10px 12px;
+  }
+
+  .actionsRow {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .primaryButton {
+    width: 100%;
+    padding: 12px 24px;
+  }
+
+  .secondaryButton {
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  .contactLink {
+    font-size: var(--text-xs, 0.75rem);
+    order: 3;
+  }
+
+  .errorMessage {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}

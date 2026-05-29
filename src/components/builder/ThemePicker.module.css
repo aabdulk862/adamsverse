@@ -1,0 +1,269 @@
+/* ThemePicker styles — uses design tokens from tokens.css */
+
+.themePicker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6, 1.5rem);
+  padding: var(--space-4, 1rem);
+}
+
+/* Section grouping */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 0.75rem);
+}
+
+.sectionTitle {
+  font-family: var(--font-display, sans-serif);
+  font-weight: var(--weight-bold, 700);
+  font-size: 1rem;
+  letter-spacing: var(--tracking-display, 0.02em);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Theme card grid */
+.themeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-3, 0.75rem);
+}
+
+/* Individual theme card */
+.themeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-4, 1rem);
+  min-height: 44px;
+  min-width: 44px;
+  background: var(--color-bg-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md, 6px);
+  cursor: pointer;
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+  font-family: var(--font-body, sans-serif);
+}
+
+.themeCard:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.themeCard:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.themeCardActive {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent);
+  background: var(--color-bg-muted);
+}
+
+/* Theme label */
+.themeLabel {
+  font-weight: var(--weight-medium, 500);
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+/* Color swatch row */
+.swatchRow {
+  display: flex;
+  gap: var(--space-2, 0.5rem);
+  align-items: center;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+/* Accessible text labels for swatches */
+.swatchLabels {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  word-break: break-all;
+  line-height: 1.3;
+}
+
+/* Customize toggle button */
+.customizeToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  min-height: 44px;
+  min-width: 44px;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.875rem;
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md, 6px);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.customizeToggle:hover {
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+}
+
+.customizeToggle:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Color customization panel */
+.customizePanel {
+  overflow: hidden;
+}
+
+.colorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4, 1rem);
+  padding: var(--space-4, 1rem) 0;
+}
+
+/* Individual color field */
+.colorField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+}
+
+.colorLabel {
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.75rem;
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.colorInputRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+/* Native color picker input */
+.colorPicker {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 2px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 4px);
+  cursor: pointer;
+  background: transparent;
+}
+
+.colorPicker:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Hex text input */
+.colorTextInput {
+  flex: 1;
+  min-height: 44px;
+  padding: 8px 12px;
+  font-family: var(--font-body, monospace);
+  font-size: 0.8125rem;
+  color: var(--color-text-primary);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 4px);
+  transition: border-color 150ms ease;
+}
+
+.colorTextInput:focus {
+  border-color: var(--color-accent);
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 25%, transparent);
+}
+
+.colorTextInputError {
+  border-color: #e53e3e;
+}
+
+.colorTextInputError:focus {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.25);
+}
+
+/* Color preview swatch in input row */
+.colorPreview {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm, 4px);
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+/* Current hex value text (accessibility) */
+.colorValue {
+  font-size: 0.6875rem;
+  font-family: var(--font-body, monospace);
+  color: var(--color-text-muted);
+}
+
+/* Validation error message */
+.colorError {
+  font-size: 0.75rem;
+  color: #e53e3e;
+  margin-top: 2px;
+}
+
+/* Reset button */
+.resetButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  min-height: 44px;
+  min-width: 44px;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.875rem;
+  font-weight: var(--weight-medium, 500);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 6px);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.resetButton:hover {
+  background: var(--color-bg-surface);
+  border-color: var(--color-accent);
+}
+
+.resetButton:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Responsive: stack color grid on small screens */
+@media (max-width: 767px) {
+  .colorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .themeGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
