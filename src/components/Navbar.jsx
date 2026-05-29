@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "../hooks/useAuth";
+import { useClerk, useUser } from "@clerk/clerk-react";
 import { useTheme } from "../context/ThemeContext";
 import logo from "../assets/images/logo5.png";
 
@@ -35,11 +35,13 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+  const [signOutError, setSignOutError] = useState("");
   const dropdownRef = useRef(null);
   const hamburgerRef = useRef(null);
   const overlayRef = useRef(null);
-  const { user, profile, loading, isAdmin, signInWithGoogle, signOut } =
-    useAuth();
+  const { signOut } = useClerk();
+  const { isLoaded, isSignedIn, user } = useUser();
   const { theme, toggleTheme } = useTheme();
 
   // Toggle navbar--scrolled class when scrolled past 10px
@@ -96,12 +98,22 @@ export default function Navbar() {
   const handleSignOut = async () => {
     setDropdownOpen(false);
     closeMobile();
-    await signOut();
+    setSigningOut(true);
+    setSignOutError("");
+    try {
+      sessionStorage.removeItem("selectedTier");
+      sessionStorage.removeItem("agent_auth");
+      await signOut();
+      window.location.replace("/");
+    } catch (err) {
+      setSignOutError("Sign-out failed. Please try again.");
+      setSigningOut(false);
+    }
   };
 
-  const avatarUrl = profile?.avatar_url || user?.user_metadata?.avatar_url;
-  const displayName =
-    profile?.display_name || user?.user_metadata?.full_name || "User";
+  const isAdmin = user?.publicMetadata?.role === "admin";
+  const avatarUrl = user?.imageUrl;
+  const displayName = user?.fullName || "User";
 
   return (
     <nav className={`navbar${scrolled ? " navbar--scrolled" : ""}`}>
@@ -132,23 +144,28 @@ export default function Navbar() {
               <i className={theme === "dark" ? "fas fa-sun" : "fas fa-moon"} aria-hidden="true" />
             </button>
           </li>
-          <li>
-            <Link to="/contact" className="navbar-cta">
-              Get in Touch
-            </Link>
-          </li>
-
-          {/* Auth — hidden until functionality is complete
-          {!user && (
+          {isLoaded && !isSignedIn ? (
+            <>
+              <li>
+                <Link to="/login" className="navbar-signin-link">
+                  Sign In
+                </Link>
+              </li>
+              <li>
+                <Link to="/signup" className="navbar-cta">
+                  Sign Up
+                </Link>
+              </li>
+            </>
+          ) : !isSignedIn ? (
             <li>
-              <Link to="/login" className="navbar-auth-btn">
-                Sign In
+              <Link to="/contact" className="navbar-cta">
+                Get in Touch
               </Link>
             </li>
-          )}
-          */}
+          ) : null}
 
-          {user && (
+          {isLoaded && isSignedIn && (
             <li className="navbar-user-menu" ref={dropdownRef}>
               <button
                 className="navbar-avatar-btn"
@@ -175,7 +192,7 @@ export default function Navbar() {
                   <div className="navbar-dropdown-header">
                     <span className="navbar-dropdown-name">{displayName}</span>
                     <span className="navbar-dropdown-email">
-                      {profile?.email || user?.email}
+                      {user?.primaryEmailAddress?.emailAddress}
                     </span>
                   </div>
                   <div className="navbar-dropdown-divider" />
@@ -203,12 +220,18 @@ export default function Navbar() {
                     Settings
                   </Link>
                   <div className="navbar-dropdown-divider" />
+                  {signOutError && (
+                    <div className="navbar-dropdown-error" role="alert">
+                      {signOutError}
+                    </div>
+                  )}
                   <button
                     className="navbar-dropdown-item navbar-dropdown-signout"
                     onClick={handleSignOut}
                     type="button"
+                    disabled={signingOut}
                   >
-                    Sign Out
+                    {signingOut ? "Signing Out…" : "Sign Out"}
                   </button>
                 </div>
               )}
@@ -284,26 +307,32 @@ export default function Navbar() {
                   {theme === "dark" ? "Light Mode" : "Dark Mode"}
                 </button>
               </motion.div>
-              <motion.div variants={linkVariants}>
-                <Link
-                  to="/contact"
-                  className="navbar-cta"
-                  onClick={closeMobile}
-                >
-                  Get in Touch
-                </Link>
-              </motion.div>
-
-              {/* Mobile auth — hidden until functionality is complete */}
-              {/*
-              <motion.div className="navbar-overlay-auth" variants={linkVariants}>
-                {!user && (
-                  <Link to="/login" className="navbar-auth-btn" onClick={closeMobile}>
-                    Sign In
+              {isLoaded && !isSignedIn && (
+                <motion.div variants={linkVariants}>
+                  <Link
+                    to="/contact"
+                    className="navbar-cta"
+                    onClick={closeMobile}
+                  >
+                    Get in Touch
                   </Link>
+                </motion.div>
+              )}
+
+              {/* Mobile auth */}
+              <motion.div className="navbar-overlay-auth" variants={linkVariants}>
+                {isLoaded && !isSignedIn && (
+                  <>
+                    <Link to="/login" className="navbar-signin-link" onClick={closeMobile}>
+                      Sign In
+                    </Link>
+                    <Link to="/signup" className="navbar-cta" onClick={closeMobile}>
+                      Sign Up
+                    </Link>
+                  </>
                 )}
 
-                {user && (
+                {isLoaded && isSignedIn && (
                   <>
                     <div className="navbar-overlay-user">
                       {avatarUrl ? (
@@ -332,17 +361,22 @@ export default function Navbar() {
                     <Link to="/dashboard/settings" onClick={closeMobile}>
                       Settings
                     </Link>
+                    {signOutError && (
+                      <div className="navbar-overlay-error" role="alert">
+                        {signOutError}
+                      </div>
+                    )}
                     <button
                       className="navbar-overlay-signout"
                       onClick={handleSignOut}
                       type="button"
+                      disabled={signingOut}
                     >
-                      Sign Out
+                      {signingOut ? "Signing Out…" : "Sign Out"}
                     </button>
                   </>
                 )}
               </motion.div>
-              */}
             </motion.div>
           </>
         )}

@@ -1,9 +1,11 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { supabase } from "../lib/supabase";
+import { useSupabaseClient } from "./useSupabaseClient";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25 MB
 
 export function useMessages(projectId) {
+  const authClient = useSupabaseClient();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -17,7 +19,7 @@ export function useMessages(projectId) {
       setLoading(true);
       setError(null);
 
-      const { data, error: fetchError } = await supabase
+      const { data, error: fetchError } = await authClient
         .from("messages")
         .select(
           "id, project_id, sender_id, content, file_url, file_name, read, created_at",
@@ -35,7 +37,7 @@ export function useMessages(projectId) {
       setLoading(false);
       return data;
     },
-    [projectId],
+    [projectId, authClient],
   );
 
   const sendMessage = useCallback(
@@ -51,7 +53,7 @@ export function useMessages(projectId) {
       let fileUrl = null;
       let fileName = null;
 
-      // Handle file upload if provided
+      // Handle file upload if provided (uses anonymous client for storage)
       if (file) {
         if (file.size > MAX_FILE_SIZE) {
           setError("File size exceeds the 25 MB limit");
@@ -84,7 +86,7 @@ export function useMessages(projectId) {
         file_name: fileName,
       };
 
-      const { data: newMessage, error: insertError } = await supabase
+      const { data: newMessage, error: insertError } = await authClient
         .from("messages")
         .insert(messageData)
         .select(
@@ -106,7 +108,7 @@ export function useMessages(projectId) {
 
       return newMessage;
     },
-    [projectId],
+    [projectId, authClient],
   );
 
   // Real-time subscription

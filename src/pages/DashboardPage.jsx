@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useUser } from "@clerk/clerk-react";
 import { useProjects } from "../hooks/useProjects";
 import { useInvoices } from "../hooks/useInvoices";
 import { useNotifications } from "../hooks/useNotifications";
@@ -16,7 +16,7 @@ const STATUS_CLASS_MAP = {
 };
 
 export default function DashboardPage() {
-  const { profile } = useAuth();
+  const { user } = useUser();
   const { projects, loading: projectsLoading, fetchProjects } = useProjects();
   const { invoices, loading: invoicesLoading, fetchInvoices } = useInvoices();
   const {
@@ -47,7 +47,7 @@ export default function DashboardPage() {
     .sort((a, b) => new Date(a.due_date) - new Date(b.due_date))[0];
 
   const loading = projectsLoading || invoicesLoading || notificationsLoading;
-  const displayName = profile?.display_name || "there";
+  const displayName = user?.fullName || "there";
   const firstName = displayName.split(" ")[0];
 
   const getStatusClass = (status) => {

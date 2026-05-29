@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
-import { supabase } from "../lib/supabase";
+import { useSupabaseClient } from "./useSupabaseClient";
 
 export function useInvoices() {
+  const supabase = useSupabaseClient();
   const [invoices, setInvoices] = useState([]);
   const [invoice, setInvoice] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -32,7 +33,7 @@ export function useInvoices() {
       setLoading(false);
       return [];
     }
-  }, []);
+  }, [supabase]);
 
   const fetchInvoice = useCallback(async (id) => {
     setLoading(true);
@@ -56,7 +57,7 @@ export function useInvoices() {
     setInvoice(data);
     setLoading(false);
     return data;
-  }, []);
+  }, [supabase]);
 
   return {
     invoices,

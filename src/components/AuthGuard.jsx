@@ -1,10 +1,10 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function AuthGuard({ children }) {
-  const { session, loading } = useAuth();
+  const { isLoaded, isSignedIn } = useAuth();
 
-  if (loading) {
+  if (!isLoaded) {
     return (
       <div className="auth-guard-loading" role="status" aria-label="Loading">
         <div className="auth-guard-spinner" />
@@ -13,7 +13,7 @@ export default function AuthGuard({ children }) {
     );
   }
 
-  if (!session) {
+  if (!isSignedIn) {
     return <Navigate to="/login" replace />;
   }
 

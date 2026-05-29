@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-import { useAuth } from "../hooks/useAuth";
-import { supabase } from "../lib/supabase";
+import { useUser, useAuth } from "@clerk/clerk-react";
+import { useSupabaseClient } from "../hooks/useSupabaseClient";
 import styles from "./SettingsPage.module.css";
 
 export default function SettingsPage() {
-  const { user, profile } = useAuth();
+  const { user } = useUser();
+  const { userId } = useAuth();
+  const supabase = useSupabaseClient();
   const [preferences, setPreferences] = useState({
     project_updates: true,
     invoice_updates: true,
@@ -15,12 +17,12 @@ export default function SettingsPage() {
   const [saveStatus, setSaveStatus] = useState(null);
 
   const fetchPreferences = useCallback(async () => {
-    if (!user) return;
+    if (!userId) return;
     setLoading(true);
     const { data, error } = await supabase
       .from("notification_preferences")
       .select("project_updates, invoice_updates, message_updates")
-      .eq("client_id", user.id)
+      .eq("client_id", userId)
       .maybeSingle();
 
     if (data && !error) {
@@ -31,7 +33,28 @@ export default function SettingsPage() {
       });
     }
     setLoading(false);
-  }, [user]);
+  }, [userId, supabase]);
+
+  const savePreferences = useCallback(async (prefsToSave) => {
+    if (!userId) return;
+    setSaving(true);
+    setSaveStatus(null);
+
+    const { error } = await supabase
+      .from("notification_preferences")
+      .upsert(
+        { client_id: userId, ...prefsToSave },
+        { onConflict: "client_id" },
+      );
+
+    if (error) {
+      setSaveStatus("error");
+    } else {
+      setSaveStatus("success");
+      setTimeout(() => setSaveStatus(null), 3000);
+    }
+    setSaving(false);
+  }, [userId, supabase]);
 
   useEffect(() => {
     fetchPreferences();
@@ -47,7 +70,7 @@ export default function SettingsPage() {
         message_updates: false,
       });
       // Auto-save unsubscribe
-      if (user) {
+      if (userId) {
         savePreferences({
           project_updates: false,
           invoice_updates: false,
@@ -55,28 +78,7 @@ export default function SettingsPage() {
         });
       }
     }
-  }, [user]);
-
-  async function savePreferences(prefsToSave) {
-    if (!user) return;
-    setSaving(true);
-    setSaveStatus(null);
-
-    const { error } = await supabase
-      .from("notification_preferences")
-      .upsert(
-        { client_id: user.id, ...prefsToSave },
-        { onConflict: "client_id" },
-      );
-
-    if (error) {
-      setSaveStatus("error");
-    } else {
-      setSaveStatus("success");
-      setTimeout(() => setSaveStatus(null), 3000);
-    }
-    setSaving(false);
-  }
+  }, [userId, savePreferences]);
 
   function handleToggle(key) {
     const updated = { ...preferences, [key]: !preferences[key] };
@@ -84,9 +86,9 @@ export default function SettingsPage() {
     savePreferences(updated);
   }
 
-  const displayName = profile?.display_name || "";
-  const email = profile?.email || user?.email || "";
-  const avatarUrl = profile?.avatar_url || "";
+  const displayName = user?.fullName || "";
+  const email = user?.primaryEmailAddress?.emailAddress || "";
+  const avatarUrl = user?.imageUrl || "";
   const initials = displayName
     ? displayName
         .split(" ")

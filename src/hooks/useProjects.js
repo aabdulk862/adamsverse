@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
-import { supabase } from "../lib/supabase";
+import { useSupabaseClient } from "./useSupabaseClient";
 
 export function useProjects() {
+  const supabase = useSupabaseClient();
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ export function useProjects() {
       setLoading(false);
       return [];
     }
-  }, []);
+  }, [supabase]);
 
   const fetchProject = useCallback(async (id) => {
     setLoading(true);
@@ -59,7 +60,7 @@ export function useProjects() {
     setProject(data);
     setLoading(false);
     return data;
-  }, []);
+  }, [supabase]);
 
   const createProject = useCallback(async (data) => {
     setLoading(true);
@@ -85,7 +86,7 @@ export function useProjects() {
     setProjects((prev) => [newProject, ...prev]);
     setLoading(false);
     return newProject;
-  }, []);
+  }, [supabase]);
 
   const submitFeedback = useCallback(async (projectId, content) => {
     setLoading(true);
@@ -105,7 +106,7 @@ export function useProjects() {
 
     setLoading(false);
     return feedback;
-  }, []);
+  }, [supabase]);
 
   return {
     projects,

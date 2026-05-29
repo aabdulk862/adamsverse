@@ -6,16 +6,14 @@ import Footer from "../components/Footer";
 import PackagesPage from "../pages/PackagesPage";
 import PackageDetailPage from "../pages/PackageDetailPage";
 
-// Mock useAuth so Navbar doesn't hit Supabase
-vi.mock("../hooks/useAuth", () => ({
-  useAuth: () => ({
-    user: null,
-    profile: null,
-    loading: false,
-    isAdmin: false,
-    signInWithGoogle: vi.fn(),
-    signOut: vi.fn(),
-  }),
+// Mock @clerk/clerk-react so Navbar doesn't require ClerkProvider
+vi.mock("@clerk/clerk-react", () => ({
+  useAuth: () => ({ isLoaded: true, isSignedIn: false, getToken: vi.fn() }),
+  useUser: () => ({ isLoaded: true, isSignedIn: false, user: null }),
+  useClerk: () => ({ signOut: vi.fn() }),
+  ClerkProvider: ({ children }) => children,
+  SignIn: () => <div data-testid="clerk-sign-in" />,
+  SignUp: () => <div data-testid="clerk-sign-up" />,
 }));
 
 // Mock framer-motion to avoid animation issues in tests

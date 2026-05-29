@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useMessages } from "../hooks/useMessages";
-import { useAuth } from "../hooks/useAuth";
+import { useUser } from "@clerk/clerk-react";
 import styles from "./MessageThread.module.css";
 
 const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25 MB
@@ -33,7 +33,7 @@ function formatTimestamp(dateStr) {
 export default function MessageThread({ projectId }) {
   const { messages, loading, error, fetchMessages, sendMessage } =
     useMessages(projectId);
-  const { user, profile } = useAuth();
+  const { user } = useUser();
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
   const [sending, setSending] = useState(false);
@@ -88,7 +88,7 @@ export default function MessageThread({ projectId }) {
     // On failure, content is retained (not cleared)
   };
 
-  const currentUserId = user?.id;
+  const currentUserId = user?.id ?? null;
 
   return (
     <div className={styles.thread}>

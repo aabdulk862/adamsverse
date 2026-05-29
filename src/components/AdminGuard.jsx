@@ -1,11 +1,11 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth, useUser } from "@clerk/clerk-react";
 
 export default function AdminGuard({ children }) {
-  const { session, profile, loading } = useAuth();
+  const { isLoaded, isSignedIn } = useAuth();
+  const { user } = useUser();
 
-  // Wait for both session and profile to resolve
-  if (loading || (session && !profile)) {
+  if (!isLoaded) {
     return (
       <div className="auth-guard-loading" role="status" aria-label="Loading">
         <div className="auth-guard-spinner" />
@@ -14,11 +14,11 @@ export default function AdminGuard({ children }) {
     );
   }
 
-  if (!session) {
+  if (!isSignedIn) {
     return <Navigate to="/login" replace />;
   }
 
-  if (profile?.role !== "admin") {
+  if (user?.publicMetadata?.role !== "admin") {
     return <Navigate to="/dashboard" replace />;
   }
 

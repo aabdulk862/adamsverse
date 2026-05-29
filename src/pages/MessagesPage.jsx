@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "../lib/supabase";
+import { useAuth } from "@clerk/clerk-react";
+import { useSupabaseClient } from "../hooks/useSupabaseClient";
 import styles from "./MessagesPage.module.css";
 
 export default function MessagesPage() {
+  const { userId } = useAuth();
+  const supabase = useSupabaseClient();
   const [threads, setThreads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,10 +17,7 @@ export default function MessagesPage() {
       setError(null);
 
       try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (!user) {
+        if (!userId) {
           setLoading(false);
           return;
         }
@@ -53,7 +53,7 @@ export default function MessagesPage() {
 
             // Count unread messages not sent by the current user
             const unreadCount = msgs.filter(
-              (m) => !m.read && m.sender_id !== user.id,
+              (m) => !m.read && m.sender_id !== userId,
             ).length;
 
             return {
@@ -80,7 +80,7 @@ export default function MessagesPage() {
     }
 
     fetchThreads();
-  }, []);
+  }, [supabase, userId]);
 
   function formatTime(dateStr) {
     const date = new Date(dateStr);

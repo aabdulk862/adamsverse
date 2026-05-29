@@ -6,7 +6,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { supabase } from "../lib/supabase";
+import { useSupabaseClient } from "../hooks/useSupabaseClient";
 import { useInvoices } from "../hooks/useInvoices";
 import InvoiceCard from "../components/InvoiceCard";
 import styles from "./BillingPage.module.css";
@@ -28,6 +28,7 @@ const CARD_ELEMENT_OPTIONS = {
 function PaymentForm({ invoice, onSuccess, onCancel }) {
   const stripe = useStripe();
   const elements = useElements();
+  const supabase = useSupabaseClient();
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
 

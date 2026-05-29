@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { supabase } from "../lib/supabase";
+import { useAuth } from "@clerk/clerk-react";
+import { useSupabaseClient } from "../hooks/useSupabaseClient";
 import styles from "./Admin.module.css";
 
 export default function AdminClientsPage() {
-  const { loading: authLoading } = useAuth();
+  const { isLoaded } = useAuth();
+  const supabase = useSupabaseClient();
+  const authLoading = !isLoaded;
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -68,7 +70,7 @@ export default function AdminClientsPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
     if (!authLoading) fetchClients();
@@ -113,7 +115,7 @@ export default function AdminClientsPage() {
     } finally {
       setDetailLoading(false);
     }
-  }, []);
+  }, [supabase]);
 
   const handleExpand = (clientId) => {
     if (expandedClient === clientId) {

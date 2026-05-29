@@ -1,13 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { supabase } from "../lib/supabase";
+import { useAuth } from "@clerk/clerk-react";
+import { useSupabaseClient } from "../hooks/useSupabaseClient";
 import styles from "./Admin.module.css";
+
 
 const INVOICE_STATUSES = ["Draft", "Sent", "Paid", "Overdue"];
 
 export default function AdminInvoicesPage() {
-  const { loading: authLoading } = useAuth();
+  const { isLoaded, getToken } = useAuth();
+  const supabase = useSupabaseClient();
+  const authLoading = !isLoaded;
   const [invoices, setInvoices] = useState([]);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,7 +57,7 @@ export default function AdminInvoicesPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
     if (!authLoading) fetchData();
@@ -154,9 +157,7 @@ export default function AdminInvoicesPage() {
     setSaving(true);
 
     try {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      const token = await getToken({ template: "supabase" });
       const selectedProject = projects.find(
         (p) => p.id === formData.project_id,
       );
@@ -179,7 +180,7 @@ export default function AdminInvoicesPage() {
       const res = await supabase.functions.invoke("admin-mutations", {
         body: payload,
         headers: {
-          Authorization: `Bearer ${session?.access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -196,12 +197,10 @@ export default function AdminInvoicesPage() {
 
   const handleSendInvoice = async (invoiceId) => {
     try {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      const token = await getToken({ template: "supabase" });
       const res = await supabase.functions.invoke("admin-mutations", {
         body: { action: "send_invoice", invoice_id: invoiceId },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       if (res.error) throw res.error;
       setInvoices((prev) =>

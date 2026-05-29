@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { supabase } from "../lib/supabase";
+import { useAuth } from "@clerk/clerk-react";
+import { useSupabaseClient } from "../hooks/useSupabaseClient";
 import styles from "./Admin.module.css";
 
 const PROJECT_STATUSES = [
@@ -14,7 +14,9 @@ const PROJECT_STATUSES = [
 ];
 
 export default function AdminProjectsPage() {
-  const { loading: authLoading } = useAuth();
+  const { isLoaded, getToken } = useAuth();
+  const supabase = useSupabaseClient();
+  const authLoading = !isLoaded;
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,7 +43,7 @@ export default function AdminProjectsPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
     if (!authLoading) fetchProjects();
@@ -53,9 +55,7 @@ export default function AdminProjectsPage() {
 
     try {
       // Call admin-mutations edge function for status update
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      const token = await getToken({ template: "supabase" });
       const res = await supabase.functions.invoke("admin-mutations", {
         body: {
           action: "update_project_status",
@@ -63,7 +63,7 @@ export default function AdminProjectsPage() {
           status: newStatus,
         },
         headers: {
-          Authorization: `Bearer ${session?.access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 

@@ -1,11 +1,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { supabase } from "../lib/supabase";
+import { useAuth, useUser } from "@clerk/clerk-react";
+import { useSupabaseClient } from "../hooks/useSupabaseClient";
 import styles from "./Admin.module.css";
 
 export default function AdminDashboardPage() {
-  const { profile, loading: authLoading } = useAuth();
+  const { isLoaded: authLoaded } = useAuth();
+  const { user } = useUser();
+  const supabase = useSupabaseClient();
+  const authLoading = !authLoaded;
   const [stats, setStats] = useState({
     activeProjects: [],
     pendingInvoices: [],
@@ -59,7 +62,7 @@ export default function AdminDashboardPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
     if (!authLoading) fetchAdminData();
@@ -101,7 +104,7 @@ export default function AdminDashboardPage() {
       <div className={styles.header}>
         <h1 className={styles.pageTitle}>Admin Dashboard</h1>
         <span className={styles.welcome}>
-          Welcome, {profile?.display_name?.split(" ")[0] || "Admin"}
+          Welcome, {user?.fullName?.split(" ")[0] || "Admin"}
         </span>
       </div>
 

@@ -1,7 +1,10 @@
 import { useState, useCallback } from "react";
-import { supabase } from "../lib/supabase";
+import { useSupabaseClient } from "./useSupabaseClient";
+import { useAuth } from "@clerk/clerk-react";
 
 export function useNotifications() {
+  const supabase = useSupabaseClient();
+  const { userId } = useAuth();
   const [unreadMessages, setUnreadMessages] = useState(0);
   const [pendingInvoices, setPendingInvoices] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -12,11 +15,7 @@ export function useNotifications() {
     setError(null);
 
     try {
-      // Get current user
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
+      if (!userId) {
         setLoading(false);
         return;
       }
@@ -26,7 +25,7 @@ export function useNotifications() {
         .from("messages")
         .select("*", { count: "exact", head: true })
         .eq("read", false)
-        .neq("sender_id", user.id);
+        .neq("sender_id", userId);
 
       if (msgError) {
         setError(msgError.message);
@@ -53,7 +52,7 @@ export function useNotifications() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [supabase, userId]);
 
   return {
     unreadMessages,
