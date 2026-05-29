@@ -113,8 +113,8 @@ export default function App() {
                 <Route path="/tools" element={<ToolsPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/learn" element={<LearnPage />} />
-                <Route path="/login" element={<SignInPage />} />
-                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/login/*" element={<SignInPage />} />
+                <Route path="/signup/*" element={<SignUpPage />} />
 
                 {/* Protected client routes */}
                 <Route
