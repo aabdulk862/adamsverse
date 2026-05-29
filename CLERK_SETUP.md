@@ -12,7 +12,7 @@
 
 1. Go to [dashboard.clerk.com](https://dashboard.clerk.com) and sign in
 2. Click **Create application**
-3. Name it `Adamsverse` (or whatever you prefer)
+3. Name it `Adverse` (or whatever you prefer)
 4. Under **Sign-in options**, enable:
    - **Email address** (password-based)
    - **Google** (OAuth)
@@ -27,7 +27,9 @@ From the Clerk dashboard sidebar → **API Keys**:
 | Key | Where to use |
 |-----|-------------|
 | **Publishable key** (`pk_test_...`) | `.env.local` as `VITE_CLERK_PUBLISHABLE_KEY` |
-| **Secret key** (`sk_test_...`) | Not needed client-side — only for backend API calls |
+| **Frontend API URL** | Supabase TPA config (e.g., `https://adverse-something.clerk.accounts.dev`) |
+
+You do NOT need the secret key for the frontend.
 
 ---
 
@@ -45,37 +47,29 @@ Fill in the Clerk key:
 VITE_CLERK_PUBLISHABLE_KEY=pk_test_your-actual-key-here
 ```
 
----
-
-## 4. Set Up the Supabase JWT Template
-
-This lets Clerk issue tokens that Supabase accepts for Row Level Security.
-
-1. In Clerk dashboard → **JWT Templates** → **Create template**
-2. Choose **Supabase** from the list
-3. Configure:
-   - **Name:** `supabase`
-   - **Signing algorithm:** RS256
-   - **Claims:** The template auto-fills `sub` (user ID), `iss`, `iat`, `exp`
-4. Copy the **JWKS endpoint URL** (you'll need it for Supabase)
-5. Save the template
+Use `pk_test_` locally, `pk_live_` in production (Netlify).
 
 ---
 
-## 5. Configure Supabase to Accept Clerk JWTs
+## 4. Connect Supabase to Clerk (Third-Party Auth)
 
-1. In your Supabase dashboard → **Authentication** → **Providers** → **Third-party Auth**
-2. Enable third-party auth
-3. Add Clerk as a provider:
-   - **JWKS URL:** Paste the endpoint from step 4
-   - **Issuer:** Your Clerk frontend API URL (e.g., `https://your-app.clerk.accounts.dev`)
-4. Save
+No JWT template needed — Clerk's native TPA integration lets Supabase accept Clerk session tokens directly.
 
-Now `auth.uid()` in RLS policies resolves to the Clerk user ID.
+1. In Supabase dashboard → **Authentication** → **Sign In / Up**
+2. Scroll to **Third-party Auth Providers**
+3. Click **Add provider** → select **Custom**
+4. Fill in:
+   - **JWKS URL:** `https://YOUR-CLERK-FRONTEND-API/.well-known/jwks.json`
+   - **Issuer:** `https://YOUR-CLERK-FRONTEND-API` (same URL without the path)
+5. Save
+
+Find your Frontend API URL in Clerk dashboard → **API Keys** (it looks like `https://adverse-something.clerk.accounts.dev`).
+
+Now `auth.uid()` in Supabase RLS policies resolves to the Clerk user ID automatically.
 
 ---
 
-## 6. Set Up Webhooks (Profile Sync)
+## 5. Set Up Webhooks (Profile Sync)
 
 This keeps the `profiles` table in sync when users sign up or update their info.
 
@@ -94,7 +88,7 @@ supabase secrets set CLERK_WEBHOOK_SECRET=whsec_your-signing-secret
 
 ---
 
-## 7. Set Admin Role
+## 6. Set Admin Role
 
 To make yourself an admin:
 
@@ -112,7 +106,7 @@ To make yourself an admin:
 
 ---
 
-## 8. Run the Database Migration
+## 7. Run the Database Migration
 
 The `profiles.id` column needs to change from UUID to text (Clerk IDs are `user_*` strings).
 
@@ -128,7 +122,7 @@ This drops the FK to `auth.users`, converts `profiles.id` to text, and re-adds F
 
 ---
 
-## 9. Run Locally
+## 8. Run Locally
 
 ```bash
 npm install
@@ -139,13 +133,13 @@ Visit `http://localhost:5173`. You should see the app load. Navigate to `/login`
 
 ---
 
-## 10. Deploy to Netlify
+## 9. Deploy to Netlify
 
 Add these environment variables in Netlify → **Site settings** → **Environment variables**:
 
 | Variable | Value |
 |----------|-------|
-| `VITE_CLERK_PUBLISHABLE_KEY` | Your publishable key (`pk_live_...` for production) |
+| `VITE_CLERK_PUBLISHABLE_KEY` | Your production key (`pk_live_...`) |
 
 The CSP headers in `netlify.toml` already allow Clerk domains.
 
@@ -153,13 +147,13 @@ The CSP headers in `netlify.toml` already allow Clerk domains.
 
 ## Production Checklist
 
-- [ ] Switch from `pk_test_` to `pk_live_` publishable key
+- [ ] Switch from `pk_test_` to `pk_live_` publishable key in Netlify env vars
 - [ ] Create a production Clerk application (or switch to production mode)
 - [ ] Update webhook endpoint URL to production Supabase function URL
 - [ ] Update `CLERK_WEBHOOK_SECRET` in Supabase secrets with the production signing secret
 - [ ] Run `004_clerk_migration.sql` on production database
 - [ ] Migrate existing users (map Supabase Auth UUIDs → Clerk user IDs)
-- [ ] Verify RLS policies work with Clerk JWTs
+- [ ] Verify RLS policies work with Clerk session tokens
 - [ ] Test sign-in, sign-up, sign-out, and admin access end-to-end
 
 ---
@@ -179,13 +173,19 @@ ClerkProvider (publishableKey)
 **Key hooks:**
 - `useAuth()` — `isLoaded`, `isSignedIn`, `getToken()`
 - `useUser()` — `user.fullName`, `user.imageUrl`, `user.publicMetadata.role`
-- `useSupabaseClient()` — Returns a Supabase client with Clerk JWT for RLS queries
+- `useSupabaseClient()` — Returns a Supabase client with Clerk session token for RLS queries
 
 **Key files:**
 - `src/main.jsx` — ClerkProvider wraps the app
-- `src/hooks/useSupabaseClient.js` — Authenticated Supabase client
+- `src/hooks/useSupabaseClient.js` — Authenticated Supabase client (uses `getToken()` with TPA, no template needed)
 - `src/components/AuthGuard.jsx` — Route protection
 - `src/components/AdminGuard.jsx` — Admin route protection
 - `src/pages/SignInPage.jsx` — Clerk sign-in UI
 - `src/pages/SignUpPage.jsx` — Clerk sign-up UI
 - `supabase/functions/clerk-webhook/index.ts` — Profile sync webhook
+
+---
+
+## Payment Gateway Note
+
+Skip Clerk's built-in payment gateway. You already have Stripe integrated with your own `create-payment-intent` Edge Function and `stripe-webhook` handler. Clerk's gateway is for apps without their own Stripe setup.
