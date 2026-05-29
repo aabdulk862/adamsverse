@@ -59,11 +59,9 @@ No JWT template needed — Clerk's native TPA integration lets Supabase accept C
 2. Scroll to **Third-party Auth Providers**
 3. Click **Add provider** → select **Custom**
 4. Fill in:
-   - **JWKS URL:** `https://YOUR-CLERK-FRONTEND-API/.well-known/jwks.json`
-   - **Issuer:** `https://YOUR-CLERK-FRONTEND-API` (same URL without the path)
+   - **JWKS URL:** `https://clerk.adversesolutions.com/.well-known/jwks.json`
+   - **Issuer:** `https://clerk.adversesolutions.com`
 5. Save
-
-Find your Frontend API URL in Clerk dashboard → **API Keys** (it looks like `https://adverse-something.clerk.accounts.dev`).
 
 Now `auth.uid()` in Supabase RLS policies resolves to the Clerk user ID automatically.
 
