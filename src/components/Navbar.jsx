@@ -239,6 +239,13 @@ export default function Navbar() {
           )}
         </ul>
 
+        {/* Mobile auth button (visible next to hamburger) */}
+        {isLoaded && !isSignedIn && (
+          <Link to="/login" className="navbar-mobile-signin" aria-label="Sign In">
+            <i className="fas fa-sign-in-alt" aria-hidden="true" />
+          </Link>
+        )}
+
         {/* Hamburger button (mobile) */}
         <button
           className="navbar-hamburger"
