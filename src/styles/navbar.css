@@ -68,7 +68,7 @@
   display: flex;
   align-items: center;
   list-style: none;
-  gap: var(--space-1);
+  gap: var(--space-2);
 }
 
 .navbar-links li {
@@ -271,16 +271,16 @@
 ================================= */
 
 /* Auth buttons */
-.navbar-auth-link {
+.navbar-links .navbar-auth-link {
   display: inline-flex;
   align-items: center;
   padding: 6px 14px;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-semibold);
   text-decoration: none;
   border-radius: var(--radius-full);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid currentColor;
   transition:
     color var(--transition-fast),
     background var(--transition-fast),
@@ -288,10 +288,10 @@
   white-space: nowrap;
 }
 
-.navbar-auth-link:hover {
-  color: var(--color-text-primary);
+.navbar-links .navbar-auth-link:hover {
+  color: var(--color-accent);
   background: var(--color-bg-muted);
-  border-color: var(--color-border-hover);
+  border-color: var(--color-accent);
 }
 
 /* Sign-in ghost button (subtle, outlined) */
@@ -457,12 +457,12 @@
 
 /* Mobile overlay auth section */
 .navbar-overlay-auth {
-  margin-top: var(--space-4);
-  padding-top: var(--space-4);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 
 .navbar-overlay-auth .navbar-signin-link {
@@ -500,15 +500,18 @@
   align-self: stretch;
   min-height: 44px;
   padding: 12px 16px;
-  color: rgba(255, 255, 255, 0.7);
-  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
   justify-content: center;
+  text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-overlay-auth .navbar-auth-link:hover {
   color: #fff;
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.8);
 }
 
 .navbar-overlay-auth .navbar-auth-btn {

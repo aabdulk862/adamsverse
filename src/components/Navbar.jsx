@@ -147,7 +147,7 @@ export default function Navbar() {
           {isLoaded && !isSignedIn ? (
             <>
               <li>
-                <Link to="/login" className="navbar-signin-link">
+                <Link to="/login" className="navbar-auth-link">
                   Sign In
                 </Link>
               </li>
@@ -239,13 +239,6 @@ export default function Navbar() {
           )}
         </ul>
 
-        {/* Mobile auth button (visible next to hamburger) */}
-        {isLoaded && !isSignedIn && (
-          <Link to="/login" className="navbar-mobile-signin" aria-label="Sign In">
-            <i className="fas fa-sign-in-alt" aria-hidden="true" />
-          </Link>
-        )}
-
         {/* Hamburger button (mobile) */}
         <button
           className="navbar-hamburger"
@@ -330,7 +323,7 @@ export default function Navbar() {
               <motion.div className="navbar-overlay-auth" variants={linkVariants}>
                 {isLoaded && !isSignedIn && (
                   <>
-                    <Link to="/login" className="navbar-signin-link" onClick={closeMobile}>
+                    <Link to="/login" className="navbar-cta" onClick={closeMobile}>
                       Sign In
                     </Link>
                     <Link to="/signup" className="navbar-cta" onClick={closeMobile}>
