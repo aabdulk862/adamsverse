@@ -22,6 +22,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // Lazy-loaded public pages
 const PackageDetailPage = lazy(() => import("./pages/PackageDetailPage"));
+const BuilderPage = lazy(() => import("./pages/BuilderPage"));
 
 // Lazy-loaded authenticated pages
 const SignInPage = lazy(() => import("./pages/SignInPage"));
@@ -113,6 +114,7 @@ export default function App() {
                 <Route path="/tools" element={<ToolsPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/learn" element={<LearnPage />} />
+                <Route path="/builder" element={<BuilderPage />} />
                 <Route path="/login/*" element={<SignInPage />} />
                 <Route path="/signup/*" element={<SignUpPage />} />
 

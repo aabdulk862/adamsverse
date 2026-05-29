@@ -2,7 +2,7 @@
 
 A multi-product platform combining a personal portfolio/creator hub with a config-driven SMB website builder (WeBuilder). Built with React 19 + Vite 7, deployed on Netlify.
 
-**Live:** [https://adamsverse.com](https://adamsverse.com)
+**Live:** [https://adversesolutions.com](https://adversesolutions.com)
 
 ---
 
@@ -22,8 +22,8 @@ React 19 + Vite 7 SPA
 ├── Public Pages (/, /about, /services, /packages, /contact, /learn)
 ├── Package Showcase (/packages, /packages/:slug)
 ├── WeBuilder Preview (/builder) — Free lead-gen tool (planned)
-├── Client Portal (/dashboard/*) — Auth-gated via Supabase
-├── Admin Panel (/admin/*) — Role-gated
+├── Client Portal (/dashboard/*) — Auth-gated via Clerk
+├── Admin Panel (/admin/*) — Role-gated (Clerk publicMetadata)
 ├── Agent Console (/agents/*) — BasicAuth-gated, own layout
 └── Static Guides (/dsa, /leetcode, /github, /ai-website)
 ```
@@ -39,7 +39,8 @@ React 19 + Vite 7 SPA
 | Styling | Tailwind CSS 4 + CSS Modules + Design Tokens |
 | Animation | Framer Motion 12 |
 | UI Components | MUI Material 7, FontAwesome 7 |
-| Backend | Supabase (auth, storage, edge functions) |
+| Auth | Clerk (@clerk/clerk-react) |
+| Backend | Supabase (storage, edge functions, database) |
 | Payments | Stripe |
 | Email | EmailJS (contact form), Resend (transactional) |
 | Validation | ajv (JSON Schema draft 2020-12) |
@@ -116,6 +117,7 @@ cp .env.example .env.local
 ```
 
 Required environment variables:
+- `VITE_CLERK_PUBLISHABLE_KEY` — Clerk publishable key (see [CLERK_SETUP.md](./CLERK_SETUP.md))
 - `VITE_SUPABASE_URL` — Supabase project URL
 - `VITE_SUPABASE_ANON_KEY` — Supabase anonymous key
 - `VITE_STRIPE_PUBLISHABLE_KEY` — Stripe publishable key

@@ -47,7 +47,13 @@ if (!clerkPubKey) {
 } else {
   root.render(
     <React.StrictMode>
-      <ClerkProvider publishableKey={clerkPubKey}>
+      <ClerkProvider
+        publishableKey={clerkPubKey}
+        signInUrl="/login"
+        signUpUrl="/signup"
+        signInFallbackRedirectUrl="/dashboard"
+        signUpFallbackRedirectUrl="/dashboard"
+      >
         <BrowserRouter>
           <App />
         </BrowserRouter>
