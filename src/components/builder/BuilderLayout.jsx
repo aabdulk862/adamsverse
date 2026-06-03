@@ -19,18 +19,19 @@ import styles from "./BuilderLayout.module.css";
  */
 export default function BuilderLayout({ editor, preview, children }) {
   // Split ratio as a percentage for the editor panel (0–100)
-  const [splitRatio, setSplitRatio] = useState(50);
+  const [splitRatio, setSplitRatio] = useState(35);
   const [isDragging, setIsDragging] = useState(false);
   const [activeView, setActiveView] = useState("editor"); // mobile toggle
   const containerRef = useRef(null);
 
   // Detect mobile via matchMedia (≥768px = desktop)
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
+  );
 
   useEffect(() => {
     const mql = window.matchMedia("(max-width: 767px)");
     const handleChange = (e) => setIsMobile(e.matches);
-    setIsMobile(mql.matches);
     mql.addEventListener("change", handleChange);
     return () => mql.removeEventListener("change", handleChange);
   }, []);
@@ -47,8 +48,8 @@ export default function BuilderLayout({ editor, preview, children }) {
       const rect = containerRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const pct = (x / rect.width) * 100;
-      // Clamp between 20% and 80% to keep both panels usable
-      setSplitRatio(Math.min(80, Math.max(20, pct)));
+      // Clamp between 25% and 45% to keep preview dominant
+      setSplitRatio(Math.min(45, Math.max(25, pct)));
     },
     [isDragging]
   );
@@ -148,15 +149,15 @@ export default function BuilderLayout({ editor, preview, children }) {
           role="separator"
           aria-orientation="vertical"
           aria-valuenow={Math.round(splitRatio)}
-          aria-valuemin={20}
-          aria-valuemax={80}
+          aria-valuemin={25}
+          aria-valuemax={45}
           aria-label="Resize panels"
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === "ArrowLeft") {
-              setSplitRatio((r) => Math.max(20, r - 2));
+              setSplitRatio((r) => Math.max(25, r - 2));
             } else if (e.key === "ArrowRight") {
-              setSplitRatio((r) => Math.min(80, r + 2));
+              setSplitRatio((r) => Math.min(45, r + 2));
             }
           }}
         >

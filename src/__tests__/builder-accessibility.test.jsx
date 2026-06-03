@@ -111,8 +111,8 @@ describe("Accessibility — BuilderLayout", () => {
 
     const divider = screen.getByRole("separator");
     expect(divider).toHaveAttribute("aria-orientation", "vertical");
-    expect(divider).toHaveAttribute("aria-valuemin", "20");
-    expect(divider).toHaveAttribute("aria-valuemax", "80");
+    expect(divider).toHaveAttribute("aria-valuemin", "25");
+    expect(divider).toHaveAttribute("aria-valuemax", "45");
     expect(divider).toHaveAttribute("aria-label", "Resize panels");
     expect(divider).toHaveAttribute("tabindex", "0");
   });

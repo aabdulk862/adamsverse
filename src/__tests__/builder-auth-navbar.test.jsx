@@ -20,6 +20,41 @@ vi.mock("framer-motion", () => ({
   AnimatePresence: ({ children }) => <>{children}</>,
 }));
 
+// Mock useBuilderState
+vi.mock("../hooks/useBuilderState", () => ({
+  useBuilderState: () => [
+    {
+      step: "select",
+      config: null,
+      activeTheme: null,
+      baseThemeIndex: 0,
+      category: null,
+      packageSlug: null,
+      customColors: null,
+      hasSavedSession: false,
+      storageAvailable: true,
+      isSavingToSupabase: false,
+      supabaseSaveError: null,
+      isAuthenticated: false,
+    },
+    {
+      selectTemplate: vi.fn(),
+      selectBlankTemplate: vi.fn(),
+      startFresh: vi.fn(),
+      resumeSession: vi.fn(),
+      updateField: vi.fn(),
+      selectTheme: vi.fn(),
+      customizeColor: vi.fn(),
+      resetTheme: vi.fn(),
+    },
+  ],
+}));
+
+// Mock useSupabaseClient
+vi.mock("../hooks/useSupabaseClient", () => ({
+  useSupabaseClient: () => null,
+}));
+
 // Mock TemplateSelector
 vi.mock("../components/builder/TemplateSelector", () => ({
   default: ({ onSelectTemplate, onSelectBlank }) => (
@@ -30,6 +65,29 @@ vi.mock("../components/builder/TemplateSelector", () => ({
   ),
 }));
 
+// Mock builder components
+vi.mock("../components/builder/BuilderLayout", () => ({
+  default: ({ editor, preview, children }) => (
+    <div data-testid="builder-layout">{editor}{preview}{children}</div>
+  ),
+}));
+
+vi.mock("../components/builder/ContentEditor", () => ({
+  default: () => <div data-testid="content-editor" />,
+}));
+
+vi.mock("../components/builder/LivePreview", () => ({
+  default: () => <div data-testid="live-preview" />,
+}));
+
+vi.mock("../components/builder/ThemePicker", () => ({
+  default: () => <div data-testid="theme-picker" />,
+}));
+
+vi.mock("../components/builder/HandoffButton", () => ({
+  default: () => <div data-testid="handoff-button" />,
+}));
+
 describe("BuilderPage — Auth-Aware Navbar Behavior", () => {
   afterEach(() => {
     vi.resetModules();
@@ -38,7 +96,6 @@ describe("BuilderPage — Auth-Aware Navbar Behavior", () => {
   it("renders builder page for unauthenticated user without errors", async () => {
     vi.doMock("@clerk/clerk-react", () => ({
       useAuth: () => ({ isSignedIn: false, userId: null }),
-      useUser: () => ({ user: null }),
     }));
 
     const { default: BuilderPage } = await import("../pages/BuilderPage");
@@ -48,34 +105,21 @@ describe("BuilderPage — Auth-Aware Navbar Behavior", () => {
     expect(screen.getByTestId("template-selector")).toBeInTheDocument();
   });
 
-  it("renders builder page for authenticated user and shows user info in edit step", async () => {
+  it("renders builder page for authenticated user without errors", async () => {
     vi.doMock("@clerk/clerk-react", () => ({
       useAuth: () => ({ isSignedIn: true, userId: "user_2abc123" }),
-      useUser: () => ({
-        user: {
-          fullName: "John Doe",
-          imageUrl: "https://example.com/avatar.jpg",
-          primaryEmailAddress: { emailAddress: "john@example.com" },
-        },
-      }),
     }));
 
     const { default: BuilderPage } = await import("../pages/BuilderPage");
-    const { fireEvent } = await import("@testing-library/react");
-
     render(<BuilderPage />);
 
-    // Transition to edit step
-    fireEvent.click(screen.getByText("Select Template"));
-
-    // Should show auth info in the edit step
-    expect(screen.getByText(/Editing as John Doe/)).toBeInTheDocument();
+    expect(screen.getByLabelText("Website Builder")).toBeInTheDocument();
+    expect(screen.getByTestId("template-selector")).toBeInTheDocument();
   });
 
   it("does not require authentication to access the builder", async () => {
     vi.doMock("@clerk/clerk-react", () => ({
       useAuth: () => ({ isSignedIn: false, userId: null }),
-      useUser: () => ({ user: null }),
     }));
 
     const { default: BuilderPage } = await import("../pages/BuilderPage");

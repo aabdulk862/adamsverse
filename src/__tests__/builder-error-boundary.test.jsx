@@ -1,13 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 
-// We need to test the BuilderErrorBoundary which is defined inside BuilderPage.
-// Since it's not exported separately, we'll test it via the BuilderPage component.
-
 // Mock Clerk
 vi.mock("@clerk/clerk-react", () => ({
   useAuth: () => ({ isSignedIn: false, userId: null }),
-  useUser: () => ({ user: null }),
 }));
 
 // Mock framer-motion
@@ -27,6 +23,64 @@ vi.mock("framer-motion", () => ({
     },
   },
   AnimatePresence: ({ children }) => <>{children}</>,
+}));
+
+// Mock useBuilderState
+vi.mock("../hooks/useBuilderState", () => ({
+  useBuilderState: () => [
+    {
+      step: "select",
+      config: null,
+      activeTheme: null,
+      baseThemeIndex: 0,
+      category: null,
+      packageSlug: null,
+      customColors: null,
+      hasSavedSession: false,
+      storageAvailable: true,
+      isSavingToSupabase: false,
+      supabaseSaveError: null,
+      isAuthenticated: false,
+    },
+    {
+      selectTemplate: vi.fn(),
+      selectBlankTemplate: vi.fn(),
+      startFresh: vi.fn(),
+      resumeSession: vi.fn(),
+      updateField: vi.fn(),
+      selectTheme: vi.fn(),
+      customizeColor: vi.fn(),
+      resetTheme: vi.fn(),
+    },
+  ],
+}));
+
+// Mock useSupabaseClient
+vi.mock("../hooks/useSupabaseClient", () => ({
+  useSupabaseClient: () => null,
+}));
+
+// Mock builder components
+vi.mock("../components/builder/BuilderLayout", () => ({
+  default: ({ editor, preview, children }) => (
+    <div data-testid="builder-layout">{editor}{preview}{children}</div>
+  ),
+}));
+
+vi.mock("../components/builder/ContentEditor", () => ({
+  default: () => <div data-testid="content-editor" />,
+}));
+
+vi.mock("../components/builder/LivePreview", () => ({
+  default: () => <div data-testid="live-preview" />,
+}));
+
+vi.mock("../components/builder/ThemePicker", () => ({
+  default: () => <div data-testid="theme-picker" />,
+}));
+
+vi.mock("../components/builder/HandoffButton", () => ({
+  default: () => <div data-testid="handoff-button" />,
 }));
 
 // Mock TemplateSelector to optionally throw

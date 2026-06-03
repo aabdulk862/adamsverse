@@ -1,11 +1,11 @@
 .previewContainer {
-  min-height: 400px;
+  min-height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
-  background: var(--color-bgBase, #ffffff);
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .placeholder {
@@ -15,7 +15,7 @@
   min-height: 400px;
   padding: 2rem;
   text-align: center;
-  color: var(--color-textMuted, #6b7280);
+  color: var(--color-text-muted, #6b7280);
   font-size: 1rem;
 }
 
