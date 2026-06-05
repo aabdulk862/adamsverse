@@ -48,8 +48,8 @@ export default function BuilderLayout({ editor, preview, children }) {
       const rect = containerRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const pct = (x / rect.width) * 100;
-      // Clamp between 25% and 45% to keep preview dominant
-      setSplitRatio(Math.min(45, Math.max(25, pct)));
+      // Clamp between 20% and 60% to keep both panels usable
+      setSplitRatio(Math.min(60, Math.max(20, pct)));
     },
     [isDragging]
   );
@@ -149,15 +149,15 @@ export default function BuilderLayout({ editor, preview, children }) {
           role="separator"
           aria-orientation="vertical"
           aria-valuenow={Math.round(splitRatio)}
-          aria-valuemin={25}
-          aria-valuemax={45}
+          aria-valuemin={20}
+          aria-valuemax={60}
           aria-label="Resize panels"
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === "ArrowLeft") {
-              setSplitRatio((r) => Math.max(25, r - 2));
+              setSplitRatio((r) => Math.max(20, r - 2));
             } else if (e.key === "ArrowRight") {
-              setSplitRatio((r) => Math.min(45, r + 2));
+              setSplitRatio((r) => Math.min(60, r + 2));
             }
           }}
         >

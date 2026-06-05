@@ -1,6 +1,9 @@
 const REQUIRED_VARS = [
   "VITE_SUPABASE_URL",
   "VITE_SUPABASE_ANON_KEY",
+];
+
+const OPTIONAL_VARS = [
   "VITE_STRIPE_PUBLISHABLE_KEY",
   "VITE_GOOGLE_SHEET_URL",
 ];
@@ -17,7 +20,13 @@ export function validateEnv() {
   for (const varName of REQUIRED_VARS) {
     if (!import.meta.env[varName]) {
       missing.push(varName);
-      warnings.push(`Missing environment variable: ${varName}`);
+      warnings.push(`Missing required environment variable: ${varName}`);
+    }
+  }
+
+  for (const varName of OPTIONAL_VARS) {
+    if (!import.meta.env[varName]) {
+      warnings.push(`Missing optional environment variable: ${varName} (some features may be unavailable)`);
     }
   }
 

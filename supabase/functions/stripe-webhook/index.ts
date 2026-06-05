@@ -126,6 +126,43 @@ serve(async (req: Request) => {
         break;
       }
 
+      // --- Subscription events (Phase 2) ---
+      // Required Stripe subscription metadata keys:
+      //   - clerk_user_id: Clerk user ID (maps to profiles.id)
+      //   - tier: "starter" | "pro"
+      case "customer.subscription.created":
+      case "customer.subscription.updated": {
+        const subscription = event.data.object;
+        const clerkUserId = subscription.metadata?.clerk_user_id;
+        if (!clerkUserId) {
+          console.warn("[stripe-webhook] Subscription event missing clerk_user_id metadata");
+          break;
+        }
+        const status = subscription.status === "active" ? "active" : "past_due";
+        const tier = subscription.metadata?.tier || "starter";
+
+        await supabase
+          .from("profiles")
+          .update({ subscription_status: status, subscription_tier: tier })
+          .eq("id", clerkUserId);
+        break;
+      }
+
+      case "customer.subscription.deleted": {
+        const subscription = event.data.object;
+        const clerkUserId = subscription.metadata?.clerk_user_id;
+        if (!clerkUserId) {
+          console.warn("[stripe-webhook] Subscription deleted event missing clerk_user_id metadata");
+          break;
+        }
+
+        await supabase
+          .from("profiles")
+          .update({ subscription_status: "cancelled", subscription_tier: null })
+          .eq("id", clerkUserId);
+        break;
+      }
+
       default:
         // Unhandled event type — acknowledge receipt
         console.log(`[stripe-webhook] Unhandled event type: ${event.type}`);

@@ -99,6 +99,30 @@ export const packageSchema = {
         },
       ],
     },
+    sectionOrder: {
+      type: "array",
+      description:
+        "Optional ordered array of section keys defining render sequence. When absent, sections render in Object.keys order.",
+      items: { type: "string" },
+      examples: [["hero", "services", "gallery", "testimonials", "cta", "contact"]],
+    },
+    _themeState: {
+      type: "object",
+      description:
+        "Internal editor metadata storing theme selection state. Underscore prefix indicates non-rendered content.",
+      properties: {
+        baseThemeIndex: {
+          type: "integer",
+          description: "Index into the package's theme array indicating the selected base theme.",
+          examples: [0],
+        },
+        customColors: {
+          type: "object",
+          description: "Client color overrides merged on top of the base theme colors.",
+          examples: [{ "accent": "#ff6600" }],
+        },
+      },
+    },
     metadata: {
       type: "object",
       description:

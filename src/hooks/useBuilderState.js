@@ -269,31 +269,60 @@ export function useBuilderState({ userId = null } = {}) {
     setSupabaseSaveError(null);
 
     try {
-      const { data, error } = await supabase.from("projects").upsert(
-        {
-          client_id: userId,
-          name: currentState.config?.name || "Custom Website",
-          service_tier: currentState.category,
-          intake_data: currentState.config,
-          status: "draft",
-        },
-        { onConflict: "client_id,status" }
-      ).select("id").single();
+      const projectPayload = {
+        name: currentState.config?.name || "Custom Website",
+        service_tier: currentState.category,
+        intake_data: currentState.config,
+      };
 
-      if (error) {
-        throw error;
+      let projectId = currentState.supabaseProjectId;
+
+      if (projectId) {
+        // Update existing draft
+        const { error } = await supabase
+          .from("projects")
+          .update(projectPayload)
+          .eq("id", projectId);
+        if (error) throw error;
+      } else {
+        // Find existing draft or create new one
+        const { data: existing } = await supabase
+          .from("projects")
+          .select("id")
+          .eq("client_id", userId)
+          .eq("status", "draft")
+          .order("updated_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        if (existing?.id) {
+          projectId = existing.id;
+          const { error } = await supabase
+            .from("projects")
+            .update(projectPayload)
+            .eq("id", projectId);
+          if (error) throw error;
+        } else {
+          const { data, error } = await supabase
+            .from("projects")
+            .insert({ ...projectPayload, client_id: userId, status: "draft" })
+            .select("id")
+            .single();
+          if (error) throw error;
+          projectId = data?.id;
+        }
       }
 
       // Store the project ID in state
-      if (data?.id) {
+      if (projectId) {
         setState((prev) => ({
           ...prev,
-          supabaseProjectId: data.id,
+          supabaseProjectId: projectId,
         }));
       }
 
       setIsSavingToSupabase(false);
-      return data?.id || null;
+      return projectId || null;
     } catch (err) {
       console.warn(
         "[useBuilderState] Supabase save failed, falling back to localStorage:",
@@ -321,15 +350,11 @@ export function useBuilderState({ userId = null } = {}) {
         .eq("status", "draft")
         .order("updated_at", { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
-      if (error) {
-        // PGRST116 = no rows found, not a real error
-        if (error.code === "PGRST116") return null;
-        throw error;
-      }
+      if (error) throw error;
 
-      return data;
+      return data || null;
     } catch (err) {
       console.warn(
         "[useBuilderState] Supabase load failed:",

@@ -32,12 +32,16 @@ const CATEGORY_LAYOUT_MAP = {
 export default function LivePreview({ config, theme, layout }) {
   const containerRef = useRef(null);
 
-  // Apply theme tokens as CSS custom properties on the scoped container
+  // Apply theme tokens and briefly fade during font load
   useEffect(() => {
-    if (containerRef.current && theme) {
-      applyTheme(containerRef.current, theme);
-      loadFonts(theme);
-    }
+    if (!containerRef.current || !theme) return;
+    applyTheme(containerRef.current, theme);
+    loadFonts(theme);
+    // Brief opacity dip while fonts swap
+    const el = containerRef.current;
+    el.style.opacity = "0.7";
+    const timer = setTimeout(() => { el.style.opacity = "1"; }, 150);
+    return () => clearTimeout(timer);
   }, [theme]);
 
   // Handle empty/null config gracefully — show placeholder

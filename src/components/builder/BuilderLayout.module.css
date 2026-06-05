@@ -169,8 +169,8 @@
 
 @media (min-width: 768px) {
   .divider {
-    /* On non-touch desktop, tighten the hit area visually */
-    min-width: 8px;
+    /* Desktop: 12px visible hit area */
+    min-width: 12px;
     margin-left: 0;
     margin-right: 0;
     padding: 0;

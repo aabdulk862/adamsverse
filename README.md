@@ -21,10 +21,9 @@ Adverse Solutions is a web development agency platform with two faces:
 React 19 + Vite 7 SPA
 ├── Public Pages (/, /about, /services, /packages, /contact, /learn)
 ├── Package Showcase (/packages, /packages/:slug)
-├── WeBuilder Preview (/builder) — Free lead-gen tool (planned)
+├── WeBuilder Preview (/builder) — Free lead-gen tool
 ├── Client Portal (/dashboard/*) — Auth-gated via Clerk
 ├── Admin Panel (/admin/*) — Role-gated (Clerk publicMetadata)
-├── Agent Console (/agents/*) — BasicAuth-gated, own layout
 └── Static Guides (/dsa, /leetcode, /github, /ai-website)
 ```
 
@@ -76,8 +75,9 @@ Global style partials in `src/styles/`:
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── packages/        # WeBuilder section components
-│   └── agents/          # Agent console components
+│   ├── builder/         # WeBuilder preview tool components
+│   ├── dashboard/       # Client dashboard editor components
+│   └── packages/        # WeBuilder section components
 ├── pages/               # Route-level page components
 ├── data/                # Static data (packages, themes, services, projects)
 ├── schemas/             # JSON Schema definitions + ajv validators
@@ -90,7 +90,12 @@ src/
 ├── tokens.css           # Design token definitions
 ├── styles.css           # Import-only manifest
 ├── assets/images/       # Static image assets
-└── __tests__/           # All test files (61 files)
+└── __tests__/           # All test files
+
+docs/                    # Setup guides and internal documentation
+supabase/
+├── functions/           # Edge functions (stripe-webhook, clerk-webhook, etc.)
+└── migrations/          # SQL migrations
 ```
 
 ---
@@ -117,10 +122,13 @@ cp .env.example .env.local
 ```
 
 Required environment variables:
-- `VITE_CLERK_PUBLISHABLE_KEY` — Clerk publishable key (see [CLERK_SETUP.md](./CLERK_SETUP.md))
+- `VITE_CLERK_PUBLISHABLE_KEY` — Clerk publishable key (see [docs/CLERK_SETUP.md](./docs/CLERK_SETUP.md))
 - `VITE_SUPABASE_URL` — Supabase project URL
 - `VITE_SUPABASE_ANON_KEY` — Supabase anonymous key
+
+Optional (features degrade gracefully without these):
 - `VITE_STRIPE_PUBLISHABLE_KEY` — Stripe publishable key
+- `VITE_GOOGLE_SHEET_URL` — Google Apps Script web app URL
 - `VITE_EMAILJS_SERVICE_ID` — EmailJS service ID
 - `VITE_EMAILJS_TEMPLATE_ID` — EmailJS template ID
 - `VITE_EMAILJS_PUBLIC_KEY` — EmailJS public key

@@ -172,7 +172,9 @@ export default function SectionRenderer({ config, theme, layout, packageName }) 
   }
 
   // 3. Resolve sections from registry in configured order
-  const sectionKeys = Object.keys(config.sections);
+  const sectionKeys = config.sectionOrder && Array.isArray(config.sectionOrder)
+    ? config.sectionOrder.filter(key => config.sections[key])
+    : Object.keys(config.sections);
 
   // Filter to only renderable sections (those in the registry with resolvable content)
   const renderableSections = [];

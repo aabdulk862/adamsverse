@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useProjects } from "../hooks/useProjects";
 import { supabase } from "../lib/supabase";
@@ -7,13 +7,15 @@ import MessageThread from "../components/MessageThread";
 import FileUpload from "../components/FileUpload";
 import styles from "./ProjectDetailPage.module.css";
 
+const DashboardEditor = lazy(() => import("../components/dashboard/DashboardEditor"));
+
 const TIER_LABELS = {
   "landing-page": "Landing Page",
   "full-stack-application": "Full-Stack Application",
   consulting: "Consulting",
 };
 
-const TABS = [
+const BASE_TABS = [
   { key: "overview", label: "Overview", icon: "fa-solid fa-circle-info" },
   { key: "messages", label: "Messages", icon: "fa-solid fa-comments" },
   { key: "files", label: "Files", icon: "fa-solid fa-folder-open" },
@@ -160,6 +162,15 @@ export default function ProjectDetailPage() {
   const feedbackList = project.project_feedback || [];
   const intakeData = project.intake_data || {};
 
+  const tabs = (() => {
+    const result = [BASE_TABS[0]];
+    if (project?.intake_data?.sections) {
+      result.push({ key: "editor", label: "Edit Site", icon: "fa-solid fa-pen-to-square" });
+    }
+    result.push(...BASE_TABS.slice(1));
+    return result;
+  })();
+
   return (
     <div className={styles.page}>
       <Link to="/dashboard/projects" className={styles.back}>
@@ -193,7 +204,7 @@ export default function ProjectDetailPage() {
 
       {/* Tabs */}
       <div className={styles.tabs} role="tablist">
-        {TABS.map((tab) => (
+        {tabs.map((tab) => (
           <button
             key={tab.key}
             role="tab"
@@ -242,6 +253,12 @@ export default function ProjectDetailPage() {
               <ProjectTimeline history={history} />
             </div>
           </div>
+        )}
+
+        {activeTab === "editor" && (
+          <Suspense fallback={<div className={styles.loading}><div className="auth-guard-spinner" /><span>Loading editor…</span></div>}>
+            <DashboardEditor projectId={id} project={project} />
+          </Suspense>
         )}
 
         {activeTab === "messages" && (

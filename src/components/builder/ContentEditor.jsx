@@ -1,19 +1,18 @@
 import { useState, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { getEditableFields } from "../../lib/contentLayer.js";
 import ImageUploadField from "./ImageUploadField.jsx";
 import styles from "./ContentEditor.module.css";
 
 /**
- * Section display metadata — labels and icons for each section type.
+ * Section display metadata — labels for each section type.
  */
 const SECTION_META = {
-  hero: { label: "Hero", icon: "🎯" },
-  services: { label: "Services", icon: "⚙️" },
-  gallery: { label: "Gallery", icon: "🖼️" },
-  testimonials: { label: "Testimonials", icon: "💬" },
-  cta: { label: "Call to Action", icon: "📣" },
-  contact: { label: "Contact", icon: "📞" },
+  hero: { label: "Hero" },
+  services: { label: "Services" },
+  gallery: { label: "Gallery" },
+  testimonials: { label: "Testimonials" },
+  cta: { label: "Call to Action" },
+  contact: { label: "Contact" },
 };
 
 /**
@@ -83,11 +82,12 @@ function validateField(type, value, maxLength) {
  */
 export default function ContentEditor({ config, onFieldChange, readOnly = false }) {
   const [expandedSections, setExpandedSections] = useState(() => {
-    // Start with all sections expanded
+    // Start with only the first section (hero) expanded
     const initial = {};
     Object.keys(SECTION_META).forEach((key) => {
-      initial[key] = true;
+      initial[key] = false;
     });
+    initial.hero = true;
     return initial;
   });
   const [errors, setErrors] = useState({});
@@ -211,9 +211,6 @@ function SectionGroup({
         aria-expanded={expanded}
         aria-controls={`section-${sectionKey}-content`}
       >
-        <span className={styles.sectionIcon} aria-hidden="true">
-          {meta.icon}
-        </span>
         <span className={styles.sectionLabel}>{meta.label}</span>
         <span
           className={`${styles.chevron} ${expanded ? styles.chevronOpen : ""}`}
@@ -223,36 +220,28 @@ function SectionGroup({
         </span>
       </button>
 
-      <AnimatePresence initial={false}>
-        {expanded && (
-          <motion.div
-            id={`section-${sectionKey}-content`}
-            role="group"
-            aria-label={`${meta.label} fields`}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className={styles.sectionContent}
-          >
-            <div className={styles.fieldsContainer}>
-              {fields.map((field) => (
-                <FieldRenderer
-                  key={field.path}
-                  sectionKey={sectionKey}
-                  field={field}
-                  value={content?.[field.path]}
-                  onFieldChange={onFieldChange}
-                  onArrayAdd={onArrayAdd}
-                  onArrayRemove={onArrayRemove}
-                  errors={errors}
-                  readOnly={readOnly}
-                />
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div
+        id={`section-${sectionKey}-content`}
+        role="group"
+        aria-label={`${meta.label} fields`}
+        className={`${styles.sectionContent} ${expanded ? styles.sectionContentExpanded : ""}`}
+      >
+        <div className={styles.fieldsContainer}>
+          {fields.map((field) => (
+            <FieldRenderer
+              key={field.path}
+              sectionKey={sectionKey}
+              field={field}
+              value={content?.[field.path]}
+              onFieldChange={onFieldChange}
+              onArrayAdd={onArrayAdd}
+              onArrayRemove={onArrayRemove}
+              errors={errors}
+              readOnly={readOnly}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -629,8 +618,8 @@ function isImageSubField(sectionKey, subFieldKey) {
  */
 function formatFieldLabel(path) {
   return path
+    .replace(/\bcta\b/i, "CTA")
     .replace(/([A-Z])/g, " $1")
     .replace(/^./, (s) => s.toUpperCase())
-    .replace(/\bcta\b/i, "CTA")
     .trim();
 }
