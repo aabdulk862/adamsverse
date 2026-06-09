@@ -5,18 +5,18 @@ import styles from "./ServicesSection.module.css";
 const highlights = [
   {
     icon: "fas fa-layer-group",
-    title: "Productized Systems",
-    desc: "Website packages, business tools, and SaaS products — ready to deploy, built to scale.",
+    title: "Need a Website Fast?",
+    desc: "Pick your industry, choose a design, and launch. Packages start at a flat rate — no surprises.",
   },
   {
     icon: "fas fa-code",
-    title: "Custom Engineering",
-    desc: "Full-stack platforms, APIs, and infrastructure built to your exact requirements.",
+    title: "Need Something Custom?",
+    desc: "Apps, platforms, automations — if you can describe it, we can build it. Let's talk scope.",
   },
   {
     icon: "fas fa-handshake",
-    title: "Strategic Partnerships",
-    desc: "Technical co-building for founders and operators with validated ideas and traction.",
+    title: "Building a Product?",
+    desc: "We partner with founders who have traction and need a technical co-builder, not just a contractor.",
   },
 ];
 
@@ -27,11 +27,11 @@ export default function ServicesSection() {
         <div className={styles.container}>
           <div className={styles.header}>
             <h2 id="services-heading" className={styles.heading}>
-              How We Work
+              What Can We Help With?
             </h2>
             <p className={styles.description}>
-              Three lanes — productized systems, custom engineering, and
-              selective partnerships with operators who have traction.
+              Whether you need a simple website or a full platform — we've got
+              an option that fits.
             </p>
           </div>
 

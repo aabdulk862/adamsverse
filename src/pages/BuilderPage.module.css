@@ -74,8 +74,8 @@
 }
 
 .tabActive {
-  color: var(--color-accent, #2563eb);
-  border-bottom-color: var(--color-accent, #2563eb);
+  color: var(--color-accent, #4338ca);
+  border-bottom-color: var(--color-accent, #4338ca);
 }
 
 /* Tab content — scrollable area below tabs */
@@ -120,7 +120,7 @@
   font-size: var(--text-base, 1rem);
   font-weight: 600;
   color: #fff;
-  background: var(--color-accent, #2563eb);
+  background: var(--color-accent, #4338ca);
   border: none;
   border-radius: 999px;
   cursor: pointer;
@@ -128,7 +128,7 @@
 }
 
 .reloadButton:hover {
-  background: var(--color-accent-hover, #1d4ed8);
+  background: var(--color-accent-hover, #3730a3);
   transform: scale(1.02);
 }
 
@@ -169,7 +169,7 @@
 }
 
 .backButton:hover {
-  color: var(--color-accent, #2563eb);
+  color: var(--color-accent, #4338ca);
 }
 
 /* ===== Toast ===== */

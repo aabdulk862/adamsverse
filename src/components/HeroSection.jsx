@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import logo2 from "../assets/images/logo2.png";
 import styles from "./HeroSection.module.css";
 
 export default function HeroSection() {
@@ -12,7 +13,7 @@ export default function HeroSection() {
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
         <img
-          src="/logo.png"
+          src={logo2}
           alt="Adverse Solutions logo"
           className={styles.logo}
           width="72"
@@ -22,26 +23,25 @@ export default function HeroSection() {
         />
 
         <h1 id="hero-heading" className={styles.tagline}>
-          Digital systems that grow your business.
+          Your business deserves a website that works as hard as you do.
         </h1>
 
         <p className={styles.valueProp}>
-          Adverse is a software studio that ships modern systems for businesses
-          and founders — websites, operational platforms, AI-enhanced workflows,
-          and internal tools.
+          We build websites for small businesses —
+          fast, affordable, and done right.
         </p>
 
         <div className={styles.actions}>
           <Link to="/packages" className={styles.btnPrimary}>
             Browse Website Packages
           </Link>
-          <Link to="/tools" className={styles.btnSecondary}>
-            Explore Tools
+          <Link to="/contact" className={styles.btnSecondary}>
+            Let's Talk
           </Link>
         </div>
 
         <p className={styles.credibility}>
-          Software studio · Charlotte, NC
+          Built by a software engineer · Charlotte, NC
         </p>
       </motion.div>
     </section>

@@ -33,11 +33,11 @@
 /* Dark mode card glow on hover */
 [data-theme="dark"] .card:hover,
 [data-theme="dark"] .portfolio-card:hover {
-  border-color: rgba(59, 130, 246, 0.2);
+  border-color: rgba(129, 140, 248, 0.2);
   box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(59, 130, 246, 0.12),
-    0 0 40px rgba(59, 130, 246, 0.04);
+    0 0 0 1px rgba(129, 140, 248, 0.12),
+    0 0 40px rgba(129, 140, 248, 0.04);
 }
 
 /* Dark mode form inputs */
@@ -54,20 +54,20 @@
   border-color: var(--color-accent);
   box-shadow:
     0 0 0 1px var(--color-accent),
-    0 0 12px rgba(59, 130, 246, 0.1);
+    0 0 12px rgba(129, 140, 248, 0.1);
 }
 
 /* Dark mode primary buttons glow */
 [data-theme="dark"] .navbar-links .navbar-cta {
   box-shadow:
-    0 1px 4px rgba(59, 130, 246, 0.25),
-    0 0 20px rgba(59, 130, 246, 0.08);
+    0 1px 4px rgba(129, 140, 248, 0.25),
+    0 0 20px rgba(129, 140, 248, 0.08);
 }
 
 [data-theme="dark"] .navbar-links .navbar-cta:hover {
   box-shadow:
-    0 2px 8px rgba(59, 130, 246, 0.35),
-    0 0 30px rgba(59, 130, 246, 0.12);
+    0 2px 8px rgba(129, 140, 248, 0.35),
+    0 0 30px rgba(129, 140, 248, 0.12);
 }
 
 /* Dark mode mobile overlay */
@@ -78,7 +78,7 @@
 
 /* Dark mode portfolio placeholder gradient */
 [data-theme="dark"] .portfolio-card-placeholder {
-  background: linear-gradient(135deg, var(--color-bg-muted), #1a2744);
+  background: linear-gradient(135deg, var(--color-bg-muted), #1a1a3a);
 }
 
 
@@ -154,13 +154,13 @@ html.theme-transitioning *::after {
 }
 
 [data-theme="dark"] .theme-toggle {
-  background: rgba(59, 130, 246, 0.08);
-  border-color: rgba(59, 130, 246, 0.15);
+  background: rgba(129, 140, 248, 0.08);
+  border-color: rgba(129, 140, 248, 0.15);
   color: #fbbf24;
 }
 
 [data-theme="dark"] .theme-toggle:hover {
-  background: rgba(59, 130, 246, 0.14);
+  background: rgba(129, 140, 248, 0.14);
   border-color: rgba(251, 191, 36, 0.3);
   color: #fbbf24;
   box-shadow:

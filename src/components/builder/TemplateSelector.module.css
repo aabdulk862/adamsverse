@@ -51,20 +51,20 @@
 }
 
 .categoryCard:hover {
-  border-color: var(--color-accent, #3b82f6);
+  border-color: var(--color-accent, #818cf8);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
 }
 
 .categoryCard:focus-visible {
-  outline: 2px solid var(--color-accent, #3b82f6);
+  outline: 2px solid var(--color-accent, #818cf8);
   outline-offset: 2px;
 }
 
 .categoryActive {
-  border-color: var(--color-accent, #3b82f6);
+  border-color: var(--color-accent, #818cf8);
   background: var(--color-bg-muted, #f8f9fa);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #3b82f6) 15%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #818cf8) 15%, transparent);
 }
 
 .categoryIcon {
@@ -119,13 +119,13 @@
 }
 
 .templateCard:hover {
-  border-color: var(--color-accent, #3b82f6);
+  border-color: var(--color-accent, #818cf8);
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.1));
 }
 
 .templateCard:focus-visible {
-  outline: 2px solid var(--color-accent, #3b82f6);
+  outline: 2px solid var(--color-accent, #818cf8);
   outline-offset: 2px;
 }
 
@@ -221,12 +221,12 @@
 }
 
 .blankCard:hover {
-  border-color: var(--color-accent, #3b82f6);
+  border-color: var(--color-accent, #818cf8);
   background: var(--color-bg-muted, #f8f9fa);
 }
 
 .blankCard:focus-visible {
-  outline: 2px solid var(--color-accent, #3b82f6);
+  outline: 2px solid var(--color-accent, #818cf8);
   outline-offset: 2px;
 }
 
@@ -268,9 +268,9 @@
   gap: 8px;
   padding: 10px 20px;
   border-radius: var(--radius-md, 8px);
-  border: 1.5px solid var(--color-accent, #3b82f6);
+  border: 1.5px solid var(--color-accent, #818cf8);
   background: transparent;
-  color: var(--color-accent, #3b82f6);
+  color: var(--color-accent, #818cf8);
   font-family: var(--font-body, system-ui);
   font-weight: var(--weight-medium, 500);
   font-size: 0.875rem;
@@ -279,12 +279,12 @@
 }
 
 .blankButton:hover {
-  background: var(--color-accent, #3b82f6);
+  background: var(--color-accent, #818cf8);
   color: var(--color-accent-text, #fff);
 }
 
 .blankButton:focus-visible {
-  outline: 2px solid var(--color-accent, #3b82f6);
+  outline: 2px solid var(--color-accent, #818cf8);
   outline-offset: 2px;
 }
 

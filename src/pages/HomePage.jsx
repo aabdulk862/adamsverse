@@ -14,9 +14,9 @@ export default function HomePage() {
     <main className={styles.productHub}>
       <SEOHead products={liveProducts} />
       <HeroSection />
-      <ToolsHub />
       <PackagesShowcase />
       <ServicesSection />
+      <ToolsHub />
       <CTASection />
     </main>
   );

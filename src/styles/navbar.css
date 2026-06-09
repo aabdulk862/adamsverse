@@ -58,10 +58,10 @@
 }
 
 .navbar-logo {
-  height: 28px;
+  height: 36px;
   width: auto;
   display: block;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-full);
 }
 
 .navbar-links {
@@ -113,13 +113,13 @@
     background var(--transition-fast),
     transform var(--transition-fast),
     box-shadow var(--transition-fast);
-  box-shadow: var(--shadow-sm, 0 1px 4px rgba(37, 99, 235, 0.2));
+  box-shadow: var(--shadow-sm, 0 1px 4px rgba(67, 56, 202, 0.2));
 }
 
 .navbar-links .navbar-cta:hover {
   background: var(--color-accent-hover);
   transform: scale(1.02);
-  box-shadow: var(--shadow-md, 0 2px 12px rgba(37, 99, 235, 0.3));
+  box-shadow: var(--shadow-md, 0 2px 12px rgba(67, 56, 202, 0.3));
 }
 
 .navbar-hamburger {
@@ -239,7 +239,7 @@
   }
 
   .navbar-logo {
-    height: 24px;
+    height: 30px;
   }
 
   .navbar-links {

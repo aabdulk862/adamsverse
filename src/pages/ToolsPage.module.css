@@ -72,13 +72,13 @@
   font-weight: var(--weight-medium);
   text-decoration: none;
   transition: background 150ms ease, transform 150ms ease, box-shadow 150ms ease;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 2px 8px rgba(67, 56, 202, 0.2);
 }
 
 .btnPrimary:hover {
   background: var(--color-accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 4px 14px rgba(67, 56, 202, 0.25);
 }
 
 .btnPrimary:active {

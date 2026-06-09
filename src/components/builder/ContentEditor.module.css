@@ -65,11 +65,11 @@
 }
 
 .sectionHeader:hover {
-  background: color-mix(in srgb, var(--color-bg-muted, #f8f9fa) 80%, var(--color-accent, #3b82f6) 20%);
+  background: color-mix(in srgb, var(--color-bg-muted, #f8f9fa) 80%, var(--color-accent, #818cf8) 20%);
 }
 
 .sectionHeader:focus-visible {
-  outline: 2px solid var(--color-accent, #3b82f6);
+  outline: 2px solid var(--color-accent, #818cf8);
   outline-offset: -2px;
 }
 
@@ -149,8 +149,8 @@
 
 .fieldInput:focus {
   outline: none;
-  border-color: var(--color-accent, #3b82f6);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #3b82f6) 15%, transparent);
+  border-color: var(--color-accent, #818cf8);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #818cf8) 15%, transparent);
 }
 
 .fieldInput:disabled {
@@ -259,7 +259,7 @@
   border: 1.5px dashed var(--color-border, #e2e2e2);
   border-radius: var(--radius-md, 8px);
   background: transparent;
-  color: var(--color-accent, #3b82f6);
+  color: var(--color-accent, #818cf8);
   font-family: var(--font-body, system-ui);
   font-weight: var(--weight-medium, 500);
   font-size: 0.8125rem;
@@ -270,12 +270,12 @@
 }
 
 .addButton:hover:not(:disabled) {
-  border-color: var(--color-accent, #3b82f6);
-  background: color-mix(in srgb, var(--color-accent, #3b82f6) 5%, transparent);
+  border-color: var(--color-accent, #818cf8);
+  background: color-mix(in srgb, var(--color-accent, #818cf8) 5%, transparent);
 }
 
 .addButton:focus-visible {
-  outline: 2px solid var(--color-accent, #3b82f6);
+  outline: 2px solid var(--color-accent, #818cf8);
   outline-offset: 2px;
 }
 

@@ -66,11 +66,11 @@
 
 .divider:hover,
 .divider:focus-visible {
-  background: color-mix(in srgb, var(--color-accent, #3b82f6) 12%, transparent);
+  background: color-mix(in srgb, var(--color-accent, #818cf8) 12%, transparent);
 }
 
 .divider:focus-visible {
-  outline: 2px solid var(--color-accent, #3b82f6);
+  outline: 2px solid var(--color-accent, #818cf8);
   outline-offset: -2px;
 }
 
@@ -84,7 +84,7 @@
 
 .divider:hover .dividerHandle,
 .divider:focus-visible .dividerHandle {
-  background: var(--color-accent, #3b82f6);
+  background: var(--color-accent, #818cf8);
 }
 
 /* ===== Mobile: toggle view ===== */
@@ -121,7 +121,7 @@
 }
 
 .toggleButton:focus-visible {
-  outline: 2px solid var(--color-accent, #3b82f6);
+  outline: 2px solid var(--color-accent, #818cf8);
   outline-offset: 2px;
 }
 

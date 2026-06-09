@@ -21,8 +21,8 @@
 
 .urlInput:focus {
   outline: none;
-  border-color: var(--color-accent, #3b82f6);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #3b82f6) 15%, transparent);
+  border-color: var(--color-accent, #818cf8);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent, #818cf8) 15%, transparent);
 }
 
 .urlInput:disabled {
@@ -55,7 +55,7 @@
   border: 1.5px solid var(--color-border, #e2e2e2);
   border-radius: var(--radius-md, 8px);
   background: var(--color-bg-surface, #fff);
-  color: var(--color-accent, #3b82f6);
+  color: var(--color-accent, #818cf8);
   font-family: var(--font-body, system-ui);
   font-weight: var(--weight-medium, 500);
   font-size: 0.8125rem;
@@ -65,12 +65,12 @@
 }
 
 .uploadButton:hover:not(:disabled) {
-  border-color: var(--color-accent, #3b82f6);
-  background: color-mix(in srgb, var(--color-accent, #3b82f6) 5%, transparent);
+  border-color: var(--color-accent, #818cf8);
+  background: color-mix(in srgb, var(--color-accent, #818cf8) 5%, transparent);
 }
 
 .uploadButton:focus-visible {
-  outline: 2px solid var(--color-accent, #3b82f6);
+  outline: 2px solid var(--color-accent, #818cf8);
   outline-offset: 2px;
 }
 
@@ -107,7 +107,7 @@
   width: 14px;
   height: 14px;
   border: 2px solid var(--color-border, #e2e2e2);
-  border-top-color: var(--color-accent, #3b82f6);
+  border-top-color: var(--color-accent, #818cf8);
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }

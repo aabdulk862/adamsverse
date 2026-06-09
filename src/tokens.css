@@ -8,29 +8,35 @@
      COLORS
      ============================================= */
 
-  /* --- Backgrounds --- */
-  --color-bg-base: #ffffff;
-  --color-bg-surface: #f8fafc;
-  --color-bg-muted: #f1f5f9;
+  /* --- Backgrounds (warmer undertone) --- */
+  --color-bg-base: #fefefe;
+  --color-bg-surface: #faf9f7;
+  --color-bg-muted: #f3f1ee;
 
-  /* --- Text --- */
-  --color-text-primary: #0f172a;
-  --color-text-secondary: rgba(15, 23, 42, 0.68);
-  --color-text-muted: rgba(15, 23, 42, 0.44);
+  /* --- Text (rich, warm dark) --- */
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: rgba(26, 26, 46, 0.7);
+  --color-text-muted: rgba(26, 26, 46, 0.45);
 
-  /* --- Accent --- */
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
-  --color-accent-light: #eff6ff;
+  /* --- Accent (deeper, confident blue-indigo) --- */
+  --color-accent: #4338ca;
+  --color-accent-hover: #3730a3;
+  --color-accent-light: #eef2ff;
   --color-accent-text: #ffffff;
 
-  /* --- Borders --- */
-  --color-border: #e2e8f0;
-  --color-border-hover: #cbd5e1;
+  /* --- Warm accent (trust, pricing, highlights) --- */
+  --color-warm: #d97706;
+  --color-warm-hover: #b45309;
+  --color-warm-light: #fffbeb;
+
+  /* --- Borders (softer, warmer) --- */
+  --color-border: #e8e5e0;
+  --color-border-hover: #d4d0ca;
 
   /* --- Semantic --- */
-  --color-success: #16a34a;
+  --color-success: #15803d;
   --color-error: #dc2626;
+  --color-premium: #b45309;
 
   /* =============================================
      SPACING
@@ -98,9 +104,9 @@
   /* =============================================
      SHADOWS
      ============================================= */
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.12);
+  --shadow-sm: 0 1px 2px rgba(26, 26, 46, 0.05);
+  --shadow-md: 0 4px 16px rgba(26, 26, 46, 0.07);
+  --shadow-lg: 0 8px 24px rgba(26, 26, 46, 0.1);
 
   /* =============================================
      TRANSITIONS
@@ -123,43 +129,43 @@
      CARDS
      ============================================= */
   --card-bg: #ffffff;
-  --card-border: #e2e8f0;
-  --card-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
-  --card-shadow-hover: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --card-border: #e8e5e0;
+  --card-shadow: 0 1px 3px rgba(26, 26, 46, 0.04), 0 1px 2px rgba(26, 26, 46, 0.06);
+  --card-shadow-hover: 0 6px 16px rgba(26, 26, 46, 0.08), 0 2px 4px rgba(67, 56, 202, 0.04);
 
   /* =============================================
      NAVBAR
      ============================================= */
-  --navbar-bg: #ffffff;
-  --navbar-border: #e2e8f0;
+  --navbar-bg: #fefefe;
+  --navbar-border: #e8e5e0;
 
   /* =============================================
      ACCENT UI
      ============================================= */
 
   /* --- Accent Backgrounds --- */
-  --accent-bg-subtle: rgba(37, 99, 235, 0.06);
-  --accent-bg-medium: rgba(37, 99, 235, 0.1);
-  --accent-bg-strong: rgba(37, 99, 235, 0.16);
+  --accent-bg-subtle: rgba(67, 56, 202, 0.05);
+  --accent-bg-medium: rgba(67, 56, 202, 0.09);
+  --accent-bg-strong: rgba(67, 56, 202, 0.14);
 
   /* --- Accent Borders --- */
-  --accent-border: rgba(37, 99, 235, 0.15);
-  --accent-border-strong: rgba(37, 99, 235, 0.3);
-  --accent-border-heavy: rgba(37, 99, 235, 0.45);
+  --accent-border: rgba(67, 56, 202, 0.12);
+  --accent-border-strong: rgba(67, 56, 202, 0.25);
+  --accent-border-heavy: rgba(67, 56, 202, 0.4);
 
   /* --- Accent Focus --- */
-  --accent-focus-ring: rgba(37, 99, 235, 0.2);
+  --accent-focus-ring: rgba(67, 56, 202, 0.2);
 
   /* --- Accent Dark --- */
-  --accent-dark-bg: rgba(29, 78, 216, 0.1);
-  --accent-dark-bg-strong: rgba(29, 78, 216, 0.2);
+  --accent-dark-bg: rgba(55, 48, 163, 0.1);
+  --accent-dark-bg-strong: rgba(55, 48, 163, 0.2);
 
   /* =============================================
      ADDITIONAL TOKENS (used by new components)
      ============================================= */
 
   /* --- Extra Backgrounds --- */
-  --color-bg-subtle: #fafafa;
+  --color-bg-subtle: #fbfaf8;
   --color-bg-raised: #ffffff;
   --bg-muted: var(--color-bg-muted);
 
@@ -182,62 +188,68 @@
   /* --- Focus --- */
   --focus-ring-width: 3px;
   --focus-ring-offset: 2px;
-  --focus-ring-color: rgba(37, 99, 235, 0.2);
+  --focus-ring-color: rgba(67, 56, 202, 0.2);
 
 }
 
 [data-theme="dark"] {
   /* --- Backgrounds --- */
-  --color-bg-base: #0b0f19;
-  --color-bg-surface: #111827;
-  --color-bg-muted: #1e293b;
+  --color-bg-base: #0f0f1a;
+  --color-bg-surface: #16162a;
+  --color-bg-muted: #1e1e36;
 
   /* --- Text --- */
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: rgba(241, 245, 249, 0.7);
-  --color-text-muted: rgba(241, 245, 249, 0.42);
+  --color-text-primary: #f1f0f5;
+  --color-text-secondary: rgba(241, 240, 245, 0.72);
+  --color-text-muted: rgba(241, 240, 245, 0.42);
 
   /* --- Accent --- */
-  --color-accent: #3b82f6;
-  --color-accent-hover: #2563eb;
-  --color-accent-light: rgba(59, 130, 246, 0.1);
+  --color-accent: #818cf8;
+  --color-accent-hover: #6366f1;
+  --color-accent-light: rgba(129, 140, 248, 0.1);
   --color-accent-text: #ffffff;
 
+  /* --- Warm --- */
+  --color-warm: #fbbf24;
+  --color-warm-hover: #f59e0b;
+  --color-warm-light: rgba(251, 191, 36, 0.08);
+
   /* --- Borders --- */
-  --color-border: #5a6a80;
-  --color-border-hover: #7088a4;
+  --color-border: #2d2d4a;
+  --color-border-hover: #3d3d5c;
 
   /* --- Semantic --- */
   --color-success: #22c55e;
   --color-error: #f87171;
+  --color-premium: #fbbf24;
 
   /* --- Shadows --- */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45);
 
   /* --- Cards --- */
-  --card-bg: #111827;
-  --card-border: #1e293b;
-  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(30, 41, 59, 0.5);
-  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.12);
+  --card-bg: #16162a;
+  --card-border: #2d2d4a;
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(45, 45, 74, 0.5);
+  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(129, 140, 248, 0.12);
 
   /* --- Navbar --- */
-  --navbar-bg: rgba(11, 15, 25, 0.8);
-  --navbar-border: #1e293b;
+  --navbar-bg: rgba(15, 15, 26, 0.85);
+  --navbar-border: #2d2d4a;
 
   /* --- Accent UI --- */
-  --accent-bg-subtle: rgba(59, 130, 246, 0.08);
-  --accent-bg-medium: rgba(59, 130, 246, 0.14);
-  --accent-bg-strong: rgba(59, 130, 246, 0.22);
-  --accent-border: rgba(59, 130, 246, 0.18);
-  --accent-border-strong: rgba(59, 130, 246, 0.32);
-  --accent-focus-ring: rgba(59, 130, 246, 0.25);
+  --accent-bg-subtle: rgba(129, 140, 248, 0.08);
+  --accent-bg-medium: rgba(129, 140, 248, 0.14);
+  --accent-bg-strong: rgba(129, 140, 248, 0.22);
+  --accent-border: rgba(129, 140, 248, 0.16);
+  --accent-border-strong: rgba(129, 140, 248, 0.3);
+  --accent-focus-ring: rgba(129, 140, 248, 0.25);
 
   /* --- Extra (dark overrides) --- */
-  --color-bg-subtle: #10131c;
-  --color-bg-raised: #1e2536;
+  --color-bg-subtle: #121222;
+  --color-bg-raised: #1e1e36;
   --color-success-light: rgba(34, 197, 94, 0.1);
   --color-ai-accent: #a78bfa;
-  --focus-ring-color: rgba(59, 130, 246, 0.3);
+  --focus-ring-color: rgba(129, 140, 248, 0.3);
 }

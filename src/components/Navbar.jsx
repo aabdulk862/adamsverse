@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useClerk, useUser } from "@clerk/clerk-react";
 import { useTheme } from "../context/ThemeContext";
-import logo from "../assets/images/logo5.png";
+import logo from "../assets/images/logo-round.png";
 
 const overlayVariants = {
   hidden: { x: "100%" },

@@ -85,18 +85,18 @@
   font-weight: var(--weight-medium);
   text-decoration: none;
   transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 4px 12px rgba(67, 56, 202, 0.25);
 }
 
 .linkPrimary:hover {
   background: var(--color-accent-hover);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 6px 20px rgba(67, 56, 202, 0.3);
   transform: translateY(-1px);
 }
 
 .linkPrimary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 2px 8px rgba(67, 56, 202, 0.2);
 }
 
 .linkPrimary:focus-visible {

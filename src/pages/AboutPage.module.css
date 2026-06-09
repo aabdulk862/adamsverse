@@ -262,19 +262,19 @@
   text-decoration: none;
   white-space: nowrap;
   position: relative;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 12px rgba(67, 56, 202, 0.2);
   transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .ctaBtn:hover {
   background: var(--color-accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 6px 20px rgba(67, 56, 202, 0.3);
 }
 
 .ctaBtn:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 2px 8px rgba(67, 56, 202, 0.2);
 }
 
 .ctaBtn:focus-visible {
@@ -313,7 +313,7 @@
 
 :global([data-theme="dark"]) .workCard:hover {
   border-color: var(--color-accent);
-  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(59, 130, 246, 0.1);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(129, 140, 248, 0.1);
 }
 
 :global([data-theme="dark"]) .ctaBlock {
@@ -322,11 +322,11 @@
 }
 
 :global([data-theme="dark"]) .ctaBtn {
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 4px 12px rgba(129, 140, 248, 0.25);
 }
 
 :global([data-theme="dark"]) .ctaBtn:hover {
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+  box-shadow: 0 6px 20px rgba(129, 140, 248, 0.35);
 }
 
 /* ===== Mobile ===== */
